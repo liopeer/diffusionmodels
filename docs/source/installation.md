@@ -1,8 +1,9 @@
 # Installation
-If you don't intend to make changes to the models I would use one of the [General Usage](#gen_use),
-else I recommend going with one of the [Development](#dev) options.
+If you don't intend to make changes to the models I would use one of the [General Usage](#general-usage),
+else I recommend going with one of the [Development](#development) options.
 
-## <a name="gen_use"></a> General Usage
+(general-usage)=
+## General Usage
 ### Conda
 ```bash
 git clone https://github.com/liopeer/diffusionmodels.git
@@ -13,7 +14,8 @@ pip install .
 ```
 ### Docker
 
-## <a name="dev"></a> Development
+(development)=
+## Development
 ### Conda
 ```bash
 git clone https://github.com/liopeer/diffusionmodels.git
