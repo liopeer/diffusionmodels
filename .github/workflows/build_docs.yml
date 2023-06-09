@@ -1,12 +1,13 @@
 name: "Pull Request Docs Check"
-on: 
-- push
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: write
 
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
@@ -15,3 +16,5 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build/
+          face_orphan: true
