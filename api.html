@@ -90,16 +90,16 @@
 </table>
 <span class="target" id="module-models.unet"></span><dl class="py class">
 <dt class="sig sig-object py" id="models.unet.DecodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">DecodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.DecodingBlock" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">DecodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.DecodingBlock" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="models.unet.DecodingBlock.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">&lt;type_hints.torch.Tensor</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f32ab2398d0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding:</span> <span class="pre">&lt;type_hints.torch.Tensor</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f32ab239930&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;type_hints.torch.Tensor</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f32ab239990&gt;</span></span></span><a class="headerlink" href="#models.unet.DecodingBlock.forward" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.DecodingBlock.forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward pass of UNet Decoder Building Block.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – input tensor</p></li>
-<li><p><strong>time_embedding</strong> – time embedding tensor</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – input tensor</p></li>
+<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – time embedding tensor</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -115,17 +115,20 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="models.unet.EncodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.EncodingBlock" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.EncodingBlock" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="models.unet.EncodingBlock.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">&lt;type_hints.torch.Tensor</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f32ab2397b0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding:</span> <span class="pre">&lt;type_hints.torch.Tensor</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f32ab239810&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;type_hints.torch.Tensor</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f32ab239870&gt;</span></span></span><a class="headerlink" href="#models.unet.EncodingBlock.forward" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.EncodingBlock.forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward pass of UNet Encoder Building Block.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – input tensor</p></li>
-<li><p><strong>time_embedding</strong> – time embedding tensor</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – input tensor</p></li>
+<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – time embedding tensor</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,7 +137,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="models.unet.UNet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.UNet" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_layers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.UNet" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <span class="target" id="module-utils"></span></section>
