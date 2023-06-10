@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install git
-        run: sudo apt-get update && sudo apt-get install git && source ~/.bashrc && export PATH="/usr/bin/git":$PATH
       - uses: ammaraskar/sphinx-action@master
         with:
+          pre-build-command: "apt-get update -y && apt-get install -y git"
           docs-folder: "docs/"
       - uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
