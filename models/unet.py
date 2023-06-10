@@ -56,6 +56,10 @@ class EncodingBlock(nn.Module):
             input tensor
         time_embedding
             time embedding tensor
+
+        Returns
+        -------
+            output tensor
         """
         time_embedding = self.time_embedding_fc(time_embedding)
         time_embedding = time_embedding[(..., ) + (None, ) * 2]
@@ -99,7 +103,6 @@ class DecodingBlock(EncodingBlock):
 
         Returns
         -------
-        Tensor(Batch, Channels, Height, Width)
             output tensor
         """
         return super().forward(x, time_embedding)
