@@ -67,7 +67,7 @@ class DecodingBlock(EncodingBlock):
                  out_channels: int,
                  time_embedding_size: int,
                  kernel_size: int=3) -> None:
-        """Initialize UNet Encoder Building Block.
+        """Initialize UNet Decoder Building Block.
 
         Parameters
         ---------
@@ -84,7 +84,7 @@ class DecodingBlock(EncodingBlock):
         self.scale = nn.ConvTranspose2d(self.out_channels, self.out_channels, kernel_size=4, stride=2, padding=1)
 
     def forward(self, x: Tensor(Batch, Channels, Height, Width), time_embedding: Tensor(Features)) -> Tensor(Batch, Channels, Height, Width):
-        """Forward pass of UNet Encoder Building Block.
+        """Forward pass of UNet Decoder Building Block.
 
         Parameters
         ---------

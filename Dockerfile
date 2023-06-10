@@ -1,1 +1,1 @@
-FROM ubunbu:latest
+FROM continuumio/anaconda3
