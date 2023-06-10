@@ -1,6 +1,10 @@
 import torch.nn as nn
 import torch
 from type_hints.torch import *
+from typing import Union
+
+def dummy_func(dummy_arg: Union[str, int]):
+    pass
 
 class EncodingBlock(nn.Module):
     def __init__(self, in_channels: int, 
