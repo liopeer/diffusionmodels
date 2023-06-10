@@ -1,4 +1,3 @@
 sphinx
 sphinx-rtd-theme
 myst_parser
-git+https://github.com/liopeer/type_hints.git
