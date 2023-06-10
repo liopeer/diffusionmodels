@@ -38,6 +38,8 @@ extensions = [
     "myst_parser"
 ]
 
+autodoc_mock_imports = ["torch"]
+
 source_suffix = {
     ".rst": "restructuredtext",
     ".md": "markdown"
