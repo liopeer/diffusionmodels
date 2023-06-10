@@ -9,9 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: git
+      - name: Install git
+        run: apt-get update && apt-get install git && source ~/.bashrc
       - uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
