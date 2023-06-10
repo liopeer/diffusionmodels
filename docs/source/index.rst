@@ -12,10 +12,6 @@ of MRI acquisitions using diffusion models.
 .. note::
    Not yet under development. We're only setting things up.
 
-.. automodule:: models
-
-.. automodule:: utils
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
