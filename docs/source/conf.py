@@ -35,7 +35,8 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.coverage",
     "sphinx.ext.autosummary",
-    "myst_parser"
+    "myst_parser",
+    "sphinx_autodoc_typehints"
 ]
 
 autodoc_mock_imports = ["torch"]
