@@ -15,7 +15,7 @@ jobs:
           python get-pip.py
           cd $GITHUB_WORKSPACE/docs
           python -m pip install -r requirements.txt
-          make html
+          TZ=UTC make html
       - uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:

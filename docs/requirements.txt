@@ -2,4 +2,5 @@ sphinx
 sphinx-rtd-theme
 myst_parser
 sphinx-autodoc-typehints
+jaxtyping
 git+https://github.com/liopeer/type_hints.git
