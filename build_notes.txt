@@ -1,0 +1,2 @@
+docker build -f .github/workflows/Dockerfile --tag latex_thesis .
+docker run -it -v $(pwd)/thesis:/app/write_out latex_thesis

@@ -1,3 +1,10 @@
+# secret stuff
+docs/token.txt
+.github/workflows/local_only.yml
+
+# tex build
+thesis/tmp/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

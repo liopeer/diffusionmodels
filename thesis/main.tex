@@ -1,0 +1,131 @@
+\documentclass[
+    DIV=13,
+    11pt,
+    BCOR=5mm,
+    twoside,
+    openright,
+    parskip=half,
+    bibliography=totoc,
+    listof=totoc,
+    headsepline,
+    cleardoublepage=empty
+]{scrbook}
+
+% Language/Country Options
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[babel,german=swiss]{csquotes}
+
+% Basic Typesetting Options
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\usepackage{helvet}
+
+\pagestyle{headings}
+\onehalfspacing
+\setkomafont{sectioning}{\fontfamily{phv}\selectfont}
+\addtokomafont{chapter}{\scshape}
+\addtokomafont{chapterprefix}{\raggedleft}
+\renewcommand*{\chapterformat}{
+    \mbox{
+        \scalebox{1.}{\chapappifchapterprefix{\nobreakspace}}
+        \scalebox{3.5}{\color{black!20}\thechapter}\enskip
+    }
+}
+\setkomafont{descriptionlabel}{\bfseries}
+
+% Colors, Images, Tables
+\usepackage{xcolor}
+%\usepackage[pdftex]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\renewcaptionname{english}{\figurename}{Fig.}
+\renewcaptionname{english}{\tablename}{Tab.}
+\addtokomafont{captionlabel}{\bfseries}
+\setcapindent{1em}
+\addtokomafont{caption}{\small}
+
+% Symbols and Math
+\usepackage{gensymb}
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Literature
+\usepackage[backend=biber, bibencoding=utf8]{biblatex}
+
+\bibliography{bib/literature}
+
+% Code, Links and other Highlighting
+\usepackage{listings}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage[
+	colorlinks=true,
+	urlcolor=black,
+	linkcolor=black,
+	citecolor=black,
+	bookmarksnumbered=true,
+	pdfusetitle,
+	raiselinks
+]{hyperref}
+\usepackage[all]{hypcap}
+
+\usetikzlibrary{shadows}
+\renewcommand{\lstlistingname}{List.}
+\include{code/lst_def.tex}
+
+% Handy other stuff
+\usepackage{blindtext}
+
+%\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+% ===================================== Start of Doc =====================================================
+
+\title{Undersampling-Conditioned Diffusion Models for MRI Reconstruction}
+\author{Lionel Peer}
+\subject{Semester Thesis}
+\date{Fall Semester 2023}
+\publishers{Institute for Biomedical Engineering, ETH Zürich, Switzerland  \\ 
+    \bigskip Supervision: Prof. Dr. Ender Konukoglu\\ Advisor: Dr. Maxim Polikarpov}
+\titlehead{Lionel Peer\\ Wasenstrasse 24\\ 8280 Kreuzlingen}
+\begin{document}
+	
+	\frontmatter
+	
+	%\includepdf{img/titlepage_black.pdf}
+    \maketitle
+	
+	\chapter*{}
+	\thispagestyle{empty}
+	\vspace{-6cm}
+	\vfill
+	\begin{quote}
+		\input{chap/abstract.tex}
+	\end{quote}
+	\vfill
+	
+	\input{chap/acknowledgments.tex}
+	
+	%\setcounter{tocdepth}{3} % depth of ToC
+	\tableofcontents
+	\addtocontents{toc}{~\hfill{\fontfamily{phv}\selectfont Page}\par}
+	
+	\listoffigures
+	\listoftables
+	\lstlistoflistings
+	
+	\mainmatter % Hauptteil
+	
+	\input{chap/introduction}
+	
+	\appendix
+	
+	\backmatter
+	
+	\printbibliography[title=References]
+	\printbibliography[type=misc, title=Image Sources]
+
+\end{document}
