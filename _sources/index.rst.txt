@@ -18,6 +18,8 @@ of MRI acquisitions using diffusion models.
 
    installation
    api
+   diffusion_models
+   markov_chains
 
 
 
