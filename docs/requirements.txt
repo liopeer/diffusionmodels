@@ -1,5 +1,6 @@
 sphinx
 sphinx-rtd-theme
+insegel
 myst_parser
 sphinx-autodoc-typehints
 jaxtyping
