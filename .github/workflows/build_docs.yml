@@ -25,6 +25,8 @@ jobs:
           pandoc -f latex -t markdown introduction.tex -o introduction.md
           pandoc -f latex -t markdown diffusion_process.tex -o diffusion_process.md
           rm *.tex
+          cd $GITHUB_WORKSPACE/docs
+          TZ=UTC make html
       - uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
