@@ -21,8 +21,6 @@ of MRI acquisitions using diffusion models.
    chap/introduction
    chap/diffusion_process
 
-
-
 Indices and tables
 ==================
 
