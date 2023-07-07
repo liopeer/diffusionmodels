@@ -9,31 +9,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build docs
+      - name: Setup
         run: |
           wget https://bootstrap.pypa.io/get-pip.py
           python get-pip.py
           cd $GITHUB_WORKSPACE/docs
           python -m pip install -r requirements.txt
-          TZ=UTC make html
+          sudo apt-get update
+          sudo apt-get install pandoc
+      - name: Convert LaTeX Chapters
+        run: |
+          cp -r $GITHUB_WORKSPACE/thesis/chap $GITHUB_WORKSPACE/docs/source/
+          cp -r $GITHUB_WORKSPACE/thesis/img $GITHUB_WORKSPACE/docs/source/chap/
+          cd $GITHUB_WORKSPACE/docs/source/chap
+          pandoc -f latex -t markdown introduction.tex -o introduction.md
+          pandoc -f latex -t markdown diffusion_process.tex -o diffusion_process.md
+          rm *.tex
       - uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/build/html/
-
-  latex:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v3
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: thesis/main.tex
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v3
-        with:
-          name: PDF
-          path: thesis/main.pdf

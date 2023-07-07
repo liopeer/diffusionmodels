@@ -4,4 +4,5 @@ insegel
 myst_parser
 sphinx-autodoc-typehints
 jaxtyping
+pandoc
 git+https://github.com/liopeer/type_hints.git
