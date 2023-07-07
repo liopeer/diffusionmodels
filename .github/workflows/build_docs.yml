@@ -22,8 +22,7 @@ jobs:
           cp -r $GITHUB_WORKSPACE/thesis/chap $GITHUB_WORKSPACE/docs/source/
           cp -r $GITHUB_WORKSPACE/thesis/img $GITHUB_WORKSPACE/docs/source/chap/
           cd $GITHUB_WORKSPACE/docs/source/chap
-          pandoc -f latex -t markdown introduction.tex -o introduction.md
-          pandoc -f latex -t markdown diffusion_process.tex -o diffusion_process.md
+          pandoc -f latex -t markdown *.tex -o tex_stuff.md
           rm *.tex
           cd $GITHUB_WORKSPACE/docs
           TZ=UTC make html

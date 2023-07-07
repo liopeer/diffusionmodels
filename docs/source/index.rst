@@ -18,8 +18,7 @@ of MRI acquisitions using diffusion models.
 
    installation
    api
-   chap/introduction
-   chap/diffusion_process
+   chap/tex_stuff
 
 Indices and tables
 ==================
