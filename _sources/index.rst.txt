@@ -13,16 +13,9 @@ of MRI acquisitions using diffusion models.
    Not yet under development. We're only setting things up.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
-   installation
-   api
-   chap/tex_stuff
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   Homepage <self>
+   Installation <installation>
+   API Reference <_autosummary/diffusion_models>
+   Research <chap/tex_stuff>
