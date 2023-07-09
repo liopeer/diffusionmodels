@@ -1,5 +1,4 @@
-Acknowledgments
-===============
+# Acknowledgments
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -22,17 +21,16 @@ amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
 sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
 bibendum sodales, augue velit cursus nunc,
 
-Some Chapter Name to be changed
-===============================
+# Some Chapter Name to be changed
 
-Diffusion Models
-----------------
+## Diffusion Models
 
 ### Forward Diffusion Process
 
-<figure>
-<img src="img/forward_diffusion.png" id="fig:forward_diffusion" style="width:50.0%" alt="" /><figcaption>Forward Diffusion Process: An image is iteratively destroyed by adding normally distributed noise, according to a schedule. This represents a Markov process where the transition probability <span class="math inline"><em>q</em>(<em>x</em><sub><em>t</em></sub>|<em>x</em><sub><em>t</em> − 1</sub>)</span> is equal to <span class="math inline">𝒩</span></figcaption>
-</figure>
+![Forward Diffusion Process: An image is iteratively destroyed by adding
+normally distributed noise, according to a schedule. This represents a
+Markov process where the transition probability \(q(x_t|x_{t-1})\) is
+equal to \(\mathcal{N}\)](img/forward_diffusion.png)
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -55,8 +53,7 @@ amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
 sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
 bibendum sodales, augue velit cursus nunc,
 
-Introduction
-============
+# Introduction
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -79,8 +76,7 @@ amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
 sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
 bibendum sodales, augue velit cursus nunc,
 
-Blubbi
-======
+# Blubbi
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
