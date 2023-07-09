@@ -22,7 +22,7 @@ jobs:
           cp -r $GITHUB_WORKSPACE/thesis/chap $GITHUB_WORKSPACE/docs/source/
           cp -r $GITHUB_WORKSPACE/thesis/img $GITHUB_WORKSPACE/docs/source/chap/
           cd $GITHUB_WORKSPACE/docs/source/chap
-          pandoc -f latex -t markdown_strict *.tex -o tex_stuff.md
+          pandoc -f latex -t commonmark *.tex -o tex_stuff.md
           rm *.tex
           cd $GITHUB_WORKSPACE/docs
           TZ=UTC make html
