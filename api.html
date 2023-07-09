@@ -46,19 +46,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#model-module">model Module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#models.unet.DecodingBlock"><code class="docutils literal notranslate"><span class="pre">DecodingBlock</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#models.unet.DecodingBlock.forward"><code class="docutils literal notranslate"><span class="pre">DecodingBlock.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#models.unet.EncodingBlock"><code class="docutils literal notranslate"><span class="pre">EncodingBlock</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#models.unet.EncodingBlock.forward"><code class="docutils literal notranslate"><span class="pre">EncodingBlock.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#models.unet.UNet"><code class="docutils literal notranslate"><span class="pre">UNet</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#models-module">models Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mri-forward-module">mri_forward Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utils-module">utils Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="chap/tex_stuff.html">Acknowledgments</a></li>
@@ -91,73 +81,18 @@
              
   <section id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h1>
-<section id="model-module">
-<h2>model Module<a class="headerlink" href="#model-module" title="Permalink to this heading"></a></h2>
+<section id="models-module">
+<h2>models Module<a class="headerlink" href="#models-module" title="Permalink to this heading"></a></h2>
 <p>Definition of all possible models happens here.</p>
-<table class="autosummary longtable docutils align-default">
-<tbody>
-</tbody>
-</table>
-<span class="target" id="module-models.unet"></span><dl class="py class">
-<dt class="sig sig-object py" id="models.unet.DecodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">DecodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.DecodingBlock" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="models.unet.DecodingBlock.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.DecodingBlock.forward" title="Permalink to this definition"></a></dt>
-<dd><p>Forward pass of UNet Decoder Building Block.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – input tensor</p></li>
-<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – time embedding tensor</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>output tensor</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="models.unet.EncodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.EncodingBlock" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="models.unet.EncodingBlock.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.EncodingBlock.forward" title="Permalink to this definition"></a></dt>
-<dd><p>Forward pass of UNet Encoder Building Block.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – input tensor</p></li>
-<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – time embedding tensor</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>output tensor</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="models.unet.UNet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_layers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.unet.UNet" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<span class="target" id="module-utils"></span></section>
+<span class="target" id="module-diffusion_models.models"></span></section>
 <section id="mri-forward-module">
 <h2>mri_forward Module<a class="headerlink" href="#mri-forward-module" title="Permalink to this heading"></a></h2>
 <p>An implementation of a forward model for undersampled MRI.</p>
 </section>
+<section id="utils-module">
+<h2>utils Module<a class="headerlink" href="#utils-module" title="Permalink to this heading"></a></h2>
+<p>Handy utilities module.</p>
+<span class="target" id="module-diffusion_models.utils"></span></section>
 </section>
 
 

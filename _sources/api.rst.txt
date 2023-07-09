@@ -1,21 +1,23 @@
 API
 ===
 
-model Module
+models Module
 ------------
 
 Definition of all possible models happens here.
 
-.. autosummary::
-   :toctree: generated
-
-.. automodule:: models.unet
-      :members:
-
-.. automodule:: utils
-      :members:
+.. automodule:: diffusion_models.models
 
 mri_forward Module
 ------------------
 
 An implementation of a forward model for undersampled MRI.
+
+.. automodule:: diffusion_models.mri_forward
+
+utils Module
+------------
+
+Handy utilities module.
+
+.. automodule:: diffusion_models.utils
