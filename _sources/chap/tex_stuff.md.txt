@@ -1,4 +1,4 @@
-Acknowledgments
+Acknowledgments {#acknowledgments .unnumbered}
 ===============
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
@@ -28,21 +28,14 @@ Some Chapter Name to be changed
 Diffusion Models
 ----------------
 
-Forward Diffusion Process
-~~~~~~~~~~~~~~~~~~~~~~~~~
+### Forward Diffusion Process
 
-.. figure:: img/forward_diffusion.png
-   :alt: Forward Diffusion Process: An image is iteratively destroyed by
-   adding normally distributed noise, according to a schedule. This
-   represents a Markov process where the transition probability
-   :math:`q(x_t|x_{t-1})` is equal to :math:`\mathcal{N}`
-   :name: fig:forward_diffusion
-   :width: 50.0%
-
-   Forward Diffusion Process: An image is iteratively destroyed by
-   adding normally distributed noise, according to a schedule. This
-   represents a Markov process where the transition probability
-   :math:`q(x_t|x_{t-1})` is equal to :math:`\mathcal{N}`
+![Forward Diffusion Process: An image is iteratively destroyed by adding
+normally distributed noise, according to a schedule. This represents a
+Markov process where the transition probability $q(x_t|x_{t-1})$ is
+equal to
+$\mathcal{N}$](img/forward_diffusion.png){#fig:forward_diffusion
+width="50%"}
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
