@@ -36,8 +36,13 @@ extensions = [
     "sphinx.ext.coverage",
     "sphinx.ext.autosummary",
     "myst_parser",
-    "sphinx_autodoc_typehints"
+    "sphinx_autodoc_typehints",
 ]
+
+autosummary_generate = True
+autoclass_content = "both"
+autodoc_inherit_docstring = True
+templates_path = ["_templates"]
 
 autodoc_mock_imports = ["torch"]
 

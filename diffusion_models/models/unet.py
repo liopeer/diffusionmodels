@@ -113,3 +113,6 @@ class UNet(nn.Module):
         self.num_layers = num_layers
         self.encoding_channels = [64 * (2 ** i) for i in range(self.num_layers)]
         self.decoding_channels = self.encoding_channels[::-1]
+
+    def forward(self, x):
+        return x
