@@ -2,7 +2,7 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1}{\ignorespaces Forward Diffusion Process: An image is iteratively destroyed by adding normally distributed noise, according to a schedule. This represents a Markov process where the transition probability $q(x_t|x_{t-1})$ is equal to $\mathcal {N}$\relax }}{ix}{figure.caption.5}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Forward Diffusion Process: An image is iteratively destroyed by adding normally distributed noise, according to a schedule. This represents a Markov process where the transition probability $q(x_t|x_{t-1})$ is equal to $\mathcal {N}$\relax }}{xi}{figure.caption.6}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
