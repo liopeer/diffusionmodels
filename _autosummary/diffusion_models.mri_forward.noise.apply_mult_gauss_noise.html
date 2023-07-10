@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.utils &mdash; diffusion_models 0.0.1 documentation</title>
+  <title>diffusion_models.mri_forward.noise.apply_mult_gauss_noise &mdash; diffusion_models 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Acknowledgments" href="../chap/tex_stuff.html" />
-    <link rel="prev" title="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask" href="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask.html" /> 
+    <link rel="next" title="diffusion_models.mri_forward.noise.independent_gauss_noise" href="diffusion_models.mri_forward.noise.independent_gauss_noise.html" />
+    <link rel="prev" title="diffusion_models.mri_forward.noise.apply_add_gauss_noise" href="diffusion_models.mri_forward.noise.apply_add_gauss_noise.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,8 +47,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="diffusion_models.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">diffusion_models.utils</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.mri_forward.noise.html">diffusion_models.mri_forward.noise</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.mri_forward.noise.apply_add_gauss_noise.html">diffusion_models.mri_forward.noise.apply_add_gauss_noise</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.mri_forward.noise.apply_mult_gauss_noise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.mri_forward.noise.independent_gauss_noise.html">diffusion_models.mri_forward.noise.independent_gauss_noise</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.html">diffusion_models.mri_forward.undersampling_mask</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chap/tex_stuff.html">Acknowledgments</a></li>
@@ -72,9 +81,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.html">diffusion_models</a></li>
-      <li class="breadcrumb-item active">diffusion_models.utils</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
+          <li class="breadcrumb-item"><a href="diffusion_models.mri_forward.noise.html">diffusion_models.mri_forward.noise</a></li>
+      <li class="breadcrumb-item active">diffusion_models.mri_forward.noise.apply_mult_gauss_noise</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.utils.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.mri_forward.noise.apply_mult_gauss_noise.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -82,16 +93,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-diffusion_models.utils">
-<span id="diffusion-models-utils"></span><h1>diffusion_models.utils<a class="headerlink" href="#module-diffusion_models.utils" title="Permalink to this heading"></a></h1>
+  <section id="diffusion-models-mri-forward-noise-apply-mult-gauss-noise">
+<h1>diffusion_models.mri_forward.noise.apply_mult_gauss_noise<a class="headerlink" href="#diffusion-models-mri-forward-noise-apply-mult-gauss-noise" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="diffusion_models.mri_forward.noise.apply_mult_gauss_noise">
+<span class="sig-prename descclassname"><span class="pre">diffusion_models.mri_forward.noise.</span></span><span class="sig-name descname"><span class="pre">apply_mult_gauss_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.mri_forward.noise.apply_mult_gauss_noise" title="Permalink to this definition"></a></dt>
+<dd><p>Applies multiplicative noise.</p>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask.html" class="btn btn-neutral float-left" title="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../chap/tex_stuff.html" class="btn btn-neutral float-right" title="Acknowledgments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.mri_forward.noise.apply_add_gauss_noise.html" class="btn btn-neutral float-left" title="diffusion_models.mri_forward.noise.apply_add_gauss_noise" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.mri_forward.noise.independent_gauss_noise.html" class="btn btn-neutral float-right" title="diffusion_models.mri_forward.noise.independent_gauss_noise" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

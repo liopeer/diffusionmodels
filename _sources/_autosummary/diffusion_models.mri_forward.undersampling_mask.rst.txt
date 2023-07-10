@@ -1,0 +1,45 @@
+diffusion\_models.mri\_forward.undersampling\_mask
+==================================================
+
+.. automodule:: diffusion_models.mri_forward.undersampling_mask
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      gaussian_kernel1d_h
+      gaussian_kernel1d_v
+      gaussian_kernel2d
+      naive_undersampling1d_h
+      naive_undersampling1d_v
+      naive_undersampling2d
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      UndersamplingMask
+   
+   
+
+   
+   
+   
+
+
+
