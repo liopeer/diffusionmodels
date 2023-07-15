@@ -2,12 +2,62 @@ import torch
 from torch import nn
 
 class UndersamplingMask(nn.Module):
-    def __init__(self, mask_type: str, random_seed: int, ) -> None:
-        torch.manual_seed(random_seed)
+    def __init__(self, mask_type: str, undersampling_ratio: int, device=None) -> None:
+        super().__init__()
         self.mask_type = mask_type
+        if self.mask_type == "naive_1d_v":
+            self.gen = naive_undersampling1d_v
+        elif self.mask_type == "naive_1d_h":
+            self.gen = naive_undersampling1d_h
+        elif self.mask_type == "naive_2d":
+            self.gen = naive_undersampling2d
+        self.undersampling_ratio = undersampling_ratio
+        
+        if device is None:
+            self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        else:
+            self.device = device
 
     def forward(self, x):
-        pass
+        mask = self.gen(x.shape, self.undersampling_ratio)
+        mask = normalize_mask(mask)
+        x = x * mask.expand(*x.size()).to(self.device)
+        return x, mask
+
+class StochasticUndersamplingMask(nn.Module):
+    def __init__(self, mask_type: str, rel_sigma: float, undersampling_rate: float, random_seed: int=42, device=None) -> None:
+        super().__init__()
+        torch.manual_seed(random_seed)
+        self.mask_type = mask_type
+        self.rel_sigma = rel_sigma
+        self.undersampling_rate = undersampling_rate
+        self.random_seed = random_seed
+        torch.manual_seed(self.random_seed)
+        if device is None:
+            self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        else:
+            self.device = device
+
+        if self.mask_type == "gauss_1d_h":
+            self.gen = gaussian_kernel1d_h
+        elif self.mask_type == "gauss_1d_v":
+            self.gen = gaussian_kernel1d_v
+        elif self.mask_type == "gauss_2d":
+            self.gen = gaussian_kernel2d
+
+    def forward(self, x):
+        mask = self.gen(x.shape, self.rel_sigma)
+        mask = normalize_mask(mask)
+        mean = torch.mean(mask)
+        noise = torch.randn_like(mask)
+        mask = mask + noise
+        mask = mask.ge(mean)
+        return x, mask
+    
+def normalize_mask(mask: torch.Tensor):
+    max = torch.max(mask)
+    factor = 1. / max
+    return mask * factor
 
 def naive_undersampling2d(size: torch.tensor, undersampling_ratio: int) -> torch.Tensor:
     """2D regular subsampling with given undersampling ratio.
