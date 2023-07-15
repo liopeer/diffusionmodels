@@ -110,8 +110,14 @@ bibendum sodales, augue velit cursus nunc,</p>
 <h2>Diffusion Models<a class="headerlink" href="#diffusion-models" title="Permalink to this heading"></a></h2>
 <section id="forward-diffusion-process">
 <h3>Forward Diffusion Process<a class="headerlink" href="#forward-diffusion-process" title="Permalink to this heading"></a></h3>
-<p><img alt="Forward Diffusion Process: An image is iteratively destroyed by addingnormally distributed noise, according to a schedule. This represents aMarkov process where the transition probability q(x_t|x_{t-1}) isequal to athcal{N}" src="../_images/forward_diffusion.png" /></p>
-<p><img alt="Example of image destruction: Forward Diffusion Process iterativelydestroys according to a linear eta schedule. The indices give thetime step in the iterative destructionprocess." src="../_images/forward_naoshima.png" /></p>
+<p>[\begin{split}
+q(x_t\mid x_{t-1}) &amp; = \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t I) \
+q(x_t\mid x_{t-1}) &amp; = \mathcal{N}(\sqrt{\alpha_t} x_{t-1}, (1-\alpha_t) I) \
+q(x_t\mid x_{0}) &amp; = \mathcal{N}(\sqrt{\bar{\alpha}<em>t} x</em>{0}, (1 - \bar{\alpha}_t) I) \
+\bar{\alpha}<em>t &amp; = \prod</em>{i=0}^{t} \alpha_t
+\end{split}]</p>
+<p><img alt="Forward Diffusion Process: An image is iteratively destroyed by addingnormally distributed noise, according to a schedule. This represents aMarkov process where the transition probabilityq(x_t|x_{t-1})." src="../_images/forward_diffusion.png" /></p>
+<p><img alt="Example of Iterative Image Destruction through Forward DiffusionProcess: The indices give the time step in the iterative destructionprocess, where eta was created according to a linear noisevariance schedule (5000 steps from in the 0.001 to 0.02 range andpicture resolution of 4016 by 6016 pixels)." src="../_images/forward_naoshima.png" /></p>
 </section>
 </section>
 </section>

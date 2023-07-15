@@ -1,0 +1,25 @@
+diffusion\_models.mri\_forward.undersampling\_mask.StochasticUndersamplingMask
+==============================================================================
+
+.. currentmodule:: diffusion_models.mri_forward.undersampling_mask
+
+.. autoclass:: StochasticUndersamplingMask
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~StochasticUndersamplingMask.forward
+   
+   
+
+   
+   
+   
