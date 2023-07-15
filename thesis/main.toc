@@ -5,9 +5,9 @@
 \contentsline {section}{\numberline {1}Diffusion Models}{xi}{section.0.1}%
 \contentsline {subsection}{\numberline {1.1}Forward Diffusion Process}{xi}{subsection.0.1.1}%
 ~\hfill {\fontfamily {phv}\selectfont Page}\par 
-\contentsline {chapter}{\nonumberline List of Figures}{xv}{chapter*.8}%
-\contentsline {chapter}{\nonumberline List of Tables}{xvii}{chapter*.9}%
-\contentsline {chapter}{\nonumberline Listings}{xix}{chapter*.10}%
+\contentsline {chapter}{\nonumberline List of Figures}{xv}{chapter*.9}%
+\contentsline {chapter}{\nonumberline List of Tables}{xvii}{chapter*.10}%
+\contentsline {chapter}{\nonumberline Listings}{xix}{chapter*.11}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Blubbi}{3}{chapter.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

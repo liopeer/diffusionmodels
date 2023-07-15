@@ -17,7 +17,7 @@ class EncodingBlock(nn.Module):
         ---------
         in_channels
             number of input channels
-        out_channelse
+        out_channels
             number of output channels
         time_embedding_size
             dimension of time embedding
@@ -81,7 +81,7 @@ class DecodingBlock(EncodingBlock):
         ---------
         in_channels
             number of input channels
-        out_channelse
+        out_channels
             number of output channels
         time_embedding_size
             dimension of time embedding

@@ -1,7 +1,12 @@
 import torch
+from torch import nn
 
-class UndersamplingMask():
-    def __init__(self, random_seed) -> None:
+class UndersamplingMask(nn.Module):
+    def __init__(self, mask_type: str, random_seed: int, ) -> None:
+        torch.manual_seed(random_seed)
+        self.mask_type = mask_type
+
+    def forward(self, x):
         pass
 
 def naive_undersampling2d(size: torch.tensor, undersampling_ratio: int) -> torch.Tensor:
