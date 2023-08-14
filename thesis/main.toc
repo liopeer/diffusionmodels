@@ -4,10 +4,17 @@
 \contentsline {chapter}{\nonumberline Some Chapter Name to be changed}{xi}{chapter*.5}%
 \contentsline {section}{\numberline {1}Diffusion Models}{xi}{section.0.1}%
 \contentsline {subsection}{\numberline {1.1}Forward Diffusion Process}{xi}{subsection.0.1.1}%
+\contentsline {chapter}{\nonumberline Generative Machine Learning}{xiii}{chapter*.8}%
+\contentsline {section}{\numberline {1}Excursion to Bayes}{xiii}{section.0.1}%
+\contentsline {section}{\numberline {2}Loss Functions}{xiv}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}Kullback-Leibler Divergence}{xiv}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {2.2}Wasserstein Distance}{xiv}{subsection.0.2.2}%
 ~\hfill {\fontfamily {phv}\selectfont Page}\par 
-\contentsline {chapter}{\nonumberline List of Figures}{xv}{chapter*.9}%
-\contentsline {chapter}{\nonumberline List of Tables}{xvii}{chapter*.10}%
-\contentsline {chapter}{\nonumberline Listings}{xix}{chapter*.11}%
+\contentsline {chapter}{\nonumberline List of Figures}{xvii}{chapter*.10}%
+\contentsline {chapter}{\nonumberline List of Tables}{xix}{chapter*.11}%
+\contentsline {chapter}{\nonumberline Listings}{xxi}{chapter*.12}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Blubbi}{3}{chapter.2}%
+\contentsline {chapter}{\nonumberline References}{5}{chapter*.13}%
+\contentsline {chapter}{\nonumberline Image Sources}{7}{chapter*.14}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

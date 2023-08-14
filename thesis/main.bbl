@@ -16,5 +16,177 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{arjovsky2017wasserstein}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=ab4a5e058dea2d852ff02aa4e10045c3}{%
+           family={Arjovsky},
+           familyi={A\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8ef51a0906e47d2b4472c4e714ed598f}{%
+           family={Chintala},
+           familyi={C\bibinitperiod},
+           given={Soumith},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ac762f2592005edf6bad58f566967c6c}{%
+           family={Bottou},
+           familyi={B\bibinitperiod},
+           given={Léon},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{f587dda04e83e5dc90f2168faf0f4796}
+      \strng{fullhash}{f587dda04e83e5dc90f2168faf0f4796}
+      \strng{bibnamehash}{f587dda04e83e5dc90f2168faf0f4796}
+      \strng{authorbibnamehash}{f587dda04e83e5dc90f2168faf0f4796}
+      \strng{authornamehash}{f587dda04e83e5dc90f2168faf0f4796}
+      \strng{authorfullhash}{f587dda04e83e5dc90f2168faf0f4796}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{stat.ML}
+      \field{eprinttype}{arXiv}
+      \field{title}{Wasserstein GAN}
+      \field{year}{2017}
+      \verb{eprint}
+      \verb 1701.07875
+      \endverb
+    \endentry
+    \entry{goodfellow2014generative}{misc}{}
+      \name{author}{8}{}{%
+        {{hash=d4f74ef4c79f3bb1e51e378184d8850e}{%
+           family={Goodfellow},
+           familyi={G\bibinitperiod},
+           given={Ian\bibnamedelima J.},
+           giveni={I\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=a341d25f80a8118cdbb90b272adc8b4f}{%
+           family={Pouget-Abadie},
+           familyi={P\bibinithyphendelim A\bibinitperiod},
+           given={Jean},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9e80f4779b032f68a6106e1424345450}{%
+           family={Mirza},
+           familyi={M\bibinitperiod},
+           given={Mehdi},
+           giveni={M\bibinitperiod}}}%
+        {{hash=743dd6cdaa6639320289d219d351d7b7}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Bing},
+           giveni={B\bibinitperiod}}}%
+        {{hash=e8151f1b8f85a048cacb34f374ec922b}{%
+           family={Warde-Farley},
+           familyi={W\bibinithyphendelim F\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=9ca00ffd7cc35f7cfb8f698aa9239c76}{%
+           family={Ozair},
+           familyi={O\bibinitperiod},
+           given={Sherjil},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ccec1ccd2e1aa86960eb2e872c6b7020}{%
+           family={Courville},
+           familyi={C\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{8b5c7065f4df4f81627df9460343f166}
+      \strng{fullhash}{5afe3eb3246d0b46f32cdc5ff3e9d6b8}
+      \strng{bibnamehash}{8b5c7065f4df4f81627df9460343f166}
+      \strng{authorbibnamehash}{8b5c7065f4df4f81627df9460343f166}
+      \strng{authornamehash}{8b5c7065f4df4f81627df9460343f166}
+      \strng{authorfullhash}{5afe3eb3246d0b46f32cdc5ff3e9d6b8}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{stat.ML}
+      \field{eprinttype}{arXiv}
+      \field{title}{Generative Adversarial Networks}
+      \field{year}{2014}
+      \verb{eprint}
+      \verb 1406.2661
+      \endverb
+    \endentry
+    \entry{kingma2022autoencoding}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=b6fbd171848aad4edf3925543f1f1522}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederik\bibnamedelima P},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=53d2880ad8047b61cdae2c6b2803e763}{%
+           family={Welling},
+           familyi={W\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{fullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{bibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorbibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authornamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorfullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{stat.ML}
+      \field{eprinttype}{arXiv}
+      \field{title}{Auto-Encoding Variational Bayes}
+      \field{year}{2022}
+      \verb{eprint}
+      \verb 1312.6114
+      \endverb
+    \endentry
+    \entry{https://doi.org/10.1002/aic.690370209}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3594a9260776ded0422a5135b95c86d4}{%
+           family={Kramer},
+           familyi={K\bibinitperiod},
+           given={Mark\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{3594a9260776ded0422a5135b95c86d4}
+      \strng{fullhash}{3594a9260776ded0422a5135b95c86d4}
+      \strng{bibnamehash}{3594a9260776ded0422a5135b95c86d4}
+      \strng{authorbibnamehash}{3594a9260776ded0422a5135b95c86d4}
+      \strng{authornamehash}{3594a9260776ded0422a5135b95c86d4}
+      \strng{authorfullhash}{3594a9260776ded0422a5135b95c86d4}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract Nonlinear principal component analysis is a novel technique for multivariate data analysis, similar to the well-known method of principal component analysis. NLPCA, like PCA, is used to identify and remove correlations among problem variables as an aid to dimensionality reduction, visualization, and exploratory data analysis. While PCA identifies only linear correlations between variables, NLPCA uncovers both linear and nonlinear correlations, without restriction on the character of the nonlinearities present in the data. NLPCA operates by training a feedforward neural network to perform the identity mapping, where the network inputs are reproduced at the output layer. The network contains an internal “bottleneck” layer (containing fewer nodes than input or output layers), which forces the network to develop a compact representation of the input data, and two additional hidden layers. The NLPCA method is demonstrated using time-dependent, simulated batch reaction data. Results show that NLPCA successfully reduces dimensionality and produces a feature space map resembling the actual distribution of the underlying system parameters.}
+      \field{journaltitle}{AIChE Journal}
+      \field{number}{2}
+      \field{title}{Nonlinear principal component analysis using autoassociative neural networks}
+      \field{volume}{37}
+      \field{year}{1991}
+      \field{pages}{233\bibrangedash 243}
+      \range{pages}{11}
+      \verb{doi}
+      \verb https://doi.org/10.1002/aic.690370209
+      \endverb
+      \verb{eprint}
+      \verb https://aiche.onlinelibrary.wiley.com/doi/pdf/10.1002/aic.690370209
+      \endverb
+      \verb{urlraw}
+      \verb https://aiche.onlinelibrary.wiley.com/doi/abs/10.1002/aic.690370209
+      \endverb
+      \verb{url}
+      \verb https://aiche.onlinelibrary.wiley.com/doi/abs/10.1002/aic.690370209
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

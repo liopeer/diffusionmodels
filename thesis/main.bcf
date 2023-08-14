@@ -2361,6 +2361,10 @@
     <bcf:datasource type="file" datatype="bibtex">bib/literature.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="1" intorder="1">kingma2022autoencoding</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">https://doi.org/10.1002/aic.690370209</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">goodfellow2014generative</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">arjovsky2017wasserstein</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
