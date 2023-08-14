@@ -53,6 +53,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#generative-machine-learning">Generative Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#excursion-to-bayes">Excursion to Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loss-functions">Loss Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kullback-leibler-divergence">Kullback-Leibler Divergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wasserstein-distance">Wasserstein Distance</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#blubbi">Blubbi</a></li>
 </ul>
@@ -118,6 +127,81 @@ q(x_t\mid x_{0}) &amp; = \mathcal{N}(\sqrt{\bar{\alpha}<em>t} x</em>{0}, (1 - \b
 \end{split}]</p>
 <p><img alt="Forward Diffusion Process: An image is iteratively destroyed by addingnormally distributed noise, according to a schedule. This represents aMarkov process where the transition probabilityq(x_t|x_{t-1})." src="../_images/forward_diffusion.png" /></p>
 <p><img alt="Example of Iterative Image Destruction through Forward DiffusionProcess: The indices give the time step in the iterative destructionprocess, where eta was created according to a linear noisevariance schedule (5000 steps from in the 0.001 to 0.02 range andpicture resolution of 4016 by 6016 pixels)." src="../_images/forward_naoshima.png" /></p>
+</section>
+</section>
+</section>
+<section id="generative-machine-learning">
+<h1>Generative Machine Learning<a class="headerlink" href="#generative-machine-learning" title="Permalink to this heading"></a></h1>
+<section id="excursion-to-bayes">
+<h2>Excursion to Bayes<a class="headerlink" href="#excursion-to-bayes" title="Permalink to this heading"></a></h2>
+<p>Before getting started we need to quickly define the terms used in the
+next section, since they all stem from Bayesian statistics. The Bayesian
+theorem can be written like this: [p(z|x) = \frac{p(x|z)p(z)}{p(x)}]
+It is implicitly assumed here that (p) is a probability density
+function over two continuous random variables (x) and (z). The
+formula holds in general, but in generative machine learning we usually
+assume that (z) represents a random variable in latent space
+(unobserved) from which we will eventually sample to generate new
+samples, whereas (x) is the random variable that represents the
+training images (observed space). Using above described ordering, the
+four terms in this formula use distinct names:</p>
+<ul class="simple">
+<li><p>(p(z|x))<br />
+is called the <em>posterior</em></p></li>
+<li><p>(p(x|z))<br />
+is called the <em>likelihood</em>, since it gives the literal likelihood of
+observing an example (x) when choosing the latent space to be a
+specific (z).</p></li>
+<li><p>(p(z))<br />
+is called the <em>prior</em>, since it exposes information on (z) before
+any conditioning.</p></li>
+<li><p>(p(x))<br />
+is called the <em>evidence</em>, since it encompasses our actual
+observations.</p></li>
+</ul>
+<p>One of the most straightforward examples of a generative model where we
+search for such a latent space representation of our distribution over
+the training examples, is the Variational Autoencoder (VAE) . The name
+of the VAE stems from the Autoencoder, a network that tries to recreate
+its output through a bottleneck and thereby learning a compressed
+representation of the data.  It bears similarity to other dimension
+reduction methods like Principal Component Analysis (PCA) and therefore
+was first published under the name <em>Nonlinear principal component
+analysis</em>. The <em>variational</em> part in the VAE stems from the fact that it
+tries to reduce the data not into an arbitrary low dimensional latent
+space, but into a latent parameterized distribution (usually i.i.d
+multivariate Gaussian). This distribution is sampled in the forward pass
+(therefore <em>variational</em>, since we use a stochastic layer) and
+reproducing the input is now not a feasible loss function, but
+maximizing the likelihood is. Maximizing the likelihood (p(x|z)) from
+above means that we want to tune the parameters of this latent
+distribution such that the produced output is “likely” an example that
+could come from the original distribution. Training generative models
+such as a VAE or also a GAN is usually either done with <em>Evidence Lower
+Bound</em> as the loss, or with an additional network and an <em>adversarial
+loss</em>.  Both examples will be further explained in the next sections.</p>
+</section>
+<section id="loss-functions">
+<h2>Loss Functions<a class="headerlink" href="#loss-functions" title="Permalink to this heading"></a></h2>
+<p>In generative machine learning we would want our model to learn the
+distribution that generated out training examples. Often this
+distribution is conditioned on some description (e.g. text) or on the
+corruption process in our case, where we use generative models to solve
+inverse problems. Assuming our original data distribution (of images) is
+(p(x)), then we try to find a parameterized variational machine
+learning model ((q_{\theta}(x))) that will closely match the data
+distribution.</p>
+<p>In order for this (q_{\theta}(x)) to be trained we need a
+differentiable loss function that expresses “closeness” in a
+distributional sense. The usual approach to this is to use the
+Kullback-Leibler (KL) divergence.</p>
+<section id="kullback-leibler-divergence">
+<h3>Kullback-Leibler Divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Permalink to this heading"></a></h3>
+</section>
+<section id="wasserstein-distance">
+<h3>Wasserstein Distance<a class="headerlink" href="#wasserstein-distance" title="Permalink to this heading"></a></h3>
+<p>A different approach to comparing the similarity of distributions is the
+Wasserstein metric, successfully used in the Wasserstein GAN. .</p>
 </section>
 </section>
 </section>
