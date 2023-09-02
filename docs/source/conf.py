@@ -45,7 +45,7 @@ autoclass_content = "both"
 autodoc_inherit_docstring = True
 templates_path = ["_templates"]
 
-autodoc_mock_imports = ["torch"]
+autodoc_mock_imports = ["torch, jaxtyping"]
 
 source_suffix = {
     ".rst": "restructuredtext",
