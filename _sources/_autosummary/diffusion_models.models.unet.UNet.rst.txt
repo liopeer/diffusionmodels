@@ -14,7 +14,6 @@ diffusion\_models.models.unet.UNet
    .. rubric:: Methods
 
    .. autosummary::
-      :nosignatures:
    
       ~UNet.forward
    

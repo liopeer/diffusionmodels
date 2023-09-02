@@ -18,7 +18,6 @@ diffusion\_models.models.forward\_diffusion
    .. autosummary::
       :toctree:
       :template: custom-class-template.rst
-      :nosignatures:
    
       ForwardDiffusion
    

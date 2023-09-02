@@ -13,7 +13,6 @@ diffusion\_models.mri\_forward.noise
 
    .. autosummary::
       :toctree:
-      :nosignatures:
    
       apply_add_gauss_noise
       apply_mult_gauss_noise

@@ -13,7 +13,6 @@ diffusion\_models.models.unet
 
    .. autosummary::
       :toctree:
-      :nosignatures:
    
       dummy_func
    
@@ -26,7 +25,6 @@ diffusion\_models.models.unet
    .. autosummary::
       :toctree:
       :template: custom-class-template.rst
-      :nosignatures:
    
       DecodingBlock
       EncodingBlock

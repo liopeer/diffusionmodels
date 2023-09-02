@@ -14,7 +14,6 @@ diffusion\_models.mri\_forward.undersampling\_mask.UndersamplingMask
    .. rubric:: Methods
 
    .. autosummary::
-      :nosignatures:
    
       ~UndersamplingMask.forward
    

@@ -14,7 +14,6 @@ diffusion\_models.models.unet.EncodingBlock
    .. rubric:: Methods
 
    .. autosummary::
-      :nosignatures:
    
       ~EncodingBlock.forward
    

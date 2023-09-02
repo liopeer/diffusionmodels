@@ -13,7 +13,6 @@ diffusion\_models.mri\_forward.undersampling\_mask
 
    .. autosummary::
       :toctree:
-      :nosignatures:
    
       gaussian_kernel1d_h
       gaussian_kernel1d_v
@@ -32,7 +31,6 @@ diffusion\_models.mri\_forward.undersampling\_mask
    .. autosummary::
       :toctree:
       :template: custom-class-template.rst
-      :nosignatures:
    
       StochasticUndersamplingMask
       UndersamplingMask

@@ -18,7 +18,6 @@ diffusion\_models.models.positional\_encoding
    .. autosummary::
       :toctree:
       :template: custom-class-template.rst
-      :nosignatures:
    
       PositionalEncoding
    

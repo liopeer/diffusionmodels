@@ -14,7 +14,6 @@ diffusion\_models.models.positional\_encoding.PositionalEncoding
    .. rubric:: Methods
 
    .. autosummary::
-      :nosignatures:
    
    
    
