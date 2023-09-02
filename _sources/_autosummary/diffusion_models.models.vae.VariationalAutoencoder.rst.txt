@@ -1,0 +1,77 @@
+diffusion\_models.models.vae.VariationalAutoencoder
+===================================================
+
+.. currentmodule:: diffusion_models.models.vae
+
+.. autoclass:: VariationalAutoencoder
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~VariationalAutoencoder.add_module
+      ~VariationalAutoencoder.apply
+      ~VariationalAutoencoder.bfloat16
+      ~VariationalAutoencoder.buffers
+      ~VariationalAutoencoder.children
+      ~VariationalAutoencoder.cpu
+      ~VariationalAutoencoder.cuda
+      ~VariationalAutoencoder.double
+      ~VariationalAutoencoder.eval
+      ~VariationalAutoencoder.extra_repr
+      ~VariationalAutoencoder.float
+      ~VariationalAutoencoder.forward
+      ~VariationalAutoencoder.get_buffer
+      ~VariationalAutoencoder.get_extra_state
+      ~VariationalAutoencoder.get_parameter
+      ~VariationalAutoencoder.get_submodule
+      ~VariationalAutoencoder.half
+      ~VariationalAutoencoder.ipu
+      ~VariationalAutoencoder.load_state_dict
+      ~VariationalAutoencoder.modules
+      ~VariationalAutoencoder.named_buffers
+      ~VariationalAutoencoder.named_children
+      ~VariationalAutoencoder.named_modules
+      ~VariationalAutoencoder.named_parameters
+      ~VariationalAutoencoder.parameters
+      ~VariationalAutoencoder.register_backward_hook
+      ~VariationalAutoencoder.register_buffer
+      ~VariationalAutoencoder.register_forward_hook
+      ~VariationalAutoencoder.register_forward_pre_hook
+      ~VariationalAutoencoder.register_full_backward_hook
+      ~VariationalAutoencoder.register_full_backward_pre_hook
+      ~VariationalAutoencoder.register_load_state_dict_post_hook
+      ~VariationalAutoencoder.register_module
+      ~VariationalAutoencoder.register_parameter
+      ~VariationalAutoencoder.register_state_dict_pre_hook
+      ~VariationalAutoencoder.requires_grad_
+      ~VariationalAutoencoder.set_extra_state
+      ~VariationalAutoencoder.share_memory
+      ~VariationalAutoencoder.state_dict
+      ~VariationalAutoencoder.to
+      ~VariationalAutoencoder.to_empty
+      ~VariationalAutoencoder.train
+      ~VariationalAutoencoder.type
+      ~VariationalAutoencoder.xpu
+      ~VariationalAutoencoder.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~VariationalAutoencoder.T_destination
+      ~VariationalAutoencoder.call_super_init
+      ~VariationalAutoencoder.dump_patches
+      ~VariationalAutoencoder.training
+   
+   

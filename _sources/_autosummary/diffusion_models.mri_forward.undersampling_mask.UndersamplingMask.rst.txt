@@ -1,0 +1,77 @@
+diffusion\_models.mri\_forward.undersampling\_mask.UndersamplingMask
+====================================================================
+
+.. currentmodule:: diffusion_models.mri_forward.undersampling_mask
+
+.. autoclass:: UndersamplingMask
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~UndersamplingMask.add_module
+      ~UndersamplingMask.apply
+      ~UndersamplingMask.bfloat16
+      ~UndersamplingMask.buffers
+      ~UndersamplingMask.children
+      ~UndersamplingMask.cpu
+      ~UndersamplingMask.cuda
+      ~UndersamplingMask.double
+      ~UndersamplingMask.eval
+      ~UndersamplingMask.extra_repr
+      ~UndersamplingMask.float
+      ~UndersamplingMask.forward
+      ~UndersamplingMask.get_buffer
+      ~UndersamplingMask.get_extra_state
+      ~UndersamplingMask.get_parameter
+      ~UndersamplingMask.get_submodule
+      ~UndersamplingMask.half
+      ~UndersamplingMask.ipu
+      ~UndersamplingMask.load_state_dict
+      ~UndersamplingMask.modules
+      ~UndersamplingMask.named_buffers
+      ~UndersamplingMask.named_children
+      ~UndersamplingMask.named_modules
+      ~UndersamplingMask.named_parameters
+      ~UndersamplingMask.parameters
+      ~UndersamplingMask.register_backward_hook
+      ~UndersamplingMask.register_buffer
+      ~UndersamplingMask.register_forward_hook
+      ~UndersamplingMask.register_forward_pre_hook
+      ~UndersamplingMask.register_full_backward_hook
+      ~UndersamplingMask.register_full_backward_pre_hook
+      ~UndersamplingMask.register_load_state_dict_post_hook
+      ~UndersamplingMask.register_module
+      ~UndersamplingMask.register_parameter
+      ~UndersamplingMask.register_state_dict_pre_hook
+      ~UndersamplingMask.requires_grad_
+      ~UndersamplingMask.set_extra_state
+      ~UndersamplingMask.share_memory
+      ~UndersamplingMask.state_dict
+      ~UndersamplingMask.to
+      ~UndersamplingMask.to_empty
+      ~UndersamplingMask.train
+      ~UndersamplingMask.type
+      ~UndersamplingMask.xpu
+      ~UndersamplingMask.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~UndersamplingMask.T_destination
+      ~UndersamplingMask.call_super_init
+      ~UndersamplingMask.dump_patches
+      ~UndersamplingMask.training
+   
+   

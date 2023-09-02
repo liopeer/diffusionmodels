@@ -1,0 +1,6 @@
+diffusion\_models.mri\_forward.noise.apply\_add\_gauss\_noise
+=============================================================
+
+.. currentmodule:: diffusion_models.mri_forward.noise
+
+.. autofunction:: apply_add_gauss_noise

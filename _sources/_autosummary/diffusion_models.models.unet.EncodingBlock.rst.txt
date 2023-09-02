@@ -1,0 +1,77 @@
+diffusion\_models.models.unet.EncodingBlock
+===========================================
+
+.. currentmodule:: diffusion_models.models.unet
+
+.. autoclass:: EncodingBlock
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~EncodingBlock.add_module
+      ~EncodingBlock.apply
+      ~EncodingBlock.bfloat16
+      ~EncodingBlock.buffers
+      ~EncodingBlock.children
+      ~EncodingBlock.cpu
+      ~EncodingBlock.cuda
+      ~EncodingBlock.double
+      ~EncodingBlock.eval
+      ~EncodingBlock.extra_repr
+      ~EncodingBlock.float
+      ~EncodingBlock.forward
+      ~EncodingBlock.get_buffer
+      ~EncodingBlock.get_extra_state
+      ~EncodingBlock.get_parameter
+      ~EncodingBlock.get_submodule
+      ~EncodingBlock.half
+      ~EncodingBlock.ipu
+      ~EncodingBlock.load_state_dict
+      ~EncodingBlock.modules
+      ~EncodingBlock.named_buffers
+      ~EncodingBlock.named_children
+      ~EncodingBlock.named_modules
+      ~EncodingBlock.named_parameters
+      ~EncodingBlock.parameters
+      ~EncodingBlock.register_backward_hook
+      ~EncodingBlock.register_buffer
+      ~EncodingBlock.register_forward_hook
+      ~EncodingBlock.register_forward_pre_hook
+      ~EncodingBlock.register_full_backward_hook
+      ~EncodingBlock.register_full_backward_pre_hook
+      ~EncodingBlock.register_load_state_dict_post_hook
+      ~EncodingBlock.register_module
+      ~EncodingBlock.register_parameter
+      ~EncodingBlock.register_state_dict_pre_hook
+      ~EncodingBlock.requires_grad_
+      ~EncodingBlock.set_extra_state
+      ~EncodingBlock.share_memory
+      ~EncodingBlock.state_dict
+      ~EncodingBlock.to
+      ~EncodingBlock.to_empty
+      ~EncodingBlock.train
+      ~EncodingBlock.type
+      ~EncodingBlock.xpu
+      ~EncodingBlock.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~EncodingBlock.T_destination
+      ~EncodingBlock.call_super_init
+      ~EncodingBlock.dump_patches
+      ~EncodingBlock.training
+   
+   

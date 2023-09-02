@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.utils &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.models.vae &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Acknowledgments" href="../chap/tex_stuff.html" />
-    <link rel="prev" title="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask" href="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask.html" /> 
+    <link rel="next" title="diffusion_models.models.vae.VariationalAutoencoder" href="diffusion_models.models.vae.VariationalAutoencoder.html" />
+    <link rel="prev" title="diffusion_models.models.unet.UNet" href="diffusion_models.models.unet.UNet.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,9 +47,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Homepage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.forward_diffusion.html">diffusion_models.models.forward_diffusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.models.vae</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.VariationalAutoencoder.html">diffusion_models.models.vae.VariationalAutoencoder</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">diffusion_models.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chap/tex_stuff.html">Acknowledgments</a></li>
@@ -74,9 +83,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
-      <li class="breadcrumb-item active">diffusion_models.utils</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
+      <li class="breadcrumb-item active">diffusion_models.models.vae</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.utils.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.models.vae.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -84,16 +94,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-diffusion_models.utils">
-<span id="diffusion-models-utils"></span><h1>diffusion_models.utils<a class="headerlink" href="#module-diffusion_models.utils" title="Link to this heading"></a></h1>
+  <section id="module-diffusion_models.models.vae">
+<span id="diffusion-models-models-vae"></span><h1>diffusion_models.models.vae<a class="headerlink" href="#module-diffusion_models.models.vae" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.vae.VariationalAutoencoder.html#diffusion_models.models.vae.VariationalAutoencoder" title="diffusion_models.models.vae.VariationalAutoencoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariationalAutoencoder</span></code></a>()</p></td>
+<td><p>Class implementing a Variational Autoencoder.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask.html" class="btn btn-neutral float-left" title="diffusion_models.mri_forward.undersampling_mask.UndersamplingMask" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../chap/tex_stuff.html" class="btn btn-neutral float-right" title="Acknowledgments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.unet.UNet.html" class="btn btn-neutral float-left" title="diffusion_models.models.unet.UNet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.vae.VariationalAutoencoder.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae.VariationalAutoencoder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
