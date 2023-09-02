@@ -40,6 +40,7 @@ extensions = [
 ]
 
 autosummary_generate = True
+napoleon_numpy_docstring = True
 autoclass_content = "both"
 autodoc_inherit_docstring = True
 templates_path = ["_templates"]
