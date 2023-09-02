@@ -1,4 +1,5 @@
-# Acknowledgments
+Acknowledgments
+===============
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -21,108 +22,140 @@ amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
 sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
 bibendum sodales, augue velit cursus nunc,
 
-# Some Chapter Name to be changed
+Some Chapter Name to be changed
+===============================
 
-## Diffusion Models
+Diffusion Models
+----------------
 
-### Forward Diffusion Process
+Forward Diffusion Process
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-\[\begin{split}
-        q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t I) \\
-        q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{\alpha_t} x_{t-1}, (1-\alpha_t) I) \\
-        q(x_t\mid x_{0}) & = \mathcal{N}(\sqrt{\bar{\alpha}_t} x_{0}, (1 - \bar{\alpha}_t) I) \\
-        \bar{\alpha}_t & = \prod_{i=0}^{t} \alpha_t 
-    \end{split}\]
+.. math::
 
-![Forward Diffusion Process: An image is iteratively destroyed by adding
-normally distributed noise, according to a schedule. This represents a
-Markov process where the transition probability
-\(q(x_t|x_{t-1})\).](img/forward_diffusion.png)
+   \begin{split}
+           q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t I) \\
+           q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{\alpha_t} x_{t-1}, (1-\alpha_t) I) \\
+           q(x_t\mid x_{0}) & = \mathcal{N}(\sqrt{\bar{\alpha}_t} x_{0}, (1 - \bar{\alpha}_t) I) \\
+           \bar{\alpha}_t & = \prod_{i=0}^{t} \alpha_t 
+       \end{split}
 
-![Example of Iterative Image Destruction through Forward Diffusion
-Process: The indices give the time step in the iterative destruction
-process, where \(\beta\) was created according to a linear noise
-variance schedule (5000 steps from in the 0.001 to 0.02 range and
-picture resolution of 4016 by 6016 pixels).](img/forward_naoshima.png)
+.. figure:: img/forward_diffusion.png
+   :alt: Forward Diffusion Process: An image is iteratively destroyed by
+   adding normally distributed noise, according to a schedule. This
+   represents a Markov process where the transition probability
+   :math:`q(x_t|x_{t-1})`.
+   :name: fig:forward_diffusion
 
-# Generative Machine Learning
+   Forward Diffusion Process: An image is iteratively destroyed by
+   adding normally distributed noise, according to a schedule. This
+   represents a Markov process where the transition probability
+   :math:`q(x_t|x_{t-1})`.
 
-## Excursion to Bayes
+.. figure:: img/forward_naoshima.png
+   :alt: Example of Iterative Image Destruction through Forward
+   Diffusion Process: The indices give the time step in the iterative
+   destruction process, where :math:`\beta` was created according to a
+   linear noise variance schedule (5000 steps from in the 0.001 to 0.02
+   range and picture resolution of 4016 by 6016 pixels).
+
+   Example of Iterative Image Destruction through Forward Diffusion
+   Process: The indices give the time step in the iterative destruction
+   process, where :math:`\beta` was created according to a linear noise
+   variance schedule (5000 steps from in the 0.001 to 0.02 range and
+   picture resolution of 4016 by 6016 pixels).
+
+Generative Machine Learning
+===========================
+
+Excursion to Bayes
+------------------
 
 Before getting started we need to quickly define the terms used in the
 next section, since they all stem from Bayesian statistics. The Bayesian
-theorem can be written like this: \[p(z|x) = \frac{p(x|z)p(z)}{p(x)}\]
-It is implicitly assumed here that \(p\) is a probability density
-function over two continuous random variables \(x\) and \(z\). The
-formula holds in general, but in generative machine learning we usually
-assume that \(z\) represents a random variable in latent space
-(unobserved) from which we will eventually sample to generate new
-samples, whereas \(x\) is the random variable that represents the
+theorem can be written like this:
+
+.. math:: p(z|x) = \frac{p(x|z)p(z)}{p(x)}
+
+It is implicitly assumed here that :math:`p` is a probability density
+function over two continuous random variables :math:`x` and :math:`z`.
+The formula holds in general, but in generative machine learning we
+usually assume that :math:`z` represents a random variable in latent
+space (unobserved) from which we will eventually sample to generate new
+samples, whereas :math:`x` is the random variable that represents the
 training images (observed space). Using above described ordering, the
 four terms in this formula use distinct names:
 
-  - \(p(z|x)\)  
-    is called the *posterior*
+:math:`p(z|x)`
+   is called the *posterior*
 
-  - \(p(x|z)\)  
-    is called the *likelihood*, since it gives the literal likelihood of
-    observing an example \(x\) when choosing the latent space to be a
-    specific \(z\).
+:math:`p(x|z)`
+   is called the *likelihood*, since it gives the literal likelihood of
+   observing an example :math:`x` when choosing the latent space to be a
+   specific :math:`z`.
 
-  - \(p(z)\)  
-    is called the *prior*, since it exposes information on \(z\) before
-    any conditioning.
+:math:`p(z)`
+   is called the *prior*, since it exposes information on :math:`z`
+   before any conditioning.
 
-  - \(p(x)\)  
-    is called the *evidence*, since it encompasses our actual
-    observations.
+:math:`p(x)`
+   is called the *evidence*, since it encompasses our actual
+   observations.
 
 One of the most straightforward examples of a generative model where we
 search for such a latent space representation of our distribution over
-the training examples, is the Variational Autoencoder (VAE) . The name
-of the VAE stems from the Autoencoder, a network that tries to recreate
-its output through a bottleneck and thereby learning a compressed
-representation of the data.  It bears similarity to other dimension
-reduction methods like Principal Component Analysis (PCA) and therefore
-was first published under the name *Nonlinear principal component
-analysis*. The *variational* part in the VAE stems from the fact that it
-tries to reduce the data not into an arbitrary low dimensional latent
-space, but into a latent parameterized distribution (usually i.i.d
-multivariate Gaussian). This distribution is sampled in the forward pass
-(therefore *variational*, since we use a stochastic layer) and
-reproducing the input is now not a feasible loss function, but
-maximizing the likelihood is. Maximizing the likelihood \(p(x|z)\) from
-above means that we want to tune the parameters of this latent
-distribution such that the produced output is “likely” an example that
-could come from the original distribution. Training generative models
-such as a VAE or also a GAN is usually either done with *Evidence Lower
-Bound* as the loss, or with an additional network and an *adversarial
-loss*.  Both examples will be further explained in the next sections.
+the training examples, is the Variational Autoencoder
+(VAE) :raw-latex:`\cite{kingma2022autoencoding}`. The name of the VAE
+stems from the Autoencoder, a network that tries to recreate its output
+through a bottleneck and thereby learning a compressed representation of
+the data. :raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}`
+It bears similarity to other dimension reduction methods like Principal
+Component Analysis (PCA) and therefore was first published under the
+name *Nonlinear principal component analysis*. The *variational* part in
+the VAE stems from the fact that it tries to reduce the data not into an
+arbitrary low dimensional latent space, but into a latent parameterized
+distribution (usually i.i.d multivariate Gaussian). This distribution is
+sampled in the forward pass (therefore *variational*, since we use a
+stochastic layer) and reproducing the input is now not a feasible loss
+function, but maximizing the likelihood is. Maximizing the likelihood
+:math:`p(x|z)` from above means that we want to tune the parameters of
+this latent distribution such that the produced output is “likely” an
+example that could come from the original distribution. Training
+generative models such as a VAE or also a GAN is usually either done
+with *Evidence Lower Bound* as the loss, or with an additional network
+and an *adversarial
+loss*. :raw-latex:`\autocite{goodfellow2014generative}` Both examples
+will be further explained in the next sections.
 
-## Loss Functions
+Loss Functions
+--------------
 
 In generative machine learning we would want our model to learn the
 distribution that generated out training examples. Often this
 distribution is conditioned on some description (e.g. text) or on the
 corruption process in our case, where we use generative models to solve
 inverse problems. Assuming our original data distribution (of images) is
-\(p(x)\), then we try to find a parameterized variational machine
-learning model (\(q_{\theta}(x)\)) that will closely match the data
+:math:`p(x)`, then we try to find a parameterized variational machine
+learning model (:math:`q_{\theta}(x)`) that will closely match the data
 distribution.
 
-In order for this \(q_{\theta}(x)\) to be trained we need a
+In order for this :math:`q_{\theta}(x)` to be trained we need a
 differentiable loss function that expresses “closeness” in a
 distributional sense. The usual approach to this is to use the
 Kullback-Leibler (KL) divergence.
 
-### Kullback-Leibler Divergence
+Kullback-Leibler Divergence
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Wasserstein Distance
+Wasserstein Distance
+~~~~~~~~~~~~~~~~~~~~
 
 A different approach to comparing the similarity of distributions is the
-Wasserstein metric, successfully used in the Wasserstein GAN. .
+Wasserstein metric, successfully used in the Wasserstein
+GAN. :raw-latex:`\autocite{arjovsky2017wasserstein}`.
 
-# Introduction
+Introduction
+============
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -145,7 +178,8 @@ amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
 sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
 bibendum sodales, augue velit cursus nunc,
 
-# Blubbi
+Blubbi
+======
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
