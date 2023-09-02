@@ -9,7 +9,7 @@ tests/data
 thesis/tmp/
 
 # sphinx build
-
+docs/source/_autosummary
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
