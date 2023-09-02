@@ -7,7 +7,7 @@ Diffusion Models for MRI
 ========================
 This Python library is being created as part of a thesis in the fall semester of 2023
 at ETH Zurich. It offers everything to get you started on conditional reconstruction
-of MRI acquisitions using diffusion models.
+of accelerated MRI acquisitions using denoising diffusion probabilistic models (DDPMs).
 
 .. note::
    Not yet under development. We're only setting things up.
@@ -17,5 +17,5 @@ of MRI acquisitions using diffusion models.
 
    Homepage <self>
    Installation <installation>
-   API Reference <_autosummary/diffusion_models>
+   API Reference <api>
    Research <chap/tex_stuff>
