@@ -1,6 +1,0 @@
-diffusion\_models.mri\_forward.undersampling\_mask.naive\_undersampling1d\_v
-============================================================================
-
-.. currentmodule:: diffusion_models.mri_forward.undersampling_mask
-
-.. autofunction:: naive_undersampling1d_v

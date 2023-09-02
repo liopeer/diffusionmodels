@@ -1,6 +1,0 @@
-diffusion\_models.mri\_forward.noise.independent\_gauss\_noise
-==============================================================
-
-.. currentmodule:: diffusion_models.mri_forward.noise
-
-.. autofunction:: independent_gauss_noise

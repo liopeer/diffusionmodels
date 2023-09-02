@@ -1,6 +1,0 @@
-diffusion\_models.mri\_forward.undersampling\_mask.gaussian\_kernel1d\_v
-========================================================================
-
-.. currentmodule:: diffusion_models.mri_forward.undersampling_mask
-
-.. autofunction:: gaussian_kernel1d_v
