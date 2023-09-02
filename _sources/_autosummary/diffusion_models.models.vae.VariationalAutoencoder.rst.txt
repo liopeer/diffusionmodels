@@ -1,0 +1,23 @@
+diffusion\_models.models.vae.VariationalAutoencoder
+===================================================
+
+.. currentmodule:: diffusion_models.models.vae
+
+.. autoclass:: VariationalAutoencoder
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+   
+   
+
+   
+   
+   

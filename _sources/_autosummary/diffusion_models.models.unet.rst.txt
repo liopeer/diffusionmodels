@@ -1,4 +1,4 @@
-﻿diffusion\_models.models.unet
+diffusion\_models.models.unet
 =============================
 
 .. automodule:: diffusion_models.models.unet

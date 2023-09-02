@@ -1,4 +1,4 @@
-diffusion\_models.models
+﻿diffusion\_models.models
 ========================
 
 .. automodule:: diffusion_models.models
@@ -26,5 +26,8 @@ diffusion\_models.models
    :template: custom-module-template.rst
    :recursive:
 
+   diffusion_models.models.forward_diffusion
+   diffusion_models.models.positional_encoding
    diffusion_models.models.unet
+   diffusion_models.models.vae
 
