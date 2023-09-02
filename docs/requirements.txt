@@ -5,4 +5,7 @@ myst_parser
 sphinx-autodoc-typehints
 jaxtyping
 pandoc
+torch 
+torchvision 
+torchaudio
 git+https://github.com/liopeer/type_hints.git
