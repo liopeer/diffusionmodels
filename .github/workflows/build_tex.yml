@@ -1,0 +1,21 @@
+name: "Build LaTeX Thesis"
+on: [push]
+permissions:
+  contents: write
+
+jobs:
+  # anything in the job "tex" is executed on the same runner
+  tex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v3
+      - name: Compile TeX doc
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: thesis/main.tex
+      - name: Upload PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: thesis/main.pdf

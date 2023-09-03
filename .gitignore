@@ -5,9 +5,6 @@ docs/token.txt
 # datasets
 tests/data
 
-# tex build
-thesis/tmp/
-
 # sphinx build
 docs/source/_autosummary
 
