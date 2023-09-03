@@ -13,7 +13,8 @@ jobs:
       - name: Compile TeX doc
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: thesis/main.tex
+          working_directory: thesis/
+          root_file: main.tex
       - name: Upload PDF
         uses: actions/upload-artifact@v3
         with:
