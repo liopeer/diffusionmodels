@@ -50,6 +50,7 @@ diffusion\_models.models.vae.VariationalAutoencoder
       ~VariationalAutoencoder.register_module
       ~VariationalAutoencoder.register_parameter
       ~VariationalAutoencoder.register_state_dict_pre_hook
+      ~VariationalAutoencoder.reparameterize
       ~VariationalAutoencoder.requires_grad_
       ~VariationalAutoencoder.set_extra_state
       ~VariationalAutoencoder.share_memory
