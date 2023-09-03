@@ -1,0 +1,77 @@
+diffusion\_models.models.vae.ResNetBlock
+========================================
+
+.. currentmodule:: diffusion_models.models.vae
+
+.. autoclass:: ResNetBlock
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ResNetBlock.add_module
+      ~ResNetBlock.apply
+      ~ResNetBlock.bfloat16
+      ~ResNetBlock.buffers
+      ~ResNetBlock.children
+      ~ResNetBlock.cpu
+      ~ResNetBlock.cuda
+      ~ResNetBlock.double
+      ~ResNetBlock.eval
+      ~ResNetBlock.extra_repr
+      ~ResNetBlock.float
+      ~ResNetBlock.forward
+      ~ResNetBlock.get_buffer
+      ~ResNetBlock.get_extra_state
+      ~ResNetBlock.get_parameter
+      ~ResNetBlock.get_submodule
+      ~ResNetBlock.half
+      ~ResNetBlock.ipu
+      ~ResNetBlock.load_state_dict
+      ~ResNetBlock.modules
+      ~ResNetBlock.named_buffers
+      ~ResNetBlock.named_children
+      ~ResNetBlock.named_modules
+      ~ResNetBlock.named_parameters
+      ~ResNetBlock.parameters
+      ~ResNetBlock.register_backward_hook
+      ~ResNetBlock.register_buffer
+      ~ResNetBlock.register_forward_hook
+      ~ResNetBlock.register_forward_pre_hook
+      ~ResNetBlock.register_full_backward_hook
+      ~ResNetBlock.register_full_backward_pre_hook
+      ~ResNetBlock.register_load_state_dict_post_hook
+      ~ResNetBlock.register_module
+      ~ResNetBlock.register_parameter
+      ~ResNetBlock.register_state_dict_pre_hook
+      ~ResNetBlock.requires_grad_
+      ~ResNetBlock.set_extra_state
+      ~ResNetBlock.share_memory
+      ~ResNetBlock.state_dict
+      ~ResNetBlock.to
+      ~ResNetBlock.to_empty
+      ~ResNetBlock.train
+      ~ResNetBlock.type
+      ~ResNetBlock.xpu
+      ~ResNetBlock.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ResNetBlock.T_destination
+      ~ResNetBlock.call_super_init
+      ~ResNetBlock.dump_patches
+      ~ResNetBlock.training
+   
+   

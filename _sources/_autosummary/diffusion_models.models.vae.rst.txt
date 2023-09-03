@@ -19,6 +19,8 @@ diffusion\_models.models.vae
       :toctree:
       :template: custom-class-template.rst
    
+      ResNet18Encoder
+      ResNetBlock
       VariationalAutoencoder
    
    
