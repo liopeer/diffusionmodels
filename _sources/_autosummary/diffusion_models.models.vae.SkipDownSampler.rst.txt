@@ -1,0 +1,77 @@
+diffusion\_models.models.vae.SkipDownSampler
+============================================
+
+.. currentmodule:: diffusion_models.models.vae
+
+.. autoclass:: SkipDownSampler
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SkipDownSampler.add_module
+      ~SkipDownSampler.apply
+      ~SkipDownSampler.bfloat16
+      ~SkipDownSampler.buffers
+      ~SkipDownSampler.children
+      ~SkipDownSampler.cpu
+      ~SkipDownSampler.cuda
+      ~SkipDownSampler.double
+      ~SkipDownSampler.eval
+      ~SkipDownSampler.extra_repr
+      ~SkipDownSampler.float
+      ~SkipDownSampler.forward
+      ~SkipDownSampler.get_buffer
+      ~SkipDownSampler.get_extra_state
+      ~SkipDownSampler.get_parameter
+      ~SkipDownSampler.get_submodule
+      ~SkipDownSampler.half
+      ~SkipDownSampler.ipu
+      ~SkipDownSampler.load_state_dict
+      ~SkipDownSampler.modules
+      ~SkipDownSampler.named_buffers
+      ~SkipDownSampler.named_children
+      ~SkipDownSampler.named_modules
+      ~SkipDownSampler.named_parameters
+      ~SkipDownSampler.parameters
+      ~SkipDownSampler.register_backward_hook
+      ~SkipDownSampler.register_buffer
+      ~SkipDownSampler.register_forward_hook
+      ~SkipDownSampler.register_forward_pre_hook
+      ~SkipDownSampler.register_full_backward_hook
+      ~SkipDownSampler.register_full_backward_pre_hook
+      ~SkipDownSampler.register_load_state_dict_post_hook
+      ~SkipDownSampler.register_module
+      ~SkipDownSampler.register_parameter
+      ~SkipDownSampler.register_state_dict_pre_hook
+      ~SkipDownSampler.requires_grad_
+      ~SkipDownSampler.set_extra_state
+      ~SkipDownSampler.share_memory
+      ~SkipDownSampler.state_dict
+      ~SkipDownSampler.to
+      ~SkipDownSampler.to_empty
+      ~SkipDownSampler.train
+      ~SkipDownSampler.type
+      ~SkipDownSampler.xpu
+      ~SkipDownSampler.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SkipDownSampler.T_destination
+      ~SkipDownSampler.call_super_init
+      ~SkipDownSampler.dump_patches
+      ~SkipDownSampler.training
+   
+   

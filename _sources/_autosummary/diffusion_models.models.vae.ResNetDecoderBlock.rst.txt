@@ -1,0 +1,77 @@
+diffusion\_models.models.vae.ResNetDecoderBlock
+===============================================
+
+.. currentmodule:: diffusion_models.models.vae
+
+.. autoclass:: ResNetDecoderBlock
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ResNetDecoderBlock.add_module
+      ~ResNetDecoderBlock.apply
+      ~ResNetDecoderBlock.bfloat16
+      ~ResNetDecoderBlock.buffers
+      ~ResNetDecoderBlock.children
+      ~ResNetDecoderBlock.cpu
+      ~ResNetDecoderBlock.cuda
+      ~ResNetDecoderBlock.double
+      ~ResNetDecoderBlock.eval
+      ~ResNetDecoderBlock.extra_repr
+      ~ResNetDecoderBlock.float
+      ~ResNetDecoderBlock.forward
+      ~ResNetDecoderBlock.get_buffer
+      ~ResNetDecoderBlock.get_extra_state
+      ~ResNetDecoderBlock.get_parameter
+      ~ResNetDecoderBlock.get_submodule
+      ~ResNetDecoderBlock.half
+      ~ResNetDecoderBlock.ipu
+      ~ResNetDecoderBlock.load_state_dict
+      ~ResNetDecoderBlock.modules
+      ~ResNetDecoderBlock.named_buffers
+      ~ResNetDecoderBlock.named_children
+      ~ResNetDecoderBlock.named_modules
+      ~ResNetDecoderBlock.named_parameters
+      ~ResNetDecoderBlock.parameters
+      ~ResNetDecoderBlock.register_backward_hook
+      ~ResNetDecoderBlock.register_buffer
+      ~ResNetDecoderBlock.register_forward_hook
+      ~ResNetDecoderBlock.register_forward_pre_hook
+      ~ResNetDecoderBlock.register_full_backward_hook
+      ~ResNetDecoderBlock.register_full_backward_pre_hook
+      ~ResNetDecoderBlock.register_load_state_dict_post_hook
+      ~ResNetDecoderBlock.register_module
+      ~ResNetDecoderBlock.register_parameter
+      ~ResNetDecoderBlock.register_state_dict_pre_hook
+      ~ResNetDecoderBlock.requires_grad_
+      ~ResNetDecoderBlock.set_extra_state
+      ~ResNetDecoderBlock.share_memory
+      ~ResNetDecoderBlock.state_dict
+      ~ResNetDecoderBlock.to
+      ~ResNetDecoderBlock.to_empty
+      ~ResNetDecoderBlock.train
+      ~ResNetDecoderBlock.type
+      ~ResNetDecoderBlock.xpu
+      ~ResNetDecoderBlock.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ResNetDecoderBlock.T_destination
+      ~ResNetDecoderBlock.call_super_init
+      ~ResNetDecoderBlock.dump_patches
+      ~ResNetDecoderBlock.training
+   
+   

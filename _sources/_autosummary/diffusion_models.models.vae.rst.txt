@@ -19,8 +19,12 @@ diffusion\_models.models.vae
       :toctree:
       :template: custom-class-template.rst
    
+      ResNet18Decoder
       ResNet18Encoder
       ResNetBlock
+      ResNetDecoderBlock
+      SkipDownSampler
+      SkipUpSampler
       VariationalAutoencoder
    
    

@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.vae.VariationalAutoencoder" href="diffusion_models.models.vae.VariationalAutoencoder.html" />
+    <link rel="next" title="diffusion_models.models.vae.ResNetDecoderBlock" href="diffusion_models.models.vae.ResNetDecoderBlock.html" />
     <link rel="prev" title="diffusion_models.models.vae.ResNet18Encoder" href="diffusion_models.models.vae.ResNet18Encoder.html" /> 
 </head>
 
@@ -52,8 +52,12 @@
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNet18Decoder.html">diffusion_models.models.vae.ResNet18Decoder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNet18Encoder.html">diffusion_models.models.vae.ResNet18Encoder</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.vae.ResNetBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNetDecoderBlock.html">diffusion_models.models.vae.ResNetDecoderBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.SkipDownSampler.html">diffusion_models.models.vae.SkipDownSampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.SkipUpSampler.html">diffusion_models.models.vae.SkipUpSampler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.VariationalAutoencoder.html">diffusion_models.models.vae.VariationalAutoencoder</a></li>
 </ul>
 </li>
@@ -101,16 +105,11 @@
 <h1>diffusion_models.models.vae.ResNetBlock<a class="headerlink" href="#diffusion-models-models-vae-resnetblock" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="diffusion_models.models.vae.ResNetBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.vae.</span></span><span class="sig-name descname"><span class="pre">ResNetBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.ResNetBlock" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.vae.</span></span><span class="sig-name descname"><span class="pre">ResNetBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.ResNetBlock" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Class implementing the ResNet Basic Building Block.</p>
+<p>Class implementing the ResNet Basic Building Block, currently limited to usage in ResNet18 and ResNet34.</p>
 <p>For visualization, see Fig. 2 in He et al: Deep Residual Learning for Image Recognition (2015).</p>
 <p>Constructor of ResNetBlock.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>downsampler</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>]) – nn.Module applying downsampling (needed if stride != 0)</p>
-</dd>
-</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -513,7 +512,7 @@ strings are acceptable.</p>
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.ResNetBlock.forward" title="Link to this definition"></a></dt>
 <dd><p>Defines the computation performed at every call.</p>
 <p>Should be overridden by all subclasses.
-:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code></p>
+:rtype: <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels*2</span> <span class="pre">height/2</span> <span class="pre">width/2']</span></code>]</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Although the recipe for forward pass needs to be defined within
@@ -1551,7 +1550,7 @@ See <code class="xref py py-meth docutils literal notranslate"><span class="pre"
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="diffusion_models.models.vae.ResNet18Encoder.html" class="btn btn-neutral float-left" title="diffusion_models.models.vae.ResNet18Encoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.vae.VariationalAutoencoder.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae.VariationalAutoencoder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.vae.ResNetDecoderBlock.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae.ResNetDecoderBlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

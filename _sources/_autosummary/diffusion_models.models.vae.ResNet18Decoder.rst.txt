@@ -1,0 +1,77 @@
+diffusion\_models.models.vae.ResNet18Decoder
+============================================
+
+.. currentmodule:: diffusion_models.models.vae
+
+.. autoclass:: ResNet18Decoder
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ResNet18Decoder.add_module
+      ~ResNet18Decoder.apply
+      ~ResNet18Decoder.bfloat16
+      ~ResNet18Decoder.buffers
+      ~ResNet18Decoder.children
+      ~ResNet18Decoder.cpu
+      ~ResNet18Decoder.cuda
+      ~ResNet18Decoder.double
+      ~ResNet18Decoder.eval
+      ~ResNet18Decoder.extra_repr
+      ~ResNet18Decoder.float
+      ~ResNet18Decoder.forward
+      ~ResNet18Decoder.get_buffer
+      ~ResNet18Decoder.get_extra_state
+      ~ResNet18Decoder.get_parameter
+      ~ResNet18Decoder.get_submodule
+      ~ResNet18Decoder.half
+      ~ResNet18Decoder.ipu
+      ~ResNet18Decoder.load_state_dict
+      ~ResNet18Decoder.modules
+      ~ResNet18Decoder.named_buffers
+      ~ResNet18Decoder.named_children
+      ~ResNet18Decoder.named_modules
+      ~ResNet18Decoder.named_parameters
+      ~ResNet18Decoder.parameters
+      ~ResNet18Decoder.register_backward_hook
+      ~ResNet18Decoder.register_buffer
+      ~ResNet18Decoder.register_forward_hook
+      ~ResNet18Decoder.register_forward_pre_hook
+      ~ResNet18Decoder.register_full_backward_hook
+      ~ResNet18Decoder.register_full_backward_pre_hook
+      ~ResNet18Decoder.register_load_state_dict_post_hook
+      ~ResNet18Decoder.register_module
+      ~ResNet18Decoder.register_parameter
+      ~ResNet18Decoder.register_state_dict_pre_hook
+      ~ResNet18Decoder.requires_grad_
+      ~ResNet18Decoder.set_extra_state
+      ~ResNet18Decoder.share_memory
+      ~ResNet18Decoder.state_dict
+      ~ResNet18Decoder.to
+      ~ResNet18Decoder.to_empty
+      ~ResNet18Decoder.train
+      ~ResNet18Decoder.type
+      ~ResNet18Decoder.xpu
+      ~ResNet18Decoder.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ResNet18Decoder.T_destination
+      ~ResNet18Decoder.call_super_init
+      ~ResNet18Decoder.dump_patches
+      ~ResNet18Decoder.training
+   
+   
