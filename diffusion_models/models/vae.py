@@ -57,58 +57,129 @@ class ResNet18Encoder(nn.Module):
         return x
 
 class ResNetBlock(nn.Module):
-    """Class implementing the ResNet Basic Building Block.
+    """Class implementing the ResNet Basic Building Block, currently limited to usage in ResNet18 and ResNet34.
 
     For visualization, see Fig. 2 in He et al: Deep Residual Learning for Image Recognition (2015).
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: Union[int, Tuple]=3, stride: int=1,downsampler: nn.Module=None) -> None:
-        """Constructor of ResNetBlock.
-
-        Parameters
-        ----------
-        downsampler
-            nn.Module applying downsampling (needed if stride != 0)
-        """
+    def __init__(self, in_channels: int, out_channels: int) -> None:
+        """Constructor of ResNetBlock."""
         super().__init__()
-        if (stride != 1) and (downsampler is None):
-            raise ValueError("Choose valid combination of downsampler and stride.")
         self.in_channels = in_channels
         self.out_channels = out_channels
-        self.kernel_size = kernel_size
-        self.stride = stride
-        self.downsampler = downsampler
 
-        self.conv1 = nn.Conv2d(
-            in_channels,
-            out_channels,
-            kernel_size = kernel_size,
-            stride = stride,
-            padding = "same",
-            bias = False # REALLY?
-        )
-
+        if in_channels != out_channels:
+            self.conv1 = nn.Conv2d(
+                in_channels,
+                out_channels,
+                kernel_size = 3,
+                stride = 2,
+                padding = 1
+            )
+        else:
+            self.conv1 = nn.Conv2d(
+                in_channels,
+                out_channels,
+                kernel_size = 3,
+                stride = 1,
+                padding = 1
+            )
         self.bn1 = nn.BatchNorm2d(out_channels)
-
-        self.activation = nn.ReLU()
-
         self.conv2 = nn.Conv2d(
             out_channels,
             out_channels,
-            kernel_size = kernel_size,
-            padding = "same",
-            bias = False
+            kernel_size = 3,
+            padding = 1
         )
-
         self.bn2 = nn.BatchNorm2d(out_channels)
+        self.activation = nn.ReLU()
 
-    def forward(self, x: Float[Tensor, "batch channels height width"]) -> Float[Tensor, "batch channels height width"]:
-        if self.downsampler is not None:
+        if in_channels != out_channels:
+            self.downsampler = SkipDownSampler(in_channels, out_channels)
+
+    def forward(self, x: Float[Tensor, "batch channels height width"]) -> Union[Float[Tensor, "batch channels height width"], Float[Tensor, "batch channels*2 height/2 width/2"]]:
+        if self.in_channels != self.out_channels:
             x_0 = self.downsampler(x)
         else:
             x_0 = x
-
-        for layer in [self.conv1, self.bn1, self.activation, self.conv2, self.activation]:
+        for layer in [self.conv1, self.bn1, self.activation, self.conv2, self.bn2]:
             x = layer(x)
-
         x = x + x_0
         return self.activation(x)
+    
+class SkipDownSampler(nn.Module):
+    """Class SkipDownSampler."""
+    def __init__(self, in_channels: int, out_channels: int) -> None:
+        super().__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=2)
+
+    def forward(self, x):
+        return self.conv(x)
+    
+class ResNet18Decoder(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+        pass
+
+    def forward(self, x):
+        return x
+    
+class ResNetDecoderBlock(nn.Module):
+    def __init__(self, in_channels: int, out_channels: int) -> None:
+        """Constructor of ResNetDecoderBlock.
+
+        Inspired by ResNet18/ResNet34, using strided transpose convolutions.
+        """
+        super().__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+
+        if in_channels != out_channels:
+            self.conv1 = nn.ConvTranspose2d(
+                in_channels,
+                out_channels,
+                kernel_size = 4,
+                stride = 2,
+                padding = 1
+            )
+        else:
+            self.conv1 = nn.ConvTranspose2d(
+                in_channels,
+                out_channels,
+                kernel_size = 3,
+                stride = 1,
+                padding = 1
+            )
+        self.bn1 = nn.BatchNorm2d(out_channels)
+        self.conv2 = nn.ConvTranspose2d(
+            out_channels,
+            out_channels,
+            kernel_size = 3,
+            padding = 1
+        )
+        self.bn2 = nn.BatchNorm2d(out_channels)
+        self.activation = nn.ReLU()
+
+        if in_channels != out_channels:
+            self.upsampler = SkipUpSampler(in_channels, out_channels)
+
+    def forward(self, x: Float[Tensor, "batch channels height width"]) -> Union[Float[Tensor, "batch channels height width"], Float[Tensor, "batch channels*2 height/2 width/2"]]:
+        if self.in_channels != self.out_channels:
+            x_0 = self.upsampler(x)
+        else:
+            x_0 = x
+        for layer in [self.conv1, self.bn1, self.activation, self.conv2, self.bn2]:
+            x = layer(x)
+        print(x.shape, x_0.shape)
+        x = x + x_0
+        return self.activation(x)
+    
+class SkipUpSampler(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+        self.upsample = nn.Upsample(scale_factor=2)
+        self.conv = nn.ConvTranspose2d(in_channels, out_channels, kernel_size=1)
+
+    def forward(self, x):
+        x = self.upsample(x)
+        x = self.conv(x)
+        return x
