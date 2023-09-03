@@ -1,7 +1,7 @@
 ![Docs](https://github.com/liopeer/diffusionmodels/actions/workflows/build_docs.yml/badge.svg) ![Thesis](https://github.com/liopeer/diffusionmodels/actions/workflows/build_tex.yml/badge.svg)
 
 <p align="center">
-  <img src="./docs/source/fig/diffMRI_logo.svg" width=100/>
+  <img src="./docs/source/fig/diffMRI_logo.svg" width=150/>
 </p>
 
 # DiffusionMRI
