@@ -19,3 +19,4 @@ of accelerated MRI acquisitions using denoising diffusion probabilistic models (
    Installation <installation>
    API Reference <api>
    Research <chap/tex_stuff>
+   Idea Corner <idea_corner>
