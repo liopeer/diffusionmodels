@@ -11,3 +11,7 @@ The goal of this repo is to unite models and approaches for conditioning DDPMs (
 
 ## Getting Started
 Everything to get you started you will find in the documentation of the [DiffusionMRI documentation](https://liopeer.github.io/diffusionmodels/index.html). Feel free to raise issues or get in touch if you would like to contribute.
+
+## VSCode Remote Troubleshooting
+### Repeated Password Query
+[UChicago-VSCode Remote](https://howto.cs.uchicago.edu/techstaff:vscode)
