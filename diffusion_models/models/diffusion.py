@@ -3,6 +3,29 @@ from torch import nn, Tensor
 from jaxtyping import Float
 from typing import Literal
 
+class DiffusionModel(nn.Module):
+    def __init__(
+            self,
+            backbone: nn.Module,
+            timesteps: int,
+            t_start: float=0.0001,
+            t_end: float=0.02,
+            schedule_type=Literal["linear", "cosine"]="linear"
+        ) -> None:
+        super().__init__()
+        self.model = backbone
+        self.fwd_diff = ForwardDiffusion(timesteps, t_start, t_end, schedule_type)
+
+    def forward(self, x):
+        t = self._sample_timestep(x.shape[0])
+        x_t, noise = self.fwd_diff(x, t)
+        noise_pred = self.model(x_t, t)
+        return noise_pred, noise
+
+    def _sample_timestep(self, batch_size):
+        return torch.randint(low=1, high=self.fwd_diff.noise_steps, size=(n,))
+
+
 class ForwardDiffusion(nn.Module):
     """Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).
     

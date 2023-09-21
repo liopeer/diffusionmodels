@@ -8,8 +8,9 @@ from torch.optim import Optimizer
 import numpy as np
 from time import time
 import wandb
-from typing import Callable, Literal
+from typing import Callable, Literal, Any
 import wandb
+from torch.nn import Module
 
 class Trainer:
     """Trainer Class that trains 1 model instance on 1 device."""
@@ -80,11 +81,11 @@ class Trainer:
     def _run_epoch(self, epoch):
         epoch_losses = []
         time1 = time()
-        for source, targets in self.train_data:
+        for data in self.train_data:
             if self.device_type == "cuda":
-                data = map(lambda x: x.to(self.gpu_id))
+                data = map(lambda x: x.to(self.gpu_id), data)
             else:
-                data = map(lambda x: x.to(self.device_type))
+                data = map(lambda x: x.to(self.device_type), data)
             batch_loss = self._run_batch(data)
             epoch_losses.append(batch_loss)
         if self.log_wandb:
@@ -108,10 +109,7 @@ class Trainer:
             how many epochs to train the model
         """
         for epoch in range(max_epochs):
-            if self.device_type != "cuda":
-                self._run_epoch_nonCuda(epoch)
-            else:
-                self._run_epoch(epoch)
+            self._run_epoch(epoch)
             if (self.gpu_id == 0) and (epoch % self.save_every == 0) and (epoch != 0):
                 self._save_checkpoint(epoch)
 

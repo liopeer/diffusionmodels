@@ -10,7 +10,7 @@ import torch.nn.functional as F
 import numpy as np
 import torch.nn as nn
 import context
-from diffusion_models.models.forward_diffusion import ForwardDiffusion
+from diffusion_models.models.diffusion import ForwardDiffusion
 
 img = "/home/pel1yh/Pictures/output7.png"
 img2 = "/home/pel1yh/Pictures/output8.png"
