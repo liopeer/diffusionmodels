@@ -10,7 +10,7 @@ class DiffusionModel(nn.Module):
             timesteps: int,
             t_start: float=0.0001,
             t_end: float=0.02,
-            schedule_type=Literal["linear", "cosine"]="linear"
+            schedule_type: Literal["linear", "cosine"]="linear"
         ) -> None:
         super().__init__()
         self.model = backbone
@@ -18,9 +18,21 @@ class DiffusionModel(nn.Module):
 
     def forward(self, x):
         t = self._sample_timestep(x.shape[0])
+        t = t.unsqueeze(-1).type(torch.float)
+        t = self._pos_encoding(t, self.time_dim)
         x_t, noise = self.fwd_diff(x, t)
         noise_pred = self.model(x_t, t)
         return noise_pred, noise
+    
+    def _pos_encoding(self, t, channels):
+        inv_freq = 1.0 / (
+            10000
+            ** (torch.arange(0, channels, 2, device=self.device).float() / channels)
+        )
+        pos_enc_a = torch.sin(t.repeat(1, channels // 2) * inv_freq)
+        pos_enc_b = torch.cos(t.repeat(1, channels // 2) * inv_freq)
+        pos_enc = torch.cat([pos_enc_a, pos_enc_b], dim=-1)
+        return pos_enc
 
     def _sample_timestep(self, batch_size):
         return torch.randint(low=1, high=self.fwd_diff.noise_steps, size=(n,))
