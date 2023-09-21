@@ -11,7 +11,7 @@ import wandb
 from typing import Callable, Literal
 import wandb
 
-class DiscriminativeTrainer:
+class Trainer:
     """Trainer Class that trains 1 model instance on 1 device."""
     def __init__(
         self,
@@ -74,31 +74,18 @@ class DiscriminativeTrainer:
     def _setup_dataloader(self, dataset):
         return DataLoader(dataset, batch_size=self.batch_size, pin_memory=True, shuffle=False, sampler=DistributedSampler(dataset))
 
-    def _run_batch(self, source, targets):
-        self.optimizer.zero_grad()
-        pred = self.model(source)
-        loss = self.loss_func(pred, targets)
-        loss.backward()
-        self.optimizer.step()
-        return loss.item()
-    
-    def _run_epoch_nonCuda(self, epoch):
-        epoch_losses = []
-        time1 = time()
-        for source, targets in self.train_data:
-            source, targets = source.to(self.device_type), targets.to(self.device_type)
-            batch_loss = self._run_batch(source, targets)
-            epoch_losses.append(batch_loss)
-        if self.log_wandb:
-            wandb.log({"epoch": epoch, "loss": np.mean(epoch_losses), "epoch_time": time()-time1})
-        print(f"[{self.device_type}{self.gpu_id}] Epoch {epoch} | Batchsize: {self.batch_size} | Steps: {len(self.train_data)} | Loss: {np.mean(epoch_losses)} | Time: {time()-time1:.2f}s")
+    def _run_batch(self, data):
+        raise NotImplementedError("use dedicated subclass")
 
     def _run_epoch(self, epoch):
         epoch_losses = []
         time1 = time()
         for source, targets in self.train_data:
-            source, targets = source.to(self.gpu_id), targets.to(self.gpu_id)
-            batch_loss = self._run_batch(source, targets)
+            if self.device_type == "cuda":
+                data = map(lambda x: x.to(self.gpu_id))
+            else:
+                data = map(lambda x: x.to(self.device_type))
+            batch_loss = self._run_batch(data)
             epoch_losses.append(batch_loss)
         if self.log_wandb:
             wandb.log({"epoch": epoch, "loss": np.mean(epoch_losses), "epoch_time": time()-time1})
@@ -127,3 +114,24 @@ class DiscriminativeTrainer:
                 self._run_epoch(epoch)
             if (self.gpu_id == 0) and (epoch % self.save_every == 0) and (epoch != 0):
                 self._save_checkpoint(epoch)
+
+class DiscriminativeTrainer(Trainer):
+    def __init__(self, model: Module, train_data: Dataset, loss_func: Callable[..., Any], optimizer: Optimizer, gpu_id: int, batch_size: int, save_every: int, checkpoint_folder: str, device_type: Literal['cuda', 'mps', 'cpu'], log_wandb: bool = True) -> None:
+        super().__init__(model, train_data, loss_func, optimizer, gpu_id, batch_size, save_every, checkpoint_folder, device_type, log_wandb)
+
+    def _run_batch(self, data):
+        source, targets = data
+        self.optimizer.zero_grad()
+        pred = self.model(source)
+        loss = self.loss_func(pred, targets)
+        loss.backward()
+        self.optimizer.step()
+        return loss.item()
+    
+class GenerativeTrainer(Trainer):
+    def __init__(self, model: Module, train_data: Dataset, loss_func: Callable[..., Any], optimizer: Optimizer, gpu_id: int, batch_size: int, save_every: int, checkpoint_folder: str, device_type: Literal['cuda', 'mps', 'cpu'], log_wandb: bool = True) -> None:
+        super().__init__(model, train_data, loss_func, optimizer, gpu_id, batch_size, save_every, checkpoint_folder, device_type, log_wandb)
+
+    def _run_batch(self, data):
+        self.optimizer.zero_grad()
+        raise NotImplementedError("not finished yet")
