@@ -16,17 +16,19 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 100,
+    total_epochs = 5,
     batch_size = 1000,
     learning_rate = 0.001,
-    device_type = "cpu",
+    device_type = "cuda",
     dataloader = MNISTTrainLoader,
     architecture = MNISTEncoder,
     out_classes = 10,
     optimizer = torch.optim.Adam,
     kernel_size = 3,
-    data_path = os.path.abspath("./data"),
-    checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
+    #data_path = os.path.abspath("./data"),
+    #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
+    data_path = "/itet-stor/peerli/net_scratch",
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnist_checkpoints",
     save_every = 10,
     loss_func = F.cross_entropy
 )
@@ -38,6 +40,8 @@ def load_train_objs(config):
     return train_set, model, optimizer
 
 def training(rank, world_size, config):
+    if rank == 0:
+        wandb.init(project="mnist_trials", config=config, save_code=True)
     dataset, model, optimizer = load_train_objs(config)
     trainer = DiscriminativeTrainer(model, dataset, config.loss_func, optimizer, rank, config.batch_size, config.save_every, config.checkpoint_folder, config.device_type)
     trainer.train(config.total_epochs)

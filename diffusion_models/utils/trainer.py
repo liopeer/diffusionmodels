@@ -63,8 +63,8 @@ class DiscriminativeTrainer:
         self.optimizer = optimizer
         self.save_every = save_every
         self.checkpoint_folder = checkpoint_folder
-        self.log_wandb = log_wandb
-        if log_wandb:
+        self.log_wandb = log_wandb and (self.gpu_id==0)
+        if self.log_wandb:
             wandb.watch(self.model, log="all", log_freq=save_every)
 
     def _setup_model(self, model):
