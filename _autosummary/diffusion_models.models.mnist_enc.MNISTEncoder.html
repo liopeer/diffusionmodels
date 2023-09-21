@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.models.vae.SkipDownSampler &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.models.mnist_enc.MNISTEncoder &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.vae.SkipUpSampler" href="diffusion_models.models.vae.SkipUpSampler.html" />
-    <link rel="prev" title="diffusion_models.models.vae.ResNetDecoderBlock" href="diffusion_models.models.vae.ResNetDecoderBlock.html" /> 
+    <link rel="next" title="diffusion_models.models.positional_encoding" href="diffusion_models.models.positional_encoding.html" />
+    <link rel="prev" title="diffusion_models.models.mnist_enc" href="diffusion_models.models.mnist_enc.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,19 +49,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.forward_diffusion.html">diffusion_models.models.forward_diffusion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNet18Decoder.html">diffusion_models.models.vae.ResNet18Decoder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNet18Encoder.html">diffusion_models.models.vae.ResNet18Encoder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNetBlock.html">diffusion_models.models.vae.ResNetBlock</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNetDecoderBlock.html">diffusion_models.models.vae.ResNetDecoderBlock</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.vae.SkipDownSampler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.SkipUpSampler.html">diffusion_models.models.vae.SkipUpSampler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.VariationalAutoencoder.html">diffusion_models.models.vae.VariationalAutoencoder</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.mnist_enc.MNISTEncoder</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
@@ -93,10 +87,10 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
-          <li class="breadcrumb-item"><a href="diffusion_models.models.vae.html">diffusion_models.models.vae</a></li>
-      <li class="breadcrumb-item active">diffusion_models.models.vae.SkipDownSampler</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
+      <li class="breadcrumb-item active">diffusion_models.models.mnist_enc.MNISTEncoder</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.models.vae.SkipDownSampler.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.models.mnist_enc.MNISTEncoder.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -104,150 +98,149 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="diffusion-models-models-vae-skipdownsampler">
-<h1>diffusion_models.models.vae.SkipDownSampler<a class="headerlink" href="#diffusion-models-models-vae-skipdownsampler" title="Link to this heading"></a></h1>
+  <section id="diffusion-models-models-mnist-enc-mnistencoder">
+<h1>diffusion_models.models.mnist_enc.MNISTEncoder<a class="headerlink" href="#diffusion-models-models-mnist-enc-mnistencoder" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.vae.</span></span><span class="sig-name descname"><span class="pre">SkipDownSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.mnist_enc.</span></span><span class="sig-name descname"><span class="pre">MNISTEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Class SkipDownSampler.</p>
 <p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.add_module" title="diffusion_models.models.vae.SkipDownSampler.add_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_module</span></code></a>(name, module)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.add_module" title="diffusion_models.models.mnist_enc.MNISTEncoder.add_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_module</span></code></a>(name, module)</p></td>
 <td><p>Adds a child module to the current module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.apply" title="diffusion_models.models.vae.SkipDownSampler.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(fn)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.apply" title="diffusion_models.models.mnist_enc.MNISTEncoder.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(fn)</p></td>
 <td><p>Applies <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>) as well as self.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.bfloat16" title="diffusion_models.models.vae.SkipDownSampler.bfloat16"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bfloat16</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.bfloat16" title="diffusion_models.models.mnist_enc.MNISTEncoder.bfloat16"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bfloat16</span></code></a>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> datatype.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.buffers" title="diffusion_models.models.vae.SkipDownSampler.buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffers</span></code></a>([recurse])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.buffers" title="diffusion_models.models.mnist_enc.MNISTEncoder.buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffers</span></code></a>([recurse])</p></td>
 <td><p>Returns an iterator over module buffers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.children" title="diffusion_models.models.vae.SkipDownSampler.children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.children" title="diffusion_models.models.mnist_enc.MNISTEncoder.children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children</span></code></a>()</p></td>
 <td><p>Returns an iterator over immediate children modules.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.cpu" title="diffusion_models.models.vae.SkipDownSampler.cpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cpu</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.cpu" title="diffusion_models.models.mnist_enc.MNISTEncoder.cpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cpu</span></code></a>()</p></td>
 <td><p>Moves all model parameters and buffers to the CPU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.cuda" title="diffusion_models.models.vae.SkipDownSampler.cuda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cuda</span></code></a>([device])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.cuda" title="diffusion_models.models.mnist_enc.MNISTEncoder.cuda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cuda</span></code></a>([device])</p></td>
 <td><p>Moves all model parameters and buffers to the GPU.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.double" title="diffusion_models.models.vae.SkipDownSampler.double"><code class="xref py py-obj docutils literal notranslate"><span class="pre">double</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.double" title="diffusion_models.models.mnist_enc.MNISTEncoder.double"><code class="xref py py-obj docutils literal notranslate"><span class="pre">double</span></code></a>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">double</span></code> datatype.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.eval" title="diffusion_models.models.vae.SkipDownSampler.eval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.eval" title="diffusion_models.models.mnist_enc.MNISTEncoder.eval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval</span></code></a>()</p></td>
 <td><p>Sets the module in evaluation mode.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.extra_repr" title="diffusion_models.models.vae.SkipDownSampler.extra_repr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extra_repr</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.extra_repr" title="diffusion_models.models.mnist_enc.MNISTEncoder.extra_repr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extra_repr</span></code></a>()</p></td>
 <td><p>Set the extra representation of the module</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.float" title="diffusion_models.models.vae.SkipDownSampler.float"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.float" title="diffusion_models.models.mnist_enc.MNISTEncoder.float"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.forward" title="diffusion_models.models.vae.SkipDownSampler.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.forward" title="diffusion_models.models.mnist_enc.MNISTEncoder.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
 <td><p>Defines the computation performed at every call.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.get_buffer" title="diffusion_models.models.vae.SkipDownSampler.get_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer</span></code></a>(target)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_buffer" title="diffusion_models.models.mnist_enc.MNISTEncoder.get_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer</span></code></a>(target)</p></td>
 <td><p>Returns the buffer given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throws an error.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.get_extra_state" title="diffusion_models.models.vae.SkipDownSampler.get_extra_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_extra_state</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_extra_state" title="diffusion_models.models.mnist_enc.MNISTEncoder.get_extra_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_extra_state</span></code></a>()</p></td>
 <td><p>Returns any extra state to include in the module's state_dict.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.get_parameter" title="diffusion_models.models.vae.SkipDownSampler.get_parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_parameter</span></code></a>(target)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_parameter" title="diffusion_models.models.mnist_enc.MNISTEncoder.get_parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_parameter</span></code></a>(target)</p></td>
 <td><p>Returns the parameter given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throws an error.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.get_submodule" title="diffusion_models.models.vae.SkipDownSampler.get_submodule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_submodule</span></code></a>(target)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_submodule" title="diffusion_models.models.mnist_enc.MNISTEncoder.get_submodule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_submodule</span></code></a>(target)</p></td>
 <td><p>Returns the submodule given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throws an error.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.half" title="diffusion_models.models.vae.SkipDownSampler.half"><code class="xref py py-obj docutils literal notranslate"><span class="pre">half</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.half" title="diffusion_models.models.mnist_enc.MNISTEncoder.half"><code class="xref py py-obj docutils literal notranslate"><span class="pre">half</span></code></a>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">half</span></code> datatype.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.ipu" title="diffusion_models.models.vae.SkipDownSampler.ipu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ipu</span></code></a>([device])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.ipu" title="diffusion_models.models.mnist_enc.MNISTEncoder.ipu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ipu</span></code></a>([device])</p></td>
 <td><p>Moves all model parameters and buffers to the IPU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.load_state_dict" title="diffusion_models.models.vae.SkipDownSampler.load_state_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_state_dict</span></code></a>(state_dict[, strict])</p></td>
-<td><p>Copies parameters and buffers from <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into this module and its descendants.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_state_dict</span></code></a>(state_dict[, strict])</p></td>
+<td><p>Copies parameters and buffers from <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into this module and its descendants.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.modules" title="diffusion_models.models.vae.SkipDownSampler.modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modules</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.modules" title="diffusion_models.models.mnist_enc.MNISTEncoder.modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modules</span></code></a>()</p></td>
 <td><p>Returns an iterator over all modules in the network.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.named_buffers" title="diffusion_models.models.vae.SkipDownSampler.named_buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_buffers</span></code></a>([prefix, recurse, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_buffers" title="diffusion_models.models.mnist_enc.MNISTEncoder.named_buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_buffers</span></code></a>([prefix, recurse, ...])</p></td>
 <td><p>Returns an iterator over module buffers, yielding both the name of the buffer as well as the buffer itself.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.named_children" title="diffusion_models.models.vae.SkipDownSampler.named_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_children</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_children" title="diffusion_models.models.mnist_enc.MNISTEncoder.named_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_children</span></code></a>()</p></td>
 <td><p>Returns an iterator over immediate children modules, yielding both the name of the module as well as the module itself.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.named_modules" title="diffusion_models.models.vae.SkipDownSampler.named_modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_modules</span></code></a>([memo, prefix, remove_duplicate])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_modules" title="diffusion_models.models.mnist_enc.MNISTEncoder.named_modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_modules</span></code></a>([memo, prefix, remove_duplicate])</p></td>
 <td><p>Returns an iterator over all modules in the network, yielding both the name of the module as well as the module itself.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.named_parameters" title="diffusion_models.models.vae.SkipDownSampler.named_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_parameters</span></code></a>([prefix, recurse, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_parameters" title="diffusion_models.models.mnist_enc.MNISTEncoder.named_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">named_parameters</span></code></a>([prefix, recurse, ...])</p></td>
 <td><p>Returns an iterator over module parameters, yielding both the name of the parameter as well as the parameter itself.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.parameters" title="diffusion_models.models.vae.SkipDownSampler.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a>([recurse])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.parameters" title="diffusion_models.models.mnist_enc.MNISTEncoder.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a>([recurse])</p></td>
 <td><p>Returns an iterator over module parameters.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_backward_hook" title="diffusion_models.models.vae.SkipDownSampler.register_backward_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_backward_hook</span></code></a>(hook)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_backward_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_backward_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_backward_hook</span></code></a>(hook)</p></td>
 <td><p>Registers a backward hook on the module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_buffer" title="diffusion_models.models.vae.SkipDownSampler.register_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_buffer</span></code></a>(name, tensor[, persistent])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_buffer" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_buffer</span></code></a>(name, tensor[, persistent])</p></td>
 <td><p>Adds a buffer to the module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_forward_hook" title="diffusion_models.models.vae.SkipDownSampler.register_forward_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_forward_hook</span></code></a>(hook, *[, prepend, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_forward_hook</span></code></a>(hook, *[, prepend, ...])</p></td>
 <td><p>Registers a forward hook on the module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_forward_pre_hook" title="diffusion_models.models.vae.SkipDownSampler.register_forward_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_forward_pre_hook</span></code></a>(hook, *[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_pre_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_forward_pre_hook</span></code></a>(hook, *[, ...])</p></td>
 <td><p>Registers a forward pre-hook on the module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_full_backward_hook" title="diffusion_models.models.vae.SkipDownSampler.register_full_backward_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_full_backward_hook</span></code></a>(hook[, prepend])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_full_backward_hook</span></code></a>(hook[, prepend])</p></td>
 <td><p>Registers a backward hook on the module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_full_backward_pre_hook" title="diffusion_models.models.vae.SkipDownSampler.register_full_backward_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_full_backward_pre_hook</span></code></a>(hook[, prepend])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_pre_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_full_backward_pre_hook</span></code></a>(hook[, prepend])</p></td>
 <td><p>Registers a backward pre-hook on the module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_load_state_dict_post_hook" title="diffusion_models.models.vae.SkipDownSampler.register_load_state_dict_post_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_load_state_dict_post_hook</span></code></a>(hook)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_load_state_dict_post_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_load_state_dict_post_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_load_state_dict_post_hook</span></code></a>(hook)</p></td>
 <td><p>Registers a post hook to be run after module's <code class="docutils literal notranslate"><span class="pre">load_state_dict</span></code> is called.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_module" title="diffusion_models.models.vae.SkipDownSampler.register_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_module</span></code></a>(name, module)</p></td>
-<td><p>Alias for <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.add_module" title="diffusion_models.models.vae.SkipDownSampler.add_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_module()</span></code></a>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_module" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_module</span></code></a>(name, module)</p></td>
+<td><p>Alias for <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.add_module" title="diffusion_models.models.mnist_enc.MNISTEncoder.add_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_module()</span></code></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_parameter" title="diffusion_models.models.vae.SkipDownSampler.register_parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_parameter</span></code></a>(name, param)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_parameter" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_parameter</span></code></a>(name, param)</p></td>
 <td><p>Adds a parameter to the module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.register_state_dict_pre_hook" title="diffusion_models.models.vae.SkipDownSampler.register_state_dict_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_state_dict_pre_hook</span></code></a>(hook)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_state_dict_pre_hook" title="diffusion_models.models.mnist_enc.MNISTEncoder.register_state_dict_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_state_dict_pre_hook</span></code></a>(hook)</p></td>
 <td><p>These hooks will be called with arguments: <code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">prefix</span></code>, and <code class="docutils literal notranslate"><span class="pre">keep_vars</span></code> before calling <code class="docutils literal notranslate"><span class="pre">state_dict</span></code> on <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.requires_grad_" title="diffusion_models.models.vae.SkipDownSampler.requires_grad_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">requires_grad_</span></code></a>([requires_grad])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.requires_grad_" title="diffusion_models.models.mnist_enc.MNISTEncoder.requires_grad_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">requires_grad_</span></code></a>([requires_grad])</p></td>
 <td><p>Change if autograd should record operations on parameters in this module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.set_extra_state" title="diffusion_models.models.vae.SkipDownSampler.set_extra_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_extra_state</span></code></a>(state)</p></td>
-<td><p>This function is called from <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.load_state_dict" title="diffusion_models.models.vae.SkipDownSampler.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> to handle any extra state found within the <cite>state_dict</cite>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.set_extra_state" title="diffusion_models.models.mnist_enc.MNISTEncoder.set_extra_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_extra_state</span></code></a>(state)</p></td>
+<td><p>This function is called from <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> to handle any extra state found within the <cite>state_dict</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.share_memory" title="diffusion_models.models.vae.SkipDownSampler.share_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">share_memory</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.share_memory" title="diffusion_models.models.mnist_enc.MNISTEncoder.share_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">share_memory</span></code></a>()</p></td>
 <td><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.share_memory_()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">state_dict</span></code></a>(*args[, destination, prefix, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">state_dict</span></code></a>(*args[, destination, prefix, ...])</p></td>
 <td><p>Returns a dictionary containing references to the whole state of the module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.to" title="diffusion_models.models.vae.SkipDownSampler.to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.to" title="diffusion_models.models.mnist_enc.MNISTEncoder.to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Moves and/or casts the parameters and buffers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.to_empty" title="diffusion_models.models.vae.SkipDownSampler.to_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_empty</span></code></a>(*, device)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.to_empty" title="diffusion_models.models.mnist_enc.MNISTEncoder.to_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_empty</span></code></a>(*, device)</p></td>
 <td><p>Moves the parameters and buffers to the specified device without copying storage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.train" title="diffusion_models.models.vae.SkipDownSampler.train"><code class="xref py py-obj docutils literal notranslate"><span class="pre">train</span></code></a>([mode])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.train" title="diffusion_models.models.mnist_enc.MNISTEncoder.train"><code class="xref py py-obj docutils literal notranslate"><span class="pre">train</span></code></a>([mode])</p></td>
 <td><p>Sets the module in training mode.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.type" title="diffusion_models.models.vae.SkipDownSampler.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a>(dst_type)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.type" title="diffusion_models.models.mnist_enc.MNISTEncoder.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a>(dst_type)</p></td>
 <td><p>Casts all parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dst_type</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.xpu" title="diffusion_models.models.vae.SkipDownSampler.xpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xpu</span></code></a>([device])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.xpu" title="diffusion_models.models.mnist_enc.MNISTEncoder.xpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xpu</span></code></a>([device])</p></td>
 <td><p>Moves all model parameters and buffers to the XPU.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.zero_grad" title="diffusion_models.models.vae.SkipDownSampler.zero_grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zero_grad</span></code></a>([set_to_none])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.zero_grad" title="diffusion_models.models.mnist_enc.MNISTEncoder.zero_grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zero_grad</span></code></a>([set_to_none])</p></td>
 <td><p>Sets gradients of all model parameters to zero.</p></td>
 </tr>
 </tbody>
@@ -270,14 +263,14 @@
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.__call__" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.__call__" title="Link to this definition"></a></dt>
 <dd><p>Call self as a function.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.add_module">
-<span class="sig-name descname"><span class="pre">add_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.add_module" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.add_module">
+<span class="sig-name descname"><span class="pre">add_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.add_module" title="Link to this definition"></a></dt>
 <dd><p>Adds a child module to the current module.</p>
 <p>The module can be accessed as an attribute using the given name.</p>
 <dl class="field-list simple">
@@ -295,8 +288,8 @@ accessed from this module using the given name</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.apply">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.apply" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.apply" title="Link to this definition"></a></dt>
 <dd><p>Applies <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>)
 as well as self. Typical use includes initializing the parameters of a model
 (see also <span class="xref std std-ref">nn-init-doc</span>).</p>
@@ -337,8 +330,8 @@ as well as self. Typical use includes initializing the parameters of a model
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.bfloat16">
-<span class="sig-name descname"><span class="pre">bfloat16</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.bfloat16" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.bfloat16">
+<span class="sig-name descname"><span class="pre">bfloat16</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.bfloat16" title="Link to this definition"></a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -355,8 +348,8 @@ as well as self. Typical use includes initializing the parameters of a model
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.buffers">
-<span class="sig-name descname"><span class="pre">buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.buffers" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.buffers">
+<span class="sig-name descname"><span class="pre">buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.buffers" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over module buffers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -382,8 +375,8 @@ are direct members of this module.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.children">
-<span class="sig-name descname"><span class="pre">children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.children" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.children">
+<span class="sig-name descname"><span class="pre">children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.children" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over immediate children modules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields<span class="colon">:</span></dt>
@@ -396,8 +389,8 @@ are direct members of this module.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.cpu">
-<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.cpu" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.cpu">
+<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.cpu" title="Link to this definition"></a></dt>
 <dd><p>Moves all model parameters and buffers to the CPU.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -414,8 +407,8 @@ are direct members of this module.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.cuda">
-<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.cuda" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.cuda">
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.cuda" title="Link to this definition"></a></dt>
 <dd><p>Moves all model parameters and buffers to the GPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing optimizer if the module will
@@ -439,8 +432,8 @@ copied to that device</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.double">
-<span class="sig-name descname"><span class="pre">double</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.double" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.double">
+<span class="sig-name descname"><span class="pre">double</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.double" title="Link to this definition"></a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">double</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -457,8 +450,8 @@ copied to that device</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.eval">
-<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.eval" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.eval" title="Link to this definition"></a></dt>
 <dd><p>Sets the module in evaluation mode.</p>
 <p>This has any effect only on certain modules. See documentations of
 particular modules for details of their behaviors in training/evaluation
@@ -478,8 +471,8 @@ etc.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.extra_repr">
-<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.extra_repr" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.extra_repr">
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.extra_repr" title="Link to this definition"></a></dt>
 <dd><p>Set the extra representation of the module</p>
 <p>To print customized extra information, you should re-implement
 this method in your own modules. Both single-line and multi-line
@@ -492,8 +485,8 @@ strings are acceptable.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.float">
-<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.float" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.float">
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.float" title="Link to this definition"></a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -510,8 +503,8 @@ strings are acceptable.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.forward" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.forward" title="Link to this definition"></a></dt>
 <dd><p>Defines the computation performed at every call.</p>
 <p>Should be overridden by all subclasses.</p>
 <div class="admonition note">
@@ -524,8 +517,8 @@ registered hooks while the latter silently ignores them.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.get_buffer">
-<span class="sig-name descname"><span class="pre">get_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.get_buffer" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.get_buffer">
+<span class="sig-name descname"><span class="pre">get_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_buffer" title="Link to this definition"></a></dt>
 <dd><p>Returns the buffer given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists,
 otherwise throws an error.</p>
 <p>See the docstring for <code class="docutils literal notranslate"><span class="pre">get_submodule</span></code> for a more detailed
@@ -552,10 +545,10 @@ fully-qualified string.)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.get_extra_state">
-<span class="sig-name descname"><span class="pre">get_extra_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.get_extra_state" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.get_extra_state">
+<span class="sig-name descname"><span class="pre">get_extra_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_extra_state" title="Link to this definition"></a></dt>
 <dd><p>Returns any extra state to include in the module’s state_dict.
-Implement this and a corresponding <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.set_extra_state" title="diffusion_models.models.vae.SkipDownSampler.set_extra_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_extra_state()</span></code></a> for your module
+Implement this and a corresponding <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.set_extra_state" title="diffusion_models.models.mnist_enc.MNISTEncoder.set_extra_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_extra_state()</span></code></a> for your module
 if you need to store extra state. This function is called when building the
 module’s <cite>state_dict()</cite>.</p>
 <p>Note that extra state should be picklable to ensure working serialization
@@ -573,8 +566,8 @@ their serialized pickled form changes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.get_parameter">
-<span class="sig-name descname"><span class="pre">get_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.get_parameter" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.get_parameter">
+<span class="sig-name descname"><span class="pre">get_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_parameter" title="Link to this definition"></a></dt>
 <dd><p>Returns the parameter given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists,
 otherwise throws an error.</p>
 <p>See the docstring for <code class="docutils literal notranslate"><span class="pre">get_submodule</span></code> for a more detailed
@@ -601,8 +594,8 @@ fully-qualified string.)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.get_submodule">
-<span class="sig-name descname"><span class="pre">get_submodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.get_submodule" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.get_submodule">
+<span class="sig-name descname"><span class="pre">get_submodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_submodule" title="Link to this definition"></a></dt>
 <dd><p>Returns the submodule given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists,
 otherwise throws an error.</p>
 <p>For example, let’s say you have an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> <code class="docutils literal notranslate"><span class="pre">A</span></code> that
@@ -651,8 +644,8 @@ fully-qualified string.)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.half">
-<span class="sig-name descname"><span class="pre">half</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.half" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.half">
+<span class="sig-name descname"><span class="pre">half</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.half" title="Link to this definition"></a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">half</span></code> datatype.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -669,8 +662,8 @@ fully-qualified string.)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.ipu">
-<span class="sig-name descname"><span class="pre">ipu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.ipu" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.ipu">
+<span class="sig-name descname"><span class="pre">ipu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.ipu" title="Link to this definition"></a></dt>
 <dd><p>Moves all model parameters and buffers to the IPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing optimizer if the module will
@@ -694,11 +687,11 @@ copied to that device</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.load_state_dict">
-<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.load_state_dict" title="Link to this definition"></a></dt>
-<dd><p>Copies parameters and buffers from <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict">
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict" title="Link to this definition"></a></dt>
+<dd><p>Copies parameters and buffers from <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into
 this module and its descendants. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">strict</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then
-the keys of <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> must exactly match the keys returned
+the keys of <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> must exactly match the keys returned
 by this module’s <code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code> function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -706,7 +699,7 @@ by this module’s <code class="xref py py-meth docutils literal notranslate"><s
 <li><p><strong>state_dict</strong> (<em>dict</em>) – a dict containing parameters and
 persistent buffers.</p></li>
 <li><p><strong>strict</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to strictly enforce that the keys
-in <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> match the keys returned by this module’s
+in <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> match the keys returned by this module’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code> function. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
@@ -724,14 +717,14 @@ in <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSamp
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If a parameter or buffer is registered as <code class="docutils literal notranslate"><span class="pre">None</span></code> and its corresponding key
-exists in <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>, <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.load_state_dict" title="diffusion_models.models.vae.SkipDownSampler.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> will raise a
+exists in <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>, <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> will raise a
 <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p>
 </div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.modules">
-<span class="sig-name descname"><span class="pre">modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.modules" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.modules">
+<span class="sig-name descname"><span class="pre">modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.modules" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over all modules in the network.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields<span class="colon">:</span></dt>
@@ -762,8 +755,8 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.named_buffers">
-<span class="sig-name descname"><span class="pre">named_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.named_buffers" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.named_buffers">
+<span class="sig-name descname"><span class="pre">named_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_buffers" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over module buffers, yielding both the
 name of the buffer as well as the buffer itself.</p>
 <dl class="field-list simple">
@@ -793,8 +786,8 @@ are direct members of this module. Defaults to True.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.named_children">
-<span class="sig-name descname"><span class="pre">named_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.named_children" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.named_children">
+<span class="sig-name descname"><span class="pre">named_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_children" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over immediate children modules, yielding both
 the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
@@ -817,8 +810,8 @@ the name of the module as well as the module itself.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.named_modules">
-<span class="sig-name descname"><span class="pre">named_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.named_modules" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.named_modules">
+<span class="sig-name descname"><span class="pre">named_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_modules" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over all modules in the network, yielding
 both the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
@@ -855,8 +848,8 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.named_parameters">
-<span class="sig-name descname"><span class="pre">named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.named_parameters" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.named_parameters">
+<span class="sig-name descname"><span class="pre">named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.named_parameters" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over module parameters, yielding both the
 name of the parameter as well as the parameter itself.</p>
 <dl class="field-list simple">
@@ -887,8 +880,8 @@ parameters in the result. Defaults to True.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.parameters">
-<span class="sig-name descname"><span class="pre">parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.parameters" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.parameters">
+<span class="sig-name descname"><span class="pre">parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.parameters" title="Link to this definition"></a></dt>
 <dd><p>Returns an iterator over module parameters.</p>
 <p>This is typically passed to an optimizer.</p>
 <dl class="field-list simple">
@@ -915,8 +908,8 @@ are direct members of this module.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_backward_hook">
-<span class="sig-name descname"><span class="pre">register_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_backward_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_backward_hook">
+<span class="sig-name descname"><span class="pre">register_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_backward_hook" title="Link to this definition"></a></dt>
 <dd><p>Registers a backward hook on the module.</p>
 <p>This function is deprecated in favor of <code class="xref py py-meth docutils literal notranslate"><span class="pre">register_full_backward_hook()</span></code> and
 the behavior of this function will change in future versions.</p>
@@ -932,8 +925,8 @@ the behavior of this function will change in future versions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_buffer">
-<span class="sig-name descname"><span class="pre">register_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_buffer" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_buffer">
+<span class="sig-name descname"><span class="pre">register_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_buffer" title="Link to this definition"></a></dt>
 <dd><p>Adds a buffer to the module.</p>
 <p>This is typically used to register a buffer that should not to be
 considered a model parameter. For example, BatchNorm’s <code class="docutils literal notranslate"><span class="pre">running_mean</span></code>
@@ -942,7 +935,7 @@ default, are persistent and will be saved alongside parameters. This
 behavior can be changed by setting <code class="xref py py-attr docutils literal notranslate"><span class="pre">persistent</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>. The
 only difference between a persistent buffer and a non-persistent buffer
 is that the latter will not be a part of this module’s
-<a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p>
+<a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p>
 <p>Buffers can be accessed as attributes using given names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -950,10 +943,10 @@ is that the latter will not be a part of this module’s
 <li><p><strong>name</strong> (<em>str</em>) – name of the buffer. The buffer can be accessed
 from this module using the given name</p></li>
 <li><p><strong>tensor</strong> (<em>Tensor</em><em> or </em><em>None</em>) – buffer to be registered. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then operations
-that run on buffers, such as <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.cuda" title="diffusion_models.models.vae.SkipDownSampler.cuda"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cuda</span></code></a>, are ignored. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
-the buffer is <strong>not</strong> included in the module’s <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
+that run on buffers, such as <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.cuda" title="diffusion_models.models.mnist_enc.MNISTEncoder.cuda"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cuda</span></code></a>, are ignored. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+the buffer is <strong>not</strong> included in the module’s <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
 <li><p><strong>persistent</strong> (<em>bool</em>) – whether the buffer is part of this module’s
-<a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
+<a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -968,15 +961,15 @@ the buffer is <strong>not</strong> included in the module’s <a class="referenc
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_forward_hook">
-<span class="sig-name descname"><span class="pre">register_forward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_forward_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_hook">
+<span class="sig-name descname"><span class="pre">register_forward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_hook" title="Link to this definition"></a></dt>
 <dd><p>Registers a forward hook on the module.</p>
-<p>The hook will be called every time after <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.forward" title="diffusion_models.models.vae.SkipDownSampler.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> has computed an output.</p>
+<p>The hook will be called every time after <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.forward" title="diffusion_models.models.mnist_enc.MNISTEncoder.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> has computed an output.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">with_kwargs</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> or not specified, the input contains only
 the positional arguments given to the module. Keyword arguments won’t be
 passed to the hooks and only to the <code class="docutils literal notranslate"><span class="pre">forward</span></code>. The hook can modify the
 output. It can modify the input inplace but it will not have effect on
-forward since this is called after <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.forward" title="diffusion_models.models.vae.SkipDownSampler.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> is called. The hook
+forward since this is called after <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.forward" title="diffusion_models.models.mnist_enc.MNISTEncoder.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> is called. The hook
 should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="n">output</span>
 </pre></div>
@@ -1016,10 +1009,10 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_forward_pre_hook">
-<span class="sig-name descname"><span class="pre">register_forward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_forward_pre_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_pre_hook">
+<span class="sig-name descname"><span class="pre">register_forward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_forward_pre_hook" title="Link to this definition"></a></dt>
 <dd><p>Registers a forward pre-hook on the module.</p>
-<p>The hook will be called every time before <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.forward" title="diffusion_models.models.vae.SkipDownSampler.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> is invoked.</p>
+<p>The hook will be called every time before <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.forward" title="diffusion_models.models.mnist_enc.MNISTEncoder.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> is invoked.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">with_kwargs</span></code> is false or not specified, the input contains only
 the positional arguments given to the module. Keyword arguments won’t be
 passed to the hooks and only to the <code class="docutils literal notranslate"><span class="pre">forward</span></code>. The hook can modify the
@@ -1066,8 +1059,8 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_full_backward_hook">
-<span class="sig-name descname"><span class="pre">register_full_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_full_backward_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_hook">
+<span class="sig-name descname"><span class="pre">register_full_backward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_hook" title="Link to this definition"></a></dt>
 <dd><p>Registers a backward hook on the module.</p>
 <p>The hook will be called every time the gradients with respect to a module
 are computed, i.e. the hook will execute if and only if the gradients with
@@ -1117,8 +1110,8 @@ all hooks registered by this method.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_full_backward_pre_hook">
-<span class="sig-name descname"><span class="pre">register_full_backward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_full_backward_pre_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_pre_hook">
+<span class="sig-name descname"><span class="pre">register_full_backward_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_full_backward_pre_hook" title="Link to this definition"></a></dt>
 <dd><p>Registers a backward pre-hook on the module.</p>
 <p>The hook will be called every time the gradients for the module are computed.
 The hook should have the following signature:</p>
@@ -1163,8 +1156,8 @@ all hooks registered by this method.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_load_state_dict_post_hook">
-<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_load_state_dict_post_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_load_state_dict_post_hook">
+<span class="sig-name descname"><span class="pre">register_load_state_dict_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_load_state_dict_post_hook" title="Link to this definition"></a></dt>
 <dd><p>Registers a post hook to be run after module’s <code class="docutils literal notranslate"><span class="pre">load_state_dict</span></code>
 is called.</p>
 <dl class="simple">
@@ -1177,7 +1170,7 @@ of attributes <code class="docutils literal notranslate"><span class="pre">missi
 is a <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">str</span></code> containing the missing keys and
 <code class="docutils literal notranslate"><span class="pre">unexpected_keys</span></code> is a <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">str</span></code> containing the unexpected keys.</p>
 <p>The given incompatible_keys can be modified inplace if needed.</p>
-<p>Note that the checks performed when calling <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.load_state_dict" title="diffusion_models.models.vae.SkipDownSampler.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> with
+<p>Note that the checks performed when calling <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> with
 <code class="docutils literal notranslate"><span class="pre">strict=True</span></code> are affected by modifications the hook makes to
 <code class="docutils literal notranslate"><span class="pre">missing_keys</span></code> or <code class="docutils literal notranslate"><span class="pre">unexpected_keys</span></code>, as expected. Additions to either
 set of keys will result in an error being thrown when <code class="docutils literal notranslate"><span class="pre">strict=True</span></code>, and
@@ -1194,9 +1187,9 @@ clearing out both missing and unexpected keys will avoid an error.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_module">
-<span class="sig-name descname"><span class="pre">register_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_module" title="Link to this definition"></a></dt>
-<dd><p>Alias for <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.add_module" title="diffusion_models.models.vae.SkipDownSampler.add_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_module()</span></code></a>.</p>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_module">
+<span class="sig-name descname"><span class="pre">register_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_module" title="Link to this definition"></a></dt>
+<dd><p>Alias for <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.add_module" title="diffusion_models.models.mnist_enc.MNISTEncoder.add_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_module()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1205,8 +1198,8 @@ clearing out both missing and unexpected keys will avoid an error.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_parameter">
-<span class="sig-name descname"><span class="pre">register_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_parameter" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_parameter">
+<span class="sig-name descname"><span class="pre">register_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_parameter" title="Link to this definition"></a></dt>
 <dd><p>Adds a parameter to the module.</p>
 <p>The parameter can be accessed as an attribute using given name.</p>
 <dl class="field-list simple">
@@ -1215,9 +1208,9 @@ clearing out both missing and unexpected keys will avoid an error.</p>
 <li><p><strong>name</strong> (<em>str</em>) – name of the parameter. The parameter can be accessed
 from this module using the given name</p></li>
 <li><p><strong>param</strong> (<em>Parameter</em><em> or </em><em>None</em>) – parameter to be added to the module. If
-<code class="docutils literal notranslate"><span class="pre">None</span></code>, then operations that run on parameters, such as <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.cuda" title="diffusion_models.models.vae.SkipDownSampler.cuda"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cuda</span></code></a>,
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, then operations that run on parameters, such as <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.cuda" title="diffusion_models.models.mnist_enc.MNISTEncoder.cuda"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cuda</span></code></a>,
 are ignored. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the parameter is <strong>not</strong> included in the
-module’s <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="diffusion_models.models.vae.SkipDownSampler.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
+module’s <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1227,8 +1220,8 @@ module’s <a class="reference internal" href="#diffusion_models.models.vae.Skip
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.register_state_dict_pre_hook">
-<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.register_state_dict_pre_hook" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.register_state_dict_pre_hook">
+<span class="sig-name descname"><span class="pre">register_state_dict_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.register_state_dict_pre_hook" title="Link to this definition"></a></dt>
 <dd><p>These hooks will be called with arguments: <code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">prefix</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">keep_vars</span></code> before calling <code class="docutils literal notranslate"><span class="pre">state_dict</span></code> on <code class="docutils literal notranslate"><span class="pre">self</span></code>. The registered
 hooks can be used to perform pre-processing before the <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>
@@ -1236,8 +1229,8 @@ call is made.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.requires_grad_">
-<span class="sig-name descname"><span class="pre">requires_grad_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.requires_grad_" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.requires_grad_">
+<span class="sig-name descname"><span class="pre">requires_grad_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.requires_grad_" title="Link to this definition"></a></dt>
 <dd><p>Change if autograd should record operations on parameters in this
 module.</p>
 <p>This method sets the parameters’ <code class="xref py py-attr docutils literal notranslate"><span class="pre">requires_grad</span></code> attributes
@@ -1261,11 +1254,11 @@ parameters in this module. Default: <code class="docutils literal notranslate"><
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.set_extra_state">
-<span class="sig-name descname"><span class="pre">set_extra_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.set_extra_state" title="Link to this definition"></a></dt>
-<dd><p>This function is called from <a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.load_state_dict" title="diffusion_models.models.vae.SkipDownSampler.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> to handle any extra state
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.set_extra_state">
+<span class="sig-name descname"><span class="pre">set_extra_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.set_extra_state" title="Link to this definition"></a></dt>
+<dd><p>This function is called from <a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict" title="diffusion_models.models.mnist_enc.MNISTEncoder.load_state_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> to handle any extra state
 found within the <cite>state_dict</cite>. Implement this function and a corresponding
-<a class="reference internal" href="#diffusion_models.models.vae.SkipDownSampler.get_extra_state" title="diffusion_models.models.vae.SkipDownSampler.get_extra_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_extra_state()</span></code></a> for your module if you need to store extra state within its
+<a class="reference internal" href="#diffusion_models.models.mnist_enc.MNISTEncoder.get_extra_state" title="diffusion_models.models.mnist_enc.MNISTEncoder.get_extra_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_extra_state()</span></code></a> for your module if you need to store extra state within its
 <cite>state_dict</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1275,8 +1268,8 @@ found within the <cite>state_dict</cite>. Implement this function and a correspo
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.share_memory">
-<span class="sig-name descname"><span class="pre">share_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.share_memory" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.share_memory">
+<span class="sig-name descname"><span class="pre">share_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.share_memory" title="Link to this definition"></a></dt>
 <dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.share_memory_()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1286,8 +1279,8 @@ found within the <cite>state_dict</cite>. Implement this function and a correspo
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.state_dict">
-<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.state_dict" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.state_dict">
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.state_dict" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary containing references to the whole state of the module.</p>
 <p>Both parameters and persistent buffers (e.g. running averages) are
 included. Keys are corresponding parameter and buffer names.
@@ -1340,8 +1333,8 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.to" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.to" title="Link to this definition"></a></dt>
 <dd><p>Moves and/or casts the parameters and buffers.</p>
 <p>This can be called as</p>
 <dl class="py function">
@@ -1441,8 +1434,8 @@ only argument)</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.to_empty">
-<span class="sig-name descname"><span class="pre">to_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.to_empty" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.to_empty">
+<span class="sig-name descname"><span class="pre">to_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.to_empty" title="Link to this definition"></a></dt>
 <dd><p>Moves the parameters and buffers to the specified device without copying storage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1459,8 +1452,8 @@ and buffers in this module.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.train" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.train" title="Link to this definition"></a></dt>
 <dd><p>Sets the module in training mode.</p>
 <p>This has any effect only on certain modules. See documentations of
 particular modules for details of their behaviors in training/evaluation
@@ -1481,8 +1474,8 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.type" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.type" title="Link to this definition"></a></dt>
 <dd><p>Casts all parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dst_type</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1502,8 +1495,8 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.xpu">
-<span class="sig-name descname"><span class="pre">xpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.xpu" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.xpu">
+<span class="sig-name descname"><span class="pre">xpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.xpu" title="Link to this definition"></a></dt>
 <dd><p>Moves all model parameters and buffers to the XPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing optimizer if the module will
@@ -1527,8 +1520,8 @@ copied to that device</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.SkipDownSampler.zero_grad">
-<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.SkipDownSampler.zero_grad" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.mnist_enc.MNISTEncoder.zero_grad">
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.mnist_enc.MNISTEncoder.zero_grad" title="Link to this definition"></a></dt>
 <dd><p>Sets gradients of all model parameters to zero. See similar function
 under <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code> for more context.</p>
 <dl class="field-list simple">
@@ -1550,8 +1543,8 @@ See <code class="xref py py-meth docutils literal notranslate"><span class="pre"
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.models.vae.ResNetDecoderBlock.html" class="btn btn-neutral float-left" title="diffusion_models.models.vae.ResNetDecoderBlock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.vae.SkipUpSampler.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae.SkipUpSampler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.mnist_enc.html" class="btn btn-neutral float-left" title="diffusion_models.models.mnist_enc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.positional_encoding.html" class="btn btn-neutral float-right" title="diffusion_models.models.positional_encoding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

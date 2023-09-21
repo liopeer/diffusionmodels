@@ -21,3 +21,13 @@
 
 
 
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   diffusion_models.utils.dataloaders
+   diffusion_models.utils.helpers
+   diffusion_models.utils.mp_setup
+   diffusion_models.utils.trainer
+

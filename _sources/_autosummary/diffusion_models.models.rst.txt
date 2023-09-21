@@ -27,6 +27,7 @@
    :recursive:
 
    diffusion_models.models.forward_diffusion
+   diffusion_models.models.mnist_enc
    diffusion_models.models.positional_encoding
    diffusion_models.models.unet
    diffusion_models.models.vae

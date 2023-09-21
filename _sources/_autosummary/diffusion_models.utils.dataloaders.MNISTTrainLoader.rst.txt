@@ -1,0 +1,42 @@
+diffusion\_models.utils.dataloaders.MNISTTrainLoader
+====================================================
+
+.. currentmodule:: diffusion_models.utils.dataloaders
+
+.. autoclass:: MNISTTrainLoader
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MNISTTrainLoader.download
+      ~MNISTTrainLoader.extra_repr
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MNISTTrainLoader.class_to_idx
+      ~MNISTTrainLoader.classes
+      ~MNISTTrainLoader.mirrors
+      ~MNISTTrainLoader.processed_folder
+      ~MNISTTrainLoader.raw_folder
+      ~MNISTTrainLoader.resources
+      ~MNISTTrainLoader.test_data
+      ~MNISTTrainLoader.test_file
+      ~MNISTTrainLoader.test_labels
+      ~MNISTTrainLoader.train_data
+      ~MNISTTrainLoader.train_labels
+      ~MNISTTrainLoader.training_file
+   
+   

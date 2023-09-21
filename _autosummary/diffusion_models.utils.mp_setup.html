@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.models.positional_encoding &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.utils.mp_setup &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.positional_encoding.PositionalEncoding" href="diffusion_models.models.positional_encoding.PositionalEncoding.html" />
-    <link rel="prev" title="diffusion_models.models.mnist_enc.MNISTEncoder" href="diffusion_models.models.mnist_enc.MNISTEncoder.html" /> 
+    <link rel="next" title="diffusion_models.utils.mp_setup.DDP_Proc_Group" href="diffusion_models.utils.mp_setup.DDP_Proc_Group.html" />
+    <link rel="prev" title="diffusion_models.utils.helpers.dotdict" href="diffusion_models.utils.helpers.dotdict.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,19 +47,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Homepage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.forward_diffusion.html">diffusion_models.models.forward_diffusion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.models.positional_encoding</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.positional_encoding.PositionalEncoding.html">diffusion_models.models.positional_encoding.PositionalEncoding</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
-<li class="toctree-l2"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.utils.dataloaders.html">diffusion_models.utils.dataloaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.utils.helpers.html">diffusion_models.utils.helpers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.utils.mp_setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.utils.mp_setup.DDP_Proc_Group.html">diffusion_models.utils.mp_setup.DDP_Proc_Group</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chap/tex_stuff.html">Acknowledgments</a></li>
@@ -86,10 +84,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
-          <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
-      <li class="breadcrumb-item active">diffusion_models.models.positional_encoding</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.utils.html">diffusion_models.utils</a></li>
+      <li class="breadcrumb-item active">diffusion_models.utils.mp_setup</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.models.positional_encoding.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.utils.mp_setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -97,13 +95,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-diffusion_models.models.positional_encoding">
-<span id="diffusion-models-models-positional-encoding"></span><h1>diffusion_models.models.positional_encoding<a class="headerlink" href="#module-diffusion_models.models.positional_encoding" title="Link to this heading"></a></h1>
+  <section id="module-diffusion_models.utils.mp_setup">
+<span id="diffusion-models-utils-mp-setup"></span><h1>diffusion_models.utils.mp_setup<a class="headerlink" href="#module-diffusion_models.utils.mp_setup" title="Link to this heading"></a></h1>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.positional_encoding.PositionalEncoding.html#diffusion_models.models.positional_encoding.PositionalEncoding" title="diffusion_models.models.positional_encoding.PositionalEncoding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PositionalEncoding</span></code></a>()</p></td>
-<td><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.utils.mp_setup.DDP_Proc_Group.html#diffusion_models.utils.mp_setup.DDP_Proc_Group" title="diffusion_models.utils.mp_setup.DDP_Proc_Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DDP_Proc_Group</span></code></a>(function)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -113,8 +111,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.models.mnist_enc.MNISTEncoder.html" class="btn btn-neutral float-left" title="diffusion_models.models.mnist_enc.MNISTEncoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.positional_encoding.PositionalEncoding.html" class="btn btn-neutral float-right" title="diffusion_models.models.positional_encoding.PositionalEncoding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.utils.helpers.dotdict.html" class="btn btn-neutral float-left" title="diffusion_models.utils.helpers.dotdict" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.utils.mp_setup.DDP_Proc_Group.html" class="btn btn-neutral float-right" title="diffusion_models.utils.mp_setup.DDP_Proc_Group" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

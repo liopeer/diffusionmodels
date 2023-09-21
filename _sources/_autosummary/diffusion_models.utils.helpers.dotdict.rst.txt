@@ -1,0 +1,34 @@
+diffusion\_models.utils.helpers.dotdict
+=======================================
+
+.. currentmodule:: diffusion_models.utils.helpers
+
+.. autoclass:: dotdict
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~dotdict.clear
+      ~dotdict.copy
+      ~dotdict.fromkeys
+      ~dotdict.get
+      ~dotdict.items
+      ~dotdict.keys
+      ~dotdict.pop
+      ~dotdict.popitem
+      ~dotdict.setdefault
+      ~dotdict.update
+      ~dotdict.values
+   
+   
+
+   
+   
+   
