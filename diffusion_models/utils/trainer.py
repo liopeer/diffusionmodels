@@ -90,7 +90,7 @@ class DiscriminativeTrainer:
             batch_loss = self._run_batch(source, targets)
             epoch_losses.append(batch_loss)
         if self.log_wandb:
-            wandb.log({"epoch": epoch, "loss": np.mean(epoch_losses)})
+            wandb.log({"epoch": epoch, "loss": np.mean(epoch_losses), "epoch_time": time()-time1})
         print(f"[{self.device_type}{self.gpu_id}] Epoch {epoch} | Batchsize: {self.batch_size} | Steps: {len(self.train_data)} | Loss: {np.mean(epoch_losses)} | Time: {time()-time1:.2f}s")
 
     def _run_epoch(self, epoch):
@@ -101,7 +101,7 @@ class DiscriminativeTrainer:
             batch_loss = self._run_batch(source, targets)
             epoch_losses.append(batch_loss)
         if self.log_wandb:
-            wandb.log({"epoch": epoch, "loss": np.mean(epoch_losses)})
+            wandb.log({"epoch": epoch, "loss": np.mean(epoch_losses), "epoch_time": time()-time1})
         print(f"[GPU{self.gpu_id}] Epoch {epoch} | Batchsize: {self.batch_size} | Steps: {len(self.train_data)} | Loss: {np.mean(epoch_losses)} | Time: {time()-time1:.2f}s")
 
     def _save_checkpoint(self, epoch):
