@@ -1,0 +1,77 @@
+diffusion\_models.models.diffusion.DiffusionModel
+=================================================
+
+.. currentmodule:: diffusion_models.models.diffusion
+
+.. autoclass:: DiffusionModel
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DiffusionModel.add_module
+      ~DiffusionModel.apply
+      ~DiffusionModel.bfloat16
+      ~DiffusionModel.buffers
+      ~DiffusionModel.children
+      ~DiffusionModel.cpu
+      ~DiffusionModel.cuda
+      ~DiffusionModel.double
+      ~DiffusionModel.eval
+      ~DiffusionModel.extra_repr
+      ~DiffusionModel.float
+      ~DiffusionModel.forward
+      ~DiffusionModel.get_buffer
+      ~DiffusionModel.get_extra_state
+      ~DiffusionModel.get_parameter
+      ~DiffusionModel.get_submodule
+      ~DiffusionModel.half
+      ~DiffusionModel.ipu
+      ~DiffusionModel.load_state_dict
+      ~DiffusionModel.modules
+      ~DiffusionModel.named_buffers
+      ~DiffusionModel.named_children
+      ~DiffusionModel.named_modules
+      ~DiffusionModel.named_parameters
+      ~DiffusionModel.parameters
+      ~DiffusionModel.register_backward_hook
+      ~DiffusionModel.register_buffer
+      ~DiffusionModel.register_forward_hook
+      ~DiffusionModel.register_forward_pre_hook
+      ~DiffusionModel.register_full_backward_hook
+      ~DiffusionModel.register_full_backward_pre_hook
+      ~DiffusionModel.register_load_state_dict_post_hook
+      ~DiffusionModel.register_module
+      ~DiffusionModel.register_parameter
+      ~DiffusionModel.register_state_dict_pre_hook
+      ~DiffusionModel.requires_grad_
+      ~DiffusionModel.set_extra_state
+      ~DiffusionModel.share_memory
+      ~DiffusionModel.state_dict
+      ~DiffusionModel.to
+      ~DiffusionModel.to_empty
+      ~DiffusionModel.train
+      ~DiffusionModel.type
+      ~DiffusionModel.xpu
+      ~DiffusionModel.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~DiffusionModel.T_destination
+      ~DiffusionModel.call_super_init
+      ~DiffusionModel.dump_patches
+      ~DiffusionModel.training
+   
+   

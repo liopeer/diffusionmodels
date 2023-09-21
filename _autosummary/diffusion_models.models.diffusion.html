@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.models &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.models.diffusion &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.diffusion" href="diffusion_models.models.diffusion.html" />
-    <link rel="prev" title="API" href="../api.html" /> 
+    <link rel="next" title="diffusion_models.models.diffusion.DiffusionModel" href="diffusion_models.models.diffusion.DiffusionModel.html" />
+    <link rel="prev" title="diffusion_models.models" href="diffusion_models.models.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,8 +47,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Homepage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">diffusion_models.models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.diffusion.html">diffusion_models.models.diffusion</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.models.diffusion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.diffusion.DiffusionModel.html">diffusion_models.models.diffusion.DiffusionModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.diffusion.ForwardDiffusion.html">diffusion_models.models.diffusion.ForwardDiffusion</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
@@ -83,9 +87,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
-      <li class="breadcrumb-item active">diffusion_models.models</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
+      <li class="breadcrumb-item active">diffusion_models.models.diffusion</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.models.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.models.diffusion.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -93,24 +98,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-diffusion_models.models">
-<span id="diffusion-models-models"></span><h1>diffusion_models.models<a class="headerlink" href="#module-diffusion_models.models" title="Link to this heading"></a></h1>
+  <section id="module-diffusion_models.models.diffusion">
+<span id="diffusion-models-models-diffusion"></span><h1>diffusion_models.models.diffusion<a class="headerlink" href="#module-diffusion_models.models.diffusion" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.diffusion.html#module-diffusion_models.models.diffusion" title="diffusion_models.models.diffusion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusion_models.models.diffusion</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.diffusion.DiffusionModel.html#diffusion_models.models.diffusion.DiffusionModel" title="diffusion_models.models.diffusion.DiffusionModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DiffusionModel</span></code></a>(backbone, timesteps[, ...])</p></td>
+<td><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.mnist_enc.html#module-diffusion_models.models.mnist_enc" title="diffusion_models.models.mnist_enc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusion_models.models.mnist_enc</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.positional_encoding.html#module-diffusion_models.models.positional_encoding" title="diffusion_models.models.positional_encoding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusion_models.models.positional_encoding</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.unet.html#module-diffusion_models.models.unet" title="diffusion_models.models.unet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusion_models.models.unet</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.vae.html#module-diffusion_models.models.vae" title="diffusion_models.models.vae"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusion_models.models.vae</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.diffusion.ForwardDiffusion.html#diffusion_models.models.diffusion.ForwardDiffusion" title="diffusion_models.models.diffusion.ForwardDiffusion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ForwardDiffusion</span></code></a>(timesteps[, start, end, type])</p></td>
+<td><p>Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).</p></td>
 </tr>
 </tbody>
 </table>
@@ -120,8 +117,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.diffusion.html" class="btn btn-neutral float-right" title="diffusion_models.models.diffusion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.html" class="btn btn-neutral float-left" title="diffusion_models.models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.diffusion.DiffusionModel.html" class="btn btn-neutral float-right" title="diffusion_models.models.diffusion.DiffusionModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
