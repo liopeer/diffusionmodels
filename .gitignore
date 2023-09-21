@@ -5,6 +5,9 @@ docs/token.txt
 # datasets
 tests/data
 
+# logging
+tests/wandb
+
 # sphinx build
 docs/source/_autosummary
 
