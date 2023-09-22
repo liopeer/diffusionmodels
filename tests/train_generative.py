@@ -18,7 +18,7 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 500,
+    total_epochs = 2,
     batch_size = 1000,
     learning_rate = 0.001,
     device_type = "cuda",
@@ -40,7 +40,7 @@ config = dotdict(
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     data_path = "/itet-stor/peerli/net_scratch",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/cifar10_checkpoints",
-    save_every = 10,
+    save_every = 1,
     loss_func = F.mse_loss,
     log_wandb = True
 )

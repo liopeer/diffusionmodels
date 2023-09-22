@@ -158,9 +158,9 @@ class GenerativeTrainer(Trainer):
         """Overwriting original method."""
         super()._save_checkpoint(epoch)
         if self.device_type == "cuda":
-            samples = self.model.module.sample(25, (32, 32))
+            samples = self.model.module.sample(25, 32)
         else:
-            sample = self.model.sample(25, (32, 32))
+            sample = self.model.sample(25, 32)
         samples = torchvision.utils.make_grid(samples, nrow=5)
         if self.log_wandb:
             images = wandb.Image(

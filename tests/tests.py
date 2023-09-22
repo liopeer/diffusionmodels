@@ -21,8 +21,8 @@ model = model.to(device)
 
 wandb.init(project="dummy")
 
-#samples = model.sample(25, 32)
-samples = torch.randn((25, 32, 32))
+samples = model.sample(25, 32)
+#samples = torch.randn((25, 32, 32))
 samples = torchvision.utils.make_grid(samples, nrow=5)
 print(samples.shape)
 images = wandb.Image(
