@@ -1,6 +1,6 @@
 import torch
 from torch import nn, Tensor
-from jaxtyping import Float
+from jaxtyping import Float, Int64
 from typing import Literal
 
 class DiffusionModel(nn.Module):
@@ -25,17 +25,14 @@ class DiffusionModel(nn.Module):
         return noise_pred, noise
     
     def _pos_encoding(self, t, channels):
-        inv_freq = 1.0 / (
-            10000
-            ** (torch.arange(0, channels, 2, device=self.device).float() / channels)
-        )
+        inv_freq = 1.0 / (10000 ** (torch.arange(0, channels, 2, device=self.device).float() / channels))
         pos_enc_a = torch.sin(t.repeat(1, channels // 2) * inv_freq)
         pos_enc_b = torch.cos(t.repeat(1, channels // 2) * inv_freq)
         pos_enc = torch.cat([pos_enc_a, pos_enc_b], dim=-1)
         return pos_enc
 
-    def _sample_timestep(self, batch_size):
-        return torch.randint(low=1, high=self.fwd_diff.noise_steps, size=(n,))
+    def _sample_timestep(self, batch_size: int) -> Int64[Tensor, "batch"]:
+        return torch.randint(low=1, high=self.fwd_diff.noise_steps, size=(batch_size,))
 
 
 class ForwardDiffusion(nn.Module):
