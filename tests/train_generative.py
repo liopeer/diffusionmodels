@@ -4,13 +4,15 @@ from torch.utils.data import DataLoader
 import torch
 import torch.nn as nn
 from models.mnist_enc import MNISTEncoder
+from models.unet import UNet
+from models.diffusion import DiffusionModel, ForwardDiffusion
 import numpy as np
 from time import time
-from utils.trainer import DiscriminativeTrainer
+from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
 from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import MNISTTrainDataset
+from utils.datasets import MNISTTrainDataset, UnconditionedCifar10Dataset
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
@@ -20,23 +22,51 @@ config = dotdict(
     batch_size = 1000,
     learning_rate = 0.001,
     device_type = "cpu",
-    dataloader = MNISTTrainDataset,
-    architecture = MNISTEncoder,
-    out_classes = 10,
-    optimizer = torch.optim.Adam,
+    dataset = MNISTTrainDataset,
+    architecture = DiffusionModel,
+    backbone = UNet,
+    in_channels = 1,
+    backbone_enc_depth = 4,
     kernel_size = 3,
+    dropout = 0.5,
+    forward_diff = ForwardDiffusion,
+    max_timesteps = 1000,
+    t_start = 0.0001, 
+    t_end = 0.02,
+    schedule_type = "linear",
+    time_enc_dim = 256,
+    optimizer = torch.optim.Adam,
     data_path = os.path.abspath("./data"),
     checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     #data_path = "/itet-stor/peerli/net_scratch",
     #checkpoint_folder = "/itet-stor/peerli/net_scratch/mnist_checkpoints",
     save_every = 10,
-    loss_func = F.cross_entropy,
+    loss_func = F.mse_loss,
     log_wandb = False
 )
 
+backbone = UNet(4)
+fwd_diff = ForwardDiffusion(timesteps=1000)
+model = DiffusionModel(backbone, fwd_diff)
+
 def load_train_objs(config):
-    train_set = config.dataloader(config.data_path)
-    model = config.architecture(config.out_classes, config.kernel_size)
+    train_set = config.dataset(config.data_path)
+    model = config.architecture(
+        config.backbone(
+            num_encoding_blocks = config.backbone_enc_depth,
+            in_channels = config.in_channels,
+            kernel_size = config.kernel_size,
+            dropout = config.dropout,
+            time_emb_size = config.time_enc_dim
+        ),
+        config.forward_diff(
+            config.max_timesteps,
+            config.t_start,
+            config.t_end,
+            config.schedule_type
+        ),
+        config.time_enc_dim
+    )
     optimizer = config.optimizer(model.parameters(), lr=config.learning_rate)
     return train_set, model, optimizer
 
@@ -44,7 +74,7 @@ def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
         wandb.init(project="mnist_trials", config=config, save_code=True)
     dataset, model, optimizer = load_train_objs(config)
-    trainer = DiscriminativeTrainer(
+    trainer = GenerativeTrainer(
         model, 
         dataset, 
         config.loss_func, 

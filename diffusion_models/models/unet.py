@@ -119,6 +119,8 @@ class DecodingBlock(nn.Module):
         self.dropout = dropout
         self.verbose = verbose
 
+        self.time_embedding_fc = nn.Linear(self.time_embedding_size, self.out_channels)
+
         self.scale = nn.ConvTranspose2d(self.in_channels, self.out_channels, kernel_size=2, stride=2)
         self.conv1 = nn.Sequential(
             nn.Conv2d(self.out_channels * 2, self.out_channels, kernel_size=self.kernel_size, padding="same"),
@@ -156,16 +158,29 @@ class DecodingBlock(nn.Module):
         """
         if self.verbose:
             print(f"Decoder Input: {x.shape}\tSkip: {skip.shape}")
+
         x = self.scale(x)
+
         if self.verbose:
             print(f"After Scaling: {x.shape}")
+
         x = torch.cat([x, skip], dim=1)
+
         if self.verbose:
             print(f"After Concat {x.shape}")
+
         x = self.conv1(x)
+
+        if time_embedding is not None:
+            time_embedding = self.time_embedding_fc(time_embedding)
+            time_embedding = time_embedding.view(time_embedding.shape[0], time_embedding.shape[1], 1, 1)
+            x = x + time_embedding.expand(time_embedding.shape[0], time_embedding.shape[1], x.shape[-2], x.shape[-1])
+
         if self.verbose:
             print(f"After Conv1: {x.shape}")
+
         x = self.conv2(x)
+
         if self.verbose:
             print(f"After Conv2: {x.shape}")
         return x
@@ -256,7 +271,7 @@ class UNet(nn.Module):
             print("Encoding Channels", self.encoding_channels, "\tDecoding Channels", self.decoding_channels)
         if not self._check_sizes(x):
             raise ValueError("Choose appropriate image size.")
-        
+
         # in_layer - to 64 channels
         x = self.in_conv(x)
 

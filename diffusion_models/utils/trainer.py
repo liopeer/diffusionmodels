@@ -8,7 +8,7 @@ from torch.optim import Optimizer
 import numpy as np
 from time import time
 import wandb
-from typing import Callable, Literal, Any
+from typing import Callable, Literal, Any, Tuple
 import wandb
 from torch.nn import Module
 
@@ -83,9 +83,9 @@ class Trainer:
         time1 = time()
         for data in self.train_data:
             if self.device_type == "cuda":
-                data = map(lambda x: x.to(self.gpu_id), data)
+                data = tuple(map(lambda x: x.to(self.gpu_id), data))
             else:
-                data = map(lambda x: x.to(self.device_type), data)
+                data = tuple(map(lambda x: x.to(self.device_type), data))
             batch_loss = self._run_batch(data)
             epoch_losses.append(batch_loss)
         if self.log_wandb:
@@ -118,6 +118,13 @@ class DiscriminativeTrainer(Trainer):
         super().__init__(model, train_data, loss_func, optimizer, gpu_id, batch_size, save_every, checkpoint_folder, device_type, log_wandb)
 
     def _run_batch(self, data):
+        """Run a data batch.
+
+        Parameters
+        ----------
+        data
+            tuple of training batch and targets
+        """
         source, targets = data
         self.optimizer.zero_grad()
         pred = self.model(source)
@@ -131,5 +138,17 @@ class GenerativeTrainer(Trainer):
         super().__init__(model, train_data, loss_func, optimizer, gpu_id, batch_size, save_every, checkpoint_folder, device_type, log_wandb)
 
     def _run_batch(self, data):
+        """Run a data batch.
+
+        Parameters
+        ----------
+        data
+            single item tuple of training batch
+        """
         self.optimizer.zero_grad()
-        raise NotImplementedError("not finished yet")
+        ### to be changed!
+        pred = self.model(data[0])
+        loss = self.loss_func(*pred)
+        loss.backward()
+        self.optimizer.step()
+        return loss.item()
