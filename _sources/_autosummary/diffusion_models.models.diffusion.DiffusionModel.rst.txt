@@ -51,6 +51,7 @@ diffusion\_models.models.diffusion.DiffusionModel
       ~DiffusionModel.register_parameter
       ~DiffusionModel.register_state_dict_pre_hook
       ~DiffusionModel.requires_grad_
+      ~DiffusionModel.sample
       ~DiffusionModel.set_extra_state
       ~DiffusionModel.share_memory
       ~DiffusionModel.state_dict

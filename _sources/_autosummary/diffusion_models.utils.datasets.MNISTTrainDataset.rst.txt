@@ -1,0 +1,42 @@
+diffusion\_models.utils.datasets.MNISTTrainDataset
+==================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: MNISTTrainDataset
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MNISTTrainDataset.download
+      ~MNISTTrainDataset.extra_repr
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MNISTTrainDataset.class_to_idx
+      ~MNISTTrainDataset.classes
+      ~MNISTTrainDataset.mirrors
+      ~MNISTTrainDataset.processed_folder
+      ~MNISTTrainDataset.raw_folder
+      ~MNISTTrainDataset.resources
+      ~MNISTTrainDataset.test_data
+      ~MNISTTrainDataset.test_file
+      ~MNISTTrainDataset.test_labels
+      ~MNISTTrainDataset.train_data
+      ~MNISTTrainDataset.train_labels
+      ~MNISTTrainDataset.training_file
+   
+   

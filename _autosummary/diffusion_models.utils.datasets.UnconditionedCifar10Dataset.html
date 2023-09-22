@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.utils.dataloaders.MNISTTrainLoader &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.utils.datasets.UnconditionedCifar10Dataset &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="diffusion_models.utils.helpers" href="diffusion_models.utils.helpers.html" />
-    <link rel="prev" title="diffusion_models.utils.dataloaders.MNISTTestLoader" href="diffusion_models.utils.dataloaders.MNISTTestLoader.html" /> 
+    <link rel="prev" title="diffusion_models.utils.datasets.MNISTTrainDataset" href="diffusion_models.utils.datasets.MNISTTrainDataset.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,9 +50,10 @@
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.utils.dataloaders.html">diffusion_models.utils.dataloaders</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.utils.dataloaders.MNISTTestLoader.html">diffusion_models.utils.dataloaders.MNISTTestLoader</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.utils.dataloaders.MNISTTrainLoader</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.utils.datasets.html">diffusion_models.utils.datasets</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.utils.datasets.MNISTTestDataset.html">diffusion_models.utils.datasets.MNISTTestDataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.utils.datasets.MNISTTrainDataset.html">diffusion_models.utils.datasets.MNISTTrainDataset</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.utils.datasets.UnconditionedCifar10Dataset</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.utils.helpers.html">diffusion_models.utils.helpers</a></li>
@@ -86,10 +87,10 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.utils.html">diffusion_models.utils</a></li>
-          <li class="breadcrumb-item"><a href="diffusion_models.utils.dataloaders.html">diffusion_models.utils.dataloaders</a></li>
-      <li class="breadcrumb-item active">diffusion_models.utils.dataloaders.MNISTTrainLoader</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.utils.datasets.html">diffusion_models.utils.datasets</a></li>
+      <li class="breadcrumb-item active">diffusion_models.utils.datasets.UnconditionedCifar10Dataset</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.utils.dataloaders.MNISTTrainLoader.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.utils.datasets.UnconditionedCifar10Dataset.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -97,17 +98,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="diffusion-models-utils-dataloaders-mnisttrainloader">
-<h1>diffusion_models.utils.dataloaders.MNISTTrainLoader<a class="headerlink" href="#diffusion-models-utils-dataloaders-mnisttrainloader" title="Link to this heading"></a></h1>
+  <section id="diffusion-models-utils-datasets-unconditionedcifar10dataset">
+<h1>diffusion_models.utils.datasets.UnconditionedCifar10Dataset<a class="headerlink" href="#diffusion-models-utils-datasets-unconditionedcifar10dataset" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="diffusion_models.utils.dataloaders.MNISTTrainLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.utils.dataloaders.</span></span><span class="sig-name descname"><span class="pre">MNISTTrainLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.utils.dataloaders.MNISTTrainLoader" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MNIST</span></code></p>
+<dt class="sig sig-object py" id="diffusion_models.utils.datasets.UnconditionedCifar10Dataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.utils.datasets.</span></span><span class="sig-name descname"><span class="pre">UnconditionedCifar10Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.utils.datasets.UnconditionedCifar10Dataset" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CIFAR10</span></code></p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.utils.dataloaders.MNISTTrainLoader.download" title="diffusion_models.utils.dataloaders.MNISTTrainLoader.download"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code></a>()</p></td>
-<td><p>Download the MNIST data if it doesn't exist already.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code>()</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extra_repr</span></code>()</p></td>
 <td><p><dl class="field-list simple">
@@ -122,55 +128,29 @@
 <p class="rubric">Attributes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_to_idx</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_folder</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">classes</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">filename</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mirrors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">processed_folder</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_list</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">raw_folder</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tgz_md5</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resources</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">train_list</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_data</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_file</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_labels</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">train_data</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">train_labels</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">training_file</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">url</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.utils.dataloaders.MNISTTrainLoader.download">
-<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.utils.dataloaders.MNISTTrainLoader.download" title="Link to this definition"></a></dt>
-<dd><p>Download the MNIST data if it doesn’t exist already.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -179,7 +159,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.utils.dataloaders.MNISTTestLoader.html" class="btn btn-neutral float-left" title="diffusion_models.utils.dataloaders.MNISTTestLoader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.utils.datasets.MNISTTrainDataset.html" class="btn btn-neutral float-left" title="diffusion_models.utils.datasets.MNISTTrainDataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="diffusion_models.utils.helpers.html" class="btn btn-neutral float-right" title="diffusion_models.utils.helpers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

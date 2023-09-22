@@ -1,0 +1,37 @@
+diffusion\_models.utils.datasets.UnconditionedCifar10Dataset
+============================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: UnconditionedCifar10Dataset
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~UnconditionedCifar10Dataset.download
+      ~UnconditionedCifar10Dataset.extra_repr
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~UnconditionedCifar10Dataset.base_folder
+      ~UnconditionedCifar10Dataset.filename
+      ~UnconditionedCifar10Dataset.meta
+      ~UnconditionedCifar10Dataset.test_list
+      ~UnconditionedCifar10Dataset.tgz_md5
+      ~UnconditionedCifar10Dataset.train_list
+      ~UnconditionedCifar10Dataset.url
+   
+   
