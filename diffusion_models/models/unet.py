@@ -75,6 +75,8 @@ class EncodingBlock(nn.Module):
         skip
             convoluted but non-downscaled tensor for skip connection
         """
+        print(self.conv1[0].weight.device, x.device)
+        assert False
         x = self.conv1(x)
         if time_embedding is not None:
             time_embedding = self.time_embedding_fc(time_embedding)

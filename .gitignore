@@ -7,6 +7,7 @@ tests/data
 
 # logging
 tests/wandb
+tests/log
 
 # sphinx build
 docs/source/_autosummary
