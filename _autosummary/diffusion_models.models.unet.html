@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.unet.dummy_func" href="diffusion_models.models.unet.dummy_func.html" />
+    <link rel="next" title="diffusion_models.models.unet.DecodingBlock" href="diffusion_models.models.unet.DecodingBlock.html" />
     <link rel="prev" title="diffusion_models.models.positional_encoding.PositionalEncoding" href="diffusion_models.models.positional_encoding.PositionalEncoding.html" /> 
 </head>
 
@@ -52,7 +52,6 @@
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.models.unet</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.dummy_func.html">diffusion_models.models.unet.dummy_func</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html">diffusion_models.models.unet.EncodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.UNet.html">diffusion_models.models.unet.UNet</a></li>
@@ -102,14 +101,6 @@
              
   <section id="module-diffusion_models.models.unet">
 <span id="diffusion-models-models-unet"></span><h1>diffusion_models.models.unet<a class="headerlink" href="#module-diffusion_models.models.unet" title="Link to this heading"></a></h1>
-<p class="rubric">Functions</p>
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.dummy_func.html#diffusion_models.models.unet.dummy_func" title="diffusion_models.models.unet.dummy_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dummy_func</span></code></a>(dummy_arg)</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -119,8 +110,8 @@
 <tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html#diffusion_models.models.unet.EncodingBlock" title="diffusion_models.models.unet.EncodingBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EncodingBlock</span></code></a>(in_channels, out_channels, ...)</p></td>
 <td><p>Initialize UNet Encoder Building Block.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.UNet.html#diffusion_models.models.unet.UNet" title="diffusion_models.models.unet.UNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UNet</span></code></a>(num_layers)</p></td>
-<td><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.UNet.html#diffusion_models.models.unet.UNet" title="diffusion_models.models.unet.UNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UNet</span></code></a>(num_encoding_blocks[, in_channels, ...])</p></td>
+<td><p>Implementation of UNet architecture, close to original paper.</p></td>
 </tr>
 </tbody>
 </table>
@@ -131,7 +122,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="diffusion_models.models.positional_encoding.PositionalEncoding.html" class="btn btn-neutral float-left" title="diffusion_models.models.positional_encoding.PositionalEncoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.unet.dummy_func.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet.dummy_func" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.unet.DecodingBlock.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet.DecodingBlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

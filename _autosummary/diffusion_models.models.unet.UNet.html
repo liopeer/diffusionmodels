@@ -52,7 +52,6 @@
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.dummy_func.html">diffusion_models.models.unet.dummy_func</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html">diffusion_models.models.unet.EncodingBlock</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.unet.UNet</a></li>
@@ -105,8 +104,34 @@
 <h1>diffusion_models.models.unet.UNet<a class="headerlink" href="#diffusion-models-models-unet-unet" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="diffusion_models.models.unet.UNet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_layers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_encoding_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_emb_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Implementation of UNet architecture, close to original paper.</p>
+<section id="things-that-are-different">
+<h2>Things that are different<a class="headerlink" href="#things-that-are-different" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>transpose convolution instead of upsampling</p></li>
+<li><p>“same” padding for convolutions, so that output image has same size as input</p></li>
+<li><p>flexibility to go to larger depths than original implementation</p></li>
+<li><p>separate additional convolutional layer to go from the input to 64 channels</p></li>
+<li><p>possibility to inject conditioning (time/position encodings and more) into the network</p></li>
+</ul>
+</section>
+<section id="kernel-sizes">
+<h2>Kernel sizes<a class="headerlink" href="#kernel-sizes" title="Link to this heading"></a></h2>
+<p>Make sure to use odd kernel sizes.</p>
+</section>
+<section id="images-sizes">
+<h2>Images sizes<a class="headerlink" href="#images-sizes" title="Link to this heading"></a></h2>
+<p>Image height and width should both still be even at the bottleneck layer. This means they should be divisible by 2, num_encoder+1 times
+and still yield an even number at this point. Best to just stick with powers of 2.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>[Ronneberger15] O. Ronneberger, P. Fischer, and T. Brox, U-Net: Convolutional Networks for Biomedical Image Segmentation</p>
+</aside>
+</aside>
 <p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
@@ -144,8 +169,8 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.unet.UNet.float" title="diffusion_models.models.unet.UNet.float"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.unet.UNet.forward" title="diffusion_models.models.unet.UNet.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
-<td><p>Defines the computation performed at every call.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.unet.UNet.forward" title="diffusion_models.models.unet.UNet.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x[, t])</p></td>
+<td><p>Forward Method of UNet class.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.unet.UNet.get_buffer" title="diffusion_models.models.unet.UNet.get_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer</span></code></a>(target)</p></td>
 <td><p>Returns the buffer given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throws an error.</p></td>
@@ -507,16 +532,22 @@ strings are acceptable.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="diffusion_models.models.unet.UNet.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet.forward" title="Link to this definition"></a></dt>
-<dd><p>Defines the computation performed at every call.</p>
-<p>Should be overridden by all subclasses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Although the recipe for forward pass needs to be defined within
-this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
-instead of this since the former takes care of running the
-registered hooks while the latter silently ignores them.</p>
-</div>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward Method of UNet class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>) – input image batch</p></li>
+<li><p><strong>t</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">embedding_size']</span></code>]) – time embedding</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>output image batch</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>out</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1538,6 +1569,7 @@ See <code class="xref py py-meth docutils literal notranslate"><span class="pre"
 </dl>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>

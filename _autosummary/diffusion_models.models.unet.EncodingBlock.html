@@ -52,7 +52,6 @@
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.dummy_func.html">diffusion_models.models.unet.dummy_func</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.unet.EncodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.UNet.html">diffusion_models.models.unet.UNet</a></li>
@@ -105,7 +104,7 @@
 <h1>diffusion_models.models.unet.EncodingBlock<a class="headerlink" href="#diffusion-models-models-unet-encodingblock" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="diffusion_models.models.unet.EncodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.EncodingBlock" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.EncodingBlock" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Initialize UNet Encoder Building Block.</p>
 <dl class="field-list simple">
@@ -115,6 +114,8 @@
 <li><p><strong>out_channels</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of output channels</p></li>
 <li><p><strong>time_embedding_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – dimension of time embedding</p></li>
 <li><p><strong>kernel_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – size of convolutional kernel</p></li>
+<li><p><strong>dropout</strong> (<a class="reference internal" href="#diffusion_models.models.unet.EncodingBlock.float" title="diffusion_models.models.unet.EncodingBlock.float"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – probability of dropout layers</p></li>
+<li><p><strong>verbose</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to print tensor shapes in forward pass</p></li>
 </ul>
 </dd>
 </dl>
@@ -522,15 +523,19 @@ strings are acceptable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – input tensor</p></li>
-<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – time embedding tensor</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>) – input tensor</p></li>
+<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">embedding_size']</span></code>) – time embedding tensor</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">double_channels</span> <span class="pre">half_height</span> <span class="pre">half_width']</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">double_channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>]</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>output tensor</p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>output</em> – convoluted and downscaled tensor</p></li>
+<li><p><em>skip</em> – convoluted but non-downscaled tensor for skip connection</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>

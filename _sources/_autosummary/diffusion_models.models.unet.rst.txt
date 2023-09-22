@@ -9,13 +9,6 @@ diffusion\_models.models.unet
 
    
    
-   .. rubric:: Functions
-
-   .. autosummary::
-      :toctree:
-   
-      dummy_func
-   
    
 
    
