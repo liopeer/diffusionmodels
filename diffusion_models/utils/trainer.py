@@ -157,7 +157,10 @@ class GenerativeTrainer(Trainer):
     def _save_checkpoint(self, epoch):
         """Overwriting original method."""
         super()._save_checkpoint(epoch)
-        samples = self.model.sample(25, (32, 32))
+        if self.device_type == "cuda":
+            samples = self.model.module.sample(25, (32, 32))
+        else:
+            sample = self.model.sample(25, (32, 32))
         samples = torchvision.utils.make_grid(samples, nrow=5)
         if self.log_wandb:
             images = wandb.Image(

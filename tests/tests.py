@@ -16,7 +16,7 @@ k = next(iter(dl))
 device = torch.device("cpu")
 
 model_path = "/itet-stor/peerli/net_scratch/cifar10_checkpoints/checkpoint90.pt"
-model = DiffusionModel(UNet(4), ForwardDiffusion(1000))
+model = DiffusionModel(UNet(4), ForwardDiffusion(1000))#.load_state_dict(torch.load(model_path, map_location=device))
 model = model.to(device)
 
 wandb.init(project="dummy")
