@@ -235,7 +235,7 @@ class UNet(nn.Module):
         self.encoding_channels = [64]
         for i in range(self.num_layers):
             self.encoding_channels.append(64 * (2 ** i))
-        self.encoder = [EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, verbose) for i in range(len(self.encoding_channels[:-1]))]
+        self.encoder = nn.ModuleList([EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
         self.bottleneck = nn.Sequential(
             nn.Conv2d(self.encoding_channels[-1], self.encoding_channels[-1] * 2, kernel_size=self.kernel_size, padding="same"),
@@ -246,7 +246,7 @@ class UNet(nn.Module):
         for i in range(self.num_layers + 1):
             self.decoding_channels.append(64 * (2 ** i))
         self.decoding_channels = self.decoding_channels[::-1]
-        self.decoder = [DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, verbose) for i in range(len(self.encoding_channels[:-1]))]
+        self.decoder = nn.ModuleList([DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
         self.out_conv = nn.Conv2d(64, in_channels, kernel_size=kernel_size, padding="same")
 
