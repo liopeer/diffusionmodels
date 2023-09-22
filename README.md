@@ -18,7 +18,7 @@ make sure that `log` folder exists
 sbatch --job-name=NAME --output=log/%j.out --gres=gpu:1 --mem=10G subscript.sh SCRIPT_PARAMS
 ```
 ```bash
-srun --time 10 --partition=gpu.debug --gres=gpu:1 --pty bash -i
+srun --time 10 --partition=gpu.debug --constraint='titan_xp|geforce_gtx_titan_x' --gres=gpu:1 --pty bash -i
 ```
 
 ## VSCode Remote Troubleshooting

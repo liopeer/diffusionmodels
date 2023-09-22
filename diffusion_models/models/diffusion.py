@@ -1,7 +1,7 @@
 import torch
 from torch import nn, Tensor
 from jaxtyping import Float, Int64, Int
-from typing import Literal
+from typing import Literal, Tuple
 
 class ForwardDiffusion(nn.Module):
     """Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).
@@ -101,10 +101,10 @@ class DiffusionModel(nn.Module):
 
     def forward(self, x):
         # sample batch of timesteps and create batch of positional/time encodings
-        self.timesteps = self._sample_timesteps(x.shape[0])
+        self.timesteps = self._sample_timesteps(x.shape[0]).to(x.device)
         
         # convert timesteps into time encodings
-        self.time_enc = self._time_encoding(self.timesteps, self.time_enc_dim)
+        self.time_enc = self._time_encoding(self.timesteps, self.time_enc_dim).to(x.device)
 
         # create batch of noisy images
         x_t, noise = self.fwd_diff(x, self.timesteps)
@@ -113,9 +113,26 @@ class DiffusionModel(nn.Module):
         noise_pred = self.model(x_t, self.time_enc)
         return noise_pred, noise
     
-    def sample(self, n):
+    def sample(self, n: int, img_size: Tuple[int, int]):
         """Sample a batch of images."""
-        pass
+        self.model.eval()
+        device = list(self.parameters())[0].device
+        with torch.no_grad():
+            x = torch.randn((n, self.model.in_channels, img_size, img_size), device=device)
+            for i in reversed(range(1, self.fwd_diff.timesteps)):
+                t_steps = torch.ones((n), dtype=torch.long, device=device)
+                t_enc = self._time_encoding(t_steps, self.time_enc_dim)
+                predicted_noise = self.model(x, t_enc)
+                alpha = self.fwd_diff.alphas[t_steps][:, None, None, None]
+                alpha_hat = self.fwd_diff.alphas_dash[t_steps][:, None, None, None]
+                beta = self.fwd_diff.betas[t_steps][:, None, None, None]
+                if i > 1:
+                    noise = torch.randn_like(x)
+                else:
+                    noise = torch.zeros_like(x)
+                x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * predicted_noise) + torch.sqrt(beta) * noise
+        self.model.train()
+        return x
     
     def _time_encoding(
             self, 

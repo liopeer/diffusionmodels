@@ -11,6 +11,7 @@ import wandb
 from typing import Callable, Literal, Any, Tuple
 import wandb
 from torch.nn import Module
+import torchvision
 
 class Trainer:
     """Trainer Class that trains 1 model instance on 1 device."""
@@ -152,3 +153,18 @@ class GenerativeTrainer(Trainer):
         loss.backward()
         self.optimizer.step()
         return loss.item()
+    
+    def _save_checkpoint(self, epoch):
+        """Overwriting original method."""
+        super()._save_checkpoint(epoch)
+        samples = self.model.sample(25, (32, 32))
+        samples = torchvision.utils.make_grid(samples, nrow=5)
+        if self.log_wandb:
+            images = wandb.Image(
+                samples, 
+                caption=f"Samples Epoch {epoch}"
+            )
+            wandb.log({"examples": images})
+        path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}")
+        torchvision.utils.save_image(samples, path)
+        print(f"Epoch {epoch} | Samples saved at {path}")

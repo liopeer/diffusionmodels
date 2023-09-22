@@ -18,14 +18,14 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 2,
+    total_epochs = 500,
     batch_size = 1000,
     learning_rate = 0.001,
     device_type = "cuda",
-    dataset = MNISTTrainDataset,
+    dataset = UnconditionedCifar10Dataset,
     architecture = DiffusionModel,
     backbone = UNet,
-    in_channels = 1,
+    in_channels = 3,
     backbone_enc_depth = 4,
     kernel_size = 3,
     dropout = 0.5,
@@ -39,15 +39,11 @@ config = dotdict(
     #data_path = os.path.abspath("./data"),
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnist_checkpoints",
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifar10_checkpoints",
     save_every = 10,
     loss_func = F.mse_loss,
-    log_wandb = False
+    log_wandb = True
 )
-
-backbone = UNet(4)
-fwd_diff = ForwardDiffusion(timesteps=1000)
-model = DiffusionModel(backbone, fwd_diff)
 
 def load_train_objs(config):
     train_set = config.dataset(config.data_path)
@@ -72,7 +68,7 @@ def load_train_objs(config):
 
 def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
-        wandb.init(project="mnist_trials", config=config, save_code=True)
+        wandb.init(project="cifar_gen_trials", config=config, save_code=True)
     dataset, model, optimizer = load_train_objs(config)
     trainer = GenerativeTrainer(
         model, 
