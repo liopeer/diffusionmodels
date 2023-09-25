@@ -123,13 +123,18 @@ class DiffusionModel(nn.Module):
                 t_steps = torch.ones((n), dtype=torch.long, device=device)
                 t_enc = self._time_encoding(t_steps, self.time_enc_dim)
                 predicted_noise = self.model(x, t_enc)
+
+                self.fwd_diff.alphas = self.fwd_diff.alphas.to(device)
+                self.fwd_diff.alphas_dash = self.fwd_diff.alphas_dash.to(device)
+                self.fwd_diff.betas = self.fwd_diff.betas.to(device)
+
                 alpha = self.fwd_diff.alphas[t_steps][:, None, None, None]
                 alpha_hat = self.fwd_diff.alphas_dash[t_steps][:, None, None, None]
                 beta = self.fwd_diff.betas[t_steps][:, None, None, None]
                 if i > 1:
-                    noise = torch.randn_like(x)
+                    noise = torch.randn_like(x, device=device)
                 else:
-                    noise = torch.zeros_like(x)
+                    noise = torch.zeros_like(x, device=device)
                 x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * predicted_noise) + torch.sqrt(beta) * noise
         self.model.train()
         return x

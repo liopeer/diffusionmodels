@@ -94,7 +94,10 @@ class Trainer:
         print(f"[GPU{self.gpu_id}] Epoch {epoch} | Batchsize: {self.batch_size} | Steps: {len(self.train_data)} | Loss: {np.mean(epoch_losses)} | Time: {time()-time1:.2f}s")
 
     def _save_checkpoint(self, epoch):
-        ckp = self.model.state_dict()
+        if self.device_type == "cuda":
+            ckp = self.model.module.state_dict()
+        else:
+            ckp = self.model.state_dict()
         if not os.path.isdir(self.checkpoint_folder):
             os.makedirs(self.checkpoint_folder)
         path = os.path.join(self.checkpoint_folder, f"checkpoint{epoch}.pt")
@@ -168,6 +171,6 @@ class GenerativeTrainer(Trainer):
                 caption=f"Samples Epoch {epoch}"
             )
             wandb.log({"examples": images})
-        path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}")
+        path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}.png")
         torchvision.utils.save_image(samples, path)
         print(f"Epoch {epoch} | Samples saved at {path}")

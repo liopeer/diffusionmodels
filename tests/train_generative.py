@@ -18,14 +18,14 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 2,
+    total_epochs = 300,
     batch_size = 1000,
     learning_rate = 0.001,
     device_type = "cuda",
-    dataset = UnconditionedCifar10Dataset,
+    dataset = MNISTTrainDataset,
     architecture = DiffusionModel,
     backbone = UNet,
-    in_channels = 3,
+    in_channels = 1,
     backbone_enc_depth = 4,
     kernel_size = 3,
     dropout = 0.5,
@@ -40,9 +40,10 @@ config = dotdict(
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     data_path = "/itet-stor/peerli/net_scratch",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/cifar10_checkpoints",
-    save_every = 1,
+    save_every = 10,
     loss_func = F.mse_loss,
-    log_wandb = True
+    log_wandb = True,
+    project = "mnist_gen_trials"
 )
 
 def load_train_objs(config):
@@ -68,7 +69,7 @@ def load_train_objs(config):
 
 def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
-        wandb.init(project="cifar_gen_trials", config=config, save_code=True)
+        wandb.init(project=config.project, config=config, save_code=True)
     dataset, model, optimizer = load_train_objs(config)
     trainer = GenerativeTrainer(
         model, 
