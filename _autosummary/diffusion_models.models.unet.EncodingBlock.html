@@ -70,7 +70,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../chap/tex_stuff.html#introduction">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chap/tex_stuff.html#blubbi">Blubbi</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../idea_corner.html">Idea Corner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../idea_corner.html#sophisticated-vae-ddpms">Sophisticated VAE/DDPMs</a></li>
 </ul>
 
         </div>
@@ -104,7 +103,7 @@
 <h1>diffusion_models.models.unet.EncodingBlock<a class="headerlink" href="#diffusion-models-models-unet-encodingblock" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="diffusion_models.models.unet.EncodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.EncodingBlock" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;class</span> <span class="pre">'torch.nn.modules.activation.SiLU'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.EncodingBlock" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Initialize UNet Encoder Building Block.</p>
 <dl class="field-list simple">
@@ -115,6 +114,7 @@
 <li><p><strong>time_embedding_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – dimension of time embedding</p></li>
 <li><p><strong>kernel_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – size of convolutional kernel</p></li>
 <li><p><strong>dropout</strong> (<a class="reference internal" href="#diffusion_models.models.unet.EncodingBlock.float" title="diffusion_models.models.unet.EncodingBlock.float"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – probability of dropout layers</p></li>
+<li><p><strong>activation</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>) – non-linearity of neural network</p></li>
 <li><p><strong>verbose</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to print tensor shapes in forward pass</p></li>
 </ul>
 </dd>

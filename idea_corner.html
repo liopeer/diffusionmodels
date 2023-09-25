@@ -72,9 +72,22 @@
 <li class="toctree-l2"><a class="reference internal" href="#u-net-variants">U-Net Variants</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#diffusion-models-with-transformers">Diffusion Models with Transformers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#relative-positional-encodings">Relative Positional Encodings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sophisticated-vae-ddpms">Sophisticated VAE/DDPMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batchnorm-vs-layernorm-vs-instancenorm-vs-groupnorm">BatchNorm vs. LayerNorm vs. InstanceNorm vs. GroupNorm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#batchnorm">BatchNorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#layernorm">LayerNorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instancenorm">InstanceNorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#groupnorm">GroupNorm</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#sophisticated-vae-ddpms">Sophisticated VAE/DDPMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#repaint">RePaint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image-guided-ddpms">Image-Guided DDPMs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ilvr">ILVR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sedit">SEdit</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -168,13 +181,85 @@
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1803.02155.pdf">Self-Attention with Relative Position Representations</a></p></li>
 </ul>
 </section>
-</section>
 <section id="sophisticated-vae-ddpms">
-<h1>Sophisticated VAE/DDPMs<a class="headerlink" href="#sophisticated-vae-ddpms" title="Link to this heading"></a></h1>
+<h2>Sophisticated VAE/DDPMs<a class="headerlink" href="#sophisticated-vae-ddpms" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://arxiv.org/pdf/2111.14822.pdf">Vector Quantized Diffusion Model for Text-to-Image Synthesis</a></p></li>
 <li><p><a class="reference external" href="https://arxiv.org/pdf/2112.10752.pdf">Stable Diffusion</a></p></li>
 </ul>
+</section>
+<section id="batchnorm-vs-layernorm-vs-instancenorm-vs-groupnorm">
+<h2>BatchNorm vs. LayerNorm vs. InstanceNorm vs. GroupNorm<a class="headerlink" href="#batchnorm-vs-layernorm-vs-instancenorm-vs-groupnorm" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1502.03167.pdf">BatchNorm 2015</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1607.06450.pdf">LayerNorm 2016</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1607.08022.pdf">InstanceNorm 2016</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1803.08494.pdf">GroupNorm 2018</a></p></li>
+</ul>
+<section id="batchnorm">
+<h3>BatchNorm<a class="headerlink" href="#batchnorm" title="Link to this heading"></a></h3>
+<p>We normalize each feature, so for images we calculate means and variances for each channel and normalize each channel with its respective values. In addition <strong>we learn new variances and means for each channel</strong> and scale the samples again by these values.</p>
+<p>With images `(100, 16, 64, 64) = (batch channel height width)``:</p>
+<ol class="arabic simple">
+<li><p>Normalize: 16 means and 16 variances, e.g. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">torch.mean(x,</span> <span class="pre">dim=(0,2,3)).view(1,-1,1,1)</span></code></p></li>
+<li><p>Scaling: 16 means and variances</p></li>
+</ol>
+<p><strong>Idea</strong>: One could try to use <code class="docutils literal notranslate"><span class="pre">BatchNorm2d(track_running_stats=False)</span></code>, this should not shift things around during training if batches are small.</p>
+</section>
+<section id="layernorm">
+<h3>LayerNorm<a class="headerlink" href="#layernorm" title="Link to this heading"></a></h3>
+<p>In BatchNorm we essentially took the mean over dimensions <code class="docutils literal notranslate"><span class="pre">dim=(0,2,3)</span></code>, now we can choose, but we do it over the last few <code class="docutils literal notranslate"><span class="pre">D</span></code> dimensions, e.g. over <code class="docutils literal notranslate"><span class="pre">dim=(1,2,3)</span> <span class="pre">=</span> <span class="pre">(channel</span> <span class="pre">height</span> <span class="pre">width)</span></code> or only over the last 2 dimensions <code class="docutils literal notranslate"><span class="pre">dim=(2,3)</span></code>. Seems a little bit counterintuitive to calculate the mean also over the channel dimension in my opinion, intuitively channels are the feature dimension and should be left independent.</p>
+<p>With images <code class="docutils literal notranslate"><span class="pre">(100,</span> <span class="pre">16,</span> <span class="pre">64,64)</span> <span class="pre">=</span> <span class="pre">(batch</span> <span class="pre">channel</span> <span class="pre">height</span> <span class="pre">width)</span></code> and LayerNorm over 3 dimensions:</p>
+<ol class="arabic simple">
+<li><p>Normalize: 100 means and variances, e.g. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">-</span> <span class="pre">torch.mean(x,</span> <span class="pre">dim=(1,2,3)).view(-1,1,1,1)</span></code></p></li>
+<li><p>Scaling: once (16,64,64) means and once (16,64,64) variances.
+<strong>Meaning</strong>: Normalizing is globally per instance, scaling is per pixel but the same for all instances.</p></li>
+</ol>
+</section>
+<section id="instancenorm">
+<h3>InstanceNorm<a class="headerlink" href="#instancenorm" title="Link to this heading"></a></h3>
+<p>Operates on single sample as the name indicates. In BatchNorm we calculated a mean and variance for each channels over all samples in the mini-batch. <strong>Now we ignore the mini-batch</strong> and calculate the mean and variance for each sample independently a set of means and variances for all channels in that sample.</p>
+<p>With images <code class="docutils literal notranslate"><span class="pre">(100,</span> <span class="pre">16,</span> <span class="pre">64,64)</span> <span class="pre">=</span> <span class="pre">(batch</span> <span class="pre">channel</span> <span class="pre">height</span> <span class="pre">width)</span></code>:</p>
+<ol class="arabic simple">
+<li><p>Normalize: 100 times 16 means and 16 variances, e.g. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">-</span> <span class="pre">torch.mean(x,</span> <span class="pre">dim=(2,3)).view(x.shape[0],</span> <span class="pre">x.shape[1],</span> <span class="pre">1,</span> <span class="pre">1)</span></code></p></li>
+<li><p>Scaling: Usually we don’t apply any scaling, but if <code class="docutils literal notranslate"><span class="pre">affine=True</span></code> then we get the same scaling for every sample (same as in BatchNorm)</p></li>
+</ol>
+</section>
+<section id="groupnorm">
+<h3>GroupNorm<a class="headerlink" href="#groupnorm" title="Link to this heading"></a></h3>
+<p>pass</p>
+</section>
+</section>
+<section id="repaint">
+<h2>RePaint<a class="headerlink" href="#repaint" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://arxiv.org/pdf/2201.09865.pdf">RePaint 2022</a></p>
+<ul class="simple">
+<li><p>pretrained unconditional DDPM as generative prior</p></li>
+<li><p>only the initial sampling is conditioned on the image (in the regions where we have no mask)</p></li>
+<li><p>it goes forward and backward in diffusion time during inference (allows resampling and better semantic matching of reconstructed region). starting at complete noise; fixed amount of steps in reverse process; fixed amount of steps in forward process.</p></li>
+<li><p>sampling schedule proposed that greatly improves image quality</p></li>
+</ul>
+</section>
+<section id="image-guided-ddpms">
+<h2>Image-Guided DDPMs<a class="headerlink" href="#image-guided-ddpms" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2108.02938.pdf">ILVR 2021</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2108.01073.pdf">SDEdit 2022</a></p></li>
+</ul>
+<section id="ilvr">
+<h3>ILVR<a class="headerlink" href="#ilvr" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>low-frequency information is used from conditional image - undersampling masks usually have a lot of low frequency information</p></li>
+</ul>
+</section>
+<section id="sedit">
+<h3>SEdit<a class="headerlink" href="#sedit" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>conditional image goes through forward process (but not completely) and is then denoised in the reverse process</p></li>
+<li><p>it is repeated several times and somehow merged for better results</p></li>
+</ul>
+</section>
+</section>
 </section>
 
 
