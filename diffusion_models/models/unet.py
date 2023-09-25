@@ -12,6 +12,7 @@ class EncodingBlock(nn.Module):
             time_embedding_size: int, 
             kernel_size: int=3,
             dropout: float=0.5,
+            activation: nn.Module=nn.SiLU,
             verbose: bool=False
         ) -> None:
         """Initialize UNet Encoder Building Block.
@@ -28,6 +29,8 @@ class EncodingBlock(nn.Module):
             size of convolutional kernel
         dropout
             probability of dropout layers
+        activation
+            non-linearity of neural network
         verbose
             whether to print tensor shapes in forward pass
         """
@@ -37,19 +40,21 @@ class EncodingBlock(nn.Module):
         self.time_embedding_size = time_embedding_size
         self.kernel_size = kernel_size
         self.dropout = dropout
+        self.activation = activation
+        self.verbose = verbose
 
         self.time_embedding_fc = nn.Linear(self.time_embedding_size, self.out_channels)
 
         self.conv1 = nn.Sequential(
             nn.Conv2d(self.in_channels, self.out_channels, kernel_size=self.kernel_size, padding="same"),
             nn.BatchNorm2d(self.out_channels),
-            nn.ReLU(),
+            self.activation(),
             nn.Dropout(self.dropout)
         )
         self.conv2 = nn.Sequential(
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, padding="same"),
             nn.BatchNorm2d(self.out_channels),
-            nn.ReLU(),
+            self.activation(),
             nn.Dropout(self.dropout)
         )
         self.scale = nn.MaxPool2d(kernel_size=2)
@@ -92,6 +97,7 @@ class DecodingBlock(nn.Module):
             time_embedding_size: int,
             kernel_size: int=3,
             dropout: float=0.5,
+            activation: nn.Module=nn.SiLU,
             verbose: bool=False
         ) -> None:
         """Initialize UNet Decoder Building Block.
@@ -117,21 +123,27 @@ class DecodingBlock(nn.Module):
         self.time_embedding_size = time_embedding_size
         self.kernel_size = kernel_size
         self.dropout = dropout
+        self.activation = activation
         self.verbose = verbose
 
         self.time_embedding_fc = nn.Linear(self.time_embedding_size, self.out_channels)
 
-        self.scale = nn.ConvTranspose2d(self.in_channels, self.out_channels, kernel_size=2, stride=2)
+        self.scale = nn.Sequential(
+            nn.ConvTranspose2d(self.in_channels, self.out_channels, kernel_size=2, stride=2),
+            nn.BatchNorm2d(self.out_channels),
+            self.activation(),
+            nn.Dropout(self.dropout)
+        )
         self.conv1 = nn.Sequential(
             nn.Conv2d(self.out_channels * 2, self.out_channels, kernel_size=self.kernel_size, padding="same"),
             nn.BatchNorm2d(self.out_channels),
-            nn.ReLU(),
+            self.activation(),
             nn.Dropout(self.dropout)
         )
         self.conv2 = nn.Sequential(
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, padding="same"),
             nn.BatchNorm2d(self.out_channels),
-            nn.ReLU(),
+            self.activation(),
             nn.Dropout(self.dropout)
         )
     
@@ -216,8 +228,28 @@ class UNet(nn.Module):
             kernel_size: int=3,
             time_emb_size: int=256,
             dropout: float=0.5,
+            activation: nn.Module=nn.SiLU,
             verbose: bool=False
         ) -> None:
+        """Constructor of UNet.
+
+        Parameters
+        ----------
+        num_encoding_blocks
+            how many basic encoder building blocks; each block will double the channels and half the resolution
+        in_channels
+            start channels, e.g. 1 or 3
+        kernel_size
+            size of convolutional kernels
+        time_emb_size
+            initial size of time step encoding
+        dropout
+            probability parameter of dropout layers
+        activation
+            activation function to be used
+        verbose
+            verbose printing of tensor shapes for debbugging
+        """
         super().__init__()
         self.num_layers = num_encoding_blocks
         self.in_channels = in_channels
@@ -226,25 +258,37 @@ class UNet(nn.Module):
         self.kernel_size = kernel_size
         self.time_embedding_size = time_emb_size
         self.dropout = dropout
+        self.activation = activation
         self.verbose = verbose
 
-        self.in_conv = nn.Conv2d(in_channels, 64, kernel_size=kernel_size, padding="same")
+        self.in_conv = nn.Sequential(
+            nn.Conv2d(in_channels, 64, kernel_size=kernel_size, padding="same"),
+            nn.BatchNorm2d(64),
+            self.activation(),
+            nn.Dropout(self.dropout)
+        )
 
         self.encoding_channels = [64]
         for i in range(self.num_layers):
             self.encoding_channels.append(64 * (2 ** i))
-        self.encoder = nn.ModuleList([EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, verbose) for i in range(len(self.encoding_channels[:-1]))])
+        self.encoder = nn.ModuleList([EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
         self.bottleneck = nn.Sequential(
             nn.Conv2d(self.encoding_channels[-1], self.encoding_channels[-1] * 2, kernel_size=self.kernel_size, padding="same"),
-            nn.Conv2d(self.encoding_channels[-1] * 2, self.encoding_channels[-1] * 2, kernel_size=self.kernel_size, padding="same")
+            nn.BatchNorm2d(self.encoding_channels[-1] * 2),
+            self.activation(),
+            nn.Dropout(self.dropout),
+            nn.Conv2d(self.encoding_channels[-1] * 2, self.encoding_channels[-1] * 2, kernel_size=self.kernel_size, padding="same"),
+            nn.BatchNorm2d(self.encoding_channels[-1] * 2),
+            self.activation(),
+            nn.Dropout(self.dropout)
         )
 
         self.decoding_channels = []
         for i in range(self.num_layers + 1):
             self.decoding_channels.append(64 * (2 ** i))
         self.decoding_channels = self.decoding_channels[::-1]
-        self.decoder = nn.ModuleList([DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, verbose) for i in range(len(self.encoding_channels[:-1]))])
+        self.decoder = nn.ModuleList([DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
         self.out_conv = nn.Conv2d(64, in_channels, kernel_size=kernel_size, padding="same")
 
