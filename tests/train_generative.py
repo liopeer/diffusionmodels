@@ -18,13 +18,13 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 200,
-    log_wandb = True,
-    save_every = 10,
+    total_epochs = 3,
+    log_wandb = False,
+    save_every = 1,
     num_samples = 9,
     show_denoising_history = True,
     show_history_every = 20,
-    batch_size = 1000,
+    batch_size = 500,
     learning_rate = 0.001,
     device_type = "cuda",
     dataset = MNISTTrainDataset,
@@ -76,6 +76,7 @@ def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
         wandb.init(project=config.project, config=config, save_code=True)
     dataset, model, optimizer = load_train_objs(config)
+    torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
     trainer = GenerativeTrainer(
         model, 
         dataset, 
