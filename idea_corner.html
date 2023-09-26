@@ -56,22 +56,9 @@
 <li class="toctree-l1"><a class="reference internal" href="chap/tex_stuff.html#materials-and-methods">Materials and Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap/tex_stuff.html#related-work">Related Work</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Idea Corner</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#public-datasets">Public Datasets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#fastmri-nyu-and-facebook-ai-research">fastMRI - NYU and Facebook AI Research</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#public-datasets">Public Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-strategies">Training Strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bayesian-perspective-on-generative-ai">Bayesian Perspective on Generative AI</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#jake-tae-from-elbo-to-ddpm">Jake Tae - From ELBO to DDPM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lilian-weng-what-are-diffusion-models">Lilian Weng - What are Diffusion Models?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lilian-weng-self-supervised-representation-learning">Lilian Weng - Self-Supervised Representation Learning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lilian-weng-flow-based-deep-generative-models">Lilian Weng - Flow-based Deep Generative Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lilian-weng-from-autoencoder-to-beta-vae">Lilian Weng - From Autoencoder to Beta-VAE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lilian-weng-from-gan-to-wgan">Lilian Weng - From GAN to WGAN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#valentin-de-bortoli-generative-modeling">Valentin De Bortoli - Generative Modeling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yang-song-scored-based-generative-modeling">Yang Song - Scored-Based Generative Modeling</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#bayesian-perspective-on-generative-ai">Bayesian Perspective on Generative AI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#normalization-papers">Normalization Papers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#u-net-variants">U-Net Variants</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#diffusion-models-with-transformers">Diffusion Models with Transformers</a></li>
@@ -82,10 +69,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#layernorm">LayerNorm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#instancenorm">InstanceNorm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#groupnorm">GroupNorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#repaint">RePaint</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#image-guided-ddpms">Image-Guided DDPMs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#image-inpainting">Image Inpainting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#repaint">RePaint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#image-conditioned-diffusion-models">Image-Conditioned Diffusion Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ilvr">ILVR</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sedit">SEdit</a></li>
 </ul>
@@ -122,39 +113,28 @@
 <h1>Idea Corner<a class="headerlink" href="#idea-corner" title="Link to this heading"></a></h1>
 <section id="public-datasets">
 <h2>Public Datasets<a class="headerlink" href="#public-datasets" title="Link to this heading"></a></h2>
-<section id="fastmri-nyu-and-facebook-ai-research">
-<h3><a class="reference external" href="https://fastmri.med.nyu.edu/">fastMRI - NYU and Facebook AI Research</a><a class="headerlink" href="#fastmri-nyu-and-facebook-ai-research" title="Link to this heading"></a></h3>
-</section>
+<ul class="simple">
+<li><p><a class="reference external" href="https://fastmri.med.nyu.edu/">fastMRI - NYU and Facebook AI Research</a></p></li>
+</ul>
 </section>
 <section id="training-strategies">
 <h2>Training Strategies<a class="headerlink" href="#training-strategies" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1710.03740.pdf">Mixed Precision Training</a></p></li>
+</ul>
 </section>
 <section id="bayesian-perspective-on-generative-ai">
 <h2>Bayesian Perspective on Generative AI<a class="headerlink" href="#bayesian-perspective-on-generative-ai" title="Link to this heading"></a></h2>
-<section id="jake-tae-from-elbo-to-ddpm">
-<h3><a class="reference external" href="https://jaketae.github.io/study/elbo/">Jake Tae - From ELBO to DDPM</a><a class="headerlink" href="#jake-tae-from-elbo-to-ddpm" title="Link to this heading"></a></h3>
-</section>
-<section id="lilian-weng-what-are-diffusion-models">
-<h3><a class="reference external" href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lilian Weng - What are Diffusion Models?</a><a class="headerlink" href="#lilian-weng-what-are-diffusion-models" title="Link to this heading"></a></h3>
-</section>
-<section id="lilian-weng-self-supervised-representation-learning">
-<h3><a class="reference external" href="https://lilianweng.github.io/posts/2019-11-10-self-supervised/">Lilian Weng - Self-Supervised Representation Learning</a><a class="headerlink" href="#lilian-weng-self-supervised-representation-learning" title="Link to this heading"></a></h3>
-</section>
-<section id="lilian-weng-flow-based-deep-generative-models">
-<h3><a class="reference external" href="https://lilianweng.github.io/posts/2018-10-13-flow-models/">Lilian Weng - Flow-based Deep Generative Models</a><a class="headerlink" href="#lilian-weng-flow-based-deep-generative-models" title="Link to this heading"></a></h3>
-</section>
-<section id="lilian-weng-from-autoencoder-to-beta-vae">
-<h3><a class="reference external" href="https://lilianweng.github.io/posts/2018-08-12-vae/">Lilian Weng - From Autoencoder to Beta-VAE</a><a class="headerlink" href="#lilian-weng-from-autoencoder-to-beta-vae" title="Link to this heading"></a></h3>
-</section>
-<section id="lilian-weng-from-gan-to-wgan">
-<h3><a class="reference external" href="https://lilianweng.github.io/posts/2017-08-20-gan/">Lilian Weng - From GAN to WGAN</a><a class="headerlink" href="#lilian-weng-from-gan-to-wgan" title="Link to this heading"></a></h3>
-</section>
-<section id="valentin-de-bortoli-generative-modeling">
-<h3><a class="reference external" href="https://vdeborto.github.io/project/generative_modeling/">Valentin De Bortoli - Generative Modeling</a><a class="headerlink" href="#valentin-de-bortoli-generative-modeling" title="Link to this heading"></a></h3>
-</section>
-<section id="yang-song-scored-based-generative-modeling">
-<h3><a class="reference external" href="https://yang-song.net/blog/2021/score/">Yang Song - Scored-Based Generative Modeling</a><a class="headerlink" href="#yang-song-scored-based-generative-modeling" title="Link to this heading"></a></h3>
-</section>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jaketae.github.io/study/elbo/">Jake Tae - From ELBO to DDPM</a></p></li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lilian Weng - What are Diffusion Models?</a></p></li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2019-11-10-self-supervised/">Lilian Weng - Self-Supervised Representation Learning</a></p></li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2018-10-13-flow-models/">Lilian Weng - Flow-based Deep Generative Models</a></p></li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2018-08-12-vae/">Lilian Weng - From Autoencoder to Beta-VAE</a></p></li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2017-08-20-gan/">Lilian Weng - From GAN to WGAN</a></p></li>
+<li><p><a class="reference external" href="https://vdeborto.github.io/project/generative_modeling/">Valentin De Bortoli - Generative Modeling</a></p></li>
+<li><p><a class="reference external" href="https://yang-song.net/blog/2021/score/">Yang Song - Scored-Based Generative Modeling</a></p></li>
+</ul>
 </section>
 <section id="normalization-papers">
 <h2>Normalization Papers<a class="headerlink" href="#normalization-papers" title="Link to this heading"></a></h2>
@@ -233,9 +213,14 @@
 <h3>GroupNorm<a class="headerlink" href="#groupnorm" title="Link to this heading"></a></h3>
 <p>pass</p>
 </section>
+<section id="id1">
+<h3><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 </section>
+</section>
+<section id="image-inpainting">
+<h2>Image Inpainting<a class="headerlink" href="#image-inpainting" title="Link to this heading"></a></h2>
 <section id="repaint">
-<h2>RePaint<a class="headerlink" href="#repaint" title="Link to this heading"></a></h2>
+<h3>RePaint<a class="headerlink" href="#repaint" title="Link to this heading"></a></h3>
 <p><a class="reference external" href="https://arxiv.org/pdf/2201.09865.pdf">RePaint 2022</a></p>
 <ul class="simple">
 <li><p>pretrained unconditional DDPM as generative prior</p></li>
@@ -245,20 +230,19 @@
 <li><p>they use human evaluation an LPIPS</p></li>
 </ul>
 </section>
-<section id="image-guided-ddpms">
-<h2>Image-Guided DDPMs<a class="headerlink" href="#image-guided-ddpms" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://arxiv.org/pdf/2108.02938.pdf">ILVR 2021</a></p></li>
-<li><p><a class="reference external" href="https://arxiv.org/pdf/2108.01073.pdf">SDEdit 2022</a></p></li>
-</ul>
+</section>
+<section id="image-conditioned-diffusion-models">
+<h2>Image-Conditioned Diffusion Models<a class="headerlink" href="#image-conditioned-diffusion-models" title="Link to this heading"></a></h2>
 <section id="ilvr">
 <h3>ILVR<a class="headerlink" href="#ilvr" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://arxiv.org/pdf/2108.02938.pdf">ILVR 2021</a></p>
 <ul class="simple">
 <li><p>low-frequency information is used from conditional image - undersampling masks usually have a lot of low frequency information</p></li>
 </ul>
 </section>
 <section id="sedit">
 <h3>SEdit<a class="headerlink" href="#sedit" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://arxiv.org/pdf/2108.01073.pdf">SDEdit 2022</a></p>
 <ul class="simple">
 <li><p>conditional image goes through forward process (but not completely) and is then denoised in the reverse process</p></li>
 <li><p>it is repeated several times and somehow merged for better results</p></li>

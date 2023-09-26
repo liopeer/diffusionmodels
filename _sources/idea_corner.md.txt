@@ -1,16 +1,17 @@
 # Idea Corner
 ## Public Datasets
-### [fastMRI - NYU and Facebook AI Research](https://fastmri.med.nyu.edu/)
+- [fastMRI - NYU and Facebook AI Research](https://fastmri.med.nyu.edu/)
 ## Training Strategies
+- [Mixed Precision Training](https://arxiv.org/pdf/1710.03740.pdf)
 ## Bayesian Perspective on Generative AI
-### [Jake Tae - From ELBO to DDPM](https://jaketae.github.io/study/elbo/)
-### [Lilian Weng - What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
-### [Lilian Weng - Self-Supervised Representation Learning](https://lilianweng.github.io/posts/2019-11-10-self-supervised/)
-### [Lilian Weng - Flow-based Deep Generative Models](https://lilianweng.github.io/posts/2018-10-13-flow-models/)
-### [Lilian Weng - From Autoencoder to Beta-VAE](https://lilianweng.github.io/posts/2018-08-12-vae/)
-### [Lilian Weng - From GAN to WGAN](https://lilianweng.github.io/posts/2017-08-20-gan/)
-### [Valentin De Bortoli - Generative Modeling](https://vdeborto.github.io/project/generative_modeling/)
-### [Yang Song - Scored-Based Generative Modeling](https://yang-song.net/blog/2021/score/)
+- [Jake Tae - From ELBO to DDPM](https://jaketae.github.io/study/elbo/)
+- [Lilian Weng - What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
+- [Lilian Weng - Self-Supervised Representation Learning](https://lilianweng.github.io/posts/2019-11-10-self-supervised/)
+- [Lilian Weng - Flow-based Deep Generative Models](https://lilianweng.github.io/posts/2018-10-13-flow-models/)
+- [Lilian Weng - From Autoencoder to Beta-VAE](https://lilianweng.github.io/posts/2018-08-12-vae/)
+- [Lilian Weng - From GAN to WGAN](https://lilianweng.github.io/posts/2017-08-20-gan/)
+- [Valentin De Bortoli - Generative Modeling](https://vdeborto.github.io/project/generative_modeling/)
+- [Yang Song - Scored-Based Generative Modeling](https://yang-song.net/blog/2021/score/)
 
 ## Normalization Papers
 - [Group Normalization](https://arxiv.org/pdf/1803.08494.pdf)
@@ -65,7 +66,10 @@ With images `(100, 16, 64,64) = (batch channel height width)`:
 ### GroupNorm
 pass
 
-## RePaint
+###
+
+## Image Inpainting
+### RePaint
 [RePaint 2022](https://arxiv.org/pdf/2201.09865.pdf)
 - pretrained unconditional DDPM as generative prior
 - only the initial sampling is conditioned on the image (in the regions where we have no mask)
@@ -74,13 +78,12 @@ pass
 - they use human evaluation an LPIPS
 
 
-## Image-Guided DDPMs
-- [ILVR 2021](https://arxiv.org/pdf/2108.02938.pdf)
-- [SDEdit 2022](https://arxiv.org/pdf/2108.01073.pdf)
-
+## Image-Conditioned Diffusion Models
 ### ILVR
+[ILVR 2021](https://arxiv.org/pdf/2108.02938.pdf)
 - low-frequency information is used from conditional image - undersampling masks usually have a lot of low frequency information
 
 ### SEdit
+[SDEdit 2022](https://arxiv.org/pdf/2108.01073.pdf)
 - conditional image goes through forward process (but not completely) and is then denoised in the reverse process
 - it is repeated several times and somehow merged for better results
