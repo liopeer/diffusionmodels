@@ -16,11 +16,12 @@ jobs:
           cd $GITHUB_WORKSPACE/docs
           python -m pip install -r requirements.txt
           sudo apt-get update
-          sudo apt-get install pandoc
+          sudo apt-get install pandoc git
       - name: Convert LaTeX Chapters
         run: |
-          cp -r $GITHUB_WORKSPACE/thesis/chap $GITHUB_WORKSPACE/docs/source/
-          cp -r $GITHUB_WORKSPACE/thesis/img $GITHUB_WORKSPACE/docs/source/chap/
+          git clone https://github.com/liopeer/CVLThesis.git
+          cp -r CVLThesis/chap $GITHUB_WORKSPACE/docs/source/
+          cp -r CVLThesis/images $GITHUB_WORKSPACE/docs/source/chap/
           cd $GITHUB_WORKSPACE/docs/source/chap
           pandoc -f latex -t rst *.tex -o tex_stuff.rst
           rm *.tex
