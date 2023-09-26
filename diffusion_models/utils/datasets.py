@@ -3,7 +3,7 @@ from torchvision.datasets import MNIST, CIFAR10
 from torchvision.transforms import Compose, ToTensor, Normalize, Resize
 from typing import Any
 
-class UnconditionedCifar10Dataset(CIFAR10):
+class Cifar10Dataset(CIFAR10):
     def __init__(self, root: str, train: bool = True, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None, download: bool = False) -> None:
         transform = Compose([ToTensor(), Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
         download = True

@@ -2,6 +2,7 @@ import torch
 from torch import nn, Tensor
 from jaxtyping import Float, Int64, Int
 from typing import Literal, Tuple
+from positional_encoding import PositionalEncoding
 
 class ForwardDiffusion(nn.Module):
     """Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).
@@ -85,31 +86,42 @@ class ForwardDiffusion(nn.Module):
         raise NotImplementedError("Cosine scheduler not implemented yet.")
     
 class DiffusionModel(nn.Module):
+    """DiffusionModel class that implements a DDPM (denoising diffusion probabilistic model)."""
     def __init__(
             self,
             backbone: nn.Module,
             fwd_diff: ForwardDiffusion,
-            time_enc_dim: int=256
+            time_enc_dim: int=256,
+            dropout: float=0
         ) -> None:
+        """"""
         super().__init__()
         self.model = backbone
         self.fwd_diff = fwd_diff
         self.time_enc_dim = time_enc_dim
+        self.dropout = dropout
 
-        self.register_buffer("timesteps", torch.empty((1)), persistent=False)
-        self.register_buffer("time_enc", torch.empty((1)), persistent=False)
+        self.time_enc = PositionalEncoding(d_model=time_enc_dim, dropout=dropout)
 
-    def forward(self, x):
-        # sample batch of timesteps and create batch of positional/time encodings
-        self.timesteps = self._sample_timesteps(x.shape[0]).to(x.device)
+    def forward(
+            self, 
+            x: Float[Tensor, "batch channels height width"]
+        ) -> Tuple[Float[Tensor, "batch channels height width"], Float[Tensor, "batch channels height width"]]:
+        """Predict noise for single denoising step.
+
+        Parameters
+        ----------
+        x
+            batch of original images
         
-        # convert timesteps into time encodings
-        self.time_enc = self._time_encoding(self.timesteps, self.time_enc_dim).to(x.device)
-
-        # create batch of noisy images
+        Returns
+        -------
+        out
+            tuple of noise predictions and noise for random timesteps in the denoising process
+        """
+        self.timesteps = self._sample_timesteps(x.shape[0]).to(x.device)
+        self.time_enc = self.time_enc.get_pos_encoding(self.timesteps)
         x_t, noise = self.fwd_diff(x, self.timesteps)
-
-        # run noisy images, conditioned on time through model
         noise_pred = self.model(x_t, self.time_enc)
         return noise_pred, noise
     

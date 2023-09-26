@@ -12,7 +12,7 @@ from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
 from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import MNISTTrainDataset, UnconditionedCifar10Dataset
+from utils.datasets import MNISTTrainDataset, Cifar10Dataset
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
