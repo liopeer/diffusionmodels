@@ -6,7 +6,6 @@ diffusion\_models.utils.datasets.MNISTTrainDataset
 .. autoclass:: MNISTTrainDataset
    :members:
    :show-inheritance:
-   :inherited-members:
    :special-members: __call__, __add__, __mul__
 
    

@@ -6,7 +6,6 @@ diffusion\_models.mri\_forward.undersampling\_mask.UndersamplingMask
 .. autoclass:: UndersamplingMask
    :members:
    :show-inheritance:
-   :inherited-members:
    :special-members: __call__, __add__, __mul__
 
    

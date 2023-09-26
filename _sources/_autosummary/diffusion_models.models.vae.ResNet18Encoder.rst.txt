@@ -6,7 +6,6 @@ diffusion\_models.models.vae.ResNet18Encoder
 .. autoclass:: ResNet18Encoder
    :members:
    :show-inheritance:
-   :inherited-members:
    :special-members: __call__, __add__, __mul__
 
    

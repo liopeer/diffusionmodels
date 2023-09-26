@@ -6,7 +6,6 @@ diffusion\_models.models.unet.DecodingBlock
 .. autoclass:: DecodingBlock
    :members:
    :show-inheritance:
-   :inherited-members:
    :special-members: __call__, __add__, __mul__
 
    

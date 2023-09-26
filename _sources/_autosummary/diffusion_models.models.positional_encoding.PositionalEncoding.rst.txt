@@ -6,7 +6,6 @@ diffusion\_models.models.positional\_encoding.PositionalEncoding
 .. autoclass:: PositionalEncoding
    :members:
    :show-inheritance:
-   :inherited-members:
    :special-members: __call__, __add__, __mul__
 
    
@@ -30,6 +29,7 @@ diffusion\_models.models.positional\_encoding.PositionalEncoding
       ~PositionalEncoding.get_buffer
       ~PositionalEncoding.get_extra_state
       ~PositionalEncoding.get_parameter
+      ~PositionalEncoding.get_pos_encoding
       ~PositionalEncoding.get_submodule
       ~PositionalEncoding.half
       ~PositionalEncoding.ipu

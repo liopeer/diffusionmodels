@@ -6,7 +6,6 @@ diffusion\_models.utils.mp\_setup.DDP\_Proc\_Group
 .. autoclass:: DDP_Proc_Group
    :members:
    :show-inheritance:
-   :inherited-members:
    :special-members: __call__, __add__, __mul__
 
    

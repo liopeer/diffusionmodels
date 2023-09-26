@@ -19,9 +19,9 @@ diffusion\_models.utils.datasets
       :toctree:
       :template: custom-class-template.rst
    
+      Cifar10Dataset
       MNISTTestDataset
       MNISTTrainDataset
-      UnconditionedCifar10Dataset
    
    
 
