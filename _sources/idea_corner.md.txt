@@ -71,6 +71,7 @@ pass
 - only the initial sampling is conditioned on the image (in the regions where we have no mask)
 - it goes forward and backward in diffusion time during inference (allows resampling and better semantic matching of reconstructed region). starting at complete noise; fixed amount of steps in reverse process; fixed amount of steps in forward process.
 - sampling schedule proposed that greatly improves image quality
+- they use human evaluation an LPIPS
 
 
 ## Image-Guided DDPMs
