@@ -21,7 +21,7 @@ every = 100
 
 img = "/Users/lionelpeer/Pictures/2020/Japan/darktable_exported/DSC_1808.jpg"
 img = read_image(img) / 255
-transform = torchvision.transforms.Resize((40, 60))
+transform = torchvision.transforms.Resize((120, 180))
 img = transform(img)
 
 print("image shape:", img.shape)
@@ -37,7 +37,7 @@ print("using device:", device)
 noiser = ForwardDiffusion(timesteps=timesteps, type=mode).to(device)
 batch = batch.to(device)
 
-noisies, noise = noiser.forward(batch[0], torch.tensor([i*every for i in range(timesteps//every)]))
+noisies, noise = noiser.forward(batch[0], torch.tensor([i*every-1 for i in range(1,timesteps//every)]))
 noisies = [noisies[i].permute(1,2,0) for i in range(noisies.shape[0])]
 
 blub = [r"$x_{} \sim q(x_{})$".format("{"+str(0)+"}", "{"+str(0)+"}")]
