@@ -18,7 +18,12 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 300,
+    total_epochs = 200,
+    log_wandb = True,
+    save_every = 10,
+    num_samples = 9,
+    show_denoising_history = True,
+    show_history_every = 20,
     batch_size = 1000,
     learning_rate = 0.001,
     device_type = "cuda",
@@ -40,10 +45,8 @@ config = dotdict(
     #data_path = os.path.abspath("./data"),
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnistGen_checkpoints",
-    save_every = 10,
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnistGen2_checkpoints",
     loss_func = F.mse_loss,
-    log_wandb = True,
     project = "mnist_gen_trials"
 )
 
@@ -83,7 +86,10 @@ def training(rank, world_size, config):
         config.save_every, 
         config.checkpoint_folder, 
         config.device_type,
-        config.log_wandb
+        config.log_wandb,
+        config.num_samples,
+        config.show_denoising_history,
+        config.show_history_every
     )
     trainer.train(config.total_epochs)
 

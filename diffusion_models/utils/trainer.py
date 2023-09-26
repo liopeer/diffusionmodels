@@ -138,8 +138,18 @@ class DiscriminativeTrainer(Trainer):
         return loss.item()
     
 class GenerativeTrainer(Trainer):
-    def __init__(self, model: Module, train_data: Dataset, loss_func: Callable[..., Any], optimizer: Optimizer, gpu_id: int, batch_size: int, save_every: int, checkpoint_folder: str, device_type: Literal['cuda', 'mps', 'cpu'], log_wandb: bool = True) -> None:
+    def __init__(
+            self, model: Module, train_data: Dataset, loss_func: Callable[..., Any], optimizer: Optimizer, gpu_id: int, batch_size: int, save_every: int, checkpoint_folder: str, device_type: Literal['cuda', 'mps', 'cpu'], log_wandb: bool,
+            num_samples: int,
+            show_denoising_process: bool,
+            show_denoising_every: int
+        ) -> None:
         super().__init__(model, train_data, loss_func, optimizer, gpu_id, batch_size, save_every, checkpoint_folder, device_type, log_wandb)
+        self.num_samples = num_samples
+        if not np.sqrt(num_samples).is_integer():
+            raise ValueError("Please choose a num_samples value with integer sqrt.")
+        self.show_denoising_process = show_denoising_process
+        self.show_denoising_every = show_denoising_every
 
     def _run_batch(self, data):
         """Run a data batch.
@@ -157,20 +167,35 @@ class GenerativeTrainer(Trainer):
         self.optimizer.step()
         return loss.item()
     
-    def _save_checkpoint(self, epoch):
-        """Overwriting original method."""
+    def _save_checkpoint(self, epoch: int):
+        """Overwriting original method - Checkpoint model and generate samples."""
         super()._save_checkpoint(epoch)
         if self.device_type == "cuda":
-            samples = self.model.module.sample(25, 32)
+            samples = self.model.module.sample(self.num_samples)
         else:
-            sample = self.model.sample(25, 32)
-        samples = torchvision.utils.make_grid(samples, nrow=5)
-        if self.log_wandb:
-            images = wandb.Image(
-                samples, 
-                caption=f"Samples Epoch {epoch}"
-            )
-            wandb.log({"examples": images})
-        path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}.png")
-        torchvision.utils.save_image(samples, path)
-        print(f"Epoch {epoch} | Samples saved at {path}")
+            samples = self.model.sample(self.num_samples)
+        if not self.show_denoising_process:
+            samples = torchvision.utils.make_grid(samples, nrow=int(np.sqrt(self.num_samples)))
+            if self.log_wandb:
+                images = wandb.Image(
+                    samples, 
+                    caption=f"Samples Epoch {epoch}"
+                )
+                wandb.log({"examples": images})
+            path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}.png")
+            torchvision.utils.save_image(samples, path)
+            print(f"Epoch {epoch} | Samples saved at {path}")
+        else:
+            path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}")
+            if not os.path.isdir(path):
+                os.makedirs(path)
+            for i, sample in enumerate(samples):
+                grid = torchvision.utils.make_grid(sample, nrow=int(np.sqrt(self.num_samples)))
+                img_path = os.path.join(path, f"samples_step{i * self.show_denoising_every}.png")
+                torchvision.utils.save_image(grid, img_path)
+                if self.log_wandb:
+                    images = wandb.Image(
+                    grid
+                )
+                wandb.log({f"examples_epoch{epoch}": images})
+            print(f"Epoch {epoch} | Samples saved at {path}")

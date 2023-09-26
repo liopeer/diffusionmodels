@@ -2,7 +2,8 @@ import torch
 from torch import nn, Tensor
 from jaxtyping import Float, Int64, Int
 from typing import Literal, Tuple, Union, List
-from positional_encoding import PositionalEncoding
+from models.positional_encoding import PositionalEncoding
+import math
 
 class ForwardDiffusion(nn.Module):
     """Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).
@@ -38,14 +39,14 @@ class ForwardDiffusion(nn.Module):
         self.end = end
         self.type = type
         if self.type == "linear":
-            self.betas = self._linear_scheduler(timesteps=self.timesteps, start=self.start, end=self.end)
+            self.init_betas = self._linear_scheduler(timesteps=self.timesteps, start=self.start, end=self.end)
         elif self.type == "cosine":
-            self.betas = self._cosine_scheduler(timesteps=self.timesteps, start=self.start, end=self.end)
+            self.init_betas = self._cosine_scheduler(timesteps=self.timesteps, start=self.start, end=self.end)
         else:
             raise NotImplementedError("Invalid scheduler option:", type)
-        self.alphas = 1. - self.betas
+        self.alphas = 1. - self.init_betas
 
-        self.register_buffer("betas", self.betas, persistent=False)
+        self.register_buffer("betas", self.init_betas, persistent=False)
         self.register_buffer("alphas_dash", torch.cumprod(self.alphas, axis=0), persistent=False)
         self.register_buffer("sqrt_alphas_dash", torch.sqrt(self.alphas_dash), persistent=False)
         self.register_buffer("sqrt_one_minus_alpha_dash", 1. - self.alphas_dash, persistent=False)
@@ -82,7 +83,29 @@ class ForwardDiffusion(nn.Module):
         return torch.linspace(start, end, timesteps)
     
     def _cosine_scheduler(self, timesteps, start, end):
-        raise NotImplementedError("Cosine scheduler not implemented yet.")
+        return self.betas_for_alpha_bar(
+            num_diffusion_timesteps,
+            lambda t: math.cos((t + 0.008) / 1.008 * math.pi / 2) ** 2,
+        )
+
+    def betas_for_alpha_bar(self, num_diffusion_timesteps, alpha_bar, max_beta=0.999):
+        """
+        Create a beta schedule that discretizes the given alpha_t_bar function,
+        which defines the cumulative product of (1-beta) over time from t = [0,1].
+
+        :param num_diffusion_timesteps: the number of betas to produce.
+        :param alpha_bar: a lambda that takes an argument t from 0 to 1 and
+                        produces the cumulative product of (1-beta) up to that
+                        part of the diffusion process.
+        :param max_beta: the maximum beta to use; use values lower than 1 to
+                        prevent singularities.
+        """
+        betas = []
+        for i in range(num_diffusion_timesteps):
+            t1 = i / num_diffusion_timesteps
+            t2 = (i + 1) / num_diffusion_timesteps
+            betas.append(min(1 - alpha_bar(t2) / alpha_bar(t1), max_beta))
+        return torch.tensor(betas)
     
 class DiffusionModel(nn.Module):
     """DiffusionModel class that implements a DDPM (denoising diffusion probabilistic model)."""
@@ -115,7 +138,7 @@ class DiffusionModel(nn.Module):
         self.time_enc_dim = time_enc_dim
         self.dropout = dropout
 
-        self.time_enc = PositionalEncoding(d_model=time_enc_dim, dropout=dropout)
+        self.time_encoder = PositionalEncoding(d_model=time_enc_dim, dropout=dropout)
 
     def forward(
             self, 
@@ -133,13 +156,13 @@ class DiffusionModel(nn.Module):
         out
             tuple of noise predictions and noise for random timesteps in the denoising process
         """
-        self.timesteps = self._sample_timesteps(x.shape[0], device=x.device)
-        self.time_enc = self.time_enc.get_pos_encoding(self.timesteps)
-        x_t, noise = self.fwd_diff(x, self.timesteps)
-        noise_pred = self.model(x_t, self.time_enc)
+        timesteps = self._sample_timesteps(x.shape[0], device=x.device)
+        time_enc = self.time_encoder.get_pos_encoding(timesteps)
+        x_t, noise = self.fwd_diff(x, timesteps)
+        noise_pred = self.model(x_t, time_enc)
         return noise_pred, noise
     
-    def sample_batch(
+    def sample(
             self, 
             num_samples: int, 
             debugging: bool=False,
@@ -168,7 +191,7 @@ class DiffusionModel(nn.Module):
             x_list = []
             for i in reversed(range(1, self.fwd_diff.timesteps)):
                 t_step = i * torch.ones((num_samples), dtype=torch.long, device=device)
-                t_enc = self.time_enc.get_pos_encoding(t_step)
+                t_enc = self.time_encoder.get_pos_encoding(t_step)
                 noise_pred = self.model(x, t_enc)
 
                 alpha = self.fwd_diff.alphas[t_step][:, None, None, None]
