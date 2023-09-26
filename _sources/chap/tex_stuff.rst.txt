@@ -1,29 +1,137 @@
-Acknowledgments
-===============
+Abstract
+========
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras
-dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
-tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
-enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
-imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper
-ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
-eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing
-sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,
-hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec
-vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit
-amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
-sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
-bibendum sodales, augue velit cursus nunc,
+The abstract gives a concise overview of the work you have done. The
+reader shall be able to decide whether the work which has been done is
+interesting for him by reading the abstract. Provide a brief account on
+the following questions:
 
-Some Chapter Name to be changed
-===============================
+-  What is the problem you worked on? (Introduction)
+
+-  How did you tackle the problem? (Materials and Methods)
+
+-  What were your results and findings? (Results)
+
+-  Why are your findings significant? (Conclusion)
+
+The abstract should approximately cover half of a page, and does
+generally not contain citations.
+
+Acknowledgements
+================
+
+The First Appendix
+==================
+
+In the appendix, list the following material:
+
+-  Data (evaluation tables, graphs etc.)
+
+-  Program code
+
+-  Further material
+
+Conclusion
+==========
+
+List the conclusions of your work and give evidence for these. Often,
+the discussion and the conclusion sections are fused.
+
+Discussion
+==========
+
+The discussion section gives an interpretation of what you have done
+:raw-latex:`\cite{day2006wap}`:
+
+-  *What do your results mean?* Here you discuss, but you do not
+   recapitulate results. Describe principles, relationships and
+   generalizations shown. Also, mention inconsistencies or exceptions
+   you found.
+
+-  *How do your results relate to other’s work?* Show how your work
+   agrees or disagrees with other’s work. Here you can rely on the
+   information you presented in the “related work” section.
+
+-  *What are implications and applications of your work?* State how your
+   methods may be applied and what implications might be.
+
+Make sure that introduction/related work and the discussion section act
+as a pair, i.e. “be sure the discussion section answers what the
+introduction section asked” :raw-latex:`\cite{day2006wap}`.
+
+Experiments and Results
+=======================
+
+Describe the evaluation you did in a way, such that an independent
+researcher can repeat it. Cover the following questions:
+
+-  *What is the experimental setup and methodology?* Describe the
+   setting of the experiments and give all the parameters in detail
+   which you have used. Give a detailed account of how the experiment
+   was conducted.
+
+-  *What are your results?* In this section, a *clear description* of
+   the results is given. If you produced lots of data, include only
+   representative data here and put all results into the appendix.
+
+Introduction
+============
+
+Give an introduction to the topic you have worked on:
+
+-  *What is the rationale for your work?* Give a sufficient description
+   of the problem, e.g. with a general description of the problem
+   setting, narrowing down to the particular problem you have been
+   working on in your thesis. Allow the reader to understand the problem
+   setting.
+
+-  *What is the scope of your work?* Given the above background, state
+   briefly the focus of the work, what and how you did.
+
+-  *How is your thesis organized?* It helps the reader to pick the
+   interesting points by providing a small text or graph which outlines
+   the organization of the thesis. The structure given in this document
+   shows how the general structuring shall look like. However, you may
+   fuse chapters or change their names according to the requirements of
+   your thesis.
+
+Focus of this Work
+------------------
+
+Thesis Organization
+-------------------
+
+Materials and Methods
+=====================
+
+The objectives of the “Materials and Methods” section are the following:
+
+-  *What are tools and methods you used?* Introduce the environment, in
+   which your work has taken place - this can be a software package, a
+   device or a system description. Make sure sufficiently detailed
+   descriptions of the algorithms and concepts (e.g. math) you used
+   shall be placed here.
+
+-  *What is your work?* Describe (perhaps in a separate chapter) the key
+   component of your work, e.g. an algorithm or software framework you
+   have developed.
+
+Related Work
+============
+
+Describe the other’s work in the field, with the following purposes in
+mind:
+
+-  *Is the overview concise?* Give an overview of the most relevant work
+   to the needed extent. Make sure the reader can understand your work
+   without referring to other literature.
+
+-  *Does the compilation of work help to define the “niche” you are
+   working in?* Another purpose of this section is to lay the groundwork
+   for showing that you did significant work. The selection and
+   presentation of the related work should enable you to name the
+   implications, differences and similarities sufficiently in the
+   “discussion” section.
 
 Diffusion Models
 ----------------
@@ -37,10 +145,10 @@ Forward Diffusion Process
            q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t I) \\
            q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{\alpha_t} x_{t-1}, (1-\alpha_t) I) \\
            q(x_t\mid x_{0}) & = \mathcal{N}(\sqrt{\bar{\alpha}_t} x_{0}, (1 - \bar{\alpha}_t) I) \\
-           \bar{\alpha}_t & = \prod_{i=0}^{t} \alpha_t 
+           \bar{\alpha}_t & = \prod_{i=0}^{t} \alpha_t
        \end{split}
 
-.. figure:: img/forward_diffusion.png
+.. figure:: images/forward_diffusion.png
    :alt: Forward Diffusion Process: An image is iteratively destroyed by
    adding normally distributed noise, according to a schedule. This
    represents a Markov process where the transition probability
@@ -52,7 +160,7 @@ Forward Diffusion Process
    represents a Markov process where the transition probability
    :math:`q(x_t|x_{t-1})`.
 
-.. figure:: img/forward_naoshima.png
+.. figure:: images/forward_naoshima.png
    :alt: Example of Iterative Image Destruction through Forward
    Diffusion Process: The indices give the time step in the iterative
    destruction process, where :math:`\beta` was created according to a
@@ -64,9 +172,6 @@ Forward Diffusion Process
    process, where :math:`\beta` was created according to a linear noise
    variance schedule (5000 steps from in the 0.001 to 0.02 range and
    picture resolution of 4016 by 6016 pixels).
-
-Generative Machine Learning
-===========================
 
 Excursion to Bayes
 ------------------
@@ -105,11 +210,12 @@ four terms in this formula use distinct names:
 One of the most straightforward examples of a generative model where we
 search for such a latent space representation of our distribution over
 the training examples, is the Variational Autoencoder
-(VAE) :raw-latex:`\cite{kingma2022autoencoding}`. The name of the VAE
-stems from the Autoencoder, a network that tries to recreate its output
-through a bottleneck and thereby learning a compressed representation of
-the data. :raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}`
-It bears similarity to other dimension reduction methods like Principal
+(VAE) :raw-latex:`\autocite{kingma2022autoencoding}`. The name of the
+VAE stems from the Autoencoder, a network that tries to recreate its
+output through a bottleneck and thereby learning a compressed
+representation of the
+data. :raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}` It
+bears similarity to other dimension reduction methods like Principal
 Component Analysis (PCA) and therefore was first published under the
 name *Nonlinear principal component analysis*. The *variational* part in
 the VAE stems from the fact that it tries to reduce the data not into an
@@ -154,50 +260,15 @@ A different approach to comparing the similarity of distributions is the
 Wasserstein metric, successfully used in the Wasserstein
 GAN. :raw-latex:`\autocite{arjovsky2017wasserstein}`.
 
-Introduction
-============
+**My first and last thesis**
+**Subtitle Subtitle Subtitle**
+Master’s Thesis
+Eckhart Immerheiser
+Department of ...
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras
-dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
-tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
-enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
-imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper
-ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
-eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing
-sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,
-hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec
-vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit
-amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
-sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
-bibendum sodales, augue velit cursus nunc,
+================= ========================
+**A**\ dvisors:   Egon Hasenfratz-Schreier
+**S**\ upervisor: Prof. Dr. Luc van Gool
+================= ========================
 
-Blubbi
-======
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras
-dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
-tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
-enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
-imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper
-ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
-eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing
-sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,
-hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec
-vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit
-amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
-sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
-bibendum sodales, augue velit cursus nunc,
+January 10, 2020
