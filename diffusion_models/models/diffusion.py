@@ -83,12 +83,12 @@ class ForwardDiffusion(nn.Module):
         return torch.linspace(start, end, timesteps)
     
     def _cosine_scheduler(self, timesteps, start, end):
-        return self.betas_for_alpha_bar(
-            num_diffusion_timesteps,
+        return self._betas_for_alpha_bar(
+            timesteps,
             lambda t: math.cos((t + 0.008) / 1.008 * math.pi / 2) ** 2,
         )
 
-    def betas_for_alpha_bar(self, num_diffusion_timesteps, alpha_bar, max_beta=0.999):
+    def _betas_for_alpha_bar(self, num_diffusion_timesteps, alpha_bar, max_beta=0.999):
         """
         Create a beta schedule that discretizes the given alpha_t_bar function,
         which defines the cumulative product of (1-beta) over time from t = [0,1].
@@ -135,6 +135,7 @@ class DiffusionModel(nn.Module):
         super().__init__()
         self.model = backbone
         self.fwd_diff = fwd_diff
+        self.img_size = img_size
         self.time_enc_dim = time_enc_dim
         self.dropout = dropout
 
