@@ -12,26 +12,31 @@ from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
 from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import MNISTTrainDataset, Cifar10Dataset
+from utils.datasets import MNISTTrainDataset, Cifar10Dataset, MNISTDebugDataset
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 3,
-    log_wandb = False,
-    save_every = 1,
+    total_epochs = 3000,
+    log_wandb = True,
+    project = "cifar_gen_trials",
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifarGenLong_checkpoints",
+    save_every = 10,
     num_samples = 9,
-    show_denoising_history = True,
-    show_history_every = 20,
-    batch_size = 500,
-    learning_rate = 0.001,
+    show_denoising_history = False,
+    show_history_every = 50,
+    batch_size = 256,
+    learning_rate = 0.0003,
+    img_size = 32,
     device_type = "cuda",
-    dataset = MNISTTrainDataset,
+    in_channels = 3,
+    #dataset = MNISTDebugDataset,
+    dataset = Cifar10Dataset,
     architecture = DiffusionModel,
     backbone = UNet,
+    unet_init_channels = 128,
     activation = nn.SiLU,
-    in_channels = 1,
     backbone_enc_depth = 4,
     kernel_size = 3,
     dropout = 0,
@@ -45,29 +50,30 @@ config = dotdict(
     #data_path = os.path.abspath("./data"),
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnistGen2_checkpoints",
-    loss_func = F.mse_loss,
-    project = "mnist_gen_trials"
+    loss_func = F.mse_loss
 )
 
 def load_train_objs(config):
     train_set = config.dataset(config.data_path)
     model = config.architecture(
-        config.backbone(
+        backbone = config.backbone(
             num_encoding_blocks = config.backbone_enc_depth,
             in_channels = config.in_channels,
             kernel_size = config.kernel_size,
             dropout = config.dropout,
             activation = config.activation,
-            time_emb_size = config.time_enc_dim
+            time_emb_size = config.time_enc_dim,
+            init_channels = config.unet_init_channels
         ),
-        config.forward_diff(
-            config.max_timesteps,
-            config.t_start,
-            config.t_end,
-            config.schedule_type
+        fwd_diff = config.forward_diff(
+            timesteps = config.max_timesteps,
+            start = config.t_start,
+            end = config.t_end,
+            type = config.schedule_type
         ),
-        config.time_enc_dim
+        img_size = config.img_size,
+        time_enc_dim = config.time_enc_dim,
+        dropout = config.dropout
     )
     optimizer = config.optimizer(model.parameters(), lr=config.learning_rate)
     return train_set, model, optimizer
@@ -78,19 +84,19 @@ def training(rank, world_size, config):
     dataset, model, optimizer = load_train_objs(config)
     torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
     trainer = GenerativeTrainer(
-        model, 
-        dataset, 
-        config.loss_func, 
-        optimizer, 
-        rank, 
-        config.batch_size, 
-        config.save_every, 
-        config.checkpoint_folder, 
-        config.device_type,
-        config.log_wandb,
-        config.num_samples,
-        config.show_denoising_history,
-        config.show_history_every
+        model = model, 
+        train_data = dataset, 
+        loss_func = config.loss_func, 
+        optimizer = optimizer, 
+        gpu_id = rank, 
+        batch_size = config.batch_size, 
+        save_every = config.save_every, 
+        checkpoint_folder = config.checkpoint_folder, 
+        device_type = config.device_type,
+        log_wandb = config.log_wandb,
+        num_samples = config.num_samples,
+        show_denoising_process = config.show_denoising_history,
+        show_denoising_every = config.show_history_every
     )
     trainer.train(config.total_epochs)
 

@@ -3,6 +3,7 @@ import torch
 from typing import Union, Tuple, Literal
 from jaxtyping import Float
 from torch import Tensor
+import math
 
 class EncodingBlock(nn.Module):
     def __init__(
@@ -229,7 +230,8 @@ class UNet(nn.Module):
             time_emb_size: int=256,
             dropout: float=0.5,
             activation: nn.Module=nn.SiLU,
-            verbose: bool=False
+            verbose: bool=False,
+            init_channels: int=64
         ) -> None:
         """Constructor of UNet.
 
@@ -260,17 +262,17 @@ class UNet(nn.Module):
         self.dropout = dropout
         self.activation = activation
         self.verbose = verbose
+        self.init_channels = init_channels
+
+        self.encoding_channels, self.decoding_channels = self._get_channel_lists(init_channels, num_encoding_blocks)
 
         self.in_conv = nn.Sequential(
-            nn.Conv2d(in_channels, 64, kernel_size=kernel_size, padding="same"),
-            nn.BatchNorm2d(64),
+            nn.Conv2d(in_channels, self.encoding_channels[0], kernel_size=kernel_size, padding="same"),
+            nn.BatchNorm2d(init_channels),
             self.activation(),
             nn.Dropout(self.dropout)
         )
 
-        self.encoding_channels = [64]
-        for i in range(self.num_layers):
-            self.encoding_channels.append(64 * (2 ** i))
         self.encoder = nn.ModuleList([EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
         self.bottleneck = nn.Sequential(
@@ -284,13 +286,23 @@ class UNet(nn.Module):
             nn.Dropout(self.dropout)
         )
 
-        self.decoding_channels = []
-        for i in range(self.num_layers + 1):
-            self.decoding_channels.append(64 * (2 ** i))
-        self.decoding_channels = self.decoding_channels[::-1]
         self.decoder = nn.ModuleList([DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
-        self.out_conv = nn.Conv2d(64, in_channels, kernel_size=kernel_size, padding="same")
+        self.out_conv = nn.Conv2d(init_channels, in_channels, kernel_size=kernel_size, padding="same")
+
+    def _get_channel_lists(self, start_channels, num_layers):
+        if not math.log2(start_channels).is_integer():
+            raise ValueError("Choose power of 2 as number of start channels (e.g. 64, 128, ...).")
+        
+        encoding_channels = [start_channels]
+        for i in range(num_layers):
+            encoding_channels.append(start_channels * (2 ** i))
+
+        decoding_channels = []
+        for i in range(num_layers + 1):
+            decoding_channels.append(start_channels * (2 ** i))
+
+        return encoding_channels, decoding_channels[::-1]
 
     def forward(
             self, 

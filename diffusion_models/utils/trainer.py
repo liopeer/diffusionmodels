@@ -139,7 +139,17 @@ class DiscriminativeTrainer(Trainer):
     
 class GenerativeTrainer(Trainer):
     def __init__(
-            self, model: Module, train_data: Dataset, loss_func: Callable[..., Any], optimizer: Optimizer, gpu_id: int, batch_size: int, save_every: int, checkpoint_folder: str, device_type: Literal['cuda', 'mps', 'cpu'], log_wandb: bool,
+            self, 
+            model: Module, 
+            train_data: Dataset, 
+            loss_func: Callable[..., Any], 
+            optimizer: Optimizer, 
+            gpu_id: int, 
+            batch_size: int, 
+            save_every: int, 
+            checkpoint_folder: str, 
+            device_type: Literal['cuda', 'mps', 'cpu'], 
+            log_wandb: bool,
             num_samples: int,
             show_denoising_process: bool,
             show_denoising_every: int
@@ -171,9 +181,10 @@ class GenerativeTrainer(Trainer):
         """Overwriting original method - Checkpoint model and generate samples."""
         super()._save_checkpoint(epoch)
         if self.device_type == "cuda":
-            samples = self.model.module.sample(self.num_samples)
+            samples = self.model.module.sample(self.num_samples, debugging=self.show_denoising_process, save_every=self.show_denoising_every)
         else:
-            samples = self.model.sample(self.num_samples)
+            samples = self.model.sample(self.num_samples, debugging=self.show_denoising_process, save_every=self.show_denoising_every)
+
         if not self.show_denoising_process:
             samples = torchvision.utils.make_grid(samples, nrow=int(np.sqrt(self.num_samples)))
             if self.log_wandb:
@@ -194,8 +205,6 @@ class GenerativeTrainer(Trainer):
                 img_path = os.path.join(path, f"samples_step{i * self.show_denoising_every}.png")
                 torchvision.utils.save_image(grid, img_path)
                 if self.log_wandb:
-                    images = wandb.Image(
-                    grid
-                )
-                wandb.log({f"examples_epoch{epoch}": images})
+                    images = wandb.Image(grid)
+                    wandb.log({f"examples_epoch{epoch}": images})
             print(f"Epoch {epoch} | Samples saved at {path}")

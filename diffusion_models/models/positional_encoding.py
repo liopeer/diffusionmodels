@@ -57,3 +57,11 @@ class PositionalEncoding(nn.Module):
         """
         x = x + self.pe[:x.shape[0]]
         return self.dropout(x)
+    
+
+class PositionalEncoding2D(nn.Module):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+    def forward(self, x):
+        pass

@@ -44,8 +44,9 @@ class ForwardDiffusion(nn.Module):
             self.init_betas = self._cosine_scheduler(timesteps=self.timesteps, start=self.start, end=self.end)
         else:
             raise NotImplementedError("Invalid scheduler option:", type)
-        self.alphas = 1. - self.init_betas
+        self.init_alphas = 1. - self.init_betas
 
+        self.register_buffer("alphas", self.init_alphas, persistent=False)
         self.register_buffer("betas", self.init_betas, persistent=False)
         self.register_buffer("alphas_dash", torch.cumprod(self.alphas, axis=0), persistent=False)
         self.register_buffer("sqrt_alphas_dash", torch.sqrt(self.alphas_dash), persistent=False)
