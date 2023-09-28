@@ -20,6 +20,8 @@ diffusion\_models.utils.datasets
       :template: custom-class-template.rst
    
       Cifar10Dataset
+      ImageNet64Dataset
+      MNISTDebugDataset
       MNISTTestDataset
       MNISTTrainDataset
    

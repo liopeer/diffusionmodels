@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.models.unet.UNet &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.models.positional_encoding.PositionalEncoding2D &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.vae" href="diffusion_models.models.vae.html" />
-    <link rel="prev" title="diffusion_models.models.unet.EncodingBlock" href="diffusion_models.models.unet.EncodingBlock.html" /> 
+    <link rel="next" title="diffusion_models.models.unet" href="diffusion_models.models.unet.html" />
+    <link rel="prev" title="diffusion_models.models.positional_encoding.PositionalEncoding" href="diffusion_models.models.positional_encoding.PositionalEncoding.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,13 +49,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html">diffusion_models.models.unet.EncodingBlock</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.unet.UNet</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.positional_encoding.PositionalEncoding.html">diffusion_models.models.positional_encoding.PositionalEncoding</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.positional_encoding.PositionalEncoding2D</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a></li>
 </ul>
 </li>
@@ -91,10 +90,10 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
-          <li class="breadcrumb-item"><a href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
-      <li class="breadcrumb-item active">diffusion_models.models.unet.UNet</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
+      <li class="breadcrumb-item active">diffusion_models.models.positional_encoding.PositionalEncoding2D</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.models.unet.UNet.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.models.positional_encoding.PositionalEncoding2D.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,82 +101,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="diffusion-models-models-unet-unet">
-<h1>diffusion_models.models.unet.UNet<a class="headerlink" href="#diffusion-models-models-unet-unet" title="Link to this heading"></a></h1>
+  <section id="diffusion-models-models-positional-encoding-positionalencoding2d">
+<h1>diffusion_models.models.positional_encoding.PositionalEncoding2D<a class="headerlink" href="#diffusion-models-models-positional-encoding-positionalencoding2d" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="diffusion_models.models.unet.UNet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_encoding_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_emb_size=256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;class</span> <span class="pre">'torch.nn.modules.activation.SiLU'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_channels=64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.positional_encoding.PositionalEncoding2D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.positional_encoding.</span></span><span class="sig-name descname"><span class="pre">PositionalEncoding2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.positional_encoding.PositionalEncoding2D" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Implementation of UNet architecture, close to original paper.</p>
-<section id="things-that-are-different">
-<h2>Things that are different<a class="headerlink" href="#things-that-are-different" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p>transpose convolution instead of upsampling</p></li>
-<li><p>“same” padding for convolutions, so that output image has same size as input</p></li>
-<li><p>flexibility to go to larger depths than original implementation</p></li>
-<li><p>separate additional convolutional layer to go from the input to 64 channels</p></li>
-<li><p>possibility to inject conditioning (time/position encodings and more) into the network</p></li>
-</ul>
-</section>
-<section id="kernel-sizes">
-<h2>Kernel sizes<a class="headerlink" href="#kernel-sizes" title="Link to this heading"></a></h2>
-<p>Make sure to use odd kernel sizes.</p>
-</section>
-<section id="images-sizes">
-<h2>Images sizes<a class="headerlink" href="#images-sizes" title="Link to this heading"></a></h2>
-<p>Image height and width should both still be even at the bottleneck layer. This means they should be divisible by 2, num_encoder+1 times
-and still yield an even number at this point. Best to just stick with powers of 2.</p>
-<p class="rubric">References</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id1" role="note">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<p>[Ronneberger15] O. Ronneberger, P. Fischer, and T. Brox, U-Net: Convolutional Networks for Biomedical Image Segmentation</p>
-</aside>
-</aside>
-<p>Constructor of UNet.</p>
-<dl class="field-list simple">
-<dt class="field-odd">type num_encoding_blocks<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">param num_encoding_blocks<span class="colon">:</span></dt>
-<dd class="field-even"><p>how many basic encoder building blocks; each block will double the channels and half the resolution</p>
-</dd>
-<dt class="field-odd">type in_channels<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-<dt class="field-even">param in_channels<span class="colon">:</span></dt>
-<dd class="field-even"><p>start channels, e.g. 1 or 3</p>
-</dd>
-<dt class="field-odd">type kernel_size<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-<dt class="field-even">param kernel_size<span class="colon">:</span></dt>
-<dd class="field-even"><p>size of convolutional kernels</p>
-</dd>
-<dt class="field-odd">type time_emb_size<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-<dt class="field-even">param time_emb_size<span class="colon">:</span></dt>
-<dd class="field-even"><p>initial size of time step encoding</p>
-</dd>
-<dt class="field-odd">type dropout<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
-</dd>
-<dt class="field-even">param dropout<span class="colon">:</span></dt>
-<dd class="field-even"><p>probability parameter of dropout layers</p>
-</dd>
-<dt class="field-odd">type activation<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-</dd>
-<dt class="field-even">param activation<span class="colon">:</span></dt>
-<dd class="field-even"><p>activation function to be used</p>
-</dd>
-<dt class="field-odd">type verbose<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
-</dd>
-<dt class="field-even">param verbose<span class="colon">:</span></dt>
-<dd class="field-even"><p>verbose printing of tensor shapes for debbugging</p>
-</dd>
-</dl>
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -214,8 +144,8 @@ and still yield an even number at this point. Best to just stick with powers of 
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.unet.UNet.forward" title="diffusion_models.models.unet.UNet.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x[, t])</p></td>
-<td><p>Forward Method of UNet class.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#diffusion_models.models.positional_encoding.PositionalEncoding2D.forward" title="diffusion_models.models.positional_encoding.PositionalEncoding2D.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<td><p>Defines the computation performed at every call.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer</span></code>(target)</p></td>
 <td><p>Returns the buffer given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throws an error.</p></td>
@@ -336,26 +266,19 @@ and still yield an even number at this point. Best to just stick with powers of 
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.unet.UNet.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet.forward" title="Link to this definition"></a></dt>
-<dd><p>Forward Method of UNet class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>) – input image batch</p></li>
-<li><p><strong>t</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">embedding_size']</span></code>]) – time embedding</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>output image batch</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>out</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="diffusion_models.models.positional_encoding.PositionalEncoding2D.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.positional_encoding.PositionalEncoding2D.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -364,8 +287,8 @@ and still yield an even number at this point. Best to just stick with powers of 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.models.unet.EncodingBlock.html" class="btn btn-neutral float-left" title="diffusion_models.models.unet.EncodingBlock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.vae.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.positional_encoding.PositionalEncoding.html" class="btn btn-neutral float-left" title="diffusion_models.models.positional_encoding.PositionalEncoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.unet.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

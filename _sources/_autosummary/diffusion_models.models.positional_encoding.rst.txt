@@ -20,6 +20,7 @@ diffusion\_models.models.positional\_encoding
       :template: custom-class-template.rst
    
       PositionalEncoding
+      PositionalEncoding2D
    
    
 
