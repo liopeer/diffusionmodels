@@ -31,6 +31,64 @@ In the appendix, list the following material:
 
 -  Further material
 
+Extended Derivations
+====================
+
+.. _app:forward:
+
+Forward Process Closed-Form
+---------------------------
+
+Starting with transition distributions
+
+.. math:: q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{1-\beta_t} \bm{x}_{t-1}, \beta_t I)
+
+the reparameterization :math:`\alpha = 1 - \beta` is introduced
+
+.. math:: q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{\alpha_t} \bm{x}_{t-1}, (1-\alpha) I)
+
+which can also be formulated as
+
+.. math:: q(\bm{x}_t|\bm{x}_{t-1}) = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t}\mathcal{N}(\bm{0}, \bm{I}).
+
+For coherent indexing it is beneficial to switch to notation using
+random variables
+
+.. math::
+
+   \bm{x}_{t} = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t}\bm{\epsilon_{t-1}}
+       \label{eq:forward_randomvar}
+
+where :math:`\bm{\epsilon_{t-1}} \sim \mathcal{N}(\bm{0}, \bm{I})` and
+the earlier :math:`\bm{x}_t` can be recursively inserted into the
+formula. Recalling that the sum :math:`Z = X + Y` of two normally
+distributed random variables
+:math:`X \sim \mathcal{N}(\mu_X, \sigma_Y^2)` and
+:math:`Y \sim \mathcal{N}(\mu_Y, \sigma_Y^2)` is again normally
+distributed according to
+:math:`Z \sim \mathcal{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)`
+
+.. math::
+
+   \begin{aligned}
+       x_t & = \sqrt{\alpha_t} \left( \sqrt{\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{1-\alpha_{t-1}}\bm{\epsilon}_{t-2} \right) + \sqrt{1-\alpha_{t}} \bm{\epsilon}_{t-1} \\
+           & = \sqrt{\alpha_{t}\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{\alpha_{t}(1-\alpha_{t-1})} \bm{\epsilon}_{t-2} + \sqrt{1-\alpha_{t}} \bm{\epsilon}_{t-1}         \\
+           & = \sqrt{\alpha_{t}\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{\alpha_{t}(1-\alpha_{t-1}) + (1-\alpha_{t})} \bm{\bar{\epsilon}}_{t-2}\end{aligned}
+
+where :math:`\bm{\bar{\epsilon}}_{t-2}` is the sum of the random
+variables up to :math:`t-2` (again Gaussian). The second term can of
+course be simplified to
+
+.. math:: \bm{x}_t = \sqrt{\alpha_{t}\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{1-\alpha_t\alpha_{t-1}} \bm{\bar{\epsilon}}_{t-2}
+
+which is exactly the same form as in
+Eq. `[eq:forward_randomvar] <#eq:forward_randomvar>`__. Therefore the
+final form is
+
+.. math:: \bm{x}_t = \sqrt{\bar{\alpha}_{t}} \bm{x}_{t-2} + \sqrt{1-\bar{\alpha}_{t}} \bm{\bar{\epsilon}}_{t-2}
+
+with :math:`\bar{\alpha_t} = \prod_{s=1}^{t}\alpha_s` as before.
+
 Conclusion
 ==========
 
@@ -74,6 +132,62 @@ researcher can repeat it. Cover the following questions:
    the results is given. If you produced lots of data, include only
    representative data here and put all results into the appendix.
 
+.. _sec:forward_diff_experiments:
+
+Influence of Schedules and Image Size on the Forward Diffusion
+--------------------------------------------------------------
+
+Ho et al. had derived a closed form solution to the forward process of
+DDPMs and Nichol et al. investigated alternative options for the noise
+scheduling. :raw-latex:`\autocite{ho2020denoising,nichol2021improved}`
+They concluded that the important parameters to model are not the
+variances :math:`\beta` of the transitions, but the variances
+:math:`1-\bar{\alpha}` of the closed-form forward process, since they
+are the ones responsible for the destruction of information.
+
+They decided to go with a squared cosine function, since this would be
+close to linear smooth out towards the critical beginning and end points
+of the process. In Fig.\ `5.1 <#fig:alphadash>`__ you can see how
+:math:`1-\bar{\alpha}` and :math:`\beta` behave for both approaches. It
+is immediately visible that the variances reach the maximum too early
+and flatten out for the linear schedule. This leads to the intuition
+that the last few steps are not very useful.
+
+.. figure:: images/variance_schedule_alphadash.png
+   :alt: Variance Schedule Approaches: Modeling the
+   :math:`1-\bar{\alpha}` as an approximate linear function (right
+   cosine) and deriving :math:`\beta` (left cosine), or modeling
+   :math:`\beta` as a linear function (left linear) and deriving
+   :math:`1-\bar{\alpha}`.
+   :name: fig:alphadash
+
+   Variance Schedule Approaches: Modeling the :math:`1-\bar{\alpha}` as
+   an approximate linear function (right cosine) and deriving
+   :math:`\beta` (left cosine), or modeling :math:`\beta` as a linear
+   function (left linear) and deriving :math:`1-\bar{\alpha}`.
+
+The intution can experimentally confirmed by measuring how closely we
+get to isotropic noise when passing samples through the forward process.
+For this a batch of 50 times the same image was passed through the
+different steps of the process and the covariance matrix was calculated.
+As a metric for how close the covariance matrix was to the identity
+covariance matrix of pure i.i.d Gaussian noise, the identity matrix was
+subtracted and the mean of the absolute value of the matrix calculated.
+The results can be seen in Fig. `5.2 <#fig:noisecloseness>`__ and
+confirm the intuition: When using linear scheduling we reach the closest
+point to pure noise already after around 600 steps for small images, and
+after around 700 for larger images. Cosine scheduling also performs
+worse on smaller images than on larger ones, but is still capable
+providing value for at least 850 timesteps.
+
+.. figure:: images/frobenius_norm.png
+   :alt: Closeness to noise for linear scheduling (left) and cosine
+   scheduling (right).
+   :name: fig:noisecloseness
+
+   Closeness to noise for linear scheduling (left) and cosine scheduling
+   (right).
+
 Introduction
 ============
 
@@ -116,49 +230,158 @@ The objectives of the “Materials and Methods” section are the following:
    component of your work, e.g. an algorithm or software framework you
    have developed.
 
-Related Work
-============
+Generative Machine Learning
+===========================
 
-Describe the other’s work in the field, with the following purposes in
-mind:
+Bayesian Formulation of Latent Variable Models
+----------------------------------------------
 
--  *Is the overview concise?* Give an overview of the most relevant work
-   to the needed extent. Make sure the reader can understand your work
-   without referring to other literature.
+Before getting started it is important to define the terms used in the
+next sections, since they all stem from Bayesian statistics. The
+Bayesian theorem can be written as
 
--  *Does the compilation of work help to define the “niche” you are
-   working in?* Another purpose of this section is to lay the groundwork
-   for showing that you did significant work. The selection and
-   presentation of the related work should enable you to name the
-   implications, differences and similarities sufficiently in the
-   “discussion” section.
+.. math:: p(z|x) = \frac{p(x|z)p(z)}{p(x)}
 
-Diffusion Models
-----------------
+where it is implicitly assumed that :math:`p` is a probability density
+function over two continuous random variables :math:`x` and :math:`z`.
+The formula holds in general, but in generative modeling and machine
+learning it is usually assumed that the letter :math:`z` represents a
+random variable in latent space (unobserved) from which – after training
+– can be sampled to generate new data, whereas :math:`x` is the random
+variable that represents the training samples (observed space).
+
+Using above described ordering, the four terms in this formula use
+distinct names:
+
+:math:`p(x)`
+   is called the *evidence* or the *marginal likelihood*. It encompasses
+   the actual observations of the data.
+
+:math:`p(z)`
+   is called the *prior*, since it exposes information on :math:`z`
+   before any conditioning.
+
+:math:`p(z|x)`
+   is called the *posterior*. It describes the distribution over
+   :math:`z` after (*post*) having seen the evidence :math:`x`.
+
+:math:`p(x|z)`
+   is called the *likelihood*. It gives the literal likelihood of
+   observing an example :math:`x` when choosing the latent space to be a
+   specific :math:`z`.
+
+Variational Autoencoders
+------------------------
+
+One of the most straightforward examples of a generative model, where
+the goal is to find such a latent space representation of the training
+sample distribution, is the Variational Autoencoder
+(VAE) :raw-latex:`\autocite{kingma2022autoencoding}`. The name of the
+VAE stems from the Autoencoder, a network that tries to recreate its
+output through a bottleneck and thereby learns a compressed
+representation of the
+data. :raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}`
+Autoencoders bear similarity to other dimension reduction methods like
+Principal Component Analysis (PCA) and therefore were first published
+under the name *Nonlinear principal component analysis*. The
+*variational* part in the VAE stems from the fact that it does not learn
+to recreate input samples, but is rather optimized to represent the
+distribution over the training samples as a combination of a
+parameterized latent distribution :math:`p_{\theta_z}(z)` and a neural
+network mapping :math:`p_{\theta_{NN}}(x|z)` between the latent space
+and the sample space. The latent distribution is chosen such that
+sampling from it is easy, which allows the neural network to create new
+data samples (e.g. a multivariate Gaussian).
+
+Marginalizing
+:math:`p_\theta(x) = \int p_{\theta_{NN}}(x|z) p_{\theta_z}(z) dz = \frac{p_{\theta_{NN_{out}}}(x|z) p_{\theta_z}(z)}{p_{\theta_{NN_{in}}}(z|x)}`
+requires another approximation of the intractable posterior
+:math:`p_{\theta_{NN_{in}}}(z|x)` during training. A schematic of a VAE
+is shown in Fig. `8.1 <#fig:vae>`__.
+
+The neural networks usually do not contain stochastic layers, but are
+deterministic mappings between latent space and sample space
+:math:`x \sim p_{\theta_{NN_{out}}}(x|z) \Rightarrow x = f_{\theta_{NN_{out}}}(z)`.
+The hope is, that after training the encoder
+:math:`p_{\theta_{NN_{in}}}` can be removed and sampling from :math:`z`
+is the same as sampling from :math:`x`.
+
+.. figure:: images/vae.png
+   :alt: VAE schematic: :math:`p(x)` is approximated through a latent
+   variable model where posterior and likelihood are modeled with neural
+   networks and the prior on the latent variable is modeled through a
+   simple parameterized distribution (often Gaussian). The hope is, that
+   after training, sampling from :math:`p(z)` and passing it through the
+   neural network :math:`p_{\theta_{NN}}(x|z)`, is the same as sampling
+   from :math:`p(x)`.
+   :name: fig:vae
+
+   VAE schematic: :math:`p(x)` is approximated through a latent variable
+   model where posterior and likelihood are modeled with neural networks
+   and the prior on the latent variable is modeled through a simple
+   parameterized distribution (often Gaussian). The hope is, that after
+   training, sampling from :math:`p(z)` and passing it through the
+   neural network :math:`p_{\theta_{NN}}(x|z)`, is the same as sampling
+   from :math:`p(x)`.
+
+Diffusion Denoising Probabilistic Models
+----------------------------------------
+
+Diffusion Denoising Probabilistic Models (DDPMs or Diffusion Models) are
+a generative model that learn the distribution of images in a training
+set. During training, sample images are gradually destroyed by adding
+noise over many iterations and a neural network is trained, such that
+these steps can be inverted.
+
+As the name suggests, image content is diffused in timesteps, therefore
+we use the random variable :math:`\bm{x}_0` to represent our original
+training images, :math:`\bm{x}_t` for (partially noisy) images at an
+intermediate timestep and :math:`\bm{x}_T` for images at the end of the
+process where almost all information has been destroyed and the
+distribution :math:`q(\bm{x}_T)` largely follows an isotropic Gaussian
+distribution – a Gaussian distribution with the identity matrix as
+covariance matrix, but a non-zero means vector.
+
+Once the network is trained to create a less noisy image
+:math:`\bm{x}_{t-1}` from :math:`\bm{x}_t`, we should be able to sample
+some new :math:`\bm{x}_T` and generate new samples from the training
+distribution :math:`q(\bm{x}_0)` by passing it many times through the
+network until all noise is removed.
 
 Forward Diffusion Process
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. math::
+Mathematical Description
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-   \begin{split}
-           q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t I) \\
-           q(x_t\mid x_{t-1}) & = \mathcal{N}(\sqrt{\alpha_t} x_{t-1}, (1-\alpha_t) I) \\
-           q(x_t\mid x_{0}) & = \mathcal{N}(\sqrt{\bar{\alpha}_t} x_{0}, (1 - \bar{\alpha}_t) I) \\
-           \bar{\alpha}_t & = \prod_{i=0}^{t} \alpha_t
-       \end{split}
+In order to derive a training objective it is important to understand
+the workings of the *forward diffusion process*. During this process,
+i.i.d (independent and identically distributed) Gaussian noise is
+applied to the image over many discrete timesteps. A *variance schedule*
+defines the means at variances (:math:`\sqrt{1-\beta}` and
+:math:`\beta`) of the added noise at every
+timestep. :raw-latex:`\autocite{ho2020denoising}` The whole process can
+be expressed as a Markov chain (depicted in
+Fig. `8.2 <#fig:forward_diffusion>`__)
+
+.. math:: q(\bm{x}_T|\bm{x}_0) = q(\bm{x}_0) \prod_{t=1}^{T} q(\bm{x}_{t}|\bm{x}_{t-1})
+
+with the transition distributions
+:math:`q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{1-\beta_t} \bm{x}_{t-1}, \beta_t I)`.
+An example of iterative destruction of an image by this process is shown
+in Fig. `8.3 <#fig:forward_naoshima>`__.
 
 .. figure:: images/forward_diffusion.png
    :alt: Forward Diffusion Process: An image is iteratively destroyed by
    adding normally distributed noise, according to a schedule. This
-   represents a Markov process where the transition probability
-   :math:`q(x_t|x_{t-1})`.
+   represents a Markov process with the transition probability
+   :math:`q(\bm{x}_t|\bm{x}_{t-1})`.
    :name: fig:forward_diffusion
 
    Forward Diffusion Process: An image is iteratively destroyed by
    adding normally distributed noise, according to a schedule. This
-   represents a Markov process where the transition probability
-   :math:`q(x_t|x_{t-1})`.
+   represents a Markov process with the transition probability
+   :math:`q(\bm{x}_t|\bm{x}_{t-1})`.
 
 .. figure:: images/forward_naoshima.png
    :alt: Example of Iterative Image Destruction through Forward
@@ -166,6 +389,7 @@ Forward Diffusion Process
    destruction process, where :math:`\beta` was created according to a
    linear noise variance schedule (5000 steps from in the 0.001 to 0.02
    range and picture resolution of 4016 by 6016 pixels).
+   :name: fig:forward_naoshima
 
    Example of Iterative Image Destruction through Forward Diffusion
    Process: The indices give the time step in the iterative destruction
@@ -173,65 +397,94 @@ Forward Diffusion Process
    variance schedule (5000 steps from in the 0.001 to 0.02 range and
    picture resolution of 4016 by 6016 pixels).
 
-Excursion to Bayes
-------------------
+Gladly it is not necessary to sample noise again and again in order to
+arrive at :math:`\bm{x}_t`, since Ho et al. derived a closed-form
+solution to the sampling
+procedure. :raw-latex:`\autocite{ho2020denoising}` For this, the
+variance schedule is first reparameterized as :math:`1-\beta = \alpha`
 
-Before getting started we need to quickly define the terms used in the
-next section, since they all stem from Bayesian statistics. The Bayesian
-theorem can be written like this:
+.. math::
 
-.. math:: p(z|x) = \frac{p(x|z)p(z)}{p(x)}
+   q(\bm{x}_t | \bm{x}_{t-1}) = \mathcal{N}(\sqrt{\alpha_t} \bm{x}_{t-1}, (1-\alpha_t) \bm{I})
+       \label{eq:forward_alpha}
 
-It is implicitly assumed here that :math:`p` is a probability density
-function over two continuous random variables :math:`x` and :math:`z`.
-The formula holds in general, but in generative machine learning we
-usually assume that :math:`z` represents a random variable in latent
-space (unobserved) from which we will eventually sample to generate new
-samples, whereas :math:`x` is the random variable that represents the
-training images (observed space). Using above described ordering, the
-four terms in this formula use distinct names:
+and the closed-form solution for :math:`q(\bm{x}_t|\bm{x}_0)` is derived
+by introducing the cumulative product
+:math:`\bar{\alpha_t} = \prod_{s=1}^{t}\alpha_s` as
 
-:math:`p(z|x)`
-   is called the *posterior*
+.. math::
 
-:math:`p(x|z)`
-   is called the *likelihood*, since it gives the literal likelihood of
-   observing an example :math:`x` when choosing the latent space to be a
-   specific :math:`z`.
+   q(\bm{x}_t|\bm{x}_0) = \mathcal{N}(\sqrt{\bar{\alpha_t}}\bm{x}_0, (1-\bar{\alpha_t})\bm{I})
+       \label{eq:forward_alphadash}
 
-:math:`p(z)`
-   is called the *prior*, since it exposes information on :math:`z`
-   before any conditioning.
+The derivation that leads from
+Eq. `[eq:forward_alpha] <#eq:forward_alpha>`__ to
+Eq. `[eq:forward_alphadash] <#eq:forward_alphadash>`__ will be left to
+appendix `2.1 <#app:forward>`__.
 
-:math:`p(x)`
-   is called the *evidence*, since it encompasses our actual
-   observations.
+Influence of Scheduling Functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-One of the most straightforward examples of a generative model where we
-search for such a latent space representation of our distribution over
-the training examples, is the Variational Autoencoder
-(VAE) :raw-latex:`\autocite{kingma2022autoencoding}`. The name of the
-VAE stems from the Autoencoder, a network that tries to recreate its
-output through a bottleneck and thereby learning a compressed
-representation of the
-data. :raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}` It
-bears similarity to other dimension reduction methods like Principal
-Component Analysis (PCA) and therefore was first published under the
-name *Nonlinear principal component analysis*. The *variational* part in
-the VAE stems from the fact that it tries to reduce the data not into an
-arbitrary low dimensional latent space, but into a latent parameterized
-distribution (usually i.i.d multivariate Gaussian). This distribution is
-sampled in the forward pass (therefore *variational*, since we use a
-stochastic layer) and reproducing the input is now not a feasible loss
-function, but maximizing the likelihood is. Maximizing the likelihood
-:math:`p(x|z)` from above means that we want to tune the parameters of
-this latent distribution such that the produced output is “likely” an
-example that could come from the original distribution. Training
-generative models such as a VAE or also a GAN is usually either done
-with *Evidence Lower Bound* as the loss, or with an additional network
-and an *adversarial
-loss*. :raw-latex:`\autocite{goodfellow2014generative}` Both examples
-will be further explained in the next sections.
+The process of information destruction is dependent on the chosen
+variance schedule, the number of steps and the image size. Beyond the
+most simple case – a constant variance over time – Ho et al. opted for
+the second most simple option, a linear schedule, where the variance
+:math:`\beta_t` grows linearly in
+:math:`t`. :raw-latex:`\autocite{ho2020denoising}` Nichol et al. later
+found that a cosine-based schedule gives better results, since it does
+not destruct information quite as quickly, making it more informative in
+the last few timesteps. :raw-latex:`\autocite{nichol2021improved}` Own
+experiments exploring above mentioned parameters are explained
+in `5.1 <#sec:forward_diff_experiments>`__.
+
+Reverse Diffusion Process
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DDPMs can be viewed as latent space models in a similar way that
+Generative Adversarial Nets or Variational Autoencoders
+can. :raw-latex:`\autocite{goodfellow2014generative,kingma2022autoencoding}`
+
+In DDPMs the reverse process is again a Markov chain and can therefore
+again be factorized
+
+.. math:: q(\bm{x}_0|\bm{x}_T) = q(\bm{x}_T) \prod_{t=T}^{1} q(\bm{x}_{t-1}|\bm{x}_{t})
+
+which means that our network does not learn to approximate the full
+inversion, but rather just the transition probabilities
+:math:`q(\bm{x}_{t-1}|\bm{x}_{t})` in the chain, which are transitions
+between several intermediate latent distributions.
+
+Latent Variable Models Compared
+-------------------------------
+
++------------+-----------------+-----------------+-----------------+
+|            | VAE             | GAN             | DDPM            |
++============+=================+=================+=================+
+| prior      | :math:`p(z)`,   | :math:`p(z)`,   | :math           |
+|            | parameterized   | parameterized   | :`p(\bm{x}_t)`, |
+|            | of any shape    | of any shape    | same shape as   |
+|            |                 |                 | samples         |
++------------+-----------------+-----------------+-----------------+
+| posterior  | :math:`p(z|x)`, | :math:`p(z|x)`, | :ma             |
+|            | modeled with    | modeled with    | th:`q(\bm{x}_t| |
+|            | neural network  | loss function   | \bm{x}_{t-1})`, |
+|            |                 |                 | modeled as step |
+|            |                 |                 | in forward      |
+|            |                 |                 | diffusion       |
+|            |                 |                 | process         |
++------------+-----------------+-----------------+-----------------+
+| likelihood | :math:`p(x      | :math:`p(x      | :math:`q(\bm{   |
+|            | |z)=f_{NN}(z)`, | |z)=f_{NN}(z)`, | x}_{t-1}|\bm{x} |
+|            | modeled with    | modeled with    | _{t}) = \mathca |
+|            | neural network  | neural network  | l{N}(k_1 f_{NN} |
+|            |                 |                 | , k_2 f_{NN})`, |
+|            |                 |                 | modeled with    |
+|            |                 |                 | Gaussian        |
+|            |                 |                 | sampling with   |
+|            |                 |                 | parameters      |
+|            |                 |                 | estimated by    |
+|            |                 |                 | neural network  |
++------------+-----------------+-----------------+-----------------+
 
 Loss Functions
 --------------
@@ -259,6 +512,31 @@ Wasserstein Distance
 A different approach to comparing the similarity of distributions is the
 Wasserstein metric, successfully used in the Wasserstein
 GAN. :raw-latex:`\autocite{arjovsky2017wasserstein}`.
+
+Variational Lower Bound
+~~~~~~~~~~~~~~~~~~~~~~~
+
+As mentioned previously, the goal is to approximate a true data
+distribution :math:`p^*(x)` with a parameterized distribution
+:math:`p_\theta(x) = \int p_\theta(x|z)p(z)dz`, from which sampling is
+easy, since the prior :math:`p(z)` is very simple.
+
+Related Work
+============
+
+Describe the other’s work in the field, with the following purposes in
+mind:
+
+-  *Is the overview concise?* Give an overview of the most relevant work
+   to the needed extent. Make sure the reader can understand your work
+   without referring to other literature.
+
+-  *Does the compilation of work help to define the “niche” you are
+   working in?* Another purpose of this section is to lay the groundwork
+   for showing that you did significant work. The selection and
+   presentation of the related work should enable you to name the
+   implications, differences and similarities sufficiently in the
+   “discussion” section.
 
 **My first and last thesis**
 **Subtitle Subtitle Subtitle**

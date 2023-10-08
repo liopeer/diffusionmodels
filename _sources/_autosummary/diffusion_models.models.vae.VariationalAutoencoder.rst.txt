@@ -19,6 +19,7 @@ diffusion\_models.models.vae.VariationalAutoencoder
       ~VariationalAutoencoder.bfloat16
       ~VariationalAutoencoder.buffers
       ~VariationalAutoencoder.children
+      ~VariationalAutoencoder.compile
       ~VariationalAutoencoder.cpu
       ~VariationalAutoencoder.cuda
       ~VariationalAutoencoder.double

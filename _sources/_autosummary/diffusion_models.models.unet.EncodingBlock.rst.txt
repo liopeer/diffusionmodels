@@ -19,6 +19,7 @@ diffusion\_models.models.unet.EncodingBlock
       ~EncodingBlock.bfloat16
       ~EncodingBlock.buffers
       ~EncodingBlock.children
+      ~EncodingBlock.compile
       ~EncodingBlock.cpu
       ~EncodingBlock.cuda
       ~EncodingBlock.double

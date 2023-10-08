@@ -19,6 +19,7 @@ diffusion\_models.models.vae.ResNetDecoderBlock
       ~ResNetDecoderBlock.bfloat16
       ~ResNetDecoderBlock.buffers
       ~ResNetDecoderBlock.children
+      ~ResNetDecoderBlock.compile
       ~ResNetDecoderBlock.cpu
       ~ResNetDecoderBlock.cuda
       ~ResNetDecoderBlock.double

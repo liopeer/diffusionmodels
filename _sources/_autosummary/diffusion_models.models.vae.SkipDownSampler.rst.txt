@@ -19,6 +19,7 @@ diffusion\_models.models.vae.SkipDownSampler
       ~SkipDownSampler.bfloat16
       ~SkipDownSampler.buffers
       ~SkipDownSampler.children
+      ~SkipDownSampler.compile
       ~SkipDownSampler.cpu
       ~SkipDownSampler.cuda
       ~SkipDownSampler.double

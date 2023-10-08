@@ -19,6 +19,7 @@ diffusion\_models.mri\_forward.undersampling\_mask.UndersamplingMask
       ~UndersamplingMask.bfloat16
       ~UndersamplingMask.buffers
       ~UndersamplingMask.children
+      ~UndersamplingMask.compile
       ~UndersamplingMask.cpu
       ~UndersamplingMask.cuda
       ~UndersamplingMask.double

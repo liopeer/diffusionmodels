@@ -19,6 +19,7 @@ diffusion\_models.models.mnist\_enc.MNISTEncoder
       ~MNISTEncoder.bfloat16
       ~MNISTEncoder.buffers
       ~MNISTEncoder.children
+      ~MNISTEncoder.compile
       ~MNISTEncoder.cpu
       ~MNISTEncoder.cuda
       ~MNISTEncoder.double

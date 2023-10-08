@@ -19,6 +19,7 @@ diffusion\_models.models.unet.UNet
       ~UNet.bfloat16
       ~UNet.buffers
       ~UNet.children
+      ~UNet.compile
       ~UNet.cpu
       ~UNet.cuda
       ~UNet.double

@@ -19,6 +19,7 @@ diffusion\_models.models.vae.ResNet18Encoder
       ~ResNet18Encoder.bfloat16
       ~ResNet18Encoder.buffers
       ~ResNet18Encoder.children
+      ~ResNet18Encoder.compile
       ~ResNet18Encoder.cpu
       ~ResNet18Encoder.cuda
       ~ResNet18Encoder.double

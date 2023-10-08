@@ -19,6 +19,7 @@ diffusion\_models.models.vae.ResNetBlock
       ~ResNetBlock.bfloat16
       ~ResNetBlock.buffers
       ~ResNetBlock.children
+      ~ResNetBlock.compile
       ~ResNetBlock.cpu
       ~ResNetBlock.cuda
       ~ResNetBlock.double

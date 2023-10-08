@@ -19,6 +19,7 @@ diffusion\_models.models.positional\_encoding.PositionalEncoding
       ~PositionalEncoding.bfloat16
       ~PositionalEncoding.buffers
       ~PositionalEncoding.children
+      ~PositionalEncoding.compile
       ~PositionalEncoding.cpu
       ~PositionalEncoding.cuda
       ~PositionalEncoding.double
