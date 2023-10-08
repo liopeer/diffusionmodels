@@ -1,0 +1,6 @@
+diffusion\_models.losses.kl\_divergence.log\_gaussian\_kl
+=========================================================
+
+.. currentmodule:: diffusion_models.losses.kl_divergence
+
+.. autofunction:: log_gaussian_kl

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.utils.helpers &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.losses.kl_divergence.gaussian_kl &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.utils.helpers.dotdict" href="diffusion_models.utils.helpers.dotdict.html" />
-    <link rel="prev" title="diffusion_models.utils.datasets.MNISTTrainDataset" href="diffusion_models.utils.datasets.MNISTTrainDataset.html" /> 
+    <link rel="next" title="diffusion_models.losses.kl_divergence.log_gaussian_kl" href="diffusion_models.losses.kl_divergence.log_gaussian_kl.html" />
+    <link rel="prev" title="diffusion_models.losses.kl_divergence" href="diffusion_models.losses.kl_divergence.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,16 +49,15 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
-<li class="toctree-l2"><a class="reference internal" href="diffusion_models.losses.html">diffusion_models.losses</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.utils.datasets.html">diffusion_models.utils.datasets</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.utils.helpers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.utils.helpers.dotdict.html">diffusion_models.utils.helpers.dotdict</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.losses.html">diffusion_models.losses</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.losses.kl_divergence.html">diffusion_models.losses.kl_divergence</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.losses.kl_divergence.gaussian_kl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.losses.kl_divergence.log_gaussian_kl.html">diffusion_models.losses.kl_divergence.log_gaussian_kl</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.utils.mp_setup.html">diffusion_models.utils.mp_setup</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="diffusion_models.utils.html">diffusion_models.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../chap/tex_stuff.html">Abstract</a></li>
@@ -90,10 +89,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
-          <li class="breadcrumb-item"><a href="diffusion_models.utils.html">diffusion_models.utils</a></li>
-      <li class="breadcrumb-item active">diffusion_models.utils.helpers</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.losses.html">diffusion_models.losses</a></li>
+          <li class="breadcrumb-item"><a href="diffusion_models.losses.kl_divergence.html">diffusion_models.losses.kl_divergence</a></li>
+      <li class="breadcrumb-item active">diffusion_models.losses.kl_divergence.gaussian_kl</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.utils.helpers.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.losses.kl_divergence.gaussian_kl.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -101,24 +101,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-diffusion_models.utils.helpers">
-<span id="diffusion-models-utils-helpers"></span><h1>diffusion_models.utils.helpers<a class="headerlink" href="#module-diffusion_models.utils.helpers" title="Link to this heading"></a></h1>
-<p class="rubric">Classes</p>
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.utils.helpers.dotdict.html#diffusion_models.utils.helpers.dotdict" title="diffusion_models.utils.helpers.dotdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dotdict</span></code></a></p></td>
-<td><p>dot.notation access to dictionary attributes</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="diffusion-models-losses-kl-divergence-gaussian-kl">
+<h1>diffusion_models.losses.kl_divergence.gaussian_kl<a class="headerlink" href="#diffusion-models-losses-kl-divergence-gaussian-kl" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="diffusion_models.losses.kl_divergence.gaussian_kl">
+<span class="sig-prename descclassname"><span class="pre">diffusion_models.losses.kl_divergence.</span></span><span class="sig-name descname"><span class="pre">gaussian_kl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.losses.kl_divergence.gaussian_kl" title="Link to this definition"></a></dt>
+<dd><p>Calculate KL Divergence of 2 Gaussian distributions.</p>
+<p>KL divergence between two univariate Gaussians, as derived in [1], with k=1 (dimensionality).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p_mean</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'1']</span></code>) – mean value of first distribution</p></li>
+<li><p><strong>p_var</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'1']</span></code>) – variance value of first distribution</p></li>
+<li><p><strong>q_mean</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'1']</span></code>) – mean value of second distribution</p></li>
+<li><p><strong>q_var</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'1']</span></code>) – variance value of second distribution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>KL divergence of inputs</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>out</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://mr-easy.github.io/2020-04-16-kl-divergence-between-2-gaussian-distributions/">https://mr-easy.github.io/2020-04-16-kl-divergence-between-2-gaussian-distributions/</a></p>
+</aside>
+</aside>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.utils.datasets.MNISTTrainDataset.html" class="btn btn-neutral float-left" title="diffusion_models.utils.datasets.MNISTTrainDataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.utils.helpers.dotdict.html" class="btn btn-neutral float-right" title="diffusion_models.utils.helpers.dotdict" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.losses.kl_divergence.html" class="btn btn-neutral float-left" title="diffusion_models.losses.kl_divergence" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.losses.kl_divergence.log_gaussian_kl.html" class="btn btn-neutral float-right" title="diffusion_models.losses.kl_divergence.log_gaussian_kl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
