@@ -11,17 +11,18 @@ import numpy as np
 import torch.nn as nn
 import context
 from models.diffusion import ForwardDiffusion
+from torchvision.transforms import Compose, Normalize, Resize
 import torchvision
 
 mode = "cosine"
-timesteps = 1000
-every = 100
+timesteps = 1200
+every = 200
 
 #############################################################################
 
 img = "/Users/lionelpeer/Pictures/2020/Japan/darktable_exported/DSC_1808.jpg"
 img = read_image(img) / 255
-transform = torchvision.transforms.Resize((120, 180))
+transform = transform = Compose([Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)), Resize((120, 180))])
 img = transform(img)
 
 print("image shape:", img.shape)
@@ -37,17 +38,17 @@ print("using device:", device)
 noiser = ForwardDiffusion(timesteps=timesteps, type=mode).to(device)
 batch = batch.to(device)
 
-noisies, noise = noiser.forward(batch[0], torch.tensor([i*every-1 for i in range(1,timesteps//every)]))
+noisies, noise = noiser.forward(batch[0], torch.tensor([i*every for i in range(0,timesteps//every)]))
 noisies = [noisies[i].permute(1,2,0) for i in range(noisies.shape[0])]
 
 blub = [r"$x_{} \sim q(x_{})$".format("{"+str(0)+"}", "{"+str(0)+"}")]
 titles = [
-    r"$x_{} \sim q(x_{}\mid x_{})$".format("{"+str(i)+"}", "{"+str(i)+"}", "{"+str(i-1)+"}") for i in [j*every for j in range(1, timesteps//every)]
+    r"$x_{} \sim q(x_{}\mid x_{})$".format("{"+str(i)+"}", "{"+str(i)+"}", "{"+str(i-1)+"}") for i in [j*every for j in range(1, timesteps//every+1)]
 ]
 blub.extend(titles)
 
-fig, ax = plt.subplots(1,timesteps//every-1,figsize=(25,5))
-for i, (elem, title) in enumerate(zip(noisies[:-1], blub[:-1])):
+fig, ax = plt.subplots(1,timesteps//every,figsize=(25,5))
+for i, (elem, title) in enumerate(zip(noisies[:], blub[:])):
     ax[i].imshow(elem.cpu())
     ax[i].axis("off")
     ax[i].set_title(title)

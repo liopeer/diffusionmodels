@@ -44,13 +44,17 @@ config = dotdict(
     max_timesteps = 1000,
     t_start = 0.0001, 
     t_end = 0.02,
+    offset = 0.008,
+    max_beta = 0.999,
     schedule_type = "linear",
     time_enc_dim = 256,
     optimizer = torch.optim.Adam,
     #data_path = os.path.abspath("./data"),
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
     data_path = "/itet-stor/peerli/net_scratch",
-    loss_func = F.mse_loss
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnistGen2_checkpoints",
+    loss_func = F.mse_loss,
+    project = "mnist_gen_trials"
 )
 
 def load_train_objs(config):
@@ -69,6 +73,8 @@ def load_train_objs(config):
             timesteps = config.max_timesteps,
             start = config.t_start,
             end = config.t_end,
+            offset = config.offset,
+            max_beta = config.max_beta,
             type = config.schedule_type
         ),
         img_size = config.img_size,
@@ -82,7 +88,8 @@ def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
         wandb.init(project=config.project, config=config, save_code=True)
     dataset, model, optimizer = load_train_objs(config)
-    torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
+    if (config.device_type == "cuda") and (world_size > 1):
+        torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
     trainer = GenerativeTrainer(
         model = model, 
         train_data = dataset, 

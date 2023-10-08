@@ -117,6 +117,12 @@ class Trainer:
             if (self.gpu_id == 0) and (epoch % self.save_every == 0) and (epoch != 0):
                 self._save_checkpoint(epoch)
 
+    def load_checkpoint(self, checkpoint_path: str):
+        if self.device_type == "cuda":
+            self.model.module.load_state_dict(torch.load(checkpoint_path))
+        else:
+            self.model.load_state_dict(torch.load(checkpoint_path))
+
 class DiscriminativeTrainer(Trainer):
     def __init__(self, model: Module, train_data: Dataset, loss_func: Callable[..., Any], optimizer: Optimizer, gpu_id: int, batch_size: int, save_every: int, checkpoint_folder: str, device_type: Literal['cuda', 'mps', 'cpu'], log_wandb: bool = True) -> None:
         super().__init__(model, train_data, loss_func, optimizer, gpu_id, batch_size, save_every, checkpoint_folder, device_type, log_wandb)

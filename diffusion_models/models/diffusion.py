@@ -19,25 +19,31 @@ class ForwardDiffusion(nn.Module):
     type
         type of scheduler, currently linear and cosine supported
     """
-    def __init__(self, timesteps: int, start: float=0.0001, end: float=0.02, type: Literal["linear", "cosine"]="linear") -> None:
+    def __init__(self, timesteps: int, start: float=0.0001, end: float=0.02, offset: float=0.008, max_beta: float=0.999, type: Literal["linear", "cosine"]="linear") -> None:
         """Constructor of ForwardDiffusion class.
         
         Parameters
         ----------
         timesteps
-            timesteps
+            total number of timesteps in diffusion process
         start
-            start
+            start beta for linear scheduler
         end
-            end
+            end beta for linear scheduler
+        offset
+            offset parameter for cosine scheduler
+        max_beta
+            maximal value to clip betas for cosine scheduler
         type
-            type
+            type of scheduler, either linear or cosine
         """
         super().__init__()
         self.timesteps = timesteps
         self.start = start
         self.end = end
+        self.offset = offset
         self.type = type
+        self.max_beta = max_beta
         if self.type == "linear":
             self.init_betas = self._linear_scheduler(timesteps=self.timesteps, start=self.start, end=self.end)
         elif self.type == "cosine":
@@ -84,26 +90,13 @@ class ForwardDiffusion(nn.Module):
         return torch.linspace(start, end, timesteps)
     
     def _cosine_scheduler(self, timesteps, start, end):
-        return self._betas_for_alpha_bar(
-            timesteps,
-            lambda t: math.cos((t + 0.008) / 1.008 * math.pi / 2) ** 2,
-        )
+        """t is actually t/T from the paper"""
+        return self._betas_for_alpha_bar(timesteps, lambda t: math.cos((t + self.offset) / (1.0 + self.offset) * math.pi / 2) ** 2, self.max_beta)
 
     def _betas_for_alpha_bar(self, num_diffusion_timesteps, alpha_bar, max_beta=0.999):
-        """
-        Create a beta schedule that discretizes the given alpha_t_bar function,
-        which defines the cumulative product of (1-beta) over time from t = [0,1].
-
-        :param num_diffusion_timesteps: the number of betas to produce.
-        :param alpha_bar: a lambda that takes an argument t from 0 to 1 and
-                        produces the cumulative product of (1-beta) up to that
-                        part of the diffusion process.
-        :param max_beta: the maximum beta to use; use values lower than 1 to
-                        prevent singularities.
-        """
         betas = []
         for i in range(num_diffusion_timesteps):
-            t1 = i / num_diffusion_timesteps
+            t1 = i / num_diffusion_timesteps # t -> t/T
             t2 = (i + 1) / num_diffusion_timesteps
             betas.append(min(1 - alpha_bar(t2) / alpha_bar(t1), max_beta))
         return torch.tensor(betas)
