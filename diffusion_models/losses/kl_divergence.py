@@ -11,8 +11,6 @@ def gaussian_kl(
     """Calculate KL Divergence of 2 Gaussian distributions.
 
     KL divergence between two univariate Gaussians, as derived in [1], with k=1 (dimensionality).
-    .. math::
-        D_{KL}(p||q) = \frac{1}{2}\left[\log\frac{|\Sigma_q|}{|\Sigma_p|} - k + (\boldsymbol{\mu_p}-\boldsymbol{\mu_q})^T\Sigma_q^{-1}(\boldsymbol{\mu_p}-\boldsymbol{\mu_q}) + tr\left\{\Sigma_q^{-1}\Sigma_p\right\}\right]
 
     Parameters
     ----------
@@ -45,8 +43,6 @@ def log_gaussian_kl(
     """Calculate KL Divergence of 2 Gaussian distributions.
 
     KL divergence between two univariate Gaussians, as derived in [1], with k=1 (dimensionality) and log variances.
-    .. math::
-        D_{KL}(p||q) = \frac{1}{2}\left[\log\frac{|\Sigma_q|}{|\Sigma_p|} - k + (\boldsymbol{\mu_p}-\boldsymbol{\mu_q})^T\Sigma_q^{-1}(\boldsymbol{\mu_p}-\boldsymbol{\mu_q}) + tr\left\{\Sigma_q^{-1}\Sigma_p\right\}\right]
 
     Parameters
     ----------
