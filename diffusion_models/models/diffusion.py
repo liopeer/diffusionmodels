@@ -196,6 +196,7 @@ class DiffusionModel(nn.Module):
                     noise = torch.randn_like(x, device=device)
                 else:
                     noise = torch.zeros_like(x, device=device)
+                # mean is predicted by NN and refactored by alphas, beta is kept constant according to scheduler
                 x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * noise_pred) + torch.sqrt(beta) * noise
                 if debugging and (i % save_every == 0):
                     x_list.append(x)

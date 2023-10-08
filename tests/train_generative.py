@@ -18,11 +18,17 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 3000,
-    log_wandb = True,
+    total_epochs = 2,
+    log_wandb = False,
     project = "cifar_gen_trials",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/cifarGenLong_checkpoints",
-    save_every = 10,
+    #data_path = os.path.abspath("./data"),
+    #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
+    data_path = "/itet-stor/peerli/net_scratch",
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifar10cosine_checkpoints",
+    loss_func = F.mse_loss,
+    project = "cifar_gen_trials",
+    save_every = 1,
     num_samples = 9,
     show_denoising_history = False,
     show_history_every = 50,
@@ -39,7 +45,7 @@ config = dotdict(
     activation = nn.SiLU,
     backbone_enc_depth = 4,
     kernel_size = 3,
-    dropout = 0,
+    dropout = 0.1,
     forward_diff = ForwardDiffusion,
     max_timesteps = 1000,
     t_start = 0.0001, 
@@ -48,13 +54,7 @@ config = dotdict(
     max_beta = 0.999,
     schedule_type = "linear",
     time_enc_dim = 256,
-    optimizer = torch.optim.Adam,
-    #data_path = os.path.abspath("./data"),
-    #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
-    data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/mnistGen2_checkpoints",
-    loss_func = F.mse_loss,
-    project = "mnist_gen_trials"
+    optimizer = torch.optim.Adam
 )
 
 def load_train_objs(config):
