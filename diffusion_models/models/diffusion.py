@@ -55,8 +55,13 @@ class ForwardDiffusion(nn.Module):
         self.register_buffer("alphas", self.init_alphas, persistent=False)
         self.register_buffer("betas", self.init_betas, persistent=False)
         self.register_buffer("alphas_dash", torch.cumprod(self.alphas, axis=0), persistent=False)
+        self.register_buffer("alphas_dash_prev", torch.cat([torch.tensor([1.0]), self.alphas_dash[:-1]]), persistent=False)
+        self.register_buffer("alphas_dash_next", torch.cat([self.alphas_dash[1:], torch.tensor([0.0])]), persistent=False)
         self.register_buffer("sqrt_alphas_dash", torch.sqrt(self.alphas_dash), persistent=False)
-        self.register_buffer("sqrt_one_minus_alpha_dash", 1. - self.alphas_dash, persistent=False)
+        self.register_buffer("sqrt_one_minus_alphas_dash", torch.sqrt(1. - self.alphas_dash), persistent=False)
+        self.register_buffer("log_one_minus_alphas_dash", torch.log(1. - self.alphas_dash), persistent=False)
+        self.register_buffer("sqrt_recip_alphas_dash", torch.sqrt(1.0 / self.alphas_dash))
+        self.register_buffer("sqrt_recipminus1_alphas_dash", torch.sqrt(1.0 / self.alphas_dash - 1.0))
 
     def forward(
             self, 
@@ -80,10 +85,10 @@ class ForwardDiffusion(nn.Module):
         noise_normal = torch.randn_like(x_0, device=x_0.device)
         if True in torch.gt(t, self.timesteps-1):
             raise IndexError("t ({}) chosen larger than max. available t ({})".format(t, self.timesteps-1))
-        sqrt_alpha_dash_t = self.sqrt_alphas_dash[t]
-        sqrt_one_minus_alpha_dash_t = self.sqrt_one_minus_alpha_dash[t]
-        x_t = sqrt_alpha_dash_t.view(-1, 1, 1, 1) * x_0
-        x_t += sqrt_one_minus_alpha_dash_t.view(-1, 1, 1, 1) * noise_normal
+        sqrt_alphas_dash_t = self.sqrt_alphas_dash[t]
+        sqrt_one_minus_alphas_dash_t = self.sqrt_one_minus_alphas_dash[t]
+        x_t = sqrt_alphas_dash_t.view(-1, 1, 1, 1) * x_0
+        x_t += sqrt_one_minus_alphas_dash_t.view(-1, 1, 1, 1) * noise_normal
         return x_t, noise_normal
 
     def _linear_scheduler(self, timesteps, start, end):

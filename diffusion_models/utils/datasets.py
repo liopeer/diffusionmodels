@@ -14,6 +14,9 @@ class Cifar10Dataset(CIFAR10):
         download = True
         super().__init__(root, train, transform, target_transform, download)
 
+class Cifar10DebugDataset(Cifar10Dataset):
+    __len__ = lambda x: 100
+
 class MNISTTrainDataset(MNIST):
     def __init__(self, root: str, train: bool = True, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None, download: bool = False) -> None:
         transform = Compose([ToTensor(), Normalize((0.1307,), (0.3081,)), Resize((32,32), antialias=True)])

@@ -12,7 +12,7 @@ from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
 from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import MNISTTrainDataset, Cifar10Dataset, MNISTDebugDataset
+from utils.datasets import MNISTTrainDataset, Cifar10Dataset, MNISTDebugDataset, Cifar10DebugDataset
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
@@ -21,24 +21,23 @@ config = dotdict(
     total_epochs = 2,
     log_wandb = False,
     project = "cifar_gen_trials",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifarGenLong_checkpoints",
+    data_path = "/itet-stor/peerli/net_scratch",
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifarGencosine_checkpoints",
     #data_path = os.path.abspath("./data"),
     #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
-    data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifar10cosine_checkpoints",
     loss_func = F.mse_loss,
-    project = "cifar_gen_trials",
     save_every = 1,
     num_samples = 9,
     show_denoising_history = False,
     show_history_every = 50,
-    batch_size = 256,
+    batch_size = 512,
     learning_rate = 0.0003,
     img_size = 32,
-    device_type = "cuda",
+    device_type = "cpu",
     in_channels = 3,
     #dataset = MNISTDebugDataset,
-    dataset = Cifar10Dataset,
+    dataset = Cifar10DebugDataset,
+    #dataset = Cifar10Dataset,
     architecture = DiffusionModel,
     backbone = UNet,
     unet_init_channels = 128,
@@ -52,7 +51,7 @@ config = dotdict(
     t_end = 0.02,
     offset = 0.008,
     max_beta = 0.999,
-    schedule_type = "linear",
+    schedule_type = "cosine",
     time_enc_dim = 256,
     optimizer = torch.optim.Adam
 )
