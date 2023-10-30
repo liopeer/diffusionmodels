@@ -1,0 +1,77 @@
+diffusion\_models.models.unet.AttentionDecodingBlock
+====================================================
+
+.. currentmodule:: diffusion_models.models.unet
+
+.. autoclass:: AttentionDecodingBlock
+   :members:
+   :show-inheritance:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AttentionDecodingBlock.add_module
+      ~AttentionDecodingBlock.apply
+      ~AttentionDecodingBlock.bfloat16
+      ~AttentionDecodingBlock.buffers
+      ~AttentionDecodingBlock.children
+      ~AttentionDecodingBlock.compile
+      ~AttentionDecodingBlock.cpu
+      ~AttentionDecodingBlock.cuda
+      ~AttentionDecodingBlock.double
+      ~AttentionDecodingBlock.eval
+      ~AttentionDecodingBlock.extra_repr
+      ~AttentionDecodingBlock.float
+      ~AttentionDecodingBlock.forward
+      ~AttentionDecodingBlock.get_buffer
+      ~AttentionDecodingBlock.get_extra_state
+      ~AttentionDecodingBlock.get_parameter
+      ~AttentionDecodingBlock.get_submodule
+      ~AttentionDecodingBlock.half
+      ~AttentionDecodingBlock.ipu
+      ~AttentionDecodingBlock.load_state_dict
+      ~AttentionDecodingBlock.modules
+      ~AttentionDecodingBlock.named_buffers
+      ~AttentionDecodingBlock.named_children
+      ~AttentionDecodingBlock.named_modules
+      ~AttentionDecodingBlock.named_parameters
+      ~AttentionDecodingBlock.parameters
+      ~AttentionDecodingBlock.register_backward_hook
+      ~AttentionDecodingBlock.register_buffer
+      ~AttentionDecodingBlock.register_forward_hook
+      ~AttentionDecodingBlock.register_forward_pre_hook
+      ~AttentionDecodingBlock.register_full_backward_hook
+      ~AttentionDecodingBlock.register_full_backward_pre_hook
+      ~AttentionDecodingBlock.register_load_state_dict_post_hook
+      ~AttentionDecodingBlock.register_module
+      ~AttentionDecodingBlock.register_parameter
+      ~AttentionDecodingBlock.register_state_dict_pre_hook
+      ~AttentionDecodingBlock.requires_grad_
+      ~AttentionDecodingBlock.set_extra_state
+      ~AttentionDecodingBlock.share_memory
+      ~AttentionDecodingBlock.state_dict
+      ~AttentionDecodingBlock.to
+      ~AttentionDecodingBlock.to_empty
+      ~AttentionDecodingBlock.train
+      ~AttentionDecodingBlock.type
+      ~AttentionDecodingBlock.xpu
+      ~AttentionDecodingBlock.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AttentionDecodingBlock.T_destination
+      ~AttentionDecodingBlock.call_super_init
+      ~AttentionDecodingBlock.dump_patches
+      ~AttentionDecodingBlock.training
+   
+   

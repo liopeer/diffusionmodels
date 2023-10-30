@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.unet.DecodingBlock" href="diffusion_models.models.unet.DecodingBlock.html" />
+    <link rel="next" title="diffusion_models.models.unet.AttentionDecodingBlock" href="diffusion_models.models.unet.AttentionDecodingBlock.html" />
     <link rel="prev" title="diffusion_models.models.positional_encoding.PositionalEncoding2D" href="diffusion_models.models.positional_encoding.PositionalEncoding2D.html" /> 
 </head>
 
@@ -51,8 +51,11 @@
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.models.unet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionDecodingBlock.html">diffusion_models.models.unet.AttentionDecodingBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionEncodingBlock.html">diffusion_models.models.unet.AttentionEncodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html">diffusion_models.models.unet.EncodingBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.SelfAttention.html">diffusion_models.models.unet.SelfAttention</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.UNet.html">diffusion_models.models.unet.UNet</a></li>
 </ul>
 </li>
@@ -109,13 +112,22 @@
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.AttentionDecodingBlock.html#diffusion_models.models.unet.AttentionDecodingBlock" title="diffusion_models.models.unet.AttentionDecodingBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AttentionDecodingBlock</span></code></a>(in_channels, ...[, ...])</p></td>
+<td><p>Initialize UNet Decoder Building Block.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.unet.AttentionEncodingBlock.html#diffusion_models.models.unet.AttentionEncodingBlock" title="diffusion_models.models.unet.AttentionEncodingBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AttentionEncodingBlock</span></code></a>(in_channels, ...[, ...])</p></td>
+<td><p>Initialize UNet Encoder Building Block.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html#diffusion_models.models.unet.DecodingBlock" title="diffusion_models.models.unet.DecodingBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DecodingBlock</span></code></a>(in_channels, out_channels, ...)</p></td>
 <td><p>Initialize UNet Decoder Building Block.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html#diffusion_models.models.unet.EncodingBlock" title="diffusion_models.models.unet.EncodingBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EncodingBlock</span></code></a>(in_channels, out_channels, ...)</p></td>
 <td><p>Initialize UNet Encoder Building Block.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.UNet.html#diffusion_models.models.unet.UNet" title="diffusion_models.models.unet.UNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UNet</span></code></a>(num_encoding_blocks[, in_channels, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.models.unet.SelfAttention.html#diffusion_models.models.unet.SelfAttention" title="diffusion_models.models.unet.SelfAttention"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SelfAttention</span></code></a>(channels, num_heads, dropout)</p></td>
+<td><p>Constructor of SelfAttention module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.models.unet.UNet.html#diffusion_models.models.unet.UNet" title="diffusion_models.models.unet.UNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UNet</span></code></a>(num_encoding_blocks[, in_channels, ...])</p></td>
 <td><p>Implementation of UNet architecture, close to original paper.</p></td>
 </tr>
 </tbody>
@@ -127,7 +139,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="diffusion_models.models.positional_encoding.PositionalEncoding2D.html" class="btn btn-neutral float-left" title="diffusion_models.models.positional_encoding.PositionalEncoding2D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.unet.DecodingBlock.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet.DecodingBlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.unet.AttentionDecodingBlock.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet.AttentionDecodingBlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

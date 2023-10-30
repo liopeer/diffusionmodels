@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="diffusion_models.models.vae" href="diffusion_models.models.vae.html" />
-    <link rel="prev" title="diffusion_models.models.unet.EncodingBlock" href="diffusion_models.models.unet.EncodingBlock.html" /> 
+    <link rel="prev" title="diffusion_models.models.unet.SelfAttention" href="diffusion_models.models.unet.SelfAttention.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,8 +51,11 @@
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionDecodingBlock.html">diffusion_models.models.unet.AttentionDecodingBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionEncodingBlock.html">diffusion_models.models.unet.AttentionEncodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html">diffusion_models.models.unet.EncodingBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.SelfAttention.html">diffusion_models.models.unet.SelfAttention</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.unet.UNet</a></li>
 </ul>
 </li>
@@ -109,7 +112,7 @@
 <h1>diffusion_models.models.unet.UNet<a class="headerlink" href="#diffusion-models-models-unet-unet" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="diffusion_models.models.unet.UNet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_encoding_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_emb_size=256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;class</span> <span class="pre">'torch.nn.modules.activation.SiLU'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_channels=64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">UNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_encoding_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_emb_size=256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;class</span> <span class="pre">'torch.nn.modules.activation.SiLU'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_channels=64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_heads=4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_ff_dim=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.UNet" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Implementation of UNet architecture, close to original paper.</p>
 <section id="things-that-are-different">
@@ -179,6 +182,30 @@ and still yield an even number at this point. Best to just stick with powers of 
 </dd>
 <dt class="field-even">param verbose<span class="colon">:</span></dt>
 <dd class="field-even"><p>verbose printing of tensor shapes for debbugging</p>
+</dd>
+<dt class="field-odd">type init_channels<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">param init_channels<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of channels to initially transform the input to (usually 64, 128, …)</p>
+</dd>
+<dt class="field-odd">type attention<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">param attention<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to use self-attention layers</p>
+</dd>
+<dt class="field-odd">type attention_heads<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">param attention_heads<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of attention heads to be used</p>
+</dd>
+<dt class="field-odd">type attention_ff_dim<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+</dd>
+<dt class="field-even">param attention_ff_dim<span class="colon">:</span></dt>
+<dd class="field-even"><p>hidden dimension of feedforward layer in self attention module, None defaults to input dimension</p>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
@@ -370,7 +397,7 @@ and still yield an even number at this point. Best to just stick with powers of 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.models.unet.EncodingBlock.html" class="btn btn-neutral float-left" title="diffusion_models.models.unet.EncodingBlock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.unet.SelfAttention.html" class="btn btn-neutral float-left" title="diffusion_models.models.unet.SelfAttention" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="diffusion_models.models.vae.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,0 +1,36 @@
+diffusion\_models.utils.datasets.Cifar10DebugDataset
+====================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: Cifar10DebugDataset
+   :members:
+   :show-inheritance:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Cifar10DebugDataset.download
+      ~Cifar10DebugDataset.extra_repr
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Cifar10DebugDataset.base_folder
+      ~Cifar10DebugDataset.filename
+      ~Cifar10DebugDataset.meta
+      ~Cifar10DebugDataset.test_list
+      ~Cifar10DebugDataset.tgz_md5
+      ~Cifar10DebugDataset.train_list
+      ~Cifar10DebugDataset.url
+   
+   

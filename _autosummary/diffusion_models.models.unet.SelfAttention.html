@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.models.unet.EncodingBlock &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.models.unet.SelfAttention &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.unet.SelfAttention" href="diffusion_models.models.unet.SelfAttention.html" />
-    <link rel="prev" title="diffusion_models.models.unet.DecodingBlock" href="diffusion_models.models.unet.DecodingBlock.html" /> 
+    <link rel="next" title="diffusion_models.models.unet.UNet" href="diffusion_models.models.unet.UNet.html" />
+    <link rel="prev" title="diffusion_models.models.unet.EncodingBlock" href="diffusion_models.models.unet.EncodingBlock.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,8 +54,8 @@
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionDecodingBlock.html">diffusion_models.models.unet.AttentionDecodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionEncodingBlock.html">diffusion_models.models.unet.AttentionEncodingBlock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.DecodingBlock.html">diffusion_models.models.unet.DecodingBlock</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.unet.EncodingBlock</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.SelfAttention.html">diffusion_models.models.unet.SelfAttention</a></li>
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.EncodingBlock.html">diffusion_models.models.unet.EncodingBlock</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.unet.SelfAttention</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.UNet.html">diffusion_models.models.unet.UNet</a></li>
 </ul>
 </li>
@@ -98,9 +98,9 @@
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
-      <li class="breadcrumb-item active">diffusion_models.models.unet.EncodingBlock</li>
+      <li class="breadcrumb-item active">diffusion_models.models.unet.SelfAttention</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.models.unet.EncodingBlock.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.models.unet.SelfAttention.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -108,23 +108,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="diffusion-models-models-unet-encodingblock">
-<h1>diffusion_models.models.unet.EncodingBlock<a class="headerlink" href="#diffusion-models-models-unet-encodingblock" title="Link to this heading"></a></h1>
+  <section id="diffusion-models-models-unet-selfattention">
+<h1>diffusion_models.models.unet.SelfAttention<a class="headerlink" href="#diffusion-models-models-unet-selfattention" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="diffusion_models.models.unet.EncodingBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">EncodingBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;class</span> <span class="pre">'torch.nn.modules.activation.SiLU'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.EncodingBlock" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.unet.SelfAttention">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.unet.</span></span><span class="sig-name descname"><span class="pre">SelfAttention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_feedforward=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation=&lt;class</span> <span class="pre">'torch.nn.modules.activation.SiLU'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.SelfAttention" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Initialize UNet Encoder Building Block.</p>
+<p>Constructor of SelfAttention module.</p>
+<p>Implementation of self-attention layer for image data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>in_channels</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of input channels</p></li>
-<li><p><strong>out_channels</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of output channels</p></li>
-<li><p><strong>time_embedding_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – dimension of time embedding</p></li>
-<li><p><strong>kernel_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – size of convolutional kernel</p></li>
-<li><p><strong>dropout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – probability of dropout layers</p></li>
-<li><p><strong>activation</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>) – non-linearity of neural network</p></li>
-<li><p><strong>verbose</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to print tensor shapes in forward pass</p></li>
+<li><p><strong>channels</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of input channels</p></li>
+<li><p><strong>num_heads</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of desired attention heads</p></li>
+<li><p><strong>dropout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – dropout probability value</p></li>
+<li><p><strong>dim_feedforward</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – dimension of hidden layers in feedforward NN, defaults to number of input channels</p></li>
+<li><p><strong>activation</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>) – activation function to be used, as uninstantiated nn.Module</p></li>
 </ul>
 </dd>
 </dl>
@@ -167,8 +166,8 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.unet.EncodingBlock.forward" title="diffusion_models.models.unet.EncodingBlock.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x, time_embedding)</p></td>
-<td><p>Forward pass of UNet Encoder Building Block.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.unet.SelfAttention.forward" title="diffusion_models.models.unet.SelfAttention.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<td><p>Forward method of SelfAttention module.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer</span></code>(target)</p></td>
 <td><p>Returns the buffer given by <code class="docutils literal notranslate"><span class="pre">target</span></code> if it exists, otherwise throws an error.</p></td>
@@ -289,25 +288,18 @@
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.unet.EncodingBlock.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_embedding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.EncodingBlock.forward" title="Link to this definition"></a></dt>
-<dd><p>Forward pass of UNet Encoder Building Block.</p>
+<dt class="sig sig-object py" id="diffusion_models.models.unet.SelfAttention.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.unet.SelfAttention.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward method of SelfAttention module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>) – input tensor</p></li>
-<li><p><strong>time_embedding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">embedding_size']</span></code>) – time embedding tensor</p></li>
-</ul>
+<dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>) – input tensor</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">double_channels</span> <span class="pre">half_height</span> <span class="pre">half_width']</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">double_channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>]</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>output tensor</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p><em>output</em> – convoluted and downscaled tensor</p></li>
-<li><p><em>skip</em> – convoluted but non-downscaled tensor for skip connection</p></li>
-</ul>
-</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>out</p>
 </dd>
 </dl>
 </dd></dl>
@@ -320,8 +312,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.models.unet.DecodingBlock.html" class="btn btn-neutral float-left" title="diffusion_models.models.unet.DecodingBlock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.unet.SelfAttention.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet.SelfAttention" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.unet.EncodingBlock.html" class="btn btn-neutral float-left" title="diffusion_models.models.unet.EncodingBlock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.unet.UNet.html" class="btn btn-neutral float-right" title="diffusion_models.models.unet.UNet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

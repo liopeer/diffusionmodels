@@ -19,8 +19,11 @@ diffusion\_models.models.unet
       :toctree:
       :template: custom-class-template.rst
    
+      AttentionDecodingBlock
+      AttentionEncodingBlock
       DecodingBlock
       EncodingBlock
+      SelfAttention
       UNet
    
    
