@@ -231,7 +231,10 @@ class UNet(nn.Module):
             dropout: float=0.5,
             activation: nn.Module=nn.SiLU,
             verbose: bool=False,
-            init_channels: int=64
+            init_channels: int=64,
+            attention: bool=True,
+            attention_heads: int=4,
+            attention_ff_dim: int=None
         ) -> None:
         """Constructor of UNet.
 
@@ -251,6 +254,14 @@ class UNet(nn.Module):
             activation function to be used
         verbose
             verbose printing of tensor shapes for debbugging
+        init_channels
+            number of channels to initially transform the input to (usually 64, 128, ...)
+        attention
+            whether to use self-attention layers
+        attention_heads
+            number of attention heads to be used
+        attention_ff_dim
+            hidden dimension of feedforward layer in self attention module, None defaults to input dimension
         """
         super().__init__()
         self.num_layers = num_encoding_blocks
@@ -263,6 +274,9 @@ class UNet(nn.Module):
         self.activation = activation
         self.verbose = verbose
         self.init_channels = init_channels
+        self.attention = attention
+        self.attention_heads = attention_heads
+        self.attention_ff_dim = attention_ff_dim
 
         self.encoding_channels, self.decoding_channels = self._get_channel_lists(init_channels, num_encoding_blocks)
 
@@ -273,7 +287,10 @@ class UNet(nn.Module):
             nn.Dropout(self.dropout)
         )
 
-        self.encoder = nn.ModuleList([EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
+        if attention:
+            self.encoder = nn.ModuleList([AttentionEncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose, attention_heads, attention_ff_dim) for i in range(len(self.encoding_channels[:-1]))])
+        else:
+            self.encoder = nn.ModuleList([EncodingBlock(self.encoding_channels[i], self.encoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
 
         self.bottleneck = nn.Sequential(
             nn.Conv2d(self.encoding_channels[-1], self.encoding_channels[-1] * 2, kernel_size=self.kernel_size, padding="same"),
@@ -286,8 +303,11 @@ class UNet(nn.Module):
             nn.Dropout(self.dropout)
         )
 
-        self.decoder = nn.ModuleList([DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
-
+        if attention:
+            self.decoder = nn.ModuleList([AttentionDecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose, attention_heads, attention_ff_dim) for i in range(len(self.encoding_channels[:-1]))])
+        else:
+            self.decoder = nn.ModuleList([DecodingBlock(self.decoding_channels[i], self.decoding_channels[i+1], time_emb_size, kernel_size, dropout, self.activation, verbose) for i in range(len(self.encoding_channels[:-1]))])
+        
         self.out_conv = nn.Conv2d(init_channels, in_channels, kernel_size=kernel_size, padding="same")
 
     def _get_channel_lists(self, start_channels, num_layers):
@@ -368,3 +388,106 @@ class UNet(nn.Module):
         if (False in widths) or (False in heights):
             return False
         return True
+    
+class SelfAttention(nn.Module):
+    def __init__(
+            self, 
+            channels: int,
+            num_heads: int,
+            dropout: float,
+            dim_feedforward: int=None,
+            activation: nn.Module=nn.SiLU
+        ) -> None:
+        """Constructor of SelfAttention module.
+        
+        Implementation of self-attention layer for image data.
+
+        Parameters
+        ----------
+        channels
+            number of input channels
+        num_heads
+            number of desired attention heads
+        dropout
+            dropout probability value
+        dim_feedforward
+            dimension of hidden layers in feedforward NN, defaults to number of input channels
+        activation
+            activation function to be used, as uninstantiated nn.Module
+        """
+        super().__init__()
+        self.channels = channels
+        self.num_heads = num_heads
+        self.dropout = dropout
+        if dim_feedforward is not None:
+            self.dim_feedforward = dim_feedforward
+        else:
+            self.dim_feedforward = channels
+        self.activation = activation()
+        self.attention_layer = nn.TransformerEncoderLayer(
+            channels,
+            num_heads,
+            self.dim_feedforward,
+            dropout,
+            self.activation,
+            batch_first=True
+        )
+
+    def forward(self, x: Float[Tensor, "batch channels height width"]) -> Float[Tensor, "batch channels height width"]:
+        """Forward method of SelfAttention module.
+        
+        Parameters
+        ----------
+        x
+            input tensor
+        
+        Returns
+        -------
+        out
+            output tensor
+        """
+        # transform feature maps into vectors and put feature dimension (channels) at the end
+        orig_ize = x.size()
+        x = x.view(-1, x.shape[1], x.shape[2]*x.shape[3]).swapaxes(1,2)
+        x = self.attention_layer(x)
+        return x.swapaxes(1,2).view(*orig_ize)
+    
+class AttentionEncodingBlock(EncodingBlock):
+    def __init__(
+            self, 
+            in_channels: int, 
+            out_channels: int, 
+            time_embedding_size: int, 
+            kernel_size: int = 3, 
+            dropout: float = 0.5, 
+            activation: nn.Module = nn.SiLU, 
+            verbose: bool = False,
+            attention_heads: int=4,
+            attention_ff_dim: int=None
+        ) -> None:
+        super().__init__(in_channels, out_channels, time_embedding_size, kernel_size, dropout, activation, verbose)
+        self.sa = SelfAttention(out_channels, attention_heads, dropout, attention_ff_dim, activation)
+
+    def forward(self, x: Tensor, time_embedding: Tensor) -> Tuple[Tensor, Tensor]:
+        out, skip = super().forward(x, time_embedding)
+        return self.sa(out), skip
+
+class AttentionDecodingBlock(DecodingBlock):
+    def __init__(
+            self, 
+            in_channels: int, 
+            out_channels: int, 
+            time_embedding_size: int, 
+            kernel_size: int = 3, 
+            dropout: float = 0.5, 
+            activation: nn.Module = nn.SiLU, 
+            verbose: bool = False,
+            attention_heads: int=4,
+            attention_ff_dim: int=None
+        ) -> None:
+        super().__init__(in_channels, out_channels, time_embedding_size, kernel_size, dropout, activation, verbose)
+        self.sa = SelfAttention(out_channels, attention_heads, dropout, attention_ff_dim, activation)
+
+    def forward(self, x: Tensor, skip: Tensor, time_embedding: Tensor = None) -> Tensor:
+        out = super().forward(x, skip, time_embedding)
+        return self.sa(out)

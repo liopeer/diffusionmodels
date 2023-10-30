@@ -20,26 +20,27 @@ import torch.nn.functional as F
 config = dotdict(
     total_epochs = 2,
     log_wandb = False,
-    project = "cifar_gen_trials",
+    project = "mnist_gen_trials",
     data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/cifarGencosine_checkpoints",
-    #data_path = os.path.abspath("./data"),
-    #checkpoint_folder = os.path.abspath(os.path.join("./data/checkpoints")),
+    checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
+    wandb_dir = "/itet-stor/peerli/",
+    from_checkpoint = "/itet-stor/peerli/net_scratch/ghoulish-goosebump-9/checkpoint30.pt",
     loss_func = F.mse_loss,
     save_every = 1,
     num_samples = 9,
     show_denoising_history = False,
     show_history_every = 50,
-    batch_size = 512,
+    batch_size = 256,
     learning_rate = 0.0003,
     img_size = 32,
-    device_type = "cpu",
-    in_channels = 3,
-    #dataset = MNISTDebugDataset,
-    dataset = Cifar10DebugDataset,
-    #dataset = Cifar10Dataset,
+    device_type = "cuda",
+    in_channels = 1,
+    dataset = MNISTDebugDataset,
     architecture = DiffusionModel,
     backbone = UNet,
+    attention = False,
+    attention_heads = 4,
+    attention_ff_dim = None,
     unet_init_channels = 128,
     activation = nn.SiLU,
     backbone_enc_depth = 4,
@@ -47,12 +48,12 @@ config = dotdict(
     dropout = 0.1,
     forward_diff = ForwardDiffusion,
     max_timesteps = 1000,
-    t_start = 0.0001, 
+    t_start = 0.0001,
     t_end = 0.02,
     offset = 0.008,
     max_beta = 0.999,
-    schedule_type = "cosine",
-    time_enc_dim = 256,
+    schedule_type = "linear",
+    time_enc_dim = 128,
     optimizer = torch.optim.Adam
 )
 
@@ -66,7 +67,10 @@ def load_train_objs(config):
             dropout = config.dropout,
             activation = config.activation,
             time_emb_size = config.time_enc_dim,
-            init_channels = config.unet_init_channels
+            init_channels = config.unet_init_channels,
+            attention = config.attention,
+            attention_heads = config.attention_heads,
+            attention_ff_dim = config.attention_ff_dim
         ),
         fwd_diff = config.forward_diff(
             timesteps = config.max_timesteps,
@@ -85,10 +89,13 @@ def load_train_objs(config):
 
 def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
-        wandb.init(project=config.project, config=config, save_code=True)
+        wandb.init(project=config.project, config=config, save_code=True, dir=config.wandb_dir)
     dataset, model, optimizer = load_train_objs(config)
     if (config.device_type == "cuda") and (world_size > 1):
         torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
+    if (rank == 0) and config.log_wandb and ("run_name" in config.checkpoint_folder):
+        base_folder = os.path.dirname(config.checkpoint_folder)
+        config.checkpoint_folder = os.path.join(base_folder, wandb.run.name)
     trainer = GenerativeTrainer(
         model = model, 
         train_data = dataset, 
@@ -104,6 +111,8 @@ def training(rank, world_size, config):
         show_denoising_process = config.show_denoising_history,
         show_denoising_every = config.show_history_every
     )
+    if config.from_checkpoint:
+        trainer.load_checkpoint(config.from_checkpoint)
     trainer.train(config.total_epochs)
 
 if __name__ == "__main__":
