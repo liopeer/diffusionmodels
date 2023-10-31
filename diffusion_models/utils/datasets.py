@@ -7,6 +7,7 @@ import os
 import pickle
 import numpy as np
 import torch
+import h5py
 
 class Cifar10Dataset(CIFAR10):
     def __init__(self, root: str, train: bool = True, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None, download: bool = False) -> None:
@@ -31,6 +32,27 @@ class MNISTTestDataset(MNIST):
 
 class MNISTDebugDataset(MNISTTrainDataset):
     __len__ = lambda x: 100
+
+class FastMRIBrainTrain(Dataset):
+    def __init__(self, root: str, size: int) -> None:
+        super().__init__()
+        h5_files = [os.path.join(root, elem) for elem in sorted(os.listdir(root))]
+        self.imgs = []
+        for file_name in h5_files:
+            file = h5py.File(file_name, 'r')
+            slices = file["reconstruction_rss"].shape[0]
+            for i in range(slices):
+                self.imgs.append({"file_name":file_name, "index":i})
+        self.transform = Compose([Normalize((4.8358e-05, ), (np.sqrt(2.4383e-09), )), Resize((size, size), antialias=True)])
+
+    def __len__(self):
+        return len(self.imgs)
+    
+    def __getitem__(self, index) -> Any:
+        file_name = self.imgs[index]["file_name"]
+        index = self.imgs[index]["index"]
+        file = h5py.File(file_name, 'r')
+        return self.transform(torch.tensor(file["reconstruction_rss"][index]).unsqueeze(0))
 
 class ImageNet64Dataset(Dataset):
     def __init__(self, root: str) -> None:

@@ -13,9 +13,9 @@ model = config.architecture(
             activation = nn.SiLU,
             time_emb_size = config.time_enc_dim,
             init_channels = 128,
-            attention = False,
-            attention_heads = 0,
-            attention_ff_dim = 0
+            attention = True,
+            attention_heads = 4,
+            attention_ff_dim = None
         ),
         fwd_diff = config.forward_diff(
             timesteps = config.max_timesteps,
@@ -23,7 +23,7 @@ model = config.architecture(
             end = config.t_end,
             offset = config.offset,
             max_beta = config.max_beta,
-            type = "linear"
+            type = "cosine"
         ),
         img_size = config.img_size,
         time_enc_dim = config.time_enc_dim,
@@ -31,8 +31,8 @@ model = config.architecture(
     )
 
 model = model.to("cuda")
-model.load_state_dict(torch.load("/itet-stor/peerli/net_scratch/ghoulish-goosebump-9/checkpoint90.pt"))
+model.load_state_dict(torch.load("/itet-stor/peerli/net_scratch/fearful-werewolf-11/checkpoint90.pt"))
 
 samples = model.sample(9)
 samples = torchvision.utils.make_grid(samples, nrow=int(sqrt(9)))
-torchvision.utils.save_image(samples, "/home/peerli/Downloads/sample2.png")
+torchvision.utils.save_image(samples, "/home/peerli/Downloads/sample9.png")

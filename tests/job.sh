@@ -2,7 +2,7 @@
 #SBATCH  --account=student
 #SBATCH  --output=log/%j.out
 #SBATCH  --error=log/%j.err
-#SBATCH  --gres=gpu:2
+#SBATCH  --gres=gpu:4
 #SBATCH  --mem=32G
 #SBATCH  --job-name=mnist_double
 #SBATCH  --constraint='titan_xp|geforce_gtx_titan_x'
