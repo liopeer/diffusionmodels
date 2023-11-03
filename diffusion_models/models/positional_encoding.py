@@ -40,6 +40,8 @@ class PositionalEncoding(nn.Module):
         out
             positional encodings for batch
         """
+        if (t.dim() != 1) or (t.shape[0]==1):
+            raise ValueError("Timesteps not the right size.", t.shape)
         x = self.pe[t]
         return x.squeeze()
 

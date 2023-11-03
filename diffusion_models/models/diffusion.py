@@ -193,7 +193,11 @@ class DiffusionModel(nn.Module):
             tuple of noise predictions and noise for random timesteps in the denoising process
         """
         timesteps = self._sample_timesteps(x.shape[0], device=x.device)
+        if timesteps.dim() != 1:
+            raise ValueError("Timesteps should only have batch dimension.", timesteps.shape)
         time_enc = self.time_encoder.get_pos_encoding(timesteps)
+        if time_enc.dim() != 2:
+            raise ValueError("Time Encoding should be 2 dimensional.", time_enc.shape)
         # make (partially) noisy versions of batch, returns noisy version + applied noise
         x_t, noise = self.fwd_diff(x, timesteps)
         # predict the applied noise from the noisy version

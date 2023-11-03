@@ -224,7 +224,7 @@ class UNet(nn.Module):
     """
     def __init__(
             self, 
-            num_encoding_blocks,
+            num_encoding_blocks: int,
             in_channels: int=3,
             kernel_size: int=3,
             time_emb_size: int=256,
@@ -343,6 +343,10 @@ class UNet(nn.Module):
         out
             output image batch
         """
+        if x.dim() != 4:
+            raise ValueError("Image data should be 4 dimensional.", x.shape)
+        if t.dim() != 2:
+            raise ValueError("Time embedding must have dimension 2.", t.shape)
         if self.verbose:
             print("Encoding Channels", self.encoding_channels, "\tDecoding Channels", self.decoding_channels)
         if not self._check_sizes(x):
@@ -430,7 +434,8 @@ class SelfAttention(nn.Module):
             self.dim_feedforward,
             dropout,
             self.activation,
-            batch_first=True
+            batch_first=True,
+            norm_first=True
         )
 
     def forward(self, x: Float[Tensor, "batch channels height width"]) -> Float[Tensor, "batch channels height width"]:
@@ -447,10 +452,10 @@ class SelfAttention(nn.Module):
             output tensor
         """
         # transform feature maps into vectors and put feature dimension (channels) at the end
-        orig_ize = x.size()
-        x = x.view(-1, x.shape[1], x.shape[2]*x.shape[3]).swapaxes(1,2)
+        orig_size = x.size()
+        x = x.view(x.shape[0], x.shape[1], x.shape[2]*x.shape[3]).swapaxes(1,2)
         x = self.attention_layer(x)
-        return x.swapaxes(1,2).view(*orig_ize)
+        return x.swapaxes(1,2).view(*orig_size)
     
 class AttentionEncodingBlock(EncodingBlock):
     def __init__(

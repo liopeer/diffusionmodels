@@ -34,7 +34,7 @@ class MNISTDebugDataset(MNISTTrainDataset):
     __len__ = lambda x: 100
 
 class FastMRIBrainTrain(Dataset):
-    def __init__(self, root: str, size: int) -> None:
+    def __init__(self, root: str, size: int=256) -> None:
         super().__init__()
         h5_files = [os.path.join(root, elem) for elem in sorted(os.listdir(root))]
         self.imgs = []
@@ -43,7 +43,7 @@ class FastMRIBrainTrain(Dataset):
             slices = file["reconstruction_rss"].shape[0]
             for i in range(slices):
                 self.imgs.append({"file_name":file_name, "index":i})
-        self.transform = Compose([Normalize((4.8358e-05, ), (np.sqrt(2.4383e-09), )), Resize((size, size), antialias=True)])
+        self.transform = Compose([ToTensor(), Resize((size, size), antialias=True)])
 
     def __len__(self):
         return len(self.imgs)
@@ -52,7 +52,24 @@ class FastMRIBrainTrain(Dataset):
         file_name = self.imgs[index]["file_name"]
         index = self.imgs[index]["index"]
         file = h5py.File(file_name, 'r')
-        return self.transform(torch.tensor(file["reconstruction_rss"][index]).unsqueeze(0))
+        x = file["reconstruction_rss"][index]
+        x = self.transform(x)
+        file.close()
+        x = x - x.min()
+        x = x * (1 / x.max())
+        return (x, )
+    
+class FastMRIDebug(FastMRIBrainTrain):
+    def __len__(self):
+        return 100
+    
+class QuarterFastMRI(FastMRIBrainTrain):
+    """only every 4th image of original dataset"""
+    def __len__(self):
+        return int(super().__len__() / 4)
+    
+    def __getitem__(self, index) -> Any:
+        return super().__getitem__(int(index*4))
 
 class ImageNet64Dataset(Dataset):
     def __init__(self, root: str) -> None:

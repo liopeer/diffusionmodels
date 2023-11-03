@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 from models.mnist_enc import MNISTEncoder
 from models.unet import UNet
+from models.repaint_unet.unet import UNetModel
 from models.diffusion import DiffusionModel, ForwardDiffusion
 import numpy as np
 from time import time
@@ -18,34 +19,35 @@ import wandb
 import torch.nn.functional as F
 
 config = dotdict(
-    total_epochs = 1000,
+    total_epochs = 500,
     log_wandb = True,
     project = "fastMRI_gen_trials",
     data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
     #data_path = "/itet-stor/peerli/net_scratch",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
     wandb_dir = "/itet-stor/peerli/net_scratch",
-    from_checkpoint = "/itet-stor/peerli/net_scratch/super-rain-7/checkpoint490.pt", #"/itet-stor/peerli/net_scratch/ghoulish-goosebump-9/checkpoint30.pt",
+    from_checkpoint = False, #"/itet-stor/peerli/net_scratch/ghoulish-goosebump-9/checkpoint30.pt",
     loss_func = F.mse_loss,
+    use_fp16 = False,
     save_every = 10,
     num_samples = 4,
+    channels_per_att_head = 128,
     show_denoising_history = False,
     show_history_every = 50,
-    batch_size = 32,
+    batch_size = 8,
     learning_rate = 0.0001,
-    img_size = 64,
+    img_size = 256,
     device_type = "cuda",
     in_channels = 1,
-    dataset = QuarterFastMRI,
+    dataset = FastMRIBrainTrain,
     architecture = DiffusionModel,
-    backbone = UNet,
-    attention = False,
-    attention_heads = 4,
-    attention_ff_dim = None,
-    unet_init_channels = 64,
+    backbone = UNetModel,
+    unet_init_channels = 32,
     activation = nn.SiLU,
-    backbone_enc_depth = 5,
+    backbone_enc_depth = 4,
+    num_res_blocks = 2,
     kernel_size = 3,
+    attention_downsampling_factors = (16, 32), # at resolutions 32, 16, 8
     dropout = 0.0,
     forward_diff = ForwardDiffusion,
     max_timesteps = 1000,
@@ -62,16 +64,17 @@ def load_train_objs(config):
     train_set = config.dataset(config.data_path)
     model = config.architecture(
         backbone = config.backbone(
-            num_encoding_blocks = config.backbone_enc_depth,
+            image_size = config.img_size,
             in_channels = config.in_channels,
-            kernel_size = config.kernel_size,
+            num_encoding_blocks = config.backbone_enc_depth,
+            model_channels = config.unet_init_channels,
+            out_channels = config.in_channels,
+            num_res_blocks = config.num_res_blocks,
+            attention_resolutions = config.attention_downsampling_factors,
+            time_embed_dim = config.time_enc_dim,
             dropout = config.dropout,
-            activation = config.activation,
-            time_emb_size = config.time_enc_dim,
-            init_channels = config.unet_init_channels,
-            attention = config.attention,
-            attention_heads = config.attention_heads,
-            attention_ff_dim = config.attention_ff_dim
+            use_fp16 = config.use_fp16,
+            num_head_channels = config.channels_per_att_head
         ),
         fwd_diff = config.forward_diff(
             timesteps = config.max_timesteps,
