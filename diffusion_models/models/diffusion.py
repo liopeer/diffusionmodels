@@ -219,12 +219,12 @@ class DiffusionModel(nn.Module):
         x
             tensor representing a batch of noisy pictures (may be of different timesteps)
         t
-            tensor representing the t timesteps for the batch
+            tensor representing the t timesteps for the batch (where the batch now is)
 
         Returns
         -------
         out
-            less noisy version (by one timestep)
+            less noisy version (by one timestep, now at t-1 from the arguments)
         """
         self.model.eval()
         with torch.no_grad():
@@ -243,63 +243,13 @@ class DiffusionModel(nn.Module):
     
     def sample(
             self,
-            num_samples: int,
-            debugging: bool=False,
-            save_every: int=20
+            num_samples: int
         ) -> Float[Tensor, "batch channel height width"]:
         beta = self.fwd_diff.betas[-1].view(-1,1,1,1)
         x = self.init_noise(num_samples) * torch.sqrt(beta)
         for i in reversed(range(1, self.fwd_diff.timesteps)):
             t = i * torch.ones((num_samples), dtype=torch.long, device=list(self.model.parameters())[0].device)
             x = self.denoise_singlestep(x, t)
-        return x
-    
-    def sample2(
-            self, 
-            num_samples: int, 
-            debugging: bool=False,
-            save_every: int=20
-        ) -> Union[Float[Tensor, "batch channel height width"], List[Float[Tensor, "batch channel height width"]]]:
-        """Sample a batch of images.
-
-        Parameters
-        ----------
-        num_samples
-            how big the batch should be
-        debugging
-            if true, returns list that shows the sampling process
-        save_every
-            defines how often the tensors should be saved in the denoising process
-
-        Returns
-        -------
-        out
-            either a list of tensors if debugging is true, else a single tensor with final images
-        """
-        self.model.eval()
-        device = list(self.parameters())[0].device
-        with torch.no_grad():
-            x = torch.randn((num_samples, self.model.in_channels, self.img_size, self.img_size), device=device)
-            x_list = []
-            for i in reversed(range(1, self.fwd_diff.timesteps)):
-                t_step = i * torch.ones((num_samples), dtype=torch.long, device=device)
-                t_enc = self.time_encoder.get_pos_encoding(t_step)
-                noise_pred = self.model(x, t_enc)
-
-                alpha = self.fwd_diff.alphas[t_step][:, None, None, None]
-                alpha_hat = self.fwd_diff.alphas_dash[t_step][:, None, None, None]
-                beta = self.fwd_diff.betas[t_step][:, None, None, None]
-                if i > 1:
-                    noise = torch.randn_like(x, device=device)
-                else:
-                    noise = torch.zeros_like(x, device=device)
-                # mean is predicted by NN and refactored by alphas, beta is kept constant according to scheduler
-                x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * noise_pred) + torch.sqrt(beta) * noise
-                if debugging and (i % save_every == 0):
-                    x_list.append(x)
-        self.model.train()
-        if debugging:
-            return x_list
         return x
 
     def _sample_timesteps(self, batch_size: int, device: torch.device) -> Int64[Tensor, "batch"]:
