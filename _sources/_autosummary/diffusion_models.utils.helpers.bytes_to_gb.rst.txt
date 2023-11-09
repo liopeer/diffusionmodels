@@ -1,0 +1,6 @@
+diffusion\_models.utils.helpers.bytes\_to\_gb
+=============================================
+
+.. currentmodule:: diffusion_models.utils.helpers
+
+.. autofunction:: bytes_to_gb
