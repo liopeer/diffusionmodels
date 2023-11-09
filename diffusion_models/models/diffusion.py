@@ -121,8 +121,8 @@ class ForwardDiffusion(nn.Module):
             alphas_dash_interval = torch.cumprod(alphas_interval, axis=0)
             sqrt_alphas_dash_interval = torch.sqrt(alphas_dash_interval)
             sqrt_one_minus_alphas_dash_interval = torch.sqrt(1. - alphas_dash_interval)
-            batch_sqrt_alphas_dash[sample] = sqrt_alphas_dash_interval
-            batch_sqrt_one_minus_alpha_dash[sample] = sqrt_one_minus_alphas_dash_interval
+            batch_sqrt_alphas_dash[sample] = sqrt_alphas_dash_interval[-1]
+            batch_sqrt_one_minus_alpha_dash[sample] = sqrt_one_minus_alphas_dash_interval[-1]
         mean = batch_sqrt_alphas_dash.view(-1, 1, 1, 1) * x_t1
         out = mean + batch_sqrt_one_minus_alpha_dash.view(-1, 1, 1, 1) * noise_normal
         return out, noise_normal

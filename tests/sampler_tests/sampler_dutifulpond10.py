@@ -13,7 +13,7 @@ def run():
     config = None
     with open("config_dutifulpond10.json", "r") as f:
         config = json.load(f)
-    ckp_num = 40
+    ckp_num = 32
     ckpt_path = f"/itet-stor/peerli/net_scratch/dutiful-pond-10/checkpoint{ckp_num}.pt"
     device = torch.device("cuda")
     backbone = UNet(
