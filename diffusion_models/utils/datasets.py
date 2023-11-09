@@ -34,7 +34,7 @@ class MNISTDebugDataset(MNISTTrainDataset):
     __len__ = lambda x: 100
 
 class FastMRIBrainTrain(Dataset):
-    def __init__(self, root: str, size: int=256) -> None:
+    def __init__(self, root: str, size: int=128) -> None:
         super().__init__()
         h5_files = [os.path.join(root, elem) for elem in sorted(os.listdir(root))]
         self.imgs = []
@@ -61,7 +61,7 @@ class FastMRIBrainTrain(Dataset):
     
 class FastMRIDebug(FastMRIBrainTrain):
     def __len__(self):
-        return 100
+        return 512
     
 class QuarterFastMRI(FastMRIBrainTrain):
     """only every 4th image of original dataset"""

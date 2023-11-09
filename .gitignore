@@ -8,6 +8,8 @@ tests/data
 # logging
 tests/wandb
 tests/log
+tests/sampler_tests/log
+tests/sampler_tests/*.png
 
 # sphinx build
 docs/source/_autosummary
