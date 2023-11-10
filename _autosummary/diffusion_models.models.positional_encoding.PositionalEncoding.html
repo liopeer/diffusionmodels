@@ -49,6 +49,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.multicoil.html">diffusion_models.models.multicoil</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.positional_encoding.PositionalEncoding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.positional_encoding.PositionalEncoding2D.html">diffusion_models.models.positional_encoding.PositionalEncoding2D</a></li>
@@ -114,9 +115,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d_model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – feature dimensionality of the model</p></li>
-<li><p><strong>dropout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – probability value of dropout layers</p></li>
-<li><p><strong>max_len</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – maximum length of sequence (shorter setting will free up GPU memory)</p></li>
+<li><p><strong>d_model</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – feature dimensionality of the model</p></li>
+<li><p><strong>dropout</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – probability value of dropout layers</p></li>
+<li><p><strong>max_len</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – maximum length of sequence (shorter setting will free up GPU memory)</p></li>
 </ul>
 </dd>
 </dl>
@@ -162,7 +163,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.positional_encoding.PositionalEncoding.forward" title="diffusion_models.models.positional_encoding.PositionalEncoding.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type x<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'length</span> <span class="pre">batch</span> <span class="pre">features']</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'length</span> <span class="pre">batch</span> <span class="pre">features']</span></code></span></p>
 </dd>
 </dl>
 </p></td>
@@ -293,7 +294,7 @@
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.positional_encoding.PositionalEncoding.forward" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'length</span> <span class="pre">batch</span> <span class="pre">features']</span></code>) – input sequence</p>
+<dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'length</span> <span class="pre">batch</span> <span class="pre">features']</span></code></span>) – input sequence</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>output sequence with added positional encoding</p>
@@ -310,7 +311,7 @@
 <dd><p>Get positional encoding for position/timestep t.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>t</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Int64[Tensor,</span> <span class="pre">'batch']</span></code>) – timesteps to get positional encoding for (one batch)</p>
+<dd class="field-odd"><p><strong>t</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int64[Tensor,</span> <span class="pre">'batch']</span></code></span>) – timesteps to get positional encoding for (one batch)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>positional encodings for batch</p>

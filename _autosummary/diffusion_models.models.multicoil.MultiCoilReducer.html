@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffusion_models.models.vae.ResNet18Decoder &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>diffusion_models.models.multicoil.MultiCoilReducer &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.models.vae.ResNet18Encoder" href="diffusion_models.models.vae.ResNet18Encoder.html" />
-    <link rel="prev" title="diffusion_models.models.vae" href="diffusion_models.models.vae.html" /> 
+    <link rel="next" title="diffusion_models.models.positional_encoding" href="diffusion_models.models.positional_encoding.html" />
+    <link rel="prev" title="diffusion_models.models.multicoil.MultiCoilConv2d" href="diffusion_models.models.multicoil.MultiCoilConv2d.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,19 +49,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.multicoil.html">diffusion_models.models.multicoil</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.vae.ResNet18Decoder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNet18Encoder.html">diffusion_models.models.vae.ResNet18Encoder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNetBlock.html">diffusion_models.models.vae.ResNetBlock</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.ResNetDecoderBlock.html">diffusion_models.models.vae.ResNetDecoderBlock</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.SkipDownSampler.html">diffusion_models.models.vae.SkipDownSampler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.SkipUpSampler.html">diffusion_models.models.vae.SkipUpSampler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.vae.VariationalAutoencoder.html">diffusion_models.models.vae.VariationalAutoencoder</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.multicoil.html">diffusion_models.models.multicoil</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.multicoil.MultiCoilConv2d.html">diffusion_models.models.multicoil.MultiCoilConv2d</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">diffusion_models.models.multicoil.MultiCoilReducer</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.vae.html">diffusion_models.models.vae</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a></li>
@@ -99,10 +94,10 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api.html">API</a></li>
           <li class="breadcrumb-item"><a href="diffusion_models.models.html">diffusion_models.models</a></li>
-          <li class="breadcrumb-item"><a href="diffusion_models.models.vae.html">diffusion_models.models.vae</a></li>
-      <li class="breadcrumb-item active">diffusion_models.models.vae.ResNet18Decoder</li>
+          <li class="breadcrumb-item"><a href="diffusion_models.models.multicoil.html">diffusion_models.models.multicoil</a></li>
+      <li class="breadcrumb-item active">diffusion_models.models.multicoil.MultiCoilReducer</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/diffusion_models.models.vae.ResNet18Decoder.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/diffusion_models.models.multicoil.MultiCoilReducer.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -110,13 +105,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="diffusion-models-models-vae-resnet18decoder">
-<h1>diffusion_models.models.vae.ResNet18Decoder<a class="headerlink" href="#diffusion-models-models-vae-resnet18decoder" title="Link to this heading"></a></h1>
+  <section id="diffusion-models-models-multicoil-multicoilreducer">
+<h1>diffusion_models.models.multicoil.MultiCoilReducer<a class="headerlink" href="#diffusion-models-models-multicoil-multicoilreducer" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.ResNet18Decoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.vae.</span></span><span class="sig-name descname"><span class="pre">ResNet18Decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.ResNet18Decoder" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.multicoil.MultiCoilReducer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diffusion_models.models.multicoil.</span></span><span class="sig-name descname"><span class="pre">MultiCoilReducer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(4,</span> <span class="pre">8,</span> <span class="pre">16,</span> <span class="pre">32)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.multicoil.MultiCoilReducer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+<p>Constructor of MultiCoilReducer Class.</p>
+<p>This class takes every coil independently (treats them like a sub-fraction of a batch), increases the channel size
+massively (from 2 initial channels for complex k-space data) via several convolutional layers and then averages
+those channels over the coil dimension. Averaging is invariant to permutations of the input order, so the coil order
+or the number of coils will not matter anymore. Inspiration was drawn from point cloud processing, see below.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Qi et al., PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation, 2017</p>
+</aside>
+</aside>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel_factors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – sequence that includes all factors for channel increases</p></li>
+<li><p><strong>kernel_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – kernel size for conv layers</p></li>
+</ul>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -156,7 +169,7 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>()</p></td>
 <td><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">float</span></code> datatype.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.vae.ResNet18Decoder.forward" title="diffusion_models.models.vae.ResNet18Decoder.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#diffusion_models.models.multicoil.MultiCoilReducer.forward" title="diffusion_models.models.multicoil.MultiCoilReducer.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
 <td><p>Defines the computation performed at every call.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer</span></code>(target)</p></td>
@@ -278,11 +291,11 @@
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="diffusion_models.models.vae.ResNet18Decoder.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.vae.ResNet18Decoder.forward" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="diffusion_models.models.multicoil.MultiCoilReducer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diffusion_models.models.multicoil.MultiCoilReducer.forward" title="Link to this definition"></a></dt>
 <dd><p>Defines the computation performed at every call.</p>
 <p>Should be overridden by all subclasses.
-:rtype: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code></span></p>
+:rtype: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">out_channels</span> <span class="pre">height</span> <span class="pre">width']</span></code></span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Although the recipe for forward pass needs to be defined within
@@ -300,8 +313,8 @@ registered hooks while the latter silently ignores them.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="diffusion_models.models.vae.html" class="btn btn-neutral float-left" title="diffusion_models.models.vae" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.models.vae.ResNet18Encoder.html" class="btn btn-neutral float-right" title="diffusion_models.models.vae.ResNet18Encoder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.models.multicoil.MultiCoilConv2d.html" class="btn btn-neutral float-left" title="diffusion_models.models.multicoil.MultiCoilConv2d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_models.models.positional_encoding.html" class="btn btn-neutral float-right" title="diffusion_models.models.positional_encoding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

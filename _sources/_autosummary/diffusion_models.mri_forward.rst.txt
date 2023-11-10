@@ -26,6 +26,7 @@
    :template: custom-module-template.rst
    :recursive:
 
+   diffusion_models.mri_forward.fft
    diffusion_models.mri_forward.noise
    diffusion_models.mri_forward.undersampling_mask
 

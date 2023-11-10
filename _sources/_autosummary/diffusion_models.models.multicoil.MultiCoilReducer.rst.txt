@@ -1,0 +1,77 @@
+diffusion\_models.models.multicoil.MultiCoilReducer
+===================================================
+
+.. currentmodule:: diffusion_models.models.multicoil
+
+.. autoclass:: MultiCoilReducer
+   :members:
+   :show-inheritance:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MultiCoilReducer.add_module
+      ~MultiCoilReducer.apply
+      ~MultiCoilReducer.bfloat16
+      ~MultiCoilReducer.buffers
+      ~MultiCoilReducer.children
+      ~MultiCoilReducer.compile
+      ~MultiCoilReducer.cpu
+      ~MultiCoilReducer.cuda
+      ~MultiCoilReducer.double
+      ~MultiCoilReducer.eval
+      ~MultiCoilReducer.extra_repr
+      ~MultiCoilReducer.float
+      ~MultiCoilReducer.forward
+      ~MultiCoilReducer.get_buffer
+      ~MultiCoilReducer.get_extra_state
+      ~MultiCoilReducer.get_parameter
+      ~MultiCoilReducer.get_submodule
+      ~MultiCoilReducer.half
+      ~MultiCoilReducer.ipu
+      ~MultiCoilReducer.load_state_dict
+      ~MultiCoilReducer.modules
+      ~MultiCoilReducer.named_buffers
+      ~MultiCoilReducer.named_children
+      ~MultiCoilReducer.named_modules
+      ~MultiCoilReducer.named_parameters
+      ~MultiCoilReducer.parameters
+      ~MultiCoilReducer.register_backward_hook
+      ~MultiCoilReducer.register_buffer
+      ~MultiCoilReducer.register_forward_hook
+      ~MultiCoilReducer.register_forward_pre_hook
+      ~MultiCoilReducer.register_full_backward_hook
+      ~MultiCoilReducer.register_full_backward_pre_hook
+      ~MultiCoilReducer.register_load_state_dict_post_hook
+      ~MultiCoilReducer.register_module
+      ~MultiCoilReducer.register_parameter
+      ~MultiCoilReducer.register_state_dict_pre_hook
+      ~MultiCoilReducer.requires_grad_
+      ~MultiCoilReducer.set_extra_state
+      ~MultiCoilReducer.share_memory
+      ~MultiCoilReducer.state_dict
+      ~MultiCoilReducer.to
+      ~MultiCoilReducer.to_empty
+      ~MultiCoilReducer.train
+      ~MultiCoilReducer.type
+      ~MultiCoilReducer.xpu
+      ~MultiCoilReducer.zero_grad
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MultiCoilReducer.T_destination
+      ~MultiCoilReducer.call_super_init
+      ~MultiCoilReducer.dump_patches
+      ~MultiCoilReducer.training
+   
+   

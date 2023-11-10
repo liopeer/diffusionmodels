@@ -28,6 +28,7 @@
 
    diffusion_models.models.diffusion
    diffusion_models.models.mnist_enc
+   diffusion_models.models.multicoil
    diffusion_models.models.positional_encoding
    diffusion_models.models.sampler
    diffusion_models.models.unet

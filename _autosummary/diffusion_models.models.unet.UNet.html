@@ -49,6 +49,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.models.html">diffusion_models.models</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.mnist_enc.html">diffusion_models.models.mnist_enc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.multicoil.html">diffusion_models.models.multicoil</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.models.positional_encoding.html">diffusion_models.models.positional_encoding</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="diffusion_models.models.unet.html">diffusion_models.models.unet</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.models.unet.AttentionDecodingBlock.html">diffusion_models.models.unet.AttentionDecodingBlock</a></li>
@@ -143,67 +144,67 @@ and still yield an even number at this point. Best to just stick with powers of 
 <p>Constructor of UNet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">type num_encoding_blocks<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">param num_encoding_blocks<span class="colon">:</span></dt>
 <dd class="field-even"><p>how many basic encoder building blocks; each block will double the channels and half the resolution</p>
 </dd>
 <dt class="field-odd">type in_channels<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">param in_channels<span class="colon">:</span></dt>
 <dd class="field-even"><p>start channels, e.g. 1 or 3</p>
 </dd>
 <dt class="field-odd">type kernel_size<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">param kernel_size<span class="colon">:</span></dt>
 <dd class="field-even"><p>size of convolutional kernels</p>
 </dd>
 <dt class="field-odd">type time_emb_size<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">param time_emb_size<span class="colon">:</span></dt>
 <dd class="field-even"><p>initial size of time step encoding</p>
 </dd>
 <dt class="field-odd">type dropout<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
 </dd>
 <dt class="field-even">param dropout<span class="colon">:</span></dt>
 <dd class="field-even"><p>probability parameter of dropout layers</p>
 </dd>
 <dt class="field-odd">type activation<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></span></p>
 </dd>
 <dt class="field-even">param activation<span class="colon">:</span></dt>
 <dd class="field-even"><p>activation function to be used</p>
 </dd>
 <dt class="field-odd">type verbose<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-even">param verbose<span class="colon">:</span></dt>
 <dd class="field-even"><p>verbose printing of tensor shapes for debbugging</p>
 </dd>
 <dt class="field-odd">type init_channels<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">param init_channels<span class="colon">:</span></dt>
 <dd class="field-even"><p>number of channels to initially transform the input to (usually 64, 128, …)</p>
 </dd>
 <dt class="field-odd">type attention<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-even">param attention<span class="colon">:</span></dt>
 <dd class="field-even"><p>whether to use self-attention layers</p>
 </dd>
 <dt class="field-odd">type attention_heads<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">param attention_heads<span class="colon">:</span></dt>
 <dd class="field-even"><p>number of attention heads to be used</p>
 </dd>
 <dt class="field-odd">type attention_ff_dim<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
 </dd>
 <dt class="field-even">param attention_ff_dim<span class="colon">:</span></dt>
 <dd class="field-even"><p>hidden dimension of feedforward layer in self attention module, None defaults to input dimension</p>
@@ -376,8 +377,8 @@ and still yield an even number at this point. Best to just stick with powers of 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code>) – input image batch</p></li>
-<li><p><strong>t</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">embedding_size']</span></code>]) – time embedding</p></li>
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">channels</span> <span class="pre">height</span> <span class="pre">width']</span></code></span>) – input image batch</p></li>
+<li><p><strong>t</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Float[Tensor,</span> <span class="pre">'batch</span> <span class="pre">embedding_size']</span></code>]</span>) – time embedding</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

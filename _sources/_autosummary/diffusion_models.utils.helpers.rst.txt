@@ -15,6 +15,7 @@ diffusion\_models.utils.helpers
       :toctree:
    
       bytes_to_gb
+      complex_to_2channelfloat
    
    
 
