@@ -53,7 +53,7 @@ class FastMRIBrainTrain(Dataset):
         index = self.imgs[index]["index"]
         file = h5py.File(file_name, 'r')
         x = file["reconstruction_rss"][index]
-        x = self.transform(x)
+        x = self.transform(np.array(x))
         file.close()
         x = x - x.min()
         x = x * (1 / x.max())

@@ -34,10 +34,10 @@ config = dotdict(
     cosine_ann_T_0 = 3,
     save_every = 1,
     num_samples = 9,
-    batch_size = 48,
-    gradient_accumulation_rate = 10,
+    batch_size = 8,
+    gradient_accumulation_rate = 64,
     learning_rate = 0.0001,
-    img_size = 128,
+    img_size = 256,
     device_type = "cuda",
     in_channels = 1,
     dataset = FastMRIBrainTrain,
@@ -62,7 +62,7 @@ config = dotdict(
 )
 
 def load_train_objs(config):
-    train_set = config.dataset(config.data_path)
+    train_set = config.dataset(config.data_path, config.img_size)
     model = config.architecture(
         backbone = config.backbone(
             num_encoding_blocks = config.backbone_enc_depth,
