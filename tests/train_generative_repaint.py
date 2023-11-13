@@ -17,10 +17,11 @@ from utils.datasets import MNISTTrainDataset, Cifar10Dataset, MNISTDebugDataset,
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
+from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 
 config = dotdict(
-    total_epochs = 500,
-    log_wandb = True,
+    total_epochs = 2,
+    log_wandb = False,
     project = "fastMRI_gen_trials",
     data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
     #data_path = "/itet-stor/peerli/net_scratch",
@@ -28,26 +29,28 @@ config = dotdict(
     wandb_dir = "/itet-stor/peerli/net_scratch",
     from_checkpoint = False, #"/itet-stor/peerli/net_scratch/ghoulish-goosebump-9/checkpoint30.pt",
     loss_func = F.mse_loss,
-    use_fp16 = False,
-    save_every = 10,
+    mixed_precision = False,
+    optimizer = torch.optim.AdamW,
+    lr_scheduler = "cosine_ann_warm",
+    cosine_ann_T_0 = 3,
+    save_every = 1,
     num_samples = 4,
     channels_per_att_head = 128,
-    show_denoising_history = False,
-    show_history_every = 50,
     batch_size = 8,
+    gradient_accumulation_rate = 64,
     learning_rate = 0.0001,
     img_size = 256,
     device_type = "cuda",
     in_channels = 1,
-    dataset = FastMRIBrainTrain,
+    dataset = FastMRIDebug,
     architecture = DiffusionModel,
     backbone = UNetModel,
-    unet_init_channels = 32,
+    unet_init_channels = 64,
     activation = nn.SiLU,
-    backbone_enc_depth = 4,
+    backbone_enc_depth = 6,
     num_res_blocks = 2,
     kernel_size = 3,
-    attention_downsampling_factors = (16, 32), # at resolutions 32, 16, 8
+    attention_downsampling_factors = (16, 32), # at resolutions 16, 8
     dropout = 0.0,
     forward_diff = ForwardDiffusion,
     max_timesteps = 1000,
@@ -56,8 +59,7 @@ config = dotdict(
     offset = 0.008,
     max_beta = 0.999,
     schedule_type = "cosine",
-    time_enc_dim = 512,
-    optimizer = torch.optim.Adam
+    time_enc_dim = 512
 )
 
 def load_train_objs(config):
@@ -70,10 +72,10 @@ def load_train_objs(config):
             model_channels = config.unet_init_channels,
             out_channels = config.in_channels,
             num_res_blocks = config.num_res_blocks,
+            use_fp16 = False,
             attention_resolutions = config.attention_downsampling_factors,
             time_embed_dim = config.time_enc_dim,
             dropout = config.dropout,
-            use_fp16 = config.use_fp16,
             num_head_channels = config.channels_per_att_head
         ),
         fwd_diff = config.forward_diff(
@@ -89,12 +91,19 @@ def load_train_objs(config):
         dropout = config.dropout
     )
     optimizer = config.optimizer(model.parameters(), lr=config.learning_rate)
-    return train_set, model, optimizer
-
+    if config.lr_scheduler == "cosine_ann_warm":
+        lr_scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=config.cosine_ann_T_0)
+        return train_set, model, optimizer, lr_scheduler
+    else:
+        return train_set, model, optimizer, lr_scheduler
+    
 def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
         wandb.init(project=config.project, config=config, save_code=True, dir=config.wandb_dir)
-    dataset, model, optimizer = load_train_objs(config)
+    if config.lr_scheduler == "cosine_ann_warm":
+        dataset, model, optimizer, lr_scheduler = load_train_objs(config)
+    else:
+        dataset, model, optimizer = load_train_objs(config)
     if (config.device_type == "cuda") and (world_size > 1):
         torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
     if (rank == 0) and config.log_wandb and ("run_name" in config.checkpoint_folder):
@@ -105,15 +114,17 @@ def training(rank, world_size, config):
         train_data = dataset, 
         loss_func = config.loss_func, 
         optimizer = optimizer, 
-        gpu_id = rank, 
+        gpu_id = rank,
+        num_gpus = world_size,
         batch_size = config.batch_size, 
         save_every = config.save_every, 
         checkpoint_folder = config.checkpoint_folder, 
         device_type = config.device_type,
         log_wandb = config.log_wandb,
         num_samples = config.num_samples,
-        show_denoising_process = config.show_denoising_history,
-        show_denoising_every = config.show_history_every
+        mixed_precision = config.mixed_precision,
+        gradient_accumulation_rate = config.gradient_accumulation_rate,
+        lr_scheduler = lr_scheduler
     )
     if config.from_checkpoint:
         trainer.load_checkpoint(config.from_checkpoint)
