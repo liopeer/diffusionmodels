@@ -12,43 +12,47 @@ from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
 from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import MNISTTrainDataset, Cifar10Dataset, MNISTDebugDataset, Cifar10DebugDataset, FastMRIDebug, FastMRIBrainTrain, QuarterFastMRI
+from utils.datasets import MNISTTrainDataset, MNISTDebugDataset, FastMRIDebug, FastMRIBrainTrain, QuarterFastMRI, Cifar10DebugDataset
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 
 config = dotdict(
+    world_size = 2,
     total_epochs = 100,
     log_wandb = True,
     project = "fastMRI_gen_trials",
-    data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
+    #data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
     #data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
-    wandb_dir = "/itet-stor/peerli/net_scratch",
+    data_path = "/home/lionel/Data/fastmri/multicoil_train",
+    #checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
+    checkpoint_folder = "/home/lionel/Data/checkpoints/run_name",
+    #wandb_dir = "/itet-stor/peerli/net_scratch",
+    wandb_dir = "/home/lionel/Data",
     from_checkpoint = False, #"/itet-stor/peerli/net_scratch/super-rain-7/checkpoint490.pt",
     loss_func = F.mse_loss,
     mixed_precision  = True,
     optimizer = torch.optim.AdamW,
     lr_scheduler = "cosine_ann_warm",
     cosine_ann_T_0 = 3,
-    save_every = 1,
+    save_every = 3,
     num_samples = 9,
     batch_size = 8,
-    gradient_accumulation_rate = 64,
-    learning_rate = 0.0001,
+    gradient_accumulation_rate = 32,
+    learning_rate = 0.001,
     img_size = 256,
     device_type = "cuda",
     in_channels = 1,
     dataset = FastMRIBrainTrain,
     architecture = DiffusionModel,
     backbone = UNet,
-    attention = False,
+    attention = True,
     attention_heads = 4,
     attention_ff_dim = None,
     unet_init_channels = 64,
     activation = nn.SiLU,
-    backbone_enc_depth = 5,
+    backbone_enc_depth = 6,
     kernel_size = 3,
     dropout = 0.0,
     forward_diff = ForwardDiffusion,
@@ -62,7 +66,8 @@ config = dotdict(
 )
 
 def load_train_objs(config):
-    train_set = config.dataset(config.data_path, config.img_size)
+    #train_set = config.dataset(config.data_path, config.img_size)
+    train_set = config.dataset(config.data_path)
     model = config.architecture(
         backbone = config.backbone(
             num_encoding_blocks = config.backbone_enc_depth,
@@ -130,7 +135,10 @@ def training(rank, world_size, config):
 
 if __name__ == "__main__":
     if config.device_type == "cuda":
-        world_size = torch.cuda.device_count()
+        if "world_size" in config.keys():
+            world_size = config.world_size
+        else:
+            world_size = torch.cuda.device_count()
         print("Device Count:", world_size)
         mp.spawn(DDP_Proc_Group(training), args=(world_size, config), nprocs=world_size)
     else:

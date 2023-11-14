@@ -43,6 +43,7 @@ class FastMRIBrainTrain(Dataset):
             slices = file["reconstruction_rss"].shape[0]
             for i in range(slices):
                 self.imgs.append({"file_name":file_name, "index":i})
+            file.close()
         self.transform = Compose([ToTensor(), Resize((size, size), antialias=True)])
 
     def __len__(self):
@@ -61,7 +62,7 @@ class FastMRIBrainTrain(Dataset):
     
 class FastMRIDebug(FastMRIBrainTrain):
     def __len__(self):
-        return 512
+        return 128
     
 class QuarterFastMRI(FastMRIBrainTrain):
     """only every 4th image of original dataset"""
