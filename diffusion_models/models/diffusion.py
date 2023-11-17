@@ -114,8 +114,8 @@ class ForwardDiffusion(nn.Module):
         noise_normal = torch.randn_like(x_t1, device=x_t1.device)
         if (True in torch.gt(t_1, self.timesteps-1)) or (True in torch.gt(t_2, self.timesteps-1)):
             raise IndexError("t ({}, {}) chosen larger than max. available t ({})".format(t_1, t_2, self.timesteps-1))
-        batch_sqrt_alphas_dash = torch.zeros((t_1.shape[0]))
-        batch_sqrt_one_minus_alpha_dash = torch.zeros((t_1.shape[0]))
+        batch_sqrt_alphas_dash = torch.zeros((t_1.shape[0]), device=x_t1.device)
+        batch_sqrt_one_minus_alpha_dash = torch.zeros((t_1.shape[0]), device=x_t1.device)
         for sample in range(x_t1.shape[0]):
             alphas_interval = self.alphas[t_1[sample]:t_2[sample]+1]
             alphas_dash_interval = torch.cumprod(alphas_interval, axis=0)

@@ -12,7 +12,7 @@ from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
 from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import MNISTTrainDataset, Cifar10Dataset, MNISTDebugDataset, Cifar10DebugDataset, FastMRIDebug, FastMRIBrainTrain, QuarterFastMRI
+from utils.datasets import FastMRIBrainKSpaceDebug, FastMRIBrainKSpace, MNISTTrainDataset, MNISTDebugDataset, MNISTKSpace
 from utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
@@ -21,9 +21,9 @@ from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmResta
 config = dotdict(
     total_epochs = 100,
     log_wandb = True,
-    project = "fastMRI_gen_trials",
-    data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
-    #data_path = "/itet-stor/peerli/net_scratch",
+    project = "mnist_gen_trials",
+    #data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
+    data_path = "/itet-stor/peerli/net_scratch",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
     wandb_dir = "/itet-stor/peerli/net_scratch",
     from_checkpoint = False, #"/itet-stor/peerli/net_scratch/super-rain-7/checkpoint490.pt",
@@ -32,23 +32,25 @@ config = dotdict(
     optimizer = torch.optim.AdamW,
     lr_scheduler = "cosine_ann_warm",
     cosine_ann_T_0 = 3,
+    cosine_ann_T_mult = 2,
+    k_space = True,
     save_every = 1,
     num_samples = 9,
-    batch_size = 8,
-    gradient_accumulation_rate = 64,
-    learning_rate = 0.0001,
-    img_size = 256,
+    batch_size = 64,
+    gradient_accumulation_rate = 8,
+    learning_rate = 0.001,
+    img_size = 32,
     device_type = "cuda",
-    in_channels = 1,
-    dataset = FastMRIBrainTrain,
+    in_channels = 2,
+    dataset = MNISTKSpace,
     architecture = DiffusionModel,
     backbone = UNet,
-    attention = False,
+    attention = True,
     attention_heads = 4,
     attention_ff_dim = None,
-    unet_init_channels = 64,
+    unet_init_channels = 128,
     activation = nn.SiLU,
-    backbone_enc_depth = 5,
+    backbone_enc_depth = 4,
     kernel_size = 3,
     dropout = 0.0,
     forward_diff = ForwardDiffusion,
@@ -93,7 +95,7 @@ def load_train_objs(config):
         lr_scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=config.cosine_ann_T_0)
         return train_set, model, optimizer, lr_scheduler
     else:
-        return train_set, model, optimizer, lr_scheduler
+        return train_set, model, optimizer
 
 def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
@@ -122,7 +124,8 @@ def training(rank, world_size, config):
         num_samples = config.num_samples,
         mixed_precision = config.mixed_precision,
         gradient_accumulation_rate = config.gradient_accumulation_rate,
-        lr_scheduler = lr_scheduler
+        lr_scheduler = None if config.lr_scheduler is None else lr_scheduler,
+        k_space = config.k_space
     )
     if config.from_checkpoint:
         trainer.load_checkpoint(config.from_checkpoint)

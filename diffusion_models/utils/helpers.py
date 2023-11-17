@@ -16,4 +16,4 @@ def bytes_to_gb(bytes: int):
 
 def complex_to_2channelfloat(x: Complex[Tensor, "*batch height width"]) -> Float[Tensor, "*batch 2 height width"]:
     x = torch.view_as_real(x)
-    return x.permute(*[i for i in range(x.dim()-2)],-1,-3,-2)
+    return x.permute(*[i for i in range(x.dim()-3)],-1,-3,-2)

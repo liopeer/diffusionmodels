@@ -18,6 +18,7 @@ from math import isqrt
 from jaxtyping import Float
 from utils.helpers import bytes_to_gb
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts, StepLR
+from torch.fft import ifftn
 
 class Trainer:
     """Trainer Class that trains 1 model instance on 1 device, suited for distributed training."""
@@ -36,7 +37,8 @@ class Trainer:
         log_wandb: bool=True,
         mixed_precision: bool=False,
         gradient_accumulation_rate: int=1,
-        lr_scheduler = None
+        lr_scheduler = None,
+        k_space: bool=False
     ) -> None:
         """Constructor of Trainer Class.
         
@@ -88,6 +90,7 @@ class Trainer:
             self.grad_scaler = torch.cuda.amp.GradScaler()
         self.gradient_accumulation_rate = gradient_accumulation_rate
         self.lr_scheduler = lr_scheduler
+        self.k_space = k_space
         self.loss_history = []
 
     def _setup_model(self, model: nn.Module):
@@ -125,7 +128,7 @@ class Trainer:
             if self.lr_scheduler is not None:
                 self.lr_scheduler.step(epoch + i / len(self.train_data))
                 if self.log_wandb:
-                    wandb.log({"learning_rate": self.lr_scheduler.get_last_lr()}, commit=False)
+                    wandb.log({"learning_rate": self.lr_scheduler.get_last_lr()[0]}, commit=False)
             epoch_losses.append(batch_loss)
             if self.log_wandb:
                 wandb.log({"epoch": epoch, "loss": batch_loss, "batch_time": time()-batch_time1})
@@ -225,7 +228,8 @@ class GenerativeTrainer(Trainer):
             num_samples: int,
             mixed_precision: bool,
             gradient_accumulation_rate: int=1,
-            lr_scheduler = None
+            lr_scheduler = None,
+            k_space: bool=False
         ) -> None:
         """Constructor of GenerativeTrainer class.
 
@@ -234,7 +238,7 @@ class GenerativeTrainer(Trainer):
         model
             instance of nn.Module, must implement a `sample(num_samples: int)` method
         """
-        super().__init__(model, train_data, loss_func, optimizer, gpu_id, num_gpus, batch_size, save_every, checkpoint_folder, device_type, log_wandb, mixed_precision, gradient_accumulation_rate, lr_scheduler)
+        super().__init__(model, train_data, loss_func, optimizer, gpu_id, num_gpus, batch_size, save_every, checkpoint_folder, device_type, log_wandb, mixed_precision, gradient_accumulation_rate, lr_scheduler, k_space)
 
         def is_square(i: int) -> bool:
             return i == isqrt(i) ** 2
@@ -283,6 +287,9 @@ class GenerativeTrainer(Trainer):
         wandb.log({"examples": images}, commit=False)
     
     def _save_samples(self, samples: Float[Tensor, "samples channels height width"], storage_folder: str, epoch: int):
+        if self.k_space:
+            samples = ifftn(samples, dim=(2,3))
+            samples = torch.norm(samples, dim=1, keepdim=True)
         samples = torchvision.utils.make_grid(samples, nrow=int(np.sqrt(self.num_samples)))
         path = os.path.join(self.checkpoint_folder, f"samples_epoch{epoch}.png")
         torchvision.utils.save_image(samples, path)

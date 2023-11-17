@@ -3,10 +3,11 @@ import os
 from time import time
 from torch import Tensor
 from torch import nn
-from jaxtyping import Float
-from typing import Callable, Literal, Any, Tuple
+from jaxtyping import Float, Bool
+from typing import Callable, Literal, Any, Tuple, Union
 from .diffusion import DiffusionModel
 from utils.helpers import bytes_to_gb
+from torch.fft import fftn, ifftn, fftshift, ifftshift
 
 class DiffusionSampler(nn.Module):
     def __init__(
@@ -47,8 +48,158 @@ class DiffusionSampler(nn.Module):
             return ckp["model_state_dict"]
         return ckp
     
-    def masked_sampling(mask: Float[Tensor, "batch channels height width"]):
-        "Mask should "
+    @torch.no_grad()
+    def masked_sampling(
+            self, 
+            partial_img: Float[Tensor, "batch channels height width"], 
+            mask: Bool[Tensor, "batch 1 height width"]
+        ) -> Float[Tensor, "batch channels height width"]:
+        "Mask should be True where we did not sample, False where we sampled."
+        assert (mask.shape[2]==self.model.img_size) and (mask.shape[3]==self.model.img_size), "mask size must match image size"
+        assert mask.shape[0]==partial_img.shape[0], "batch sizes must be equal"
+        beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
+        noise = self.model.init_noise(partial_img.shape[0]) * torch.sqrt(beta)
+        x = noise
+
+        for i in reversed(range(1, self.model.fwd_diff.timesteps)):
+            t = i * torch.ones((partial_img.shape[0]), dtype=torch.long, device=beta.device)
+            x = x * mask
+
+            img_t, _ = self.model.fwd_diff(partial_img, t)
+            img_t = img_t * ~mask
+
+            x = x + img_t
+
+            x = self.model.denoise_singlestep(x, t)
+        return x
+    
+    @torch.no_grad()
+    def masked_sampling_with_resampling_kspace(
+            self,
+            partial_kspace: Float[Tensor, "batch 2 height width"],
+            mask: Bool[Tensor, "batch 1 height width"],
+            num_resamplings: int,
+            jump_length: int,
+            return_steps: bool=False
+        ) -> Float[Tensor, "batch 1 height width"]:
+        beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
+        noise = self.model.init_noise(partial_kspace.shape[0]) * torch.sqrt(beta)
+        x = noise
+
+        partial_img = self._to_imgspace(partial_kspace)
+
+        steps = []
+        for global_t in reversed(range(1, self.model.fwd_diff.timesteps)):
+            t = global_t * torch.ones((partial_img.shape[0]), dtype=torch.long, device=beta.device)
+            img_t, _ = self.model.fwd_diff(partial_img, t)
+
+            # switching to kspace
+            kspace_t = self._to_kspace(img_t)
+            x_k = self._to_kspace(x)
+            x_k = x_k * mask + kspace_t * ~mask
+
+            # switching to img space
+            x = self._to_imgspace(x_k)
+            x = torch.norm(x, dim=1, keepdim=True)
+
+            x = self.model.denoise_singlestep(x, t)
+
+            # RESAMPLING
+            if (((global_t+1) % jump_length) == 0) and (global_t != self.model.fwd_diff.timesteps-1):
+                for _ in range(num_resamplings):
+                    # in img space
+                    x, _ = self.model.fwd_diff.forward_flexible(x, t, t + jump_length)
+                    for local_t in reversed(range(1, jump_length+1)):
+                        img_t, _ = self.model.fwd_diff(partial_img, t + local_t)
+
+                        # switching to kspace
+                        kspace_t = self._to_kspace(img_t)
+                        x_k = self._to_kspace(x)
+                        x_k = x_k * mask + kspace_t * ~mask
+
+                        # switching to img space
+                        x = self._to_imgspace(x_k)
+                        x = torch.norm(x, dim=1, keepdim=True)
+
+                        x = self.model.denoise_singlestep(x, t + local_t)
+                        steps.append(global_t + local_t)
+        if return_steps:
+            return x, torch.tensor(steps)
+        return x
+    
+    @torch.no_grad()
+    def masked_sampling_kspace(
+            self,
+            partial_kspace: Float[Tensor, "batch 2 height width"],
+            mask: Bool[Tensor, "batch 1 height width"]
+        ) -> Float[Tensor, "batch 2 height width"]:
+        "Mask should be True where we did not sample, False where we sampled."
+        beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
+        noise = self.model.init_noise(partial_kspace.shape[0]) * torch.sqrt(beta)
+        x = noise
+
+        partial_img = self._to_imgspace(partial_kspace)
+
+        for global_t in reversed(range(1, self.model.fwd_diff.timesteps)):
+            t = global_t * torch.ones((partial_kspace.shape[0]), dtype=torch.long, device=beta.device)
+            img_t, _ = self.model.fwd_diff(partial_img, t)
+
+            # switching to kspace
+            kspace_t = self._to_kspace(img_t)
+            x_k = self._to_kspace(x)
+            x_k = x_k * mask + kspace_t * ~mask
+
+            # switching to img space
+            x = self._to_imgspace(x_k)
+            x = torch.norm(x, dim=1, keepdim=True)
+
+            x = self.model.denoise_singlestep(x, t)
+        
+        return x
+
+    def _to_kspace(self, img: Float[Tensor, "batch 1 height width"]) -> Float[Tensor, "batch 2 height width"]:
+        img = img.squeeze(1)
+        kspace = fftshift(fftn(img, norm="ortho", dim=(1,2)), dim=(1,2)) # batch height width
+        kspace = torch.view_as_real(kspace).permute(0,3,1,2)
+        return kspace
+    
+    def _to_imgspace(self, kspace: Float[Tensor, "batch 2 height width"]) -> Float[Tensor, "batch 1 height width"]:
+        kspace = torch.view_as_complex(kspace.permute(0,2,3,1).contiguous())
+        img = ifftn(kspace, norm="ortho", dim=(1,2))
+        img = torch.view_as_real(img).permute(0,3,1,2)
+        return torch.norm(img, dim=1, keepdim=True)
+
+    @torch.no_grad()
+    def masked_sampling_with_resampling(
+            self,
+            partial_img: Float[Tensor, "batch channels height width"],
+            mask: Bool[Tensor, "batch 1 height width"],
+            num_resamplings: int,
+            jump_length: int,
+            return_steps: bool=False,
+        ) -> Union[Float[Tensor, "batch channels height width"], Tuple]:
+        """Mask should be True where we did not sample, False where we sampled."""
+        beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
+        noise = self.model.init_noise(partial_img.shape[0]) * torch.sqrt(beta)
+        x = noise
+
+        steps = []
+        for global_t in reversed(range(1, self.model.fwd_diff.timesteps)):
+            t = global_t * torch.ones((partial_img.shape[0]), dtype=torch.long, device=beta.device)
+            img_t, _ = self.model.fwd_diff(partial_img, t)
+            x = x * mask + img_t * ~mask
+            x = self.model.denoise_singlestep(x, t)
+            if (((global_t+1) % jump_length) == 0) and (global_t != self.model.fwd_diff.timesteps-1):
+                for _ in range(num_resamplings):
+                    x, _ = self.model.fwd_diff.forward_flexible(x, t, t + jump_length)
+                    for local_t in reversed(range(1, jump_length+1)):
+                        img_t, _ = self.model.fwd_diff(partial_img, t + local_t)
+                        x = x * mask + img_t * ~mask
+                        x = self.model.denoise_singlestep(x, t + local_t)
+                        steps.append(global_t + local_t)
+        if return_steps:
+            return x, torch.tensor(steps)
+        return x
     
     @torch.no_grad()
     def sample(self, num_samples: int):
@@ -60,6 +211,3 @@ class DiffusionSampler(nn.Module):
         max_mem = bytes_to_gb(torch.cuda.max_memory_allocated())
         print(f"Max Memory Allocated: {max_mem:.2f}")
         return samples
-    
-    def sample_schedule(self, num_samples: int):
-        pass

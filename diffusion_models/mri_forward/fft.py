@@ -15,7 +15,8 @@ def to_kspace(
         x = fftn(x, dim=(-2,-1))
         return fftshift(x, dim=(-2,-1))
     else:
-        x = torch.view_as_complex(x.permute(0,2,3,1))
+        x = x.permute(0,2,3,1).contiguous()
+        x = torch.view_as_complex(x)
         x = fftn(x, dim=(-2,-1))
         x = fftshift(x, dim=(-2,-1))
         return complex_to_2channelfloat(x)
@@ -30,7 +31,8 @@ def to_imgspace(
         x = ifftn(x, dim=(-2,-1))
         return ifftshift(x, dim=(-2,-1))
     else:
-        x = torch.view_as_complex(x.permute(0,2,3,1))
+        x = x.permute(0,2,3,1).contiguous()
+        x = torch.view_as_complex(x)
         x = ifftn(x, dim=(-2,-1))
         x = ifftshift(x, dim=(-2,-1))
         return complex_to_2channelfloat(x)
