@@ -134,7 +134,7 @@ class Trainer:
                 wandb.log({"epoch": epoch, "loss": batch_loss, "batch_time": time()-batch_time1})
         # only logging
         if self.log_wandb:
-            wandb.log({"epoch_loss": np.mean(epoch_losses), "epoch_time": time()-epoch_time1})
+            wandb.log({"epoch_loss": np.mean(epoch_losses), "epoch_time": time()-epoch_time1}, commit=False)
         self.loss_history.append(np.mean(epoch_losses))
         output = f"[GPU{self.gpu_id}] Epoch {epoch} | Batchsize: {self.batch_size} | Steps: {len(self.train_data)} | Loss: {np.mean(epoch_losses):.5f} | Time: {time()-epoch_time1:.2f}s"
         if self.device_type == "cuda":

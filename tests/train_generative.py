@@ -19,6 +19,7 @@ import torch.nn.functional as F
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 
 config = dotdict(
+    world_size = 2,
     total_epochs = 100,
     log_wandb = True,
     project = "mnist_gen_trials",
@@ -64,7 +65,8 @@ config = dotdict(
 )
 
 def load_train_objs(config):
-    train_set = config.dataset(config.data_path, config.img_size)
+    #train_set = config.dataset(config.data_path, config.img_size)
+    train_set = config.dataset(config.data_path)
     model = config.architecture(
         backbone = config.backbone(
             num_encoding_blocks = config.backbone_enc_depth,
@@ -133,7 +135,10 @@ def training(rank, world_size, config):
 
 if __name__ == "__main__":
     if config.device_type == "cuda":
-        world_size = torch.cuda.device_count()
+        if "world_size" in config.keys():
+            world_size = config.world_size
+        else:
+            world_size = torch.cuda.device_count()
         print("Device Count:", world_size)
         mp.spawn(DDP_Proc_Group(training), args=(world_size, config), nprocs=world_size)
     else:
