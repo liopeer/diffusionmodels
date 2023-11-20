@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from argparse import ArgumentParser
 from torch.fft import fftn, ifftn, fftshift, ifftshift
+from typing import Tuple
+from random import sample
 
 def setup_sampler(ckpt: str):
     config = None
@@ -97,16 +99,28 @@ def masked_resampling(sampler, samples):
     ax[2].set_title("Last 300 Steps")
     fig.savefig("stepsplot.png")
 
-def masked_kspace_sampling(sampler, samples, acceleration_factor):
+def get_kspace_mask(img_res: Tuple[int], center_frac: float, acc_fact: int):
+    img_size = img_res
+    offset = img_size[1]*center_frac//2
+    middle = img_size[1]//2
+    mask = torch.zeros(img_size, dtype=torch.bool)
+
+    # create middle strip
+    mask[:, int(middle-offset):int(middle+offset)] = 1
+
+    # create random sampling
+    remaining = [i for i in range(int(middle-offset))]
+    remaining2 = [i for i in range(int(middle+offset),img_size[1])]
+    remaining.extend(remaining2)
+
+    idx = sample(remaining, len(remaining)//acc_fact)
+    mask[:, torch.tensor(idx)] = 1
+    return ~mask
+
+def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac):
     # create mask
-    mask = torch.ones((samples.shape[0], 1, samples.shape[2], samples.shape[3]), dtype=torch.bool, device=device)
-    center_fraction = 1 / (acceleration_factor * 2)
-    width = samples.shape[-1]
-    center_width = int(width * center_fraction)
-    middle = width // 2
-    mask[:, :, :, middle-center_width//2 : middle+center_width//2] = 0
-    mask[:, :, :, : middle-center_width//2 : acceleration_factor] = 0
-    mask[:, :, :, middle+center_width//2 : : acceleration_factor] = 0
+    mask = get_kspace_mask((samples.shape[-2],samples.shape[-1]), center_frac=center_frac, acc_fact=acceleration_factor)
+    mask = mask.unsqueeze(0).unsqueeze(0).to(samples.device)
     save_image(mask[0].to(torch.float), "kspace_mask.png")
 
     # prepare k space
@@ -123,20 +137,14 @@ def masked_kspace_sampling(sampler, samples, acceleration_factor):
     save_image(corrupted, "samples_dutifulpond10_corrupted.png")
 
     # run inference
-    out = sampler.masked_sampling_kspace(kspace, mask)
+    out = sampler.masked_sampling_kspace(kspace, mask, "linear", center_frac)
     out = torchvision.utils.make_grid(out, nrow=int(np.sqrt(samples.shape[0])))
     save_image(out, "samples_dutifulpond10_reconstructedkspace.png")
 
-def masked_kspace_resampling(sampler, samples, acceleration_factor):
+def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac):
     # create mask
-    mask = torch.ones((samples.shape[0], 1, samples.shape[2], samples.shape[3]), dtype=torch.bool, device=device)
-    center_fraction = 1 / (acceleration_factor * 2)
-    width = samples.shape[-1]
-    center_width = int(width * center_fraction)
-    middle = width // 2
-    mask[:, :, :, middle-center_width//2 : middle+center_width//2] = 0
-    mask[:, :, :, : middle-center_width//2 : acceleration_factor] = 0
-    mask[:, :, :, middle+center_width//2 : : acceleration_factor] = 0
+    mask = get_kspace_mask((samples.shape[-2],samples.shape[-1]), center_frac=center_frac, acc_fact=acceleration_factor)
+    mask = mask.unsqueeze(0).unsqueeze(0).to(samples.device)
     save_image(mask[0].to(torch.float), "kspace_mask.png")
 
     # prepare k space
@@ -153,9 +161,9 @@ def masked_kspace_resampling(sampler, samples, acceleration_factor):
     save_image(corrupted, "samples_dutifulpond10_corrupted.png")
 
     # run inference
-    out = sampler.masked_sampling_with_resampling_kspace(kspace, mask)
+    out = sampler.masked_sampling_with_resampling_kspace(kspace, mask, 10, 10)
     out = torchvision.utils.make_grid(out, nrow=int(np.sqrt(samples.shape[0])))
-    save_image(out, "samples_dutifulpond10_reconstructedkspace.png")
+    save_image(out, "samples_dutifulpond10_resampledkspace.png")
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -164,6 +172,7 @@ if __name__ == "__main__":
     parser.add_argument("-c","--checkpoint", type=str, help="path to checkpoint")
     parser.add_argument("-n", "--num_samples", type=int)
     parser.add_argument("-a", "--acceleration_factor", type=int)
+    parser.add_argument("-f", "--center_fraction", type=float)
     parser.add_argument("--masked_sampling", action="store_true")
     parser.add_argument("--masked_resampling", action="store_true")
     parser.add_argument("--masked_kspace_sampling", action="store_true")
@@ -179,7 +188,7 @@ if __name__ == "__main__":
         masked_resampling(sampler, samples)
     if args.masked_kspace_sampling:
         assert args.acceleration_factor is not None
-        masked_kspace_sampling(sampler, samples, args.acceleration_factor)
+        masked_kspace_sampling(sampler, samples, args.acceleration_factor, args.center_fraction)
     if args.masked_kspace_resampling:
         assert args.acceleration_factor is not None
-        masked_kspace_resampling(sampler, samples, args.acceleration_factor)
+        masked_kspace_resampling(sampler, samples, args.acceleration_factor, args.center_fraction)

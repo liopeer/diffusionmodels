@@ -1,12 +1,9 @@
 import torch
 from torch import nn, Tensor
 from jaxtyping import Float
-from typing import Literal
-
-def apply_fMRI_uSampleMask(x: Float[Tensor, "batch channel height width"], type=Literal["brain", "knee"]):
-    if type != "brain":
-        raise NotImplementedError(f"type {type} not yet implemented")
-    pass
+from typing import Literal, Sequence, Optional, Tuple, Union
+import numpy as np
+import contextlib
 
 class UndersamplingMask(nn.Module):
     def __init__(self, mask_type: str, undersampling_ratio: int, device=None) -> None:

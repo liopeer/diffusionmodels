@@ -37,6 +37,9 @@ class MNISTKSpace(MNISTTrainDataset):
         x = fftshift(fftn(x, dim=(1,2), norm="ortho"), dim=(1,2))
         x = torch.view_as_real(x.squeeze(0))
         return (x.permute(2,0,1),)
+    
+class MNISTKSpaceDebug(MNISTKSpace):
+    __len__ = lambda x: 500
 
 class MNISTDebugDataset(MNISTTrainDataset):
     __len__ = lambda x: 100

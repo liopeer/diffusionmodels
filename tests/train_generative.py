@@ -20,14 +20,14 @@ from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmResta
 
 config = dotdict(
     world_size = 2,
-    total_epochs = 100,
+    total_epochs = 70,
     log_wandb = True,
     project = "mnist_gen_trials",
     #data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
     data_path = "/itet-stor/peerli/net_scratch",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
     wandb_dir = "/itet-stor/peerli/net_scratch",
-    from_checkpoint = False, #"/itet-stor/peerli/net_scratch/super-rain-7/checkpoint490.pt",
+    from_checkpoint = "/itet-stor/peerli/net_scratch/curious-river-16/checkpoint1.pt",
     loss_func = F.mse_loss,
     mixed_precision  = True,
     optimizer = torch.optim.AdamW,
@@ -94,7 +94,7 @@ def load_train_objs(config):
     )
     optimizer = config.optimizer(model.parameters(), lr=config.learning_rate)
     if config.lr_scheduler == "cosine_ann_warm":
-        lr_scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=config.cosine_ann_T_0)
+        lr_scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=config.cosine_ann_T_0, T_mult=config.cosine_ann_T_mult)
         return train_set, model, optimizer, lr_scheduler
     else:
         return train_set, model, optimizer

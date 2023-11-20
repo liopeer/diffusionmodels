@@ -8,6 +8,7 @@ from typing import Callable, Literal, Any, Tuple, Union
 from .diffusion import DiffusionModel
 from utils.helpers import bytes_to_gb
 from torch.fft import fftn, ifftn, fftshift, ifftshift
+from tqdm import tqdm
 
 class DiffusionSampler(nn.Module):
     def __init__(
@@ -61,7 +62,7 @@ class DiffusionSampler(nn.Module):
         noise = self.model.init_noise(partial_img.shape[0]) * torch.sqrt(beta)
         x = noise
 
-        for i in reversed(range(1, self.model.fwd_diff.timesteps)):
+        for i in tqdm(reversed(range(1, self.model.fwd_diff.timesteps))):
             t = i * torch.ones((partial_img.shape[0]), dtype=torch.long, device=beta.device)
             x = x * mask
 
@@ -89,7 +90,7 @@ class DiffusionSampler(nn.Module):
         partial_img = self._to_imgspace(partial_kspace)
 
         steps = []
-        for global_t in reversed(range(1, self.model.fwd_diff.timesteps)):
+        for global_t in tqdm(reversed(range(1, self.model.fwd_diff.timesteps))):
             t = global_t * torch.ones((partial_img.shape[0]), dtype=torch.long, device=beta.device)
             img_t, _ = self.model.fwd_diff(partial_img, t)
 
@@ -131,7 +132,9 @@ class DiffusionSampler(nn.Module):
     def masked_sampling_kspace(
             self,
             partial_kspace: Float[Tensor, "batch 2 height width"],
-            mask: Bool[Tensor, "batch 1 height width"]
+            mask: Bool[Tensor, "batch 1 height width"],
+            freq_schedule: Literal["linear"] = None,
+            center_fraction: float = None
         ) -> Float[Tensor, "batch 2 height width"]:
         "Mask should be True where we did not sample, False where we sampled."
         beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
@@ -140,7 +143,20 @@ class DiffusionSampler(nn.Module):
 
         partial_img = self._to_imgspace(partial_kspace)
 
-        for global_t in reversed(range(1, self.model.fwd_diff.timesteps)):
+        freq_scheduling = False
+        if (freq_schedule is not None) or (center_fraction is not None):
+            assert (freq_schedule is not None) and (center_fraction is not None), "both or none should have values"
+            freq_scheduling = True
+            img_size = partial_kspace.shape[-1]
+            offset = img_size*center_fraction//2
+            middle = img_size//2
+            schedule_mask = torch.zeros((partial_kspace.shape[-2], partial_kspace.shape[-1]), dtype=torch.bool, device=partial_kspace.device)
+            remaining = int(middle-offset)
+            schedule_mask[:, remaining:-remaining] = 1
+            increase_every = int(self.model.fwd_diff.timesteps // remaining)
+            partial_img = self._to_imgspace(partial_kspace * schedule_mask.unsqueeze(0).unsqueeze(0))
+
+        for i, global_t in tqdm(enumerate(reversed(range(1, self.model.fwd_diff.timesteps)))):
             t = global_t * torch.ones((partial_kspace.shape[0]), dtype=torch.long, device=beta.device)
             img_t, _ = self.model.fwd_diff(partial_img, t)
 
@@ -154,7 +170,12 @@ class DiffusionSampler(nn.Module):
             x = torch.norm(x, dim=1, keepdim=True)
 
             x = self.model.denoise_singlestep(x, t)
-        
+
+            if freq_scheduling and (i % increase_every == 0) and (i != 0):
+                remaining = remaining - 1
+                schedule_mask[:, remaining:-remaining]
+                partial_img = self._to_imgspace(partial_kspace * schedule_mask.unsqueeze(0).unsqueeze(0))
+
         return x
 
     def _to_kspace(self, img: Float[Tensor, "batch 1 height width"]) -> Float[Tensor, "batch 2 height width"]:
