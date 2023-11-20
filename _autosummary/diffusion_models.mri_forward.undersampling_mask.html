@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask" href="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask.html" />
+    <link rel="next" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h.html" />
     <link rel="prev" title="diffusion_models.mri_forward.noise.independent_gauss_noise" href="diffusion_models.mri_forward.noise.independent_gauss_noise.html" /> 
 </head>
 
@@ -51,7 +51,6 @@
 <li class="toctree-l2 current"><a class="reference internal" href="diffusion_models.mri_forward.html">diffusion_models.mri_forward</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="diffusion_models.mri_forward.noise.html">diffusion_models.mri_forward.noise</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">diffusion_models.mri_forward.undersampling_mask</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask.html">diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h.html">diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v.html">diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v</a></li>
 <li class="toctree-l4"><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d.html">diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d</a></li>
@@ -114,28 +113,25 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask.html#diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask" title="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_fMRI_uSampleMask</span></code></a>(x[, type])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h.html#diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_kernel1d_h</span></code></a>(size, rel_sigma)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h.html#diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_kernel1d_h</span></code></a>(size, rel_sigma)</p></td>
 <td><p>1D Gaussian kernel repeated along horizontal dimension.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v.html#diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_kernel1d_v</span></code></a>(size, rel_sigma)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v.html#diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_v"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_kernel1d_v</span></code></a>(size, rel_sigma)</p></td>
 <td><p>1D Gaussian kernel repeated along vertical dimension.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d.html#diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_kernel2d</span></code></a>(size, rel_sigma)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d.html#diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_kernel2d</span></code></a>(size, rel_sigma)</p></td>
 <td><p>Gaussian kernel as 2D tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_h.html#diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_h" title="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_h"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_undersampling1d_h</span></code></a>(size, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_h.html#diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_h" title="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_h"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_undersampling1d_h</span></code></a>(size, ...)</p></td>
 <td><p>Regular subsampling of horizontal lines with given undersampling ratio.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_v.html#diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_v" title="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_v"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_undersampling1d_v</span></code></a>(size, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_v.html#diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_v" title="diffusion_models.mri_forward.undersampling_mask.naive_undersampling1d_v"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_undersampling1d_v</span></code></a>(size, ...)</p></td>
 <td><p>Regular subsampling of vertical lines with given undersampling ratio.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.naive_undersampling2d.html#diffusion_models.mri_forward.undersampling_mask.naive_undersampling2d" title="diffusion_models.mri_forward.undersampling_mask.naive_undersampling2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_undersampling2d</span></code></a>(size, undersampling_ratio)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.naive_undersampling2d.html#diffusion_models.mri_forward.undersampling_mask.naive_undersampling2d" title="diffusion_models.mri_forward.undersampling_mask.naive_undersampling2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_undersampling2d</span></code></a>(size, undersampling_ratio)</p></td>
 <td><p>2D regular subsampling with given undersampling ratio.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.normalize_mask.html#diffusion_models.mri_forward.undersampling_mask.normalize_mask" title="diffusion_models.mri_forward.undersampling_mask.normalize_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_mask</span></code></a>(mask)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="diffusion_models.mri_forward.undersampling_mask.normalize_mask.html#diffusion_models.mri_forward.undersampling_mask.normalize_mask" title="diffusion_models.mri_forward.undersampling_mask.normalize_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_mask</span></code></a>(mask)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -158,7 +154,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="diffusion_models.mri_forward.noise.independent_gauss_noise.html" class="btn btn-neutral float-left" title="diffusion_models.mri_forward.noise.independent_gauss_noise" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask.html" class="btn btn-neutral float-right" title="diffusion_models.mri_forward.undersampling_mask.apply_fMRI_uSampleMask" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h.html" class="btn btn-neutral float-right" title="diffusion_models.mri_forward.undersampling_mask.gaussian_kernel1d_h" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

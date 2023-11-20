@@ -1,6 +1,0 @@
-diffusion\_models.mri\_forward.undersampling\_mask.apply\_fMRI\_uSampleMask
-===========================================================================
-
-.. currentmodule:: diffusion_models.mri_forward.undersampling_mask
-
-.. autofunction:: apply_fMRI_uSampleMask
