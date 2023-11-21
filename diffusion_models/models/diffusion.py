@@ -243,13 +243,19 @@ class DiffusionModel(nn.Module):
     
     def sample(
             self,
-            num_samples: int
-        ) -> Float[Tensor, "batch channel height width"]:
+            num_samples: int,
+            return_every: int = None
+        ) -> Union[Float[Tensor, "batch channel height width"], Tuple]:
         beta = self.fwd_diff.betas[-1].view(-1,1,1,1)
         x = self.init_noise(num_samples) * torch.sqrt(beta)
+        intermediates = {}
         for i in reversed(range(1, self.fwd_diff.timesteps)):
             t = i * torch.ones((num_samples), dtype=torch.long, device=list(self.model.parameters())[0].device)
             x = self.denoise_singlestep(x, t)
+            if (return_every is not None) and ((i % return_every) == 0):
+                intermediates[i] = x
+        if (return_every is not None) and ((i % return_every) == 0):
+            return x, intermediates
         return x
 
     def _sample_timesteps(self, batch_size: int, device: torch.device) -> Int64[Tensor, "batch"]:

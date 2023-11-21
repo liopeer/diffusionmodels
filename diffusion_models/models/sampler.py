@@ -231,12 +231,10 @@ class DiffusionSampler(nn.Module):
         return x
     
     @torch.no_grad()
-    def sample(self, num_samples: int):
+    def sample(self, num_samples: int, return_every: int = None) -> Union[Float[Tensor, "batch channel height width"], Tuple]:
         if self.mixed_precision:
             with torch.autocast(self.device_type, dtype=torch.float16):
-                samples = self.model.sample(num_samples)
+                samples = self.model.sample(num_samples, return_every)
         else:
-            samples =  self.model.sample(num_samples)
-        max_mem = bytes_to_gb(torch.cuda.max_memory_allocated())
-        print(f"Max Memory Allocated: {max_mem:.2f}")
+            samples =  self.model.sample(num_samples, return_every)
         return samples
