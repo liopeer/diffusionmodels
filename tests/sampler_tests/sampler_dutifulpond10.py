@@ -137,7 +137,7 @@ def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac):
     save_image(corrupted, "samples_dutifulpond10_corrupted.png")
 
     # run inference
-    out = sampler.masked_sampling_kspace(kspace, mask, "linear", center_frac)
+    out = sampler.masked_sampling_kspace(kspace, mask, gaussian_scheduling=True)
     out = torchvision.utils.make_grid(out, nrow=int(np.sqrt(samples.shape[0])))
     save_image(out, "samples_dutifulpond10_reconstructedkspace.png")
 
