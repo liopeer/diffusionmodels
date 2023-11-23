@@ -231,10 +231,10 @@ class DiffusionSampler(nn.Module):
         return x
     
     @torch.no_grad()
-    def sample(self, num_samples: int, return_every: int = None) -> Union[Float[Tensor, "batch channel height width"], Tuple]:
+    def sample(self, num_samples: int) -> Union[Float[Tensor, "batch channel height width"], Tuple]:
         if self.mixed_precision:
             with torch.autocast(self.device_type, dtype=torch.float16):
-                samples = self.model.sample(num_samples, return_every)
+                samples = self.model.sample(num_samples)
         else:
-            samples =  self.model.sample(num_samples, return_every)
+            samples =  self.model.sample(num_samples)
         return samples

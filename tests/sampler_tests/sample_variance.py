@@ -5,14 +5,20 @@ from jaxtyping import Float
 from torch import Tensor
 import pickle
 
+
 def single_sample(sampler, return_every: int = 10):
-    samples, intermediates = sampler.sample(2, return_every)
-    samples = samples[0]
-    intermediates = {t:samples[0] for (t,samples) in intermediates.values()}
-    return samples, intermediates
+    beta = sampler.model.fwd_diff.betas[-1].view(-1,1,1,1)
+    x = sampler.model.init_noise(2) * torch.sqrt(beta)
+    intermediates = {}
+    for i in reversed(range(1, sampler.model.fwd_diff.timesteps)):
+        t = i * torch.ones((2), dtype=torch.long, device=torch.device("cuda"))
+        x = sampler.model.denoise_singlestep(x, t)
+        if (i%return_every)==0:
+            intermediates[i] = x
+    return x[0], {t:elem[0] for (t,elem) in intermediates.items()}
 
 def sample_from_t(start_sample: Tensor, t: int, num_samples: int):
-    start_sample = start_sample.unsqueeze(0).repeat(num_samples, 1, 1, 1)
+    x = start_sample.unsqueeze(0).repeat(num_samples, 1, 1, 1)
     for i in reversed(range(1, t)):
         t = i * torch.ones((num_samples), dtype=torch.long, device=start_sample.device)
         x = sampler.model.denoise_singlestep(x, t)
@@ -26,11 +32,11 @@ if __name__ == "__main__":
 
     device = torch.device("cuda")
     sampler = setup_sampler(args.checkpoint).to(device)
-    sample, interm = single_sample(sampler)
+    sample, interm = single_sample(sampler, return_every=10)
     outs = {}
-    for (t,sample) in interm.values():
+    for (t,sample) in interm.items():
         outs[t] = sample_from_t(sample, t, args.num_samples)
-    with open('sample_variances.obj', 'wb') as f:
+    with open('/itet-stor/peerli/net_scratch/sample_variance.obj', 'wb') as f:
         pickle.dump(outs, f, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('sample_variances.obj', 'rb') as f:
-        outs = pickle.load(f)
+    # with open('sample_variances.obj', 'rb') as f:
+    #     outs = pickle.load(f)
