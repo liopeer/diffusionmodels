@@ -62,16 +62,16 @@ def get_samples(num_samples):
     path = "samples_dutifulpond10.obj"
 
     if (os.path.exists(path)) and (torch.load(path).shape[0]==num_samples):
-        out = torch.load(path).to(device)
+        out = torch.load(path)
     else:
-        out = next(iter(dl))[0].to(device)
+        out = next(iter(dl))[0]
         torch.save(out, path)
     samples = torchvision.utils.make_grid(out, nrow=int(np.sqrt(num_samples)))
     save_image(samples, path.split(".")[0] + ".png")
     return out
 
 def masked_sampling(sampler, samples):
-    mask = torch.zeros(*samples.shape, dtype=torch.bool, device=device)
+    mask = torch.zeros(*samples.shape, dtype=torch.bool, device=samples.device)
     mask[:, :, 0:80, 0:80] = 1
     masked_samples = torchvision.utils.make_grid(samples*~mask, nrow=4)
     save_image(masked_samples, "samples_dutifulpond10_masked.png")
@@ -81,7 +81,7 @@ def masked_sampling(sampler, samples):
     save_image(recon_samples, "samples_dutifulpond10_reconstructed.png")
 
 def masked_resampling(sampler, samples):
-    mask = torch.zeros(*samples.shape, dtype=torch.bool, device=device)
+    mask = torch.zeros(*samples.shape, dtype=torch.bool, device=samples.device)
     mask[:, :, 0:80, 0:80] = 1
     masked_samples = torchvision.utils.make_grid(samples*~mask, nrow=4)
     save_image(masked_samples, "samples_dutifulpond10_masked.png")
@@ -117,7 +117,7 @@ def get_kspace_mask(img_res: Tuple[int], center_frac: float, acc_fact: int):
     mask[:, torch.tensor(idx)] = 1
     return ~mask
 
-def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac):
+def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac, gaussian_scheduling):
     # create mask
     mask = get_kspace_mask((samples.shape[-2],samples.shape[-1]), center_frac=center_frac, acc_fact=acceleration_factor)
     mask = mask.unsqueeze(0).unsqueeze(0).to(samples.device)
@@ -137,7 +137,7 @@ def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac):
     save_image(corrupted, "samples_dutifulpond10_corrupted.png")
 
     # run inference
-    out = sampler.masked_sampling_kspace(kspace, mask, gaussian_scheduling=True)
+    out = sampler.masked_sampling_kspace(kspace, mask, gaussian_scheduling=gaussian_scheduling)
     out = torchvision.utils.make_grid(out, nrow=int(np.sqrt(samples.shape[0])))
     save_image(out, "samples_dutifulpond10_reconstructedkspace.png")
 
@@ -173,11 +173,15 @@ if __name__ == "__main__":
     parser.add_argument("-n", "--num_samples", type=int)
     parser.add_argument("-a", "--acceleration_factor", type=int)
     parser.add_argument("-f", "--center_fraction", type=float)
+    parser.add_argument("-s", "--gaussian_scheduling", action="store_true")
     parser.add_argument("--masked_sampling", action="store_true")
     parser.add_argument("--masked_resampling", action="store_true")
     parser.add_argument("--masked_kspace_sampling", action="store_true")
     parser.add_argument("--masked_kspace_resampling", action="store_true")
     args = parser.parse_args()
+
+    # example
+    # python sampler_dutifulpond10.py -c "/itet-stor/peerli/net_scratch/dutiful-pond-10/checkpoint60.pt" -n 16 -a 4 -f 0.1 --gaussian_scheduling --masked_kspace_sampling
 
     device = torch.device("cuda")
     sampler = setup_sampler(args.checkpoint).to(device)
@@ -188,7 +192,7 @@ if __name__ == "__main__":
         masked_resampling(sampler, samples)
     if args.masked_kspace_sampling:
         assert args.acceleration_factor is not None
-        masked_kspace_sampling(sampler, samples, args.acceleration_factor, args.center_fraction)
+        masked_kspace_sampling(sampler, samples, args.acceleration_factor, args.center_fraction, args.gaussian_scheduling)
     if args.masked_kspace_resampling:
         assert args.acceleration_factor is not None
         masked_kspace_resampling(sampler, samples, args.acceleration_factor, args.center_fraction)

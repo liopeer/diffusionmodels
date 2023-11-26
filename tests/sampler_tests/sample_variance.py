@@ -5,7 +5,6 @@ from jaxtyping import Float
 from torch import Tensor
 import pickle
 
-
 def single_sample(sampler, return_every: int = 10):
     beta = sampler.model.fwd_diff.betas[-1].view(-1,1,1,1)
     x = sampler.model.init_noise(2) * torch.sqrt(beta)

@@ -25,7 +25,7 @@ def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac)
     corrupted = torchvision.utils.make_grid(corrupted, nrow=int(np.sqrt(samples.shape[0])))
     save_image(corrupted, "samples/samples_dutifulpond10_corrupted.png")
 
-    jump_lengths = [10, 20, 40, 60, 80, 100, 150, 300]
+    jump_lengths = [10, 20, 40, 50, 100, 125, 200, 250]
     resamplings = [1, 2, 4, 6, 8, 10, 15, 30]
 
     unique_combs = []

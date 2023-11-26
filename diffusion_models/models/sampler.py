@@ -135,48 +135,37 @@ class DiffusionSampler(nn.Module):
             self,
             partial_kspace: Float[Tensor, "batch 2 height width"],
             mask: Bool[Tensor, "batch 1 height width"],
-            gaussian_scheduling: bool = True
+            gaussian_scheduling: bool = False
         ) -> Float[Tensor, "batch 2 height width"]:
         "Mask should be True where we did not sample, False where we sampled."
         beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
         noise = self.model.init_noise(partial_kspace.shape[0]) * torch.sqrt(beta)
         x = noise
 
-        partial_img = self._to_imgspace(partial_kspace)
-
         if gaussian_scheduling:
-            sigmas = torch.linspace(0, 1, self.model.fwd_diff.timesteps)
-            sigmas = torch.exp(10*sigmas)
-            sigmas = sigmas / torch.max(sigmas) * 3 + 0.1
-            gaussian_mask = self._2d_gaussian(partial_kspace.shape[-1], normalized_sigma=sigmas[0])
-            gaussian_mask = gaussian_mask.unsqueeze(0).unsqueeze(0).to(partial_img.device)
-            gaussian_mask = mask.to(torch.float32) * gaussian_mask
-            partial_img = self._to_imgspace(partial_kspace * gaussian_mask)
+            sigmas = list(reversed([0.5,0.5,0.5,0.4,0.4,0.4,0.3,0.3,0.3,0.2,0.2,0.2,0.15,0.15,0.15,0.1,0.08,0.07]))
 
         for i, global_t in tqdm(enumerate(reversed(range(1, self.model.fwd_diff.timesteps)))):
             t = global_t * torch.ones((partial_kspace.shape[0]), dtype=torch.long, device=beta.device)
+            if gaussian_scheduling:
+                filter = self._2d_gaussian(partial_kspace.shape[-1], sigmas[(len(sigmas)//self.model.fwd_diff.timesteps*i)])
+                filter = filter.unsqueeze(0).unsqueeze(0).to(partial_kspace.device)
+                #print(filter.shape, partial_kspace.shape)
+                partial_img = self._to_imgspace(partial_kspace * filter)
+            else:
+                partial_img = self._to_imgspace(partial_kspace)
             img_t, _ = self.model.fwd_diff(partial_img, t)
 
             # switching to kspace
             kspace_t = self._to_kspace(img_t)
             x_k = self._to_kspace(x)
-            if gaussian_scheduling:
-                x_k = x_k * gaussian_mask + kspace_t * (1-gaussian_mask)
-            else:
-                x_k = x_k * mask + kspace_t * ~mask
+            x_k = x_k * mask + kspace_t * ~mask
 
             # switching to img space
             x = self._to_imgspace(x_k)
             x = torch.norm(x, dim=1, keepdim=True)
 
             x = self.model.denoise_singlestep(x, t)
-
-            if gaussian_scheduling:
-                #gaussian_mask = self._2d_gaussian(partial_kspace.shape[-1], normalized_sigma=sigmas[i])
-                gaussian_mask = self._2d_gaussian(partial_kspace.shape[-1], normalized_sigma=sigmas[i])
-                gaussian_mask = gaussian_mask.unsqueeze(0).unsqueeze(0).to(partial_img.device)
-                gaussian_mask = mask.to(torch.float32) * gaussian_mask
-                partial_img = self._to_imgspace(partial_kspace * gaussian_mask)
 
         return x
 
@@ -186,11 +175,12 @@ class DiffusionSampler(nn.Module):
         kspace = torch.view_as_real(kspace).permute(0,3,1,2)
         return kspace
 
-    def _2d_gaussian(self, size: Tuple[int], normalized_sigma: float):
+    def _2d_gaussian(self, size: int, normalized_sigma: float):
         x, y = torch.arange(-size//2, size//2), torch.arange(-size//2, size//2)
         x, y = torch.meshgrid([x,y])
         sigma = normalized_sigma*size/2
-        return torch.exp(-(x**2)/(2*sigma**2) - (y**2)/(2*sigma**2))
+        filter = torch.exp(-(x**2)/(2*sigma**2) - (y**2)/(2*sigma**2))
+        return filter / filter.max()
     
     def _to_imgspace(self, kspace: Float[Tensor, "batch 2 height width"]) -> Float[Tensor, "batch 1 height width"]:
         kspace = torch.view_as_complex(kspace.permute(0,2,3,1).contiguous())
