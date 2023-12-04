@@ -13,17 +13,17 @@ def _2d_gaussian(size: int = 128, normalized_sigma: float = 1):
     filter = torch.exp(-(x**2)/(2*sigma**2) - (y**2)/(2*sigma**2))
     return filter / filter.max()
 
-def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac):
+def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac):
     # create mask
     mask = get_kspace_mask((samples.shape[-2],samples.shape[-1]), center_frac=center_frac, acc_fact=acceleration_factor)
     mask = mask.unsqueeze(0).unsqueeze(0).to(samples.device)
-    save_image(mask[0].to(torch.float), "samples/kspace_mask.png")
+    # save_image(mask[0].to(torch.float), "samples/kspace_mask.png")
 
     # prepare k space
     samples = samples.squeeze(1)
     kspace = fftshift(fftn(samples, norm="ortho", dim=(1,2)), dim=(1,2))
     kspace = torch.view_as_real(kspace).permute(0, 3, 1, 2)
-    kspace = kspace * ~mask
+    kspace = kspace * (1-mask)
 
     # mask = torch.ones(128, dtype=torch.bool)
     # mask[64-7:64+7] = 0
@@ -33,11 +33,11 @@ def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac)
     # kspace = kspace * ~mask
     
     # save corrupted images
-    corrupted = torch.view_as_complex(kspace.permute(0,2,3,1).contiguous())
-    corrupted = torch.view_as_real(ifftn(corrupted, dim=(1,2), norm="ortho")).permute(0,3,1,2)
-    corrupted = torch.norm(corrupted, dim=1, keepdim=True)
-    corrupted = torchvision.utils.make_grid(corrupted, nrow=int(np.sqrt(samples.shape[0])))
-    save_image(corrupted, "samples/samples_dutifulpond10_corrupted.png")
+    # corrupted = torch.view_as_complex(kspace.permute(0,2,3,1).contiguous())
+    # corrupted = torch.view_as_real(ifftn(corrupted, dim=(1,2), norm="ortho")).permute(0,3,1,2)
+    # corrupted = torch.norm(corrupted, dim=1, keepdim=True)
+    # corrupted = torchvision.utils.make_grid(corrupted, nrow=int(np.sqrt(samples.shape[0])))
+    # save_image(corrupted, "samples/samples_dutifulpond10_corrupted.png")
 
     # do filtering
     for sigma in [0.5,0.4,0.3,0.2,0.15,0.1,0.08,0.07,0.06,0.05,0.04,0.03,0.02]:
@@ -55,4 +55,4 @@ if __name__ == "__main__":
     sampler = setup_sampler("/itet-stor/peerli/net_scratch/dutiful-pond-10/checkpoint60.pt").to(device)
     samples = get_samples(16).to(device)
 
-    masked_kspace_resampling(sampler, samples, 4, 0.2)
+    masked_kspace_sampling(sampler, samples, 4, 0.2)

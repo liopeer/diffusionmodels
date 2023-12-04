@@ -103,7 +103,7 @@ def get_kspace_mask(img_res: Tuple[int], center_frac: float, acc_fact: int):
     img_size = img_res
     offset = img_size[1]*center_frac//2
     middle = img_size[1]//2
-    mask = torch.zeros(img_size, dtype=torch.bool)
+    mask = torch.zeros(img_size, dtype=torch.float32)
 
     # create middle strip
     mask[:, int(middle-offset):int(middle+offset)] = 1
@@ -115,7 +115,7 @@ def get_kspace_mask(img_res: Tuple[int], center_frac: float, acc_fact: int):
 
     idx = sample(remaining, len(remaining)//acc_fact)
     mask[:, torch.tensor(idx)] = 1
-    return ~mask
+    return (1-mask)
 
 def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac, gaussian_scheduling):
     # create mask
@@ -127,7 +127,7 @@ def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac, g
     samples = samples.squeeze(1)
     kspace = fftshift(fftn(samples, norm="ortho", dim=(1,2)), dim=(1,2))
     kspace = torch.view_as_real(kspace).permute(0, 3, 1, 2)
-    kspace = kspace * ~mask
+    # kspace = kspace * (1-mask)
     
     # save corrupted images
     corrupted = torch.view_as_complex(kspace.permute(0,2,3,1).contiguous())
@@ -141,7 +141,7 @@ def masked_kspace_sampling(sampler, samples, acceleration_factor, center_frac, g
     out = torchvision.utils.make_grid(out, nrow=int(np.sqrt(samples.shape[0])))
     save_image(out, "samples_dutifulpond10_reconstructedkspace.png")
 
-def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac):
+def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac, gaussian_scheduling):
     # create mask
     mask = get_kspace_mask((samples.shape[-2],samples.shape[-1]), center_frac=center_frac, acc_fact=acceleration_factor)
     mask = mask.unsqueeze(0).unsqueeze(0).to(samples.device)
@@ -151,7 +151,7 @@ def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac)
     samples = samples.squeeze(1)
     kspace = fftshift(fftn(samples, norm="ortho", dim=(1,2)), dim=(1,2))
     kspace = torch.view_as_real(kspace).permute(0, 3, 1, 2)
-    kspace = kspace * ~mask
+    # kspace = kspace * (1-mask)
     
     # save corrupted images
     corrupted = torch.view_as_complex(kspace.permute(0,2,3,1).contiguous())
@@ -161,7 +161,7 @@ def masked_kspace_resampling(sampler, samples, acceleration_factor, center_frac)
     save_image(corrupted, "samples_dutifulpond10_corrupted.png")
 
     # run inference
-    out = sampler.masked_sampling_with_resampling_kspace(kspace, mask, 10, 10)
+    out = sampler.masked_sampling_with_resampling_kspace(kspace, mask, 10, 10, gaussian_scheduling)
     out = torchvision.utils.make_grid(out, nrow=int(np.sqrt(samples.shape[0])))
     save_image(out, "samples_dutifulpond10_resampledkspace.png")
 
@@ -195,4 +195,4 @@ if __name__ == "__main__":
         masked_kspace_sampling(sampler, samples, args.acceleration_factor, args.center_fraction, args.gaussian_scheduling)
     if args.masked_kspace_resampling:
         assert args.acceleration_factor is not None
-        masked_kspace_resampling(sampler, samples, args.acceleration_factor, args.center_fraction)
+        masked_kspace_resampling(sampler, samples, args.acceleration_factor, args.center_fraction, args.gaussian_scheduling)

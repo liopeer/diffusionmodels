@@ -10,4 +10,4 @@
 source /scratch_net/biwidl311/peerli/conda/etc/profile.d/conda.sh
 conda activate liotorch
 mkdir log
-python -u sample_variance.py "$@"
+python -u loss_guidance.py "$@"

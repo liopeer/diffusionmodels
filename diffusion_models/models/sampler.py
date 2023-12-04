@@ -83,23 +83,33 @@ class DiffusionSampler(nn.Module):
             mask: Bool[Tensor, "batch 1 height width"],
             num_resamplings: int,
             jump_length: int,
-            return_steps: bool=False
+            return_steps: bool=False,
+            gaussian_scheduling: bool=False
         ) -> Float[Tensor, "batch 1 height width"]:
         beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
         noise = self.model.init_noise(partial_kspace.shape[0]) * torch.sqrt(beta)
         x = noise
 
-        partial_img = self._to_imgspace(partial_kspace)
+        if gaussian_scheduling:
+            sigmas = [0.04]
 
         steps = []
-        for global_t in tqdm(reversed(range(1, self.model.fwd_diff.timesteps))):
-            t = global_t * torch.ones((partial_img.shape[0]), dtype=torch.long, device=beta.device)
+        for i, global_t in tqdm(enumerate(reversed(range(1, self.model.fwd_diff.timesteps)))):
+            t = global_t * torch.ones((partial_kspace.shape[0]), dtype=torch.long, device=beta.device)
+            if gaussian_scheduling:
+                filter = self._2d_gaussian(partial_kspace.shape[-1], sigmas[0])
+                filter = filter.unsqueeze(0).unsqueeze(0).to(partial_kspace.device)
+            partial_img = self._to_imgspace(partial_kspace)
+
             img_t, _ = self.model.fwd_diff(partial_img, t)
 
             # switching to kspace
-            kspace_t = self._to_kspace(img_t)
-            x_k = self._to_kspace(x)
-            x_k = x_k * mask + kspace_t * ~mask
+            kspace_t = self._to_kspace(img_t) # known
+            x_k = self._to_kspace(x) # unknown
+            if gaussian_scheduling:
+                x_k = x_k * (1-filter) + kspace_t * filter
+            else:
+                x_k = x_k * mask + kspace_t * (1-mask)
 
             # switching to img space
             x = self._to_imgspace(x_k)
@@ -118,7 +128,10 @@ class DiffusionSampler(nn.Module):
                         # switching to kspace
                         kspace_t = self._to_kspace(img_t)
                         x_k = self._to_kspace(x)
-                        x_k = x_k * mask + kspace_t * ~mask
+                        if gaussian_scheduling:
+                            x_k = x_k * (1-filter) + kspace_t * filter
+                        else:
+                            x_k = x_k * mask + kspace_t * (1-mask)
 
                         # switching to img space
                         x = self._to_imgspace(x_k)
@@ -134,32 +147,33 @@ class DiffusionSampler(nn.Module):
     def masked_sampling_kspace(
             self,
             partial_kspace: Float[Tensor, "batch 2 height width"],
-            mask: Bool[Tensor, "batch 1 height width"],
+            mask: Float[Tensor, "batch 1 height width"],
             gaussian_scheduling: bool = False
         ) -> Float[Tensor, "batch 2 height width"]:
-        "Mask should be True where we did not sample, False where we sampled."
+        "Mask should be 1 where we did not sample, 0 where we sampled."
         beta = self.model.fwd_diff.betas[-1].view(-1,1,1,1)
         noise = self.model.init_noise(partial_kspace.shape[0]) * torch.sqrt(beta)
         x = noise
 
         if gaussian_scheduling:
-            sigmas = list(reversed([0.5,0.5,0.5,0.4,0.4,0.4,0.3,0.3,0.3,0.2,0.2,0.2,0.15,0.15,0.15,0.1,0.08,0.07]))
+            sigmas = [0.04]
 
         for i, global_t in tqdm(enumerate(reversed(range(1, self.model.fwd_diff.timesteps)))):
             t = global_t * torch.ones((partial_kspace.shape[0]), dtype=torch.long, device=beta.device)
             if gaussian_scheduling:
-                filter = self._2d_gaussian(partial_kspace.shape[-1], sigmas[(len(sigmas)//self.model.fwd_diff.timesteps*i)])
+                filter = self._2d_gaussian(partial_kspace.shape[-1], sigmas[0])
                 filter = filter.unsqueeze(0).unsqueeze(0).to(partial_kspace.device)
-                #print(filter.shape, partial_kspace.shape)
-                partial_img = self._to_imgspace(partial_kspace * filter)
-            else:
-                partial_img = self._to_imgspace(partial_kspace)
+            partial_img = self._to_imgspace(partial_kspace)
+            
             img_t, _ = self.model.fwd_diff(partial_img, t)
 
             # switching to kspace
-            kspace_t = self._to_kspace(img_t)
-            x_k = self._to_kspace(x)
-            x_k = x_k * mask + kspace_t * ~mask
+            kspace_t = self._to_kspace(img_t) # known
+            x_k = self._to_kspace(x) # unknown
+            if gaussian_scheduling:
+                x_k = x_k * (1-filter) + kspace_t * filter
+            else:
+                x_k = x_k * mask + kspace_t * (1-mask)
 
             # switching to img space
             x = self._to_imgspace(x_k)
