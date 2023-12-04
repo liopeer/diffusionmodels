@@ -9,9 +9,6 @@ This Python library is being created as part of a thesis in the fall semester of
 at ETH Zurich. It offers everything to get you started on conditional reconstruction
 of accelerated MRI acquisitions using denoising diffusion probabilistic models (DDPMs).
 
-.. note::
-   Not yet under development. We're only setting things up.
-
 .. toctree::
    :hidden:
 
