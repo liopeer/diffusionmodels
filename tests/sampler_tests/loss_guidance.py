@@ -75,7 +75,9 @@ def reconstruction_long(sampler, samples, guidance_factor):
             t_x = t_x - guidance_factor * loss_grad(t_x, t_y)
             t_x = sampler.model.denoise_singlestep(t_x, t)
         if j!=9:
-            t_x = sampler.model.fwd_diff(t_x, sampler.model.fwd_diff.timesteps//(j+2))
+            t = sampler.model.fwd_diff.timesteps//(j+2) * torch.ones((samples.shape[0]), dtype=torch.long, device=samples.device)
+            t_x, _ = sampler.model.fwd_diff(t_x, t)
+    return t_x
 
 if __name__ == "__main__":
     device = torch.device("cuda")
