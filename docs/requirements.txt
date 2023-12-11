@@ -8,4 +8,5 @@ pandoc
 torch 
 torchvision 
 torchaudio
+sphinxcontrib-plantuml
 git+https://github.com/liopeer/type_hints.git

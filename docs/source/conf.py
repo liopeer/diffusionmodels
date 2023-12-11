@@ -37,6 +37,8 @@ extensions = [
     "sphinx.ext.autosummary",
     "myst_parser",
     "sphinx_autodoc_typehints",
+    "sphinx.ext.graphviz",
+    "sphinxcontrib.plantuml"
 ]
 
 autosummary_generate = True
