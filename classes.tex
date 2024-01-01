@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[x11names, svgnames, rgb]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+%
+%
+
+%
+
+%
+
+\begin{document}
+\pagestyle{empty}
+%
+%
+%
+
+\enlargethispage{100cm}
+% Start of code
+\begin{tikzpicture}[>=latex',line join=bevel,]
+%%
+\node (diffusion_models*utils*mp_setup*DDP_Proc_Group) at (197.5bp,162.5bp) [draw=black,ellipse,solid] {<<\{DDP\_Proc\_Group|function<<br ALIGN="LEFT"/>>|\}>>};
+  \node (diffusion_models*models*diffusion*DiffusionModel) at (738.5bp,538.5bp) [draw=black,ellipse,solid] {<<\{DiffusionModel|dropout : float<<br ALIGN="LEFT"/>>fwd\_diff<<br ALIGN="LEFT"/>>img\_size : int<<br ALIGN="LEFT"/>>model : Module<<br ALIGN="LEFT"/>>time\_enc\_dim : int<<br ALIGN="LEFT"/>>time\_encoder<<br ALIGN="LEFT"/>>|denoise\_singlestep(x: Float[Tensor, 'batch channels height width'], t: Int64[Tensor, 'batch']): Float[Tensor, 'batch channels height width']<<br ALIGN="LEFT"/>>forward(x: Float[Tensor, 'batch channels height width']): Tuple[Float[Tensor, 'batch channels height width'], Float[Tensor, 'batch channels height width']]<<br ALIGN="LEFT"/>>init\_noise(num\_samples: int)<<br ALIGN="LEFT"/>>sample(num\_samples: int): Union[Float[Tensor, 'batch channel height width'], Tuple]<<br ALIGN="LEFT"/>>\}>>};
+  \node (diffusion_models*models*sampler*DiffusionSampler) at (738.5bp,839.5bp) [draw=black,ellipse,solid] {<<\{DiffusionSampler|checkpoint : str<<br ALIGN="LEFT"/>>device\_type : Literal['cuda', 'mps', 'cpu']<<br ALIGN="LEFT"/>>mixed\_precision : bool<<br ALIGN="LEFT"/>>model<<br ALIGN="LEFT"/>>|masked\_sampling(partial\_img: Float[Tensor, 'batch channels height width'], mask: Bool[Tensor, 'batch 1 height width']): Float[Tensor, 'batch channels height width']<<br ALIGN="LEFT"/>>masked\_sampling\_kspace(partial\_kspace: Float[Tensor, 'batch 2 height width'], mask: Float[Tensor, 'batch 1 height width'], gaussian\_scheduling: bool): Float[Tensor, 'batch 2 height width']<<br ALIGN="LEFT"/>>masked\_sampling\_with\_resampling(partial\_img: Float[Tensor, 'batch channels height width'], mask: Bool[Tensor, 'batch 1 height width'], num\_resamplings: int, jump\_length: int, return\_steps: bool): Union[Float[Tensor, 'batch channels height width'], Tuple]<<br ALIGN="LEFT"/>>masked\_sampling\_with\_resampling\_kspace(partial\_kspace: Float[Tensor, 'batch 2 height width'], mask: Bool[Tensor, 'batch 1 height width'], num\_resamplings: int, jump\_length: int, return\_steps: bool, gaussian\_scheduling: bool): Float[Tensor, 'batch 1 height width']<<br ALIGN="LEFT"/>>sample(num\_samples: int): Union[Float[Tensor, 'batch channel height width'], Tuple]<<br ALIGN="LEFT"/>>\}>>};
+  \node (diffusion_models*models*diffusion*ForwardDiffusion) at (738.5bp,162.5bp) [draw=black,ellipse,solid] {<<\{ForwardDiffusion|end : float<<br ALIGN="LEFT"/>>init\_alphas<<br ALIGN="LEFT"/>>init\_betas<<br ALIGN="LEFT"/>>max\_beta : float<<br ALIGN="LEFT"/>>offset : float<<br ALIGN="LEFT"/>>start : float<<br ALIGN="LEFT"/>>timesteps : int<<br ALIGN="LEFT"/>>type : Literal['linear', 'cosine']<<br ALIGN="LEFT"/>>|forward(x\_0: Float[Tensor, 'batch channels height width'], t: Int[Tensor, 'batch']): Float[Tensor, 'batch channels height width']<<br ALIGN="LEFT"/>>forward\_flexible(x\_t1: Float[Tensor, 'batch channels height width'], t\_1: Int64[Tensor, 'batch'], t\_2: Int64[Tensor, 'batch']): Float[Tensor, 'batch channels height width']<<br ALIGN="LEFT"/>>\}>>};
+  \node (diffusion_models*utils*trainer*GenerativeTrainer) at (1316.5bp,162.5bp) [draw=black,ellipse,solid] {<<\{GenerativeTrainer|num\_samples : int<<br ALIGN="LEFT"/>>|get\_samples(num\_samples: int)<<br ALIGN="LEFT"/>>train(max\_epochs: int)<<br ALIGN="LEFT"/>>\}>>};
+  \node (diffusion_models*utils*trainer*Trainer) at (1316.5bp,538.5bp) [draw=black,ellipse,solid] {<<\{Trainer|batch\_size : int<<br ALIGN="LEFT"/>>checkpoint\_folder : str<<br ALIGN="LEFT"/>>device\_type : Literal['cuda', 'mps', 'cpu']<<br ALIGN="LEFT"/>>gpu\_id : int<<br ALIGN="LEFT"/>>grad\_scaler : GradScaler<<br ALIGN="LEFT"/>>gradient\_accumulation\_rate : int<<br ALIGN="LEFT"/>>k\_space : bool<<br ALIGN="LEFT"/>>log\_wandb<<br ALIGN="LEFT"/>>loss\_func : Callable<<br ALIGN="LEFT"/>>loss\_history : list<<br ALIGN="LEFT"/>>lr\_scheduler : NoneType<<br ALIGN="LEFT"/>>mixed\_precision : bool<<br ALIGN="LEFT"/>>model : DistributedDataParallel<<br ALIGN="LEFT"/>>num\_gpus : int<<br ALIGN="LEFT"/>>optimizer : Optimizer<<br ALIGN="LEFT"/>>save\_every : int<<br ALIGN="LEFT"/>>train\_data : DataLoader<<br ALIGN="LEFT"/>>|load\_checkpoint(checkpoint\_path: str)<<br ALIGN="LEFT"/>>train(max\_epochs: int)<<br ALIGN="LEFT"/>>\}>>};
+  \node (diffusion_models*models*positional_encoding*PositionalEncoding) at (1674.5bp,162.5bp) [draw=black,ellipse,solid] {<<\{PositionalEncoding|dropout : Dropout<<br ALIGN="LEFT"/>>|forward(x: Float[Tensor, 'length batch features']): Float[Tensor, 'length batch features']<<br ALIGN="LEFT"/>>get\_pos\_encoding(t: Int64[Tensor, 'batch']): Float[Tensor, 'batch features']<<br ALIGN="LEFT"/>>\}>>};
+  \node (diffusion_models*models*unet*UNet) at (2334.5bp,162.5bp) [draw=black,ellipse,solid] {<<\{UNet|activation : Module<<br ALIGN="LEFT"/>>attention : bool<<br ALIGN="LEFT"/>>attention\_ff\_dim : Optional[int]<<br ALIGN="LEFT"/>>attention\_heads : int<<br ALIGN="LEFT"/>>bottleneck : Sequential<<br ALIGN="LEFT"/>>decoder : ModuleList<<br ALIGN="LEFT"/>>decoding\_channels : list<<br ALIGN="LEFT"/>>dropout : float<<br ALIGN="LEFT"/>>encoder : ModuleList<<br ALIGN="LEFT"/>>encoding\_channels : list<<br ALIGN="LEFT"/>>in\_channels : int<<br ALIGN="LEFT"/>>in\_conv : Sequential<<br ALIGN="LEFT"/>>init\_channels : int<<br ALIGN="LEFT"/>>kernel\_size : int<<br ALIGN="LEFT"/>>num\_layers : int<<br ALIGN="LEFT"/>>out\_conv : Conv2d<<br ALIGN="LEFT"/>>time\_embedding\_size : int<<br ALIGN="LEFT"/>>verbose : bool<<br ALIGN="LEFT"/>>|forward(x: Float[Tensor, 'batch channels height width'], t: Float[Tensor, 'batch embedding\_size']): Float[Tensor, 'batch channels height width']<<br ALIGN="LEFT"/>>\}>>};
+  \draw [-open diamond,solid] (diffusion_models*models*diffusion*DiffusionModel) ..controls (738.5bp,667.24bp) and (738.5bp,705.55bp)  .. (diffusion_models*models*sampler*DiffusionSampler);
+  \definecolor{strokecol}{rgb}{0.0,1.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (756.0bp,726.5bp) node {model};
+  \draw [-open diamond,solid] (diffusion_models*models*diffusion*ForwardDiffusion) ..controls (738.5bp,310.47bp) and (738.5bp,376.82bp)  .. (diffusion_models*models*diffusion*DiffusionModel);
+  \draw (762.5bp,350.5bp) node {fwd\_diff};
+  \draw [-open triangle 45] (diffusion_models*utils*trainer*GenerativeTrainer) ..controls (1316.5bp,244.12bp) and (1316.5bp,306.12bp)  .. (diffusion_models*utils*trainer*Trainer);
+%
+\end{tikzpicture}
+% End of code
+
+%
+\end{document}
+%
+
+
+

@@ -4,12 +4,14 @@ docs/token.txt
 
 # datasets
 tests/data
+*.png
 
 # logging
 tests/wandb
 tests/log
 tests/sampler_tests/log
 tests/sampler_tests/*.png
+eval_scripts/log
 
 # sphinx build
 docs/source/_autosummary

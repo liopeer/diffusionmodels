@@ -20,6 +20,8 @@ from argparse import ArgumentParser
 from torch.fft import fftn, ifftn, fftshift, ifftshift
 from typing import Tuple
 from random import sample
+from torch.nn.functional import mse_loss
+from tqdm import tqdm
 
 def setup_sampler(ckpt: str):
     config = None
@@ -79,6 +81,33 @@ def masked_sampling(sampler, samples):
     out2 = sampler.masked_sampling(samples*~mask, mask)
     recon_samples = torchvision.utils.make_grid(out2, nrow=int(np.sqrt(samples.shape[0])))
     save_image(recon_samples, "samples_dutifulpond10_reconstructed.png")
+
+def mse_grad(sampler, pred, corrupted_samples, mask):
+    pred = pred.requires_grad_(requires_grad=True)
+
+    pred2 = pred * ~mask
+    loss = mse_loss(pred2, corrupted_samples)
+
+    grads = torch.autograd.grad(loss, pred)[0]
+    pred = pred.requires_grad_(requires_grad=False)
+
+    return grads, loss.item()
+
+def masked_sampling2(sampler, samples):
+    mask = torch.zeros(*samples.shape, dtype=torch.bool, device=samples.device)
+    mask[:, :, 0:80, 0:80] = 1
+    masked_samples = torchvision.utils.make_grid(samples*~mask, nrow=4)
+    save_image(masked_samples, "samples_dutifulpond10_masked.png")
+    samples = samples * ~mask
+    t_x = sampler.model.init_noise(samples.shape[0]) * sampler.model.fwd_diff.sqrt_one_minus_alphas_dash[-1]
+    guidance_factor = 100000
+    for i in tqdm(reversed(range(1, sampler.model.fwd_diff.timesteps))):
+        t = i * torch.ones((samples.shape[0]), dtype=torch.long, device=samples.device)
+        t_y = samples
+        grads, loss = mse_grad(sampler, t_x, t_y, mask)
+        t_x = t_x - guidance_factor * grads
+        t_x = sampler.model.denoise_singlestep(t_x, t)
+    save_image(torchvision.utils.make_grid(t_x, nrow=4), "samples_masked_reconloss.png")
 
 def masked_resampling(sampler, samples):
     mask = torch.zeros(*samples.shape, dtype=torch.bool, device=samples.device)
@@ -187,7 +216,7 @@ if __name__ == "__main__":
     sampler = setup_sampler(args.checkpoint).to(device)
     samples = get_samples(args.num_samples).to(device)
     if args.masked_sampling:
-        masked_sampling(sampler, samples)
+        masked_sampling2(sampler, samples)
     if args.masked_resampling:
         masked_resampling(sampler, samples)
     if args.masked_kspace_sampling:

@@ -14,7 +14,7 @@ from models.diffusion import ForwardDiffusion
 from torchvision.transforms import Compose, Normalize, Resize
 import torchvision
 
-mode = "cosine"
+mode = "linear"
 timesteps = 1200
 every = 200
 

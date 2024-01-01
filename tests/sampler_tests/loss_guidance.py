@@ -11,6 +11,10 @@ from typing import Tuple
 import random
 from torch.nn.functional import mse_loss
 
+mask = get_kspace_mask((128,128), center_frac=0.1, acc_fact=4)
+mask = (1-mask)
+mask = mask.to("cuda")
+
 def get_kspace_mask(img_res: Tuple[int], center_frac: float, acc_fact: int):
     img_size = img_res
     offset = img_size[1]*center_frac//2
@@ -30,8 +34,8 @@ def get_kspace_mask(img_res: Tuple[int], center_frac: float, acc_fact: int):
     return mask
 
 def apply_mask(x, center_frac, acc_fact):
-    mask = get_kspace_mask(x.shape[-2:], center_frac=center_frac, acc_fact=acc_fact).to(x.device)
     x = sampler._to_kspace(x) * mask.unsqueeze(0).unsqueeze(0)
+    save_image((1-mask).unsqueeze(0).unsqueeze(0)[0].to(torch.float), "samples/kspace_mask.png")
     return sampler._to_imgspace(x)
 
 def linear_transform(x, center_frac: float=0.1, acc_fact: int=4):
@@ -88,6 +92,6 @@ if __name__ == "__main__":
 
     # for factor in guidance_factors:
     factor = 500
-    # res = reconstruction(sampler, samples, guidance_factor=factor)
-    res = reconstruction_long(sampler, samples, guidance_factor=factor)
+    res = reconstruction(sampler, samples, guidance_factor=factor)
+    # res = reconstruction_long(sampler, samples, guidance_factor=factor)
     save_image(make_grid(res, nrow=4, normalize=True), f"samples/reconstructed_lossguidanceLONG_factor{factor:.2f}.png")

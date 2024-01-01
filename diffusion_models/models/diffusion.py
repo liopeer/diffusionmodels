@@ -4,6 +4,7 @@ from jaxtyping import Float, Int64, Int
 from typing import Literal, Tuple, Union, List
 from models.positional_encoding import PositionalEncoding
 import math
+from models.unet import UNet
 
 class ForwardDiffusion(nn.Module):
     """Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).
@@ -146,7 +147,7 @@ class DiffusionModel(nn.Module):
     """DiffusionModel class that implements a DDPM (denoising diffusion probabilistic model)."""
     def __init__(
             self,
-            backbone: nn.Module,
+            backbone: UNet,
             fwd_diff: ForwardDiffusion,
             img_size: int,
             time_enc_dim: int=256,
