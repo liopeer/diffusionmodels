@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abstract &mdash; DiffusionMRI 0.0.1 documentation</title>
+  <title>Extended Derivations &mdash; DiffusionMRI 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
@@ -51,50 +51,63 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Homepage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#the-first-appendix">The First Appendix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#extended-derivations">Extended Derivations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#forward-process-closed-form">Forward Process Closed-Form</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extended Derivations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#forward-process-marginal">Forward Process Marginal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#derivation-of-reverse-process-parameterization">Derivation of Reverse Process Parameterization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#derivation-of-elbo-vlb">Derivation of ELBO/VLB</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#training-metrics">Training Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#samples-plots">Samples &amp; Plots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#discussion">Discussion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#experiments-and-results">Experiments and Results</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#influence-of-schedules-and-image-size-on-the-forward-diffusion">Influence of Schedules and Image Size on the Forward Diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#training-models-on-mnist-cifar-and-fastmri">Training Models on MNIST, CIFAR and fastMRI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#influence-of-schedules-and-image-size-on-the-forward-diffusion">Influence of Schedules and Image Size on the Forward Diffusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#image-inpainting-low-frequency-guidance">Image Inpainting &amp; Low-Frequency Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#masked-k-space-substitution">Masked K-Space Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variance-in-predictions-and-filtered-diffusion">Variance in Predictions and Filtered Diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loss-function-guidance">Loss Function Guidance</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#background-relevance">Background &amp; Relevance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#focus-of-this-work">Focus of this Work</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#thesis-organization">Thesis Organization</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#materials-and-methods">Materials and Methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#latent-variable-models">Latent Variable Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#variational-autoencoders">Variational Autoencoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kl-divergence-and-variational-lower-bound">KL Divergence and Variational Lower Bound</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#diffusion-denoising-probabilistic-models">Diffusion Denoising Probabilistic Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#forward-diffusion-process">Forward Diffusion Process</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mathematical-description">Mathematical Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#influence-of-scheduling-functions">Influence of Scheduling Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image-guided-diffusion">Image Guided Diffusion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#map-estimation-for-inverse-problems">MAP Estimation for Inverse Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ddpms-as-priors">DDPMs as Priors</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#frequency-replacement">Frequency Replacement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-architecture">Network Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slowing-down-short-grained-resampling-long-grained-resampling">Slowing Down, Short-Grained Resampling &amp; Long-Grained Resampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software-package">Software Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#related-work">Related Work</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#latent-variable-models">Latent Variable Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#variational-autoencoders">Variational Autoencoders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kl-divergence-and-variational-lower-bound">KL Divergence and Variational Lower Bound</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#diffusion-denoising-probabilistic-models">Diffusion Denoising Probabilistic Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#forward-diffusion-process">Forward Diffusion Process</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reverse-diffusion-process">Reverse Diffusion Process</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#loss-functions">Loss Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#image-guided-diffusion">Image Guided Diffusion</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#map-estimation-for-inverse-problems">MAP Estimation for Inverse Problems</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ddpms-as-priors">DDPMs as Priors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#guided-diffusion">Guided Diffusion</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classifier-guidance">Classifier Guidance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gradients-and-closed-forms-of-data-consistency-terms">Gradients and Closed-Forms of Data Consistency Terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sec-imageguidance">Image-Guided Diffusion</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#related-work">Related Work</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ddpms-for-image-synthesis">DDPMs for Image Synthesis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#image-guided-diffusion-and-reconstruction">Image-Guided Diffusion and Reconstruction</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../idea_corner.html">Idea Corner</a></li>
@@ -114,7 +127,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Abstract</li>
+      <li class="breadcrumb-item active">Extended Derivations</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/chap/tex_stuff.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,9 +137,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="abstract">
-<h1>Abstract<a class="headerlink" href="#abstract" title="Link to this heading"></a></h1>
-<p>The abstract gives a concise overview of the work you have done. The
+  <p>The abstract gives a concise overview of the work you have done. The
 reader shall be able to decide whether the work which has been done is
 interesting for him by reading the abstract. Provide a brief account on
 the following questions:</p>
@@ -138,41 +149,37 @@ the following questions:</p>
 </ul>
 <p>The abstract should approximately cover half of a page, and does
 generally not contain citations.</p>
-</section>
-<section id="acknowledgements">
-<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading"></a></h1>
-</section>
-<section id="the-first-appendix">
-<h1>The First Appendix<a class="headerlink" href="#the-first-appendix" title="Link to this heading"></a></h1>
-<p>In the appendix, list the following material:</p>
-<ul class="simple">
-<li><p>Data (evaluation tables, graphs etc.)</p></li>
-<li><p>Program code</p></li>
-<li><p>Further material</p></li>
-</ul>
-</section>
+<p>I would like to thank my advisors, Emiljo and Georg, for the support,
+trust and liberty that I was given over the course of this project. I
+was able to freely decide the course of this project, and discussions
+and questions were always received with open arms by the them. Further,
+I would like to thank Professor Konukoglu for enabling this project in
+his group and last but not least my friends &amp; family, who made sure that
+I would balance work and leisure.</p>
 <section id="extended-derivations">
 <h1>Extended Derivations<a class="headerlink" href="#extended-derivations" title="Link to this heading"></a></h1>
-<section id="forward-process-closed-form">
-<span id="app-forward"></span><h2>Forward Process Closed-Form<a class="headerlink" href="#forward-process-closed-form" title="Link to this heading"></a></h2>
+<section id="forward-process-marginal">
+<span id="app-forward"></span><h2>Forward Process Marginal<a class="headerlink" href="#forward-process-marginal" title="Link to this heading"></a></h2>
 <p>Starting with transition distributions</p>
 <div class="math notranslate nohighlight">
-\[q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{1-\beta_t} \bm{x}_{t-1}, \beta_t I)\]</div>
+\[q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{1-\beta_t} \bm{x}_{t-1}, \beta_t \bm{I})\]</div>
 <p>the reparameterization <span class="math notranslate nohighlight">\(\alpha = 1 - \beta\)</span> is introduced</p>
 <div class="math notranslate nohighlight">
-\[q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{\alpha_t} \bm{x}_{t-1}, (1-\alpha) I)\]</div>
-<p>which can also be formulated as</p>
+\[q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{\alpha_t} \bm{x}_{t-1}, (1-\alpha_t) \bm{I})\]</div>
+<p>which can be reformulated using the reparameterization trick as</p>
 <div class="math notranslate nohighlight">
-\[q(\bm{x}_t|\bm{x}_{t-1}) = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t}\mathcal{N}(\bm{0}, \bm{I}).\]</div>
-<p>For coherent indexing it is beneficial to switch to notation using
-random variables</p>
+\[\begin{aligned}
+    \bm{x}_t &amp; = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t}\cdot\mathcal{N}(\bm{0}, \bm{I}) \
+             &amp; = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t} \cdot \bm{\epsilon}\end{aligned}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\bm{\epsilon} \sim \mathcal{N}(\bm{0}, \bm{I})\)</span>. For the
+derivation it is helpful to use proper indices on the noise variables
+<span class="math notranslate nohighlight">\(\bm{\epsilon}_t\)</span> and track them</p>
 <div class="math notranslate nohighlight">
-\[\bm{x}_{t} = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t}\bm{\epsilon_{t-1}}
+\[\bm{x}_{t} = \sqrt{\alpha_t}\bm{x}_{t-1} + \sqrt{1-\alpha_t}\bm{\epsilon_{t-1}}.
     \label{eq:forward_randomvar}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\bm{\epsilon_{t-1}} \sim \mathcal{N}(\bm{0}, \bm{I})\)</span> and
-the earlier <span class="math notranslate nohighlight">\(\bm{x}_t\)</span> can be recursively inserted into the
-formula. Recalling that the sum <span class="math notranslate nohighlight">\(Z = X + Y\)</span> of two normally
-distributed random variables
+<p>The next term <span class="math notranslate nohighlight">\(\bm{x}_{t-1}\)</span> can now be insterted into the formula
+by again using the reparameterization trick. Recalling that the sum
+<span class="math notranslate nohighlight">\(Z = X + Y\)</span> of two normally distributed random variables
 <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu_X, \sigma_Y^2)\)</span> and
 <span class="math notranslate nohighlight">\(Y \sim \mathcal{N}(\mu_Y, \sigma_Y^2)\)</span> is again normally
 distributed according to
@@ -182,18 +189,180 @@ distributed according to
     x_t &amp; = \sqrt{\alpha_t} \left( \sqrt{\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{1-\alpha_{t-1}}\bm{\epsilon}_{t-2} \right) + \sqrt{1-\alpha_{t}} \bm{\epsilon}_{t-1} \\
         &amp; = \sqrt{\alpha_{t}\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{\alpha_{t}(1-\alpha_{t-1})} \bm{\epsilon}_{t-2} + \sqrt{1-\alpha_{t}} \bm{\epsilon}_{t-1}         \\
         &amp; = \sqrt{\alpha_{t}\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{\alpha_{t}(1-\alpha_{t-1}) + (1-\alpha_{t})} \bm{\bar{\epsilon}}_{t-2}\end{aligned}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\bm{\bar{\epsilon}}_{t-2}\)</span> is the sum of the random
-variables up to <span class="math notranslate nohighlight">\(t-2\)</span> (again Gaussian). The second term can of
-course be simplified to</p>
+<p>where <span class="math notranslate nohighlight">\(\bm{\bar{\epsilon}}_{t-2}\)</span> is the noise variable for the
+sum of the random random variables up to <span class="math notranslate nohighlight">\(t-2\)</span> (again
+<span class="math notranslate nohighlight">\(\bm{\bar{\epsilon}}_{t-2} \sim \mathcal{N}(\bm{0}, \bm{I})\)</span>). The
+second term can be simplified to</p>
 <div class="math notranslate nohighlight">
 \[\bm{x}_t = \sqrt{\alpha_{t}\alpha_{t-1}} \bm{x}_{t-2} + \sqrt{1-\alpha_t\alpha_{t-1}} \bm{\bar{\epsilon}}_{t-2}\]</div>
 <p>which is exactly the same form as in
-Eq. <a class="reference external" href="#eq:forward_randomvar">[eq:forward_randomvar]</a>. Therefore the
-final form is</p>
+Eq. <a class="reference external" href="#eq:forward_randomvar">[eq:forward_randomvar]</a>. The same
+procedure can be repeated in a recursive manner until the arrival at</p>
 <div class="math notranslate nohighlight">
-\[\bm{x}_t = \sqrt{\bar{\alpha}_{t}} \bm{x}_{t-2} + \sqrt{1-\bar{\alpha}_{t}} \bm{\bar{\epsilon}}_{t-2}\]</div>
-<p>with <span class="math notranslate nohighlight">\(\bar{\alpha_t} = \prod_{s=1}^{t}\alpha_s\)</span> as before.</p>
+\[\bm{x}_t = \sqrt{\prod_{s=1}^{t}\alpha_s} \bm{x}_{0} + \sqrt{1-\prod_{s=1}^{t}\alpha_s} \bm{\bar{\epsilon}}_{0}\]</div>
+<p>At which point we define
+<span class="math notranslate nohighlight">\(\bar{\alpha_t} = \prod_{s=1}^{t}\alpha_s\)</span> and arrive at the final
+forms</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \bm{x}_t                           &amp; = \sqrt{\bar{\alpha}_{t}} \bm{x}_{0} + \sqrt{1-\bar{\alpha}_{t}} \bm{\bar{\epsilon}}_{0} \\
+    \Rightarrow q(\bm{x}_t|\bm{x}_{0}) &amp; = \mathcal{N}(\sqrt{\bar{\alpha}_t} \bm{x}_{0}, (1-\bar{\alpha}) \bm{I})\end{aligned}\end{split}\]</div>
+<p>with as before.</p>
 </section>
+<section id="derivation-of-reverse-process-parameterization">
+<h2>Derivation of Reverse Process Parameterization<a class="headerlink" href="#derivation-of-reverse-process-parameterization" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[q(\bm{x}_t|\bm{x}_{0}) = \frac{q(\bm{x}_t|\bm{x}_{t-1},\bm{x}_{0})q(\bm{x}_{t-1}|\bm{x}_{0})}{q(\bm{x}_t|\bm{x}_{0})}\]</div>
+<p>where <span class="math notranslate nohighlight">\(q(\bm{x}_t|\bm{x}_{t-1},\bm{x}_{0})\)</span> is independent of
+<span class="math notranslate nohighlight">\(\bm{x}_0\)</span> given <span class="math notranslate nohighlight">\(\bm{x}_{t-1}\)</span> thanks to the factorization
+as a Markov chain and therefore</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    q(\bm{x}_t|\bm{x}_{0}) &amp; = \frac{q(\bm{x}_t|\bm{x}_{t-1})q(\bm{x}_{t-1}|\bm{x}_{0})}{q(\bm{x}_t|\bm{x}_{0})}                                                                                                                                                       \\
+                           &amp; = \frac{\mathcal{N}(\sqrt{1-\beta_t}\bm{x_{t-1}}, \beta_t \bm{I}) \cdot \mathcal{N}(\sqrt{\bar{\alpha}_{t-1}}\bm{x_{t-1}}, (1-\bar{\alpha}_{t-1}) \bm{I})}{\mathcal{N}(\sqrt{\bar{\alpha}_{t}}\bm{x_{t-1}}, (1-\bar{\alpha}_{t}) \bm{I})}\end{aligned}\end{split}\]</div>
+<p>The formula for the multivariate Gaussian distribution simplifies as
+follows for the case of a diagonal covariance matrix.</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+\end{aligned}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    q(\bm{x}_t|\bm{x}_{0}) &amp; \propto \exp \left( -\left(\frac{\left(\bm{x}_{t}-\sqrt{\alpha_{t}} \bm{x}_{t-1}\right)^{2}}{2\left(1-\alpha_{t}\right)}+\frac{\left(\bm{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} \bm{x}_{0}\right)^{2}}{2\left(1-\bar{\alpha}_{t-1}\right)}-\frac{\left(\bm{x}_{t}-\sqrt{\bar{\alpha}_{t}} \bm{x}_{0}\right)^{2}}{2\left(1-\bar{\alpha}_{t}\right)}\right) \right)                                                     \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{\left(\bm{x}_{t}-\sqrt{\alpha_{t}} \bm{x}_{t-1}\right)^{2}}{1-\alpha_{t}}+\frac{\left(\bm{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} \bm{x}_{0}\right)^{2}}{1-\bar{\alpha}_{t-1}}-\frac{\left(\bm{x}_{t}-\sqrt{\bar{\alpha}_{t}} \bm{x}_{0}\right)^{2}}{1-\bar{\alpha}_{t}}\right)\right)                                                                                             \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{\left(-2 \sqrt{\alpha_{t}} \bm{x}_{t} \bm{x}_{t-1}+\alpha_{t} \bm{x}_{t-1}^{2}\right)}{1-\alpha_{t}}+\frac{\left(\bm{x}_{t-1}^{2}-2 \sqrt{\bar{\alpha}_{t-1}} \bm{x}_{t-1} \bm{x}_{0}\right)}{1-\bar{\alpha}_{t-1}}+C\left(\bm{x}_{t}, \bm{x}_{0}\right)\right)\right)                                                                                                        \\
+                           &amp; \propto \exp \left(-\frac{1}{2}\left(-\frac{2 \sqrt{\alpha_{t}} \bm{x}_{t} \bm{x}_{t-1}}{1-\alpha_{t}}+\frac{\alpha_{t} \bm{x}_{t-1}^{2}}{1-\alpha_{t}}+\frac{\bm{x}_{t-1}^{2}}{1-\bar{\alpha}_{t-1}}-\frac{2 \sqrt{\bar{\alpha}_{t-1}} \bm{x}_{t-1} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right)\right)                                                                                                              \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\left(\frac{\alpha_{t}}{1-\alpha_{t}}+\frac{1}{1-\bar{\alpha}_{t-1}}\right) \bm{x}_{t-1}^{2}-2\left(\frac{\sqrt{\alpha_{t}} \bm{x}_{t}}{1-\alpha_{t}}+\frac{\sqrt{\bar{\alpha}_{t-1}} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right) \bm{x}_{t-1}\right)\right)                                                                                                                           \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{\alpha_{t}\left(1-\bar{\alpha}_{t-1}\right)+1-\alpha_{t}}{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)} \bm{x}_{t-1}^{2}-2\left(\frac{\sqrt{\alpha_{t}} \bm{x}_{t}}{1-\alpha_{t}}+\frac{\sqrt{\alpha_{t-1}} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right) \bm{x}_{t-1}\right)\right)                                                                                 \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{\alpha_{t}-\bar{\alpha}_{t}+1-\alpha_{t}}{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)} \bm{x}_{t-1}^{2}-2\left(\frac{\sqrt{\alpha_{t}} \bm{x}_{t}}{1-\alpha_{t}}+\frac{\sqrt{\alpha_{t-1}} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right) \bm{x}_{t-1}\right)\right)                                                                                                 \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{1-\bar{\alpha}_{t}}{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)} \bm{x}_{t-1}^{2}-2\left(\frac{\sqrt{\alpha_{t}} \bm{x}_{t}}{1-\alpha_{t}}+\frac{\sqrt{\alpha_{t-1}} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right) \bm{x}_{t-1}\right)\right)                                                                                                                       \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{1-\bar{\alpha}_{t}}{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)}\right)\left(\bm{x}_{t-1}^{2}-2 \frac{\left(\frac{\sqrt{\alpha_{\alpha}} \bm{x}_{t}}{1-\alpha_{t}}+\frac{\sqrt{\bar{\alpha}_{t-1}} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right)}{\frac{1-\bar{\alpha}_{t}}{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)}} \bm{x}_{t-1}\right)\right) \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{1-\bar{\alpha}_{t}}{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)}\right)\left(\bm{x}_{t-1}^{2}-2 \frac{\left(\frac{\sqrt{\alpha_{t}} \bm{x}_{t}}{1-\alpha_{t}}+\frac{\sqrt{\bar{\alpha}_{t-1}} \bm{x}_{0}}{1-\bar{\alpha}_{t-1}}\right)\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_{t}} \bm{x}_{t-1}\right)\right)               \\
+                           &amp; =\exp \left(-\frac{1}{2}\left(\frac{1}{\frac{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_{t}}}\right)\left(\bm{x}_{t-1}^{2}-2 \frac{\sqrt{\alpha_{t}}\left(1-\bar{\alpha}_{t-1}\right) \bm{x}_{t}+\sqrt{\bar{\alpha}_{t-1}}\left(1-\alpha_{t}\right) \bm{x}_{0}}{1-\bar{\alpha}_{t}} \bm{x}_{t-1}\right)\right)                                                                    \\
+                           &amp; \propto \frac{\mathcal{N}\left(\bm{x}_{t-1} ; \frac{\sqrt{\alpha_{t}}\left(1-\bar{\alpha}_{t-1}\right) \bm{x}_{t}+\sqrt{\bar{\alpha}_{t-1}}\left(1-\alpha_{t}\right) \bm{x}_{0}}{1-\bar{\alpha}_{t}}, \frac{\left(1-\alpha_{t}\right)\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_{t}} \mathbf{I}\right)}{\mu_{q}\left(\bm{x}_{t,}, \bm{x}_{0}\right)}\end{aligned}\end{split}\]</div>
+</section>
+<section id="derivation-of-elbo-vlb">
+<h2>Derivation of ELBO/VLB<a class="headerlink" href="#derivation-of-elbo-vlb" title="Link to this heading"></a></h2>
+<p>In the case of a VAE we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \log p_{\theta}(x) &amp; = \log p_{\theta}(x) \int p_{\theta_{NN}}(z|x)dz                                                                                                                                                                           \\
+                       &amp; = \int \log p_{\theta}(x) p_{\theta_{NN}}(z|x)dz                                                                                                                                                                           \\
+                       &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log p_{\theta}(x) \right]                                                                                                                                                  \\
+                       &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(x|z)p_{\theta_z}(z)}{p(z|x)}\right]   \label{eq:A31}                                                                                             \\
+                       &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(x|z)p_{\theta_z}(z)p_{\theta_{NN}}(z|x)}{p(z|x)p_{\theta_{NN}}(z|x)}\right]                                                                      \\
+                       &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(x|z)p_{\theta_z}(z)}{p_{\theta_{NN}}(z|x)}\right] + \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(z|x)}{p(z|x)}\right] \\
+                       &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(x|z)p_{\theta_z}(z)}{p_{\theta_{NN}}(z|x)}\right] + KL \left[p_{\theta_{NN}}(z|x)||p(z|x)\right].\end{aligned}\end{split}\]</div>
+<p>Realize that only if <span class="math notranslate nohighlight">\(p_{\theta_{NN}}(z|x) = p(z|x)\)</span> – which is
+exactly when the the KL divergence is 0 – we would get our original
+marginal log-likelihood <span class="math notranslate nohighlight">\(p_{\theta}(x)\)</span> from the first term, as
+defined in Eq. <a class="reference external" href="#eq:likelihoodvae">[eq:likelihoodvae]</a>, by
+substituting and calculating back from Eq. <a class="reference external" href="#eq:A31">[eq:A31]</a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(x|z)p_{\theta_z}(z)}{p_{\theta_{NN}}(z|x)}\right] &amp; \stackrel{p_{\theta_{NN}}(z|x) = p(z|x)}{=} \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\underbrace{\left[\log \frac{p_{\theta_{NN}}(x|z)p_{\theta_z}(z)}{p(z|x)}\right]}_{p_{\theta}(x)} \\
+                                                                                                                              &amp; = \int \log p_{\theta}(x) p_{\theta_{NN}}(z|x) dz                                                                                                                                    \\
+                                                                                                                              &amp; = \log p_{\theta}(x)\end{aligned}\end{split}\]</div>
+<p>The derivation for the DDPM is similar</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    dummy &amp; = x \\
+    blubb &amp; = d\end{aligned}\end{split}\]</div>
+</section>
+</section>
+<section id="training-metrics">
+<h1>Training Metrics<a class="headerlink" href="#training-metrics" title="Link to this heading"></a></h1>
+<p>was trained on all RSS reconstructions of the fastMRI brain dataset at a
+resolution of <span class="math notranslate nohighlight">\(128\times 128\)</span>, at a batch size of 48 and using the
+Adam optimizer at an initial learning rate of 0.0001.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hyperparameter</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dataset</p></td>
+<td><p>utils.datasets.FastMRIBrainTrain</p></td>
+</tr>
+<tr class="row-odd"><td><p>dropout</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>backbone</p></td>
+<td><p>models.unet.UNet</p></td>
+</tr>
+<tr class="row-odd"><td><p>img_size</p></td>
+<td><p>128</p></td>
+</tr>
+<tr class="row-even"><td><p>attention</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>loss_func</p></td>
+<td><p>torch.nn.functional.mse_loss</p></td>
+</tr>
+<tr class="row-even"><td><p>optimizer</p></td>
+<td><p>torch.optim.adam.Adam</p></td>
+</tr>
+<tr class="row-odd"><td><p>activation</p></td>
+<td><p>torch.nn.modules.activation.SiLU</p></td>
+</tr>
+<tr class="row-even"><td><p>batch_size</p></td>
+<td><p>48</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_channels</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>kernel_size</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>architecture</p></td>
+<td><p>models.diffusion.DiffusionModel</p></td>
+</tr>
+<tr class="row-even"><td><p>forward_diff</p></td>
+<td><p>models.diffusion.ForwardDiffusion</p></td>
+</tr>
+<tr class="row-odd"><td><p>time_enc_dim</p></td>
+<td><p>512</p></td>
+</tr>
+<tr class="row-even"><td><p>learning_rate</p></td>
+<td><p>0.0001</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_timesteps</p></td>
+<td><p>1000</p></td>
+</tr>
+<tr class="row-even"><td><p>schedule_type</p></td>
+<td><p>cosine</p></td>
+</tr>
+<tr class="row-odd"><td><p>from_checkpoint</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>mixed_precision</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-odd"><td><p>backbone_enc_depth</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>unet_init_channels</p></td>
+<td><p>64</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<figure class="align-default" id="id100">
+<img alt="Metrics from the Training Process of dutifulpond10" src="../_images/dutifulpondmetrics.png" />
+<figcaption>
+<p><span class="caption-text">Metrics from the Training Process of dutifulpond10</span><a class="headerlink" href="#id100" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="samples-plots">
+<h1>Samples &amp; Plots<a class="headerlink" href="#samples-plots" title="Link to this heading"></a></h1>
+<figure class="align-default" id="fig-lossgradients">
+<img alt="Values and Spectra of Loss Gradients" src="../_images/gradientspectra.png" />
+<figcaption>
+<p><span class="caption-text">Values and Spectra of Loss Gradients</span><a class="headerlink" href="#fig-lossgradients" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 <section id="conclusion">
 <h1>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h1>
@@ -220,7 +389,7 @@ as a pair, i.e. “be sure the discussion section answers what the
 introduction section asked” <a href="#id3"><span class="problematic" id="id4">:raw-latex:`\cite{day2006wap}`</span></a>.</p>
 </section>
 <section id="experiments-and-results">
-<h1>Experiments and Results<a class="headerlink" href="#experiments-and-results" title="Link to this heading"></a></h1>
+<span id="sec-experimentsandresults"></span><h1>Experiments and Results<a class="headerlink" href="#experiments-and-results" title="Link to this heading"></a></h1>
 <p>Describe the evaluation you did in a way, such that an independent
 researcher can repeat it. Cover the following questions:</p>
 <ul class="simple">
@@ -232,18 +401,42 @@ was conducted.</p></li>
 the results is given. If you produced lots of data, include only
 representative data here and put all results into the appendix.</p></li>
 </ul>
+<section id="training-models-on-mnist-cifar-and-fastmri">
+<h2>Training Models on MNIST, CIFAR and fastMRI<a class="headerlink" href="#training-models-on-mnist-cifar-and-fastmri" title="Link to this heading"></a></h2>
+<p>In order to explore hyperparameters of the model architecture and debug
+the implementation it was decided to first train models on datasets
+considered trainable with less compute time. Two very well known
+datasets in computer vision that use low-resolution images are CIFAR10
+and MNIST. <a href="#id5"><span class="problematic" id="id6">:raw-latex:`\autocite{cifar,mnist}`</span></a></p>
+<figure class="align-default" id="fig-mnistsamples">
+<img alt="Samples from the best performing model trained on MNIST" src="../_images/mnistsamples.png" />
+<figcaption>
+<p><span class="caption-text">Samples from the best performing model trained on MNIST</span><a class="headerlink" href="#fig-mnistsamples" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Unconditional sampling was performed in order to verify the sample
+quality and whether the model was able to capture the main modes of the
+training data distribution. For a quantitative analysis of sample
+quality and mode coverage/log-likelihood of trained models Nichol et al.
+use FID score and Monte-Carlo log-likelihood estimates. FID requires the
+training of an additional classifier network, which only makes sense on
+standardized datasets with class labels such as ImageNet or
+CIFAR. <a href="#id7"><span class="problematic" id="id8">:raw-latex:`\autocite{imagenet, cifar}`</span></a> Pretrained classifiers
+are available for these datasets, which makes scores comparable among
+different generative models. The fastMRI dataset is not meant for
+classification tasks, therefore</p>
 <section id="influence-of-schedules-and-image-size-on-the-forward-diffusion">
-<span id="sec-forward-diff-experiments"></span><h2>Influence of Schedules and Image Size on the Forward Diffusion<a class="headerlink" href="#influence-of-schedules-and-image-size-on-the-forward-diffusion" title="Link to this heading"></a></h2>
+<span id="sec-forward-diff-experiments"></span><h3>Influence of Schedules and Image Size on the Forward Diffusion<a class="headerlink" href="#influence-of-schedules-and-image-size-on-the-forward-diffusion" title="Link to this heading"></a></h3>
 <p>Ho et al. had derived a closed form solution to the forward process of
 DDPMs and Nichol et al. investigated alternative options for the noise
-scheduling. <a href="#id5"><span class="problematic" id="id6">:raw-latex:`\autocite{ho2020denoising,nichol2021improved}`</span></a>
+scheduling. <a href="#id9"><span class="problematic" id="id10">:raw-latex:`\autocite{ho2020denoising,nichol2021improved}`</span></a>
 They concluded that the important parameters to model are not the
 variances <span class="math notranslate nohighlight">\(\beta\)</span> of the transitions, but the variances
 <span class="math notranslate nohighlight">\(1-\bar{\alpha}\)</span> of the closed-form forward process, since they
 are the ones responsible for the destruction of information.</p>
 <p>They decided to go with a squared cosine function, since this would be
 close to linear smooth out towards the critical beginning and end points
-of the process. In Fig.<a class="reference external" href="#fig:alphadash">5.1</a> you can see how
+of the process. In Fig.<a class="reference external" href="#fig:alphadash">6.4</a> you can see how
 <span class="math notranslate nohighlight">\(1-\bar{\alpha}\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> behave for both approaches. It
 is immediately visible that the variances reach the maximum too early
 and flatten out for the linear schedule. This leads to the intuition
@@ -255,7 +448,7 @@ different steps of the process and the covariance matrix was calculated.
 As a metric for how close the covariance matrix was to the identity
 covariance matrix of pure i.i.d Gaussian noise, the identity matrix was
 subtracted and the mean of the absolute value of the matrix calculated.
-The results can be seen in Fig. <a class="reference external" href="#fig:noisecloseness">5.2</a> and
+The results can be seen in Fig. <a class="reference external" href="#fig:noisecloseness">6.5</a> and
 confirm the intuition: When using linear scheduling we reach the closest
 point to pure noise already after around 600 steps for small images, and
 after around 700 for larger images. Cosine scheduling also performs
@@ -263,61 +456,611 @@ worse on smaller images than on larger ones, but is still capable
 providing value for at least 850 timesteps.</p>
 </section>
 </section>
+<section id="image-inpainting-low-frequency-guidance">
+<h2>Image Inpainting &amp; Low-Frequency Guidance<a class="headerlink" href="#image-inpainting-low-frequency-guidance" title="Link to this heading"></a></h2>
+<p>The works by Lugmayr et al. <a href="#id11"><span class="problematic" id="id12">:raw-latex:`\autocite{lugmayr2022repaint}`</span></a>
+and Choi et al. <a href="#id13"><span class="problematic" id="id14">:raw-latex:`\autocite{choi2021ilvr}`</span></a> were the main
+motivation to pursue an approach of conditioning unconditionally trained
+DDPMs. As a first step it was therefore important to recreate their
+results before adapting them to the task of undersampled MRI. The update
+steps of the reverse diffusion process were formulated according
+to <a class="reference external" href="#sec:freqreplacement">8.2</a> and the results can be seen in
+Fig. <a class="reference external" href="#fig:repaint">6.6</a> and Fig. <a class="reference external" href="#fig:ilvr">6.7</a>. Using Lugmayr
+et al.’s suggested hyperparameters for resampling (jump length of 10,
+with 10 resamplings) was indeed observed to help with creating
+semantically meaningful reconstructions with the exception of one of the
+sample images (lowest row, second from left), but this specific sample
+also caused issues with ILVR, suggesting that the distributional mode of
+that image type was not learned well by the model. Since it is an
+unusual type of image, it was likely not represented well in the
+training data.</p>
+</section>
+<section id="masked-k-space-substitution">
+<h2>Masked K-Space Substitution<a class="headerlink" href="#masked-k-space-substitution" title="Link to this heading"></a></h2>
+<p>Lugmayr et al. use unconditional DDPMs to perform inpainting, which is a
+similar task to the reconstruction of undersampled MRI and are
+particularly successful by using resampling. This resampling process
+gives the network more time to create a globally semantically meaningful
+image. <a href="#id15"><span class="problematic" id="id16">:raw-latex:`\autocite{lugmayr2022repaint}`</span></a> Choi et al. replace
+low frequencies of the prediction with low frequencies of the latent
+representation of a target image to condition the diffusion
+process. <a href="#id17"><span class="problematic" id="id18">:raw-latex:`\autocite{choi2021ilvr}`</span></a> Since undersampled MRI
+still always contains global information, it was not expected, that
+resampling would have the same effect as with Lugmayr et al.,
+nevertheless it was expected to be an option for better sample fidelity
+through additional computation cost. The implementation follows below
+equation, where both, the latent prediction <span class="math notranslate nohighlight">\(x_t\)</span> is
+Fourier-transformed and the predicted frequencies are replaced with
+known ones from <span class="math notranslate nohighlight">\(s_t\)</span> by the masking operation
+<span class="math notranslate nohighlight">\(\mathcal{M}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[x_{t-1} = x_t - \mathcal{F}^{-1}\left(\mathcal{M}\circ\mathcal{F}(x_t) + \mathcal{M}(s_t)\right)\]</div>
+<p>As mentioned in <a class="reference external" href="#sec:freqreplacement">8.2</a>, <span class="math notranslate nohighlight">\(s_t\)</span> can be
+derived by applying noise either in the image space or directly in
+k-space and the results using both techniques are depicted in
+Fig. <a class="reference external" href="#fig:freqreplacement">6.8</a>. Reconstruction quality is far from
+great, especially for the low acceleration of factor
+<span class="math notranslate nohighlight">\(\approx 4.12\)</span> with noticeable aliasing artifacts and unsharp
+edges, which might stem from the fact that the mask is essentially a box
+filter with multiple passbands and might therefore induce ringing
+artifacts. Aliasing and ringing are usually evaded by a better filter
+choice and the simplest choice of filter that avoids these artifacts is
+a Gaussian. Gaussian filters are also linear filters, which means that
+they integrate well into the framework introduced
+in <a class="reference external" href="#sec:freqreplacement">8.2</a>. The downside of applying a Gaussian
+filter is, that the sampled higher frequencies would be discarded, which
+would not only be wasteful, but the results in Fig. <a class="reference external" href="#fig:ilvr">6.7</a>
+showed that they are likely important for guidance. The next section
+will explore the idea of adding information gradually over the reverse
+diffusion process in order to give the model more time for
+reconstruction and to avoid frequency mismatch during the process that
+leads to artifacts.</p>
+</section>
+<section id="variance-in-predictions-and-filtered-diffusion">
+<span id="sec-predvariance"></span><h2>Variance in Predictions and Filtered Diffusion<a class="headerlink" href="#variance-in-predictions-and-filtered-diffusion" title="Link to this heading"></a></h2>
+<p>Aliasing arises from mismatches between predicted and introduced
+frequency information. Aliasing can be avoided by using low-pass
+filters, but the k-space mask is specifically sampled such that it also
+contains some information from higher frequencies. Naive low-pass
+filtering would make this information inaccessible and the sampling of
+those frequencies useless. Since the SNR (signal-to-noise-ratio) in
+natural images is much higher in the lower frequencies than in the lower
+ones, it was hypothesized that it might be possible to add frequency
+information gradually during the denoising process in order to avoid
+aliasing, lower frequencies first and higher ones only towards the end.</p>
+<p>In order to empirically study this hypothesis, a single sample was
+denoised and its latent representations at every 10th timestep were
+saved. These latent representations were copied into batches of 100
+equal latent representations and the denoising process was continued for
+all these batches. Fig. <a class="reference external" href="#fig:predvariance">6.9</a> shows 4 of these
+samples for a subset of starting points. As can be seen, when starting
+from <span class="math notranslate nohighlight">\(t\geq700\)</span>, the samples still have a lot of variability and
+share very few common features. When starting later in the process, the
+samples clearly stem from the same distributional mode and only differ
+in the details. Since high frequencies are responsible for carrying
+information on details, this supports the hypothesis, but it becomes
+more evident, when looking at the variances of the spectral
+representations as seen in Fig. <a class="reference external" href="#fig:spectralvariance">6.10</a>. The
+variances were estimated over the frequency representations of all the
+final predictions in a batch (100 samples, denoised from <span class="math notranslate nohighlight">\(t\)</span>) and
+high variance means that this frequency was not yet determined at that
+specific <span class="math notranslate nohighlight">\(t\)</span>. As can be clearly seen in the figure, the variance
+is concentrated in the low frequencies when starting at larget
+<span class="math notranslate nohighlight">\(t\)</span>, and the variance in the low frequencies increases as the
+starting <span class="math notranslate nohighlight">\(t\)</span> decreases. This again supports the hypothesis that
+high frequencies matter much more towards the end and that it might be
+possible to only introduce them later in the process.</p>
+<p>Variability in the samples can additionally be analyzed by inspecting
+the frequencies that carry most variance among the predictions. Those
+variances can be seen in Fig. <a class="reference external" href="#fig:spectralvariance">6.10</a> and while
+the variance is always concentrated in the center, as is expected from
+the spectrum of natural images, it can also be seen that the variance in
+the higher frequencies is proportionally higher at the end. This means
+that the information from higher frequencies matters much more towards
+the end, an observation that fits the SNR intuition from before.</p>
+<p>In order to avoid a frequency mismatch during the reverse diffusion it
+could therefore make sense to add filtered k-space information, with
+gradually increasing passband over the reverse diffusion process, which
+could be done by introducing a schedule of standard deviations for the
+Gaussian kernel <span class="math notranslate nohighlight">\(\phi \rightarrow \phi(t)\)</span> and applying it, in
+addition to the masking operation.</p>
+<div class="math notranslate nohighlight">
+\[x_{t-1} = x_t - \mathcal{F}^{-1}\left(\phi(t)\circ\mathcal{M}\circ\mathcal{F}(x_t) + \phi(t)\circ\mathcal{M}(s_t)\right)\]</div>
+<p>Results of such scheduled filters were in general unsatisfying with some
+samples showing a slight improvement in contrast, while aliasing was
+even amplified in others, as demonstrated in
+Fig. <a class="reference external" href="#fig:filtereddiffusion">6.11</a>. The search space over different
+schedules that could improve the outcome is very large and since loss
+guidance (<a class="reference external" href="#sec:lossguidance">8.1.2</a>) had been identified as a very
+flexible and powerful approach at this point, optimization of the
+scheduling or resampling strategies using filter schedules were not
+further investigated. Loss guidance though offered another possibility
+of inspecting dominant frequencies in the guidance process and the
+results of this experiment are shown in
+Fig. <a class="reference external" href="#fig:lossgradients">3.1</a>.</p>
+</section>
+<section id="loss-function-guidance">
+<h2>Loss Function Guidance<a class="headerlink" href="#loss-function-guidance" title="Link to this heading"></a></h2>
+<p>Taking gradient steps in the direction of a loss gradient immediately
+proved to be a more flexible approach with much better reconstruction
+results than the previous methods.</p>
+<div class="highlight-iPython notranslate"><div class="highlight"><pre><span></span>import torch
+</pre></div>
+</div>
+<figure class="align-default" id="id101">
+<img alt="Results from Direct Sampling with Loss Guidance." src="../_images/direct_sampling.png" />
+<figcaption>
+<p><span class="caption-text">Results from Direct Sampling with Loss Guidance.</span><a class="headerlink" href="#id101" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
-<p>Give an introduction to the topic you have worked on:</p>
-<ul class="simple">
-<li><p><em>What is the rationale for your work?</em> Give a sufficient description
-of the problem, e.g. with a general description of the problem
-setting, narrowing down to the particular problem you have been
-working on in your thesis. Allow the reader to understand the problem
-setting.</p></li>
-<li><p><em>What is the scope of your work?</em> Given the above background, state
-briefly the focus of the work, what and how you did.</p></li>
-<li><p><em>How is your thesis organized?</em> It helps the reader to pick the
-interesting points by providing a small text or graph which outlines
-the organization of the thesis. The structure given in this document
-shows how the general structuring shall look like. However, you may
-fuse chapters or change their names according to the requirements of
-your thesis.</p></li>
-</ul>
+<section id="background-relevance">
+<h2>Background &amp; Relevance<a class="headerlink" href="#background-relevance" title="Link to this heading"></a></h2>
+<p>MRI (magnetic resonance imaging) is a medical imaging modality that
+allows acquiring slices of the body, which is an invaluable non-invasive
+procedure in medical diagnostics. In contrast to the widely used CT
+(computed tomography) it does not rely on ionizing radiation, which is
+harmful to the cells in large doses, and offers much better soft tissue
+contrast. As an additional benefit, acquisition protocols are highly
+flexible and often allow to tuning the contrast to tissues of interest.
+The biggest difficulty with MRI scans are the long acquisition times
+that require patients to lay still for extended amounts of time, which
+is especially difficult for children and intellectually disabled
+patients. Additionally, long acquisition times make scans more expensive
+and available to a smaller number of patients. A significant part of
+MRI-related research is therefore A speedup, without a drop in image
+quality, can be achieved by the use of several acquisition
+coils <a href="#id19"><span class="problematic" id="id20">:raw-latex:`\autocite{sodickson1997smash,pruessmann1999sense,griswold2002grappa}`</span></a>
+or by undersampling the acquisition space, which, in the case of MRI, is
+the space of spatial frequencies. This space corresponds to the 2D
+Fourier transform of the image space and is usually termed <em>k-space</em>,
+relating to the variable <span class="math notranslate nohighlight">\(k\)</span>, which is usually assigned to the
+spatial frequency. Undersampling k-space poses a challenging inverse
+problem that can be solved well by compressed sensing
+techniques <a href="#id21"><span class="problematic" id="id22">:raw-latex:`\autocite{donoho2006compressedsensing,candes2005stable}`</span></a>
+for small accelerations (undersampling factors), but usually requires
+stronger priors for higher accelerations. Since generative machine
+learning is concerned with learning data distributions it offers a
+possibility for incorporating such strong priors into inverse problems
+and generative machine learning for images has made huge progress in the
+last few years, thanks to the incorporation of neural networks.
+Visionary works in the domains of variational autoencoders (VAEs),
+generative adversarial networks (GANs) and diffusion denoising
+probabilistic models (DDPMs) have opened the door to a variety of models
+that can learn complicated image distributions and produce samples of
+photo-realistic
+quality. <a href="#id23"><span class="problematic" id="id24">:raw-latex:`\autocite{kingma2013autoencoding,goodfellow2014generative,sohldickstein2015deep,ho2020denoising}`</span></a></p>
+</section>
 <section id="focus-of-this-work">
 <h2>Focus of this Work<a class="headerlink" href="#focus-of-this-work" title="Link to this heading"></a></h2>
+<p>DDPMs have recently emerged as the most powerful model for modeling
+image distributions and therefore they are the model used in this work.
+The focus is to train DDPMs on large amounts of high-quality MRI data
+from various acquisition protocols and to then use this prior for
+reconstruction of undersampled k-space. The advantage of this approach
+is that the type of undersampling does not need to be known at training
+time, and that a single model could also be used for a variety of other
+image reconstruction tasks. This means that the model needs to be
+conditioned on the task of reconstructing undersampled MRI
+post-training. Thanks to the high interpretability of DDPMs, they allow
+for several different approaches to this conditioning, which are
+explored in this work. A further focus lies on the exploration of
+sampling techniques that might give better reconstruction quality by
+making use of higher computational resources.</p>
 </section>
 <section id="thesis-organization">
 <h2>Thesis Organization<a class="headerlink" href="#thesis-organization" title="Link to this heading"></a></h2>
+<p>In the first part of the thesis, the theoretical framework behind DDPMs
+is established and related work is introduced, that successfully managed
+to condition unconditionally trained DDPMs. In the second part, the
+introduced conditioning methods are adapted to fit the task of
+reconstructing undersampled MRI and the used model architectures,
+training protocols and datasets are introduced. The third part shows the
+experimental results from model training and compares the performance
+between the different conditioning methods, by evaluating them over
+different accelerations and sampling strategies.</p>
 </section>
 </section>
 <section id="materials-and-methods">
 <h1>Materials and Methods<a class="headerlink" href="#materials-and-methods" title="Link to this heading"></a></h1>
-<p>The objectives of the “Materials and Methods” section are the following:</p>
-<ul class="simple">
-<li><p><em>What are tools and methods you used?</em> Introduce the environment, in
-which your work has taken place - this can be a software package, a
-device or a system description. Make sure sufficiently detailed
-descriptions of the algorithms and concepts (e.g. math) you used
-shall be placed here.</p></li>
-<li><p><em>What is your work?</em> Describe (perhaps in a separate chapter) the key
-component of your work, e.g. an algorithm or software framework you
-have developed.</p></li>
-</ul>
+<section id="image-guided-diffusion">
+<h2>Image Guided Diffusion<a class="headerlink" href="#image-guided-diffusion" title="Link to this heading"></a></h2>
+<p>Both, Choi et al. and Lugmayr et al. make use of unconditional DDPMs for
+image-guided diffusion for the tasks of image translation in the former
+and in-painting in the
+latter. <a href="#id25"><span class="problematic" id="id26">:raw-latex:`\autocite{choi2021ilvr,lugmayr2022repaint}`</span></a>
+Similarly, classifier guidance or CLIP-guidance can be used to condition
+unconditional DDPMs to produce samples of a specific class or to match a
+prompt. <a href="#id27"><span class="problematic" id="id28">:raw-latex:`\autocite{dhariwal2021diffusion}`</span></a> Both approaches
+can be combined into a flexible framework that allows the reverse
+diffusion process to be conditioned on any data consistency term.</p>
+<section id="map-estimation-for-inverse-problems">
+<h3>MAP Estimation for Inverse Problems<a class="headerlink" href="#map-estimation-for-inverse-problems" title="Link to this heading"></a></h3>
+<p>Image reconstruction tasks, that make use of a prior over the desired
+reconstructed image, can be formulated as a MAP (maximum-a-posteriori)
+estimation problem</p>
+<div class="math notranslate nohighlight">
+\[\hat{x}_{MAP} = \argmax_x p(x|s) = \argmax_x \frac{p(s|x)p(x)}{p(s)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(s \sim p(s)\)</span> is the evidence that is provided by the
+measured signal, <span class="math notranslate nohighlight">\(p(x)\)</span> is a prior on the desired reconstruction
+and the likelihood term <span class="math notranslate nohighlight">\(p(s|x)\)</span> enforces a data consistency
+between the measured signal and the true distribution. Since maximizing
+<span class="math notranslate nohighlight">\(p(x|s)\)</span> is the same as maximizing <span class="math notranslate nohighlight">\(\log(x|s)\)</span> and
+<span class="math notranslate nohighlight">\(p(s)\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span>, we can separate the
+product into a sum.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \hat{x}_{MAP} &amp; = \argmax_x \log p(x|s)             \\ &amp; = \argmax_x \log{\frac{p(s|x)p(x)}{p(s)}} \\
+                  &amp; = \argmax_x \log p(s|x)p(x)         \\
+                  &amp; = \argmax_x \log p(s|x) + \log p(x)\end{aligned}\end{split}\]</div>
+<p>Such problems can be optimized using iterative optimization schemes such
+as gradient ascent <span class="math notranslate nohighlight">\(x_{t+1} = x_{t} + \lambda \nabla_{x} f(x, s)\)</span>,
+with <span class="math notranslate nohighlight">\(\lambda\)</span> being the step length.</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+    \label{eq:mapestimation}
+    x_{i+1} = x_{i} + \nabla_{x_i} \log p(s|x_i) + \nabla_{x_i} \log p(x_i)\end{aligned}\]</div>
+<p>Maximizing <span class="math notranslate nohighlight">\(p(s|x)\)</span> and <span class="math notranslate nohighlight">\(p(x)\)</span> is in practice usually
+reformulated as a minimization problem that optimizes for smallest error
+between prediction and acquisition <span class="math notranslate nohighlight">\(\mathcal{L}(s, x)\)</span> and
+enforces certain regularizers (priors) on <span class="math notranslate nohighlight">\(x\)</span> by minimizing
+<span class="math notranslate nohighlight">\(\mathcal{R}(x)\)</span>. An example for MRI reconstruction could include
+minimizing a mean-squared-error between predicted k-space
+<span class="math notranslate nohighlight">\(\mathcal{F}(x)\)</span> and acquired k-space <span class="math notranslate nohighlight">\(s\)</span>, while also
+minimizing the total variation in the
+image. <a href="#id29"><span class="problematic" id="id30">:raw-latex:`\autocite{RUDIN1992259}`</span></a></p>
+<div class="math notranslate nohighlight">
+\[\hat{x}_{MAP} = \argmin_x \mathcal{L}(s, x) + \mathcal{R}(x) = \argmin_x \frac{1}{n}||\mathcal{F}(x) - s||_2^2 + TV(x)\]</div>
+</section>
+<section id="ddpms-as-priors">
+<span id="sec-lossguidance"></span><h3>DDPMs as Priors<a class="headerlink" href="#ddpms-as-priors" title="Link to this heading"></a></h3>
+<p>DDPMs approximate a data distribution over training images <span class="math notranslate nohighlight">\(p(x)\)</span>
+and by the score-based formulation, they do so by learning to
+approximate gradients of this marginal
+likelihood. <a href="#id31"><span class="problematic" id="id32">:raw-latex:`\autocite{song2020generative}`</span></a> Sampling a DDPM
+therefore equals to starting in a random position and taking gradient
+ascent steps of the in the direction of maximizing <span class="math notranslate nohighlight">\(p(x)\)</span> or
+<span class="math notranslate nohighlight">\(\log p(x)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\label{eq:ddpmiteration}
+    x_{t-1} = x_{t} + \nabla_{x_t} \log p(x_t)\]</div>
+<p>Comparing this to Eq. <a class="reference external" href="#eq:mapestimation">[eq:mapestimation]</a> it is
+easy to see that this is the same as maximizing for a prior in a
+reconstruction task and we can introduce a data consistency that works
+similarly to
+classifier-guidance <a href="#id33"><span class="problematic" id="id34">:raw-latex:`\autocite{dhariwal2021diffusion}`</span></a>, but
+makes the reverse diffusion process converge to acquired data instead of
+an easily-classified image.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \hat{x} &amp; = \argmax_x \log p(x) + \log p_{\theta}(c|x)        &amp;  &amp; \text{(classifier-guidance)}       \\
+            &amp; = \argmax_x \log p(x) + \log p(s|x)                 &amp;  &amp; \text{(data-consistency guidance)} \\
+            &amp; = \argmax_x \log p(x) + \argmin_x \mathcal{L}(s, x) &amp;  &amp; \text{(for $\mathcal{L} \geq 0$)}  \\\end{aligned}\end{split}\]</div>
+<p>The constraint <span class="math notranslate nohighlight">\(\mathcal{L} \geq 0\)</span> is true for the usual
+distance-based loss functions like mean-squared-error or the <span class="math notranslate nohighlight">\(L_1\)</span>
+loss. A step in the iterative process has the following form and this
+algorithm will from now on be termed <em>loss-guidance</em>.</p>
+<div class="math notranslate nohighlight">
+\[x_{t-1} = x_{t} + \nabla_{x_t} \log p(x_t) - \nabla_{x_t} \mathcal{L}(s, x)\]</div>
+<p>The formulation used for the task of reconstructing undersampled MRI
+used an MSE loss on the predicted and acquired k-space</p>
+<div class="math notranslate nohighlight">
+\[x_{t-1} = x_{t} + \nabla_{x_t} \log p(x_t) - g \cdot \nabla_{x_t} \frac{1}{\sum_n \mathcal{M}}||\mathcal{M} \circ \mathcal{F}(x_t) - s_0||_2^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(g\)</span> will be termed the <em>guidance factor</em> and the MSE is is
+not scaled by the number of pixels in the image, but by the number of
+non-zero elements of the mask. This is done in order to compare guidance
+factors among masks with different accelerations. The guidance factor
+can be used to balance adherence of the outcome between prior and data
+consistency.</p>
+</section>
+</section>
+<section id="frequency-replacement">
+<span id="sec-freqreplacement"></span><h2>Frequency Replacement<a class="headerlink" href="#frequency-replacement" title="Link to this heading"></a></h2>
+<p>As already stated in <a class="reference external" href="#sec:imageguidance">9.3.2</a>, Choi et al. guide
+the diffusion process by substituting low frequency content of a desired
+latent representation with the low-frequencies of the predicted latent
+space. Since they use linear filters, we are free to reformulate as
+follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \label{eq:ilvr}
+    x_{t} &amp; = \phi(s_{t}) + (I - \phi) (\hat{x}_{t})        \\
+          &amp; = \hat{x}_{t} + \phi(s_{t}) - \phi(\hat{x}_{t}) \\
+          &amp; = \hat{x}_{t} + \phi(s_{t} - \hat{x}_{t})\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi\)</span> is a linear filter operation and <span class="math notranslate nohighlight">\(s_t\)</span> is
+obtained by using the forward process on the target
+image. <a href="#id35"><span class="problematic" id="id36">:raw-latex:`\autocite{choi2021ilvr}`</span></a> With the knowledge of the
+gradient of the MSE</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \text{MSE}              &amp; = \frac{1}{N} (x - s)^T (x - s) \\
+    \nabla_{x_t} \text{MSE} &amp; = \frac{2}{N} (x - s)\end{aligned}\end{split}\]</div>
+<p>the frequency replacement can also be interpreted as locally
+approximating the gradient of the
+<span class="math notranslate nohighlight">\(\nabla_{x}(\phi(s) - \phi(x_{t}))|_{s=s_t}\)</span> and taking a step in
+that direction, which would correspond to the loss-guidance formulation
+derived earlier.</p>
+<p>Similarly, Lugmayr et al. use a replacement strategy, which we can
+reformulate to the structure from Choi et al.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \label{eq:repaint}
+    x_{t} &amp; = \mathcal{M}(s_t) + \mathcal{M}^{-1}(\hat{x}_t)        \\
+          &amp; = \mathcal{M}(s_t) + (I - \mathcal{M})(\hat{x}_t)       \\
+          &amp; = \hat{x}_t - \mathcal{M}(\hat{x}_t) + \mathcal{M}(s_t) \\
+          &amp; = \hat{x}_t + \mathcal{M}(s_t - \hat{x}_t)\end{aligned}\end{split}\]</div>
+<p>Applying these two approaches to the problem of MRI reconstruction
+requires calculating <span class="math notranslate nohighlight">\(s_t\)</span> from <span class="math notranslate nohighlight">\(s_0\)</span> which can be done in
+image space as
+<span class="math notranslate nohighlight">\(s_t = \mathcal{F}^{-1} \circ \mathcal{M} \circ \mathcal{F} (\sqrt{\bar{\alpha}_t} \mathcal{F}^{-1}(s_0) + \sqrt{1-\bar{\alpha}_t} \epsilon)\)</span>,
+or directly in k-space as
+<span class="math notranslate nohighlight">\(s_t = \mathcal{F}^{-1} \circ \mathcal{M} (\sqrt{\bar{\alpha}_t} s_0 + \sqrt{\frac{1-\bar{\alpha}_t}{2}} \epsilon)\)</span>
+as experimentally derived. The scaling of the noise variance with factor
+<span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> was experimentally found and can be verified in
+Fig. <a class="reference external" href="#fig:kspacedistribution">3.2</a>. The complete formulation of the
+update step is therefore</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    x_{t} &amp; = \hat{x}_t + \mathcal{F}^{-1}\circ\mathcal{M}\circ\mathcal{F}(\hat{x}_t) - \mathcal{F}^{-1} \circ \mathcal{M} \circ \mathcal{F} (s_t) \\
+          &amp; = \hat{x}_t + \mathcal{F}^{-1}\left(\mathcal{M}\circ\mathcal{F}(\hat{x}_t) - \mathcal{M} \circ \mathcal{F} (s_t)\right)                \\\end{aligned}\end{split}\]</div>
+<p>which makes use of the linearity of the Fourier transform.</p>
+</section>
+<section id="network-architecture">
+<h2>Network Architecture<a class="headerlink" href="#network-architecture" title="Link to this heading"></a></h2>
+<p>The neural network is responsible for predicting the noise in an image
+and the UNet architecture has proven useful for estimating the noise in
+natural images, which is the context where DDPMs usually
+operate. <a href="#id37"><span class="problematic" id="id38">:raw-latex:`\autocite{ronneberger2015unet,ho2020denoising}`</span></a> The
+UNet implementation which was used in most experiments of this work is
+closely related to the original implementation by Ronneberger et al.,
+which means that it is a fully convolutional architecture, while most
+other works use more sophisticated architectures that include
+Transformer-inspired self-attention layers for better global context
+awareness of the model and residual connections for faster
+convergence. <a href="#id39"><span class="problematic" id="id40">:raw-latex:`\autocite{vaswani2017attention,he2015deep}`</span></a>
+Saharia et al. did ablation studies on the self-attention layers and
+tried to replace them with other methods, such as local self-attention
+or dilated convolutions, but showed that the global self-attention
+increased both, mode coverage of the data distribution as well as sample
+fidelity. <a href="#id41"><span class="problematic" id="id42">:raw-latex:`\autocite{saharia2022palette}`</span></a> Fully convolutional
+architectures on the other hand have the advantage that, if trained
+appropriately, they can generalize to different image resolutions, which
+was the motivation behind using a fully convolutional network. Such
+training could be done on random crops of the training images, while
+sampling would happen in the full resolution. While the network design
+allows for the inclusion of self-attention layers, the additional
+computational cost made it difficult to reach convergence in a
+reasonable time and the results from the fully convolutional
+architectures were deemed sufficient for the context of this work.
+Therefore the best network checkpoint, that was used in the conditioning
+studies of <a class="reference external" href="#sec:experimentsandresults">6</a>, uses the fully
+convolutional architecture as presented in Fig. <a class="reference external" href="#fig:unetconv">8.1</a>.
+This architecture sequentially increases the channels and decreases the
+resolution with a factor of 2 in the encoder and then upsamples the
+outputs of this bottleneck by incorporating additional local information
+through the use of skip-connections. Every block of the encoder does
+this by double-convolutions (without residual connections) and
+max-pooling, while the decoder uses transpose convolutions and
+double-convolutions for the upsampling. The network offers two
+possibilities of increasing the total amount of parameters: 1.
+Increasing the encoder depth, which is limited by the resolution of the
+training images; 2. Increasing the number of initial channels, which can
+for example be 64, 128 or 256. The exact network specifications can be
+found in Table <a class="reference external" href="#tab:unetlayers">8.1</a>.</p>
+<p>Noise prediction is easier for the network if it is conditioned on the
+timestep of the training image. This conditioning is done by
+broadcasting a linear embedding of the Transformer-style time encoding
+(see Fig. <a class="reference external" href="#fig:timeencoding">3.4</a>) onto the feature dimension
+(channels). <a href="#id43"><span class="problematic" id="id44">:raw-latex:`\autocite{vaswani2017attention}`</span></a></p>
+<div class="docutils container" id="tab-unetlayers">
+<table class="docutils align-default" id="id102">
+<caption><span class="caption-text">Overview over UNet Architecture.</span><a class="headerlink" href="#id102" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>architecture part</strong></p></th>
+<th class="head"><p><strong>specification</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>base channels (<span class="math notranslate nohighlight">\(ch\)</span>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^n\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>base resolution (<span class="math notranslate nohighlight">\(res\)</span>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^x \times 2^m\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>convolutional block</p></td>
+<td><p>convolution</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>batchnorm</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>activation</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>dropout</p></td>
+</tr>
+<tr class="row-even"><td><p>encoder block</p></td>
+<td><p>convolutional block
+(<span class="math notranslate nohighlight">\(ch \rightarrow ch\times 2\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>convolutional block
+(:math:`
+chtimes 2 rightarrow chtimes 2`)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>max pool
+(<span class="math notranslate nohighlight">\(res\rightarrow res/ 2\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>decoder block</p></td>
+<td><p>transpose convolution
+(
+<span class="math notranslate nohighlight">\(res\times 2\rightarrow res\)</span>,
+<span class="math notranslate nohighlight">\(ch\times 2 \rightarrow ch\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>batchnorm</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>activation</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>dropout</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>skip connection stack
+(<span class="math notranslate nohighlight">\(ch \rightarrow ch\times 2\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>convolutional block
+(<span class="math notranslate nohighlight">\(ch\times 2 \rightarrow ch\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bottleneck</p></td>
+<td><p>convolutional block
+(<span class="math notranslate nohighlight">\(ch \rightarrow ch\times 2\)</span>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="slowing-down-short-grained-resampling-long-grained-resampling">
+<h2>Slowing Down, Short-Grained Resampling &amp; Long-Grained Resampling<a class="headerlink" href="#slowing-down-short-grained-resampling-long-grained-resampling" title="Link to this heading"></a></h2>
+<p>Various approaches exist to give the reverse diffusion process more time
+to converge to a meaninful final prediction.</p>
+</section>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Link to this heading"></a></h2>
+<p>Introductory experiments were conducted on low-resolution datasets in
+order to debug the model implementation and determine the best training
+strategies. These datasets were the well-known MNIST and
+CIFAR10 <a href="#id45"><span class="problematic" id="id46">:raw-latex:`\autocite{mnist,cifar}`</span></a> in resolutions of
+<span class="math notranslate nohighlight">\(28\times28\)</span> and <span class="math notranslate nohighlight">\(32\times32\)</span> pixels respectively. Since the
+encoder stack relies on image resolutions of <span class="math notranslate nohighlight">\(2^n\times2^k\)</span> with
+<span class="math notranslate nohighlight">\(n,k\in \mathbb{N}\)</span>, the MNIST images were upscaled to an equal
+<span class="math notranslate nohighlight">\(32\times32\)</span> resolution. The MNIST dataset is a dataset containing
+60’000 training images of handwritten digits 0 to 9 and CIFAR10 contains
+50’000 training images distributed over 10 classes like airplane, bird,
+cat, etc.</p>
+<p>The main dataset used in the experiments were the RSS (root sum of
+squares) reconstructions from the brain dataset in
+fastMRI. <a href="#id47"><span class="problematic" id="id48">:raw-latex:`\autocite{zbontar2018fastMRI}`</span></a> FastMRI is a
+collection of several MRI datasets, a large dataset of multi-coil brain
+scans among them. In addition to the raw multi-coil data, RSS
+reconstructions, combining the coils by using estimates of the
+sensitivity maps, are also available. Those reconstructions have very
+high quality and therefore this dataset provides a strong basis for
+useage as a prior in the reconstruction task. The RSS reconstructions
+provide a total of 60’090 slices of resolution <span class="math notranslate nohighlight">\(320\times320\)</span>
+pixels and models were trained on downsampled versions of
+<span class="math notranslate nohighlight">\(256\times 256\)</span>, <span class="math notranslate nohighlight">\(128\times 128\)</span> and <span class="math notranslate nohighlight">\(64\times 64\)</span>
+pixels.</p>
+<p>While the authors of fastMRI suggest equally-spaced masks with a fixed
+center fraction for brain
+images <a href="#id49"><span class="problematic" id="id50">:raw-latex:`\autocite{zbontar2018fastMRI}`</span></a>, the masks used in
+this work have fixed center fractions, but are randomly sampled for the
+higher frequencies. Three masks, and the effect they have on the
+samples, are shown in Fig. <a class="reference external" href="#fig:kspacemasking">8.2</a>. These masks are
+similar to the ones used in the experimental part.</p>
+</section>
+<section id="software-package">
+<h2>Software Package<a class="headerlink" href="#software-package" title="Link to this heading"></a></h2>
+<p>In order to fully understand DDPMs it was decided to implement them from
+scratch instead of using repositories provided by the
+literature <a href="#id51"><span class="problematic" id="id52">:raw-latex:`\autocite{nichol2021improved}`</span></a> or by packages
+such as the Huggingface Diffusers
+library. <a href="#id53"><span class="problematic" id="id54">:raw-latex:`\autocite{huggingfacediffusers}`</span></a> The created
+repository is publicly accessible via GitHub and includes automatic
+documentation generation using Sphinx <a href="#id55"><span class="problematic" id="id56">:raw-latex:`\autocite{sphinx}`</span></a> and
+GitHub Actions <a href="#id57"><span class="problematic" id="id58">:raw-latex:`\autocite{githubactions}`</span></a>. Notable is also
+the useage of jaxtyping <a href="#id59"><span class="problematic" id="id60">:raw-latex:`\autocite{jaxtyping}`</span></a>, a library for
+type hinting tensor shapes. The repository and the documentation are
+accessible under the following links:</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">`https://github.com/liopeer/diffusionmodels</span></code> &lt;#https://github.com/liopeer/diffusionmodels&gt;`__</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">`https://liopeer.github.io/diffusionmodels/</span></code> &lt;#https://liopeer.github.io/diffusionmodels/&gt;`__</div>
+</div>
+<p>The software package is based on
+PyTorch <a href="#id61"><span class="problematic" id="id62">:raw-latex:`\autocite{paszke2019pytorch}`</span></a> and provides model
+architectures as well as training utilities. These utilities include the
+possibility for 1. distributed training, 2. training logging and
+checkpointing, 3. mixed-precision training and inference, implemented
+using the following frameworks.</p>
+<dl class="simple">
+<dt>Weights &amp; Biases</dt><dd><p>provides an API that allows logging the model training via their
+website (<code class="docutils literal notranslate"><span class="pre">`https://wandb.ai/</span></code> &lt;#https://wandb.ai/&gt;`__). The tool is
+free for students and academic researchers and automatically logs
+model configuration, gradients and hardware parameters in addition to
+user-specified logs, such as sample images, losses and inference
+times. When using git for versioning it also logs the most recent git
+commit, allowing to resume model training or to rerun an experiment
+with exactly the same code. When training models over several days it
+was very convenient to be able to observe the process from the
+smartphone and look at samples generated by the
+model. <a href="#id63"><span class="problematic" id="id64">:raw-latex:`\autocite{wandb}`</span></a></p>
+</dd>
+<dt>PyTorch DDP (DistributedDataParallel)</dt><dd><p>parallelizes model training by launching individual processes for
+each GPU, or it can even launch processes across different machines.
+Separate processes are necessary in order to enable true parallelism
+that avoids Python GIL (global interpreter lock). During
+initialization, the model is copied across the different GPUs and
+during training only the gradients are synchronized and averaged
+across the GPUs, therefore the optimizers essentially train a local
+model per each process. Gradient synchronization is automatically
+invoked by calling <code class="docutils literal notranslate"><span class="pre">loss.backward()</span></code>, but can be avoided by
+including forward and backward in the <code class="docutils literal notranslate"><span class="pre">no_sync()</span></code> content manager,
+which is useful when using gradient accumulation over several
+micro-batches, where the gradient synchronization would create
+unnecessary overhead. As part of DDP, PyTorch also offers
+<code class="docutils literal notranslate"><span class="pre">DistributedSampler</span></code> (to be used with <code class="docutils literal notranslate"><span class="pre">DataLoader</span></code>), which splits
+mini-batches into micro-batches and assigns them to the respective
+processes. For models that use batch normalization layers, DDP also
+offers the module <code class="docutils literal notranslate"><span class="pre">SyncBatchNorm</span></code> and a function to recursively
+change all batch normalization layers to synchronized batch
+normalization. Synchronizing the batch normalization might be
+important for small micro-batch sizes or when the number of GPUs
+changes during training (e.g. continuing from a checkpoint).</p>
+</dd>
+<dt>PyTorch AMP (Automatic Mixed Precision)</dt><dd><p>provides a context manager and a function decorator that will convert
+certain operations to half-precision (16 bit), which gives a
+significant speedup for linear layers or convolutions, but keeps high
+precision for operations such as reductions. Half precision training
+might lead to underflow of gradients, because of the reduced value
+range and can be avoided by scaling the loss and therefore the
+gradients, while also inversely scaling the update step. AMP provides
+the <code class="docutils literal notranslate"><span class="pre">GradScaler</span></code> class for this purpose.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="related-work">
+<h1>Related Work<a class="headerlink" href="#related-work" title="Link to this heading"></a></h1>
 <section id="latent-variable-models">
 <h2>Latent Variable Models<a class="headerlink" href="#latent-variable-models" title="Link to this heading"></a></h2>
-<p>Before getting started it is important to define the terms used in the
-next sections, since they all stem from Bayesian statistics. The
-Bayesian theorem can be written as</p>
+<p>Latent variable models are generative models which assume that it is
+possible to model the true data distribution <span class="math notranslate nohighlight">\(p(x)\)</span> as a joint
+distribution <span class="math notranslate nohighlight">\(p(x,z)\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span> are
+multi-variate random vectors.</p>
 <div class="math notranslate nohighlight">
-\[p(z|x) = \frac{p(x|z)p(z)}{p(x)}\]</div>
-<p>where it is implicitly assumed that <span class="math notranslate nohighlight">\(p\)</span> is a probability density
-function over two continuous random variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span>.
-The formula holds in general, but in generative modeling and machine
-learning it is usually assumed that the letter <span class="math notranslate nohighlight">\(z\)</span> represents a
-random variable in a latent (unobserved) space from which – after
-successful training – new data can be generated by sampling. This
-requires that <span class="math notranslate nohighlight">\(p(z)\)</span> is a simple distribution from which sampling
-is easy and that the trained model is capable of mapping values from the
-latent distribution to the true data distribution.</p>
-<p>Using above described ordering, the four terms in this formula use
+\[\label{eq:marginallikelihood}
+    p(x) = \int p(x,z)dz = \int p(x|z)p(z)dz\]</div>
+<p>Many naturally occurring distributions of samples can be imagined to
+come from a much simpler underlying distribution, which is obscured by
+the space that they are observed in. This is the main motivation behind
+latent variable models and in order to understand these models, it is
+important to define the terms used in the next sections, since they all
+stem from Bayesian statistics. The Bayesian theorem can be written as</p>
+<div class="math notranslate nohighlight">
+\[\label{eq:bayestheorem}
+    p(z|x) = \frac{p(x|z)p(z)}{p(x)}\]</div>
+<p>which is a generally applicable formula for any conditional
+distributions, but in generative modeling and machine learning it is
+usually assumed that the letter <span class="math notranslate nohighlight">\(z\)</span> represents a random vector of
+a simpler distribution in the latent (unobserved) space, and <span class="math notranslate nohighlight">\(x\)</span>
+is the random vector modeling the complicated distribution in the
+observed space (the sample space). The four terms in the formula use
 distinct names:</p>
 <dl class="simple">
 <dt><span class="math notranslate nohighlight">\(p(x)\)</span></dt><dd><p>is called the <em>evidence</em> or the <em>marginal likelihood</em>. It encompasses
@@ -329,66 +1072,114 @@ before any conditioning.</p>
 <dt><span class="math notranslate nohighlight">\(p(z|x)\)</span></dt><dd><p>is called the <em>posterior</em>. It describes the distribution over
 <span class="math notranslate nohighlight">\(z\)</span> after (<em>post</em>) having seen the evidence <span class="math notranslate nohighlight">\(x\)</span>.</p>
 </dd>
-<dt><span class="math notranslate nohighlight">\(p(x|z)\)</span></dt><dd><p>is called the <em>likelihood</em>. It gives the literal likelihood of
+<dt><span class="math notranslate nohighlight">\(p(x|z)\)</span></dt><dd><p>is called the <em>likelihood</em>, since it gives the likelihood of
 observing an example <span class="math notranslate nohighlight">\(x\)</span> when choosing the latent space to be a
 specific <span class="math notranslate nohighlight">\(z\)</span>.</p>
 </dd>
 </dl>
-</section>
 <section id="variational-autoencoders">
-<h2>Variational Autoencoders<a class="headerlink" href="#variational-autoencoders" title="Link to this heading"></a></h2>
+<h3>Variational Autoencoders<a class="headerlink" href="#variational-autoencoders" title="Link to this heading"></a></h3>
 <p>One of the most straightforward examples of a generative model, where
 the goal is to find such a latent space representation of the training
 sample distribution, is the Variational Autoencoder
-(VAE) <a href="#id7"><span class="problematic" id="id8">:raw-latex:`\autocite{kingma2022autoencoding}`</span></a>. The name of the
-VAE stems from the Autoencoder, a network that tries to recreate its
-output through a bottleneck and thereby learns a compressed
-representation of the
-data. <a href="#id9"><span class="problematic" id="id10">:raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}`</span></a>
+(VAE) <a href="#id65"><span class="problematic" id="id66">:raw-latex:`\autocite{kingma2013autoencoding}`</span></a>. For the two
+factors in Eq. <a class="reference external" href="#eq:marginallikelihood">[eq:marginallikelihood]</a>, the
+VAE uses a simple multivariate distribution as the latent
+<span class="math notranslate nohighlight">\(p_{\theta_z}(z)\)</span> (e.g. a multivariate Gaussian) and a neural
+network mapping <span class="math notranslate nohighlight">\(p_{\theta_{NN}}(x|z)\)</span>. Training then includes
+finding optimal parameters for the parameterized latent distribution and
+for the neural network mapping, such that sampling <span class="math notranslate nohighlight">\(z\)</span> and mapping
+it to the sample space is almost the same as sampling <span class="math notranslate nohighlight">\(x\)</span>
+directly. When no prior over the parameters
+<span class="math notranslate nohighlight">\(\theta_z, \theta_{NN}\)</span> is considered, this is usually done
+through an MLE (maximum likelihood estimate)
+<span class="math notranslate nohighlight">\(\hat{\theta} = \argmax_{\theta} p_{\theta}(x)\)</span>. While simple
+latent variable models can be optimized through differentiation, or
+iterative algorithms such as EM (expectation maximization) and gradient
+descent, these algorithms usually don’t work for complicated multi-modal
+distributions (as parameterized by neural networks), since the integral
+in Eq. <a class="reference external" href="#eq:marginallikelihood">[eq:marginallikelihood]</a> has no
+closed form solution and is also difficult or costly to estimate.
+Therefore it would be preferred to use a parameterization instead that
+also uses an estimation of the posterior
+<span class="math notranslate nohighlight">\(p_{\theta}(z|x) \approx p(z|x)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\label{eq:likelihoodvae}
+    p_{\theta}(x) = \int p_{\theta_{NN}}(x|z) p_{\theta_z}(z) dz\]</div>
+<p>Figure The name of the VAE stems from the Autoencoder, a neural network
+that learns to recreate its output through an encoder with a bottleneck
+and a decoder, thereby learning a compressed representation of the data
+at the bottleneck and Fig. <a class="reference external" href="#fig:vae">9.1</a> illustrates the
+connection. <a href="#id67"><span class="problematic" id="id68">:raw-latex:`\autocite{https://doi.org/10.1002/aic.690370209}`</span></a>
 Autoencoders bear similarity to other dimension reduction methods like
 Principal Component Analysis (PCA) and therefore were first published
-under the name <em>Nonlinear principal component analysis</em>. The
-<em>variational</em> part in the VAE stems from the fact that it does not only
-learn to recreate input samples through dimensionality reduction, but is
-also optimized to represent the distribution over the training samples
-as a combination of a parameterized latent distribution
-<span class="math notranslate nohighlight">\(p_{\theta_z}(z)\)</span> and a neural network mapping
-<span class="math notranslate nohighlight">\(p_{\theta_{NN}}(x|z)\)</span> between the latent space and the sample
-space, termed decoder. The latent distribution is chosen such that
-sampling from it is easy (e.g. a multivariate Gaussian, with the
-parameters being vectors of means and variances). With sufficient
-dimensionality reduction the encoding should not overfit and the latent
-space should be a good approximation of the true data manifold. This
-enables the creation of data, by sampling the latent space and mapping
-it to the output.</p>
-<p>Marginalizing <span class="math notranslate nohighlight">\(p_\theta(x)\)</span> requires another approximation of the
-posterior <span class="math notranslate nohighlight">\(p(z|x)\)</span> with a neural network, termed the encoder
-<span class="math notranslate nohighlight">\(p_{\theta_{NN_{in}}}(z|x)\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[p_{\theta}(x) = \int p_{\theta_{NN}}(x|z) p_{\theta_z}(z) dz = \frac{p_{\theta_{NN_{out}}}(x|z) p_{\theta_z}(z)}{p_{\theta_{NN_{in}}}(z|x)}\]</div>
-<p>A schematic of a VAE, separated into these 3 factors – encoder, latent
-distribution and decoder – is shown in Fig. <a class="reference external" href="#fig:vae">7.1</a>.</p>
+under the name <em>Nonlinear principal component analysis</em>.</p>
 </section>
 <section id="kl-divergence-and-variational-lower-bound">
-<h2>KL Divergence and Variational Lower Bound<a class="headerlink" href="#kl-divergence-and-variational-lower-bound" title="Link to this heading"></a></h2>
+<h3>KL Divergence and Variational Lower Bound<a class="headerlink" href="#kl-divergence-and-variational-lower-bound" title="Link to this heading"></a></h3>
 <p>In VAEs, the encoder <span class="math notranslate nohighlight">\(p_{\theta}(z|x)\)</span> needs to approximate the
-posterior <span class="math notranslate nohighlight">\(p(z|x)\)</span>, therefore a differentiable loss function is
-needed that compares two probability distributions. One such heavily
-used measure is the KL (Kullback-Leibler) divergence</p>
+true posterior <span class="math notranslate nohighlight">\(p(z|x)\)</span> and sampled data should look like it was
+sampled from <span class="math notranslate nohighlight">\(p(x)\)</span>. This requires a measure that can compare the
+similiarity between two probability distributions. One such heavily used
+measure is the KL (Kullback-Leibler) divergence, formulated for the
+posterior and its approximation as</p>
 <div class="math notranslate nohighlight">
-\[KL\left[p_{\theta}(z|x) || p(z|x)\right] = \int \log \frac{p_{\theta}(z|x)}{p(z|x)} p_{\theta}(z|x) dz\]</div>
-<p>which has the properties of being strictly non-negative and is only 0 if
-the two distributions are equal.</p>
-<p>At the same time, the output of the VAE should fit the true data
-distribution well, e.g. should maximize the log-likelihood of the
-evidence <span class="math notranslate nohighlight">\(p_{\theta}(x|z)\)</span>. This term is mainly responsible for
-the reconstruction of truthful samples from the latent space. Combining
-the two terms and inverting the signs (for minimization rather than
-maximization) gives a loss function known as ELBO (evidence lower bound)
-or VLB (variational lower bound).</p>
+\[\label{eq:kldivergence}
+    KL\left[p_{\theta}(z|x) || p(z|x)\right] = \int \log \frac{p_{\theta}(z|x)}{p(z|x)} p_{\theta}(z|x) dz = \mathbb{E}_{z\sim p_{\theta}(z|x)}\left[\log \frac{p_{\theta}(z|x)}{p(z|x)}\right].\]</div>
+<p>The KL divergence has the properties of being strictly non-negative and
+only being 0 if the two distributions are equal, but the proofs of those
+properties are omitted in this work.</p>
+<p>The problem with the KL divergence in
+Eq. <a class="reference external" href="#eq:kldivergence">[eq:kldivergence]</a> is that the true posterior
+is unknown. We will therefore introduce a loss function called ELBO
+(evidence lower bound) or VLB (variational lower bound) that
+automatically makes sure that the KL divergence between the
+parameterized posterior and the true posterior is minimized, without
+knowing <span class="math notranslate nohighlight">\(p(z|x)\)</span>. For understanding the ELBO, it is important to
+note that the marginal log-likelihood can be written as follows
+(derivation in the appendix):</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+    \log p_{\theta}(x) &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log \frac{p_{\theta_{NN}}(x|z) p_{\theta_z}(z)}{p_{\theta_{NN}}(z|x)}\right] + KL\left[p_{\theta_{NN}}(z|x)||p(z|x)\right]\end{aligned}\]</div>
+<p>From the properties of the KL divergence we know that the second term on
+the right hand side is strictly non-negative, this means that the first
+term on the right hand side offers a lower bound to the log-likelihood
+of the data and the difference between that first term and the
+log-likelihood of the data is exactly the KL divergence that we wanted
+to minimize in Eq. <a class="reference external" href="#eq:kldivergence">[eq:kldivergence]</a>. The
+relationship is also illustrated in Fig. <a class="reference external" href="#fig:elbo">9.2</a>.</p>
 <div class="math notranslate nohighlight">
 \[\label{eq:elbo}
-    \mathcal{L}_{VLB} = - \log p_{\theta}(x|z) + KL\left[p_{\theta}(z|x) || p(z|x)\right]\]</div>
+    \log p_{\theta}(x) \geq \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log\frac{p_{\theta_{NN}}(x|z) p_{\theta_z}(z)}{p_{\theta_{NN}}(z|x)}\right]\]</div>
+<p>This means that, if we could maximize the term ELBO term from
+Eq. <a class="reference external" href="#eq:elbo">[eq:elbo]</a> it would not only approach the
+log-likelihood, but simultaneously make sure that the estimated
+posterior converges to the true posterior. Luckily, for the
+parameterization of the VAE, the ELBO term can be split into two
+interpretable parts for optimization.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log\frac{p_{\theta_{NN}}(x|z) p_{\theta_z}(z)}{p_{\theta_{NN}}(z|x)}\right] &amp; = \mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log p_{\theta_{NN}}(x|z)\right] - \mathbb{E}_{z\sim p_{\theta_{NN}}(x|z)}\left[\log \frac{p_{\theta_{z}}(z)}{p_{\theta_{NN}}(z|x)}\right]                                        \\
+                                                                                                                              &amp; = \underbrace{\mathbb{E}_{z\sim p_{\theta_{NN}}(z|x)}\left[\log p_{\theta_{NN}}(x|z)\right]}_{\text{reasonable reconstruction}} - \underbrace{KL \left[p_{\theta_{NN}}(z|x)||p_{\theta_{z}}(z)\right]}_{\text{correct encoding}}\end{aligned}\end{split}\]</div>
+<p>Maximizing the first part makes sure that the decoder reconstructs
+reasonable samples from the latent distribution, minimizing the second
+makes sure that the encoder transforms the training data into our chosen
+prior over the latents <span class="math notranslate nohighlight">\(z\)</span> (usually Gaussian, as mentioned
+before). The reconstruction term is trivially maximized by minimizing
+some loss between input and output and if the prior <span class="math notranslate nohighlight">\(p(z)\)</span> is
+chosen to be a Gaussian <span class="math notranslate nohighlight">\(p_{\theta_{z}}(z)\)</span>, then the KL
+divergence has a closed form, the derivation of which is
+omitted. <a href="#id69"><span class="problematic" id="id70">:raw-latex:`\autocite{mreasykldivergence}`</span></a></p>
+<div class="math notranslate nohighlight">
+\[D_{KL}(p||q) = \frac{1}{2}\left[\log\frac{|\Sigma_q|}{|\Sigma_p|} - k + (\boldsymbol{\mu_p}-\boldsymbol{\mu_q})^T\Sigma_q^{-1}(\boldsymbol{\mu_p}-\boldsymbol{\mu_q}) + tr\left\{\Sigma_q^{-1}\Sigma_p\right\}\right]\]</div>
+<p>In the next section, the DDPM (diffusion denoising probabilistic model)
+will be introduced, which is the model architecture used throughout this
+work. As will be clear shortly, DDPMs can be viewed as a chained VAE
+that uses a sequence of latent spaces. This is an arguably easier
+learning problem, since the neural network does not have to map directly
+from noise to samples, but can do so in an iterative process over many
+steps.</p>
+</section>
 </section>
 <section id="diffusion-denoising-probabilistic-models">
 <h2>Diffusion Denoising Probabilistic Models<a class="headerlink" href="#diffusion-denoising-probabilistic-models" title="Link to this heading"></a></h2>
@@ -401,98 +1192,97 @@ these steps can be inverted.</p>
 we use the random variable <span class="math notranslate nohighlight">\(\bm{x}_0\)</span> to represent our original
 training images, <span class="math notranslate nohighlight">\(\bm{x}_t\)</span> for (partially noisy) images at an
 intermediate timestep and <span class="math notranslate nohighlight">\(\bm{x}_T\)</span> for images at the end of the
-process where all information has been destroyed and the distribution
+process where all information has been destroyed, and the distribution
 <span class="math notranslate nohighlight">\(q(\bm{x}_T)\)</span> largely follows an isotropic Gaussian distribution.</p>
 <p>The goal is to train a network that creates a less noisy image
-<span class="math notranslate nohighlight">\(\bm{x}_{t-1}\)</span> from <span class="math notranslate nohighlight">\(\bm{x}_t\)</span>. If this is achieved we
-should be able to sample some new <span class="math notranslate nohighlight">\(\bm{x}_T\)</span> and generate new
-samples from the training distribution <span class="math notranslate nohighlight">\(q(\bm{x}_0)\)</span> by passing
-this noisy image many times through the network until the noise is fully
-removed.</p>
+<span class="math notranslate nohighlight">\(\bm{x}_{t-1}\)</span> from <span class="math notranslate nohighlight">\(\bm{x}_t\)</span>. If this is achieved over the
+whole training distribution, then sampling new <span class="math notranslate nohighlight">\(\bm{x}_T\)</span> and
+passing and iteratively denoising it, should be the same as sampling
+<span class="math notranslate nohighlight">\(q(\bm{x}_0)\)</span> directly.</p>
 <section id="forward-diffusion-process">
 <h3>Forward Diffusion Process<a class="headerlink" href="#forward-diffusion-process" title="Link to this heading"></a></h3>
-<section id="mathematical-description">
-<h4>Mathematical Description<a class="headerlink" href="#mathematical-description" title="Link to this heading"></a></h4>
 <p>In order to derive a training objective it is important to understand
 the workings of the <em>forward diffusion process</em>. During this process,
 i.i.d (independent and identically distributed) Gaussian noise is
 applied to the image over many discrete timesteps. A <em>variance schedule</em>
 defines the means and variances (<span class="math notranslate nohighlight">\(\sqrt{1-\beta}\)</span> and
 <span class="math notranslate nohighlight">\(\beta\)</span>) of the added noise at every
-timestep. <a href="#id11"><span class="problematic" id="id12">:raw-latex:`\autocite{ho2020denoising}`</span></a> The whole process can
+timestep. <a href="#id71"><span class="problematic" id="id72">:raw-latex:`\autocite{ho2020denoising}`</span></a> The whole process can
 be expressed as a Markov chain (depicted in
-Fig. <a class="reference external" href="#fig:forward_diffusion">7.2</a>), with the factorization</p>
+Fig. <a class="reference external" href="#fig:forward_diffusion">9.3</a>), with the factorization</p>
 <div class="math notranslate nohighlight">
-\[\label{eq:forwardprocess}
-    q(\bm{x}_T|\bm{x}_0) = q(\bm{x}_0) \prod_{t=1}^{T} q(\bm{x}_{t}|\bm{x}_{t-1})\]</div>
+\[\begin{split}\begin{aligned}
+    \label{eq:forwardprocess}
+    q(\bm{x}_{0:T})            &amp; = q(\bm{x}_0) \prod_{t=1}^{T} q(\bm{x}_{t}|\bm{x}_{t-1}) &amp;  &amp; \text{(joint distribution)}       \\
+    q(\bm{x}_{0:T}|\bm{x}_{0}) &amp; = \prod_{t=1}^{T} q(\bm{x}_{t}|\bm{x}_{t-1})             &amp;  &amp; \text{(forwarding single sample)}\end{aligned}\end{split}\]</div>
 <p>where the transition distributions
-<span class="math notranslate nohighlight">\(q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{1-\beta_t} \bm{x}_{t-1}, \beta_t I)\)</span>.
-An example of iterative destruction of an image by this process is shown
-in Fig. <a class="reference external" href="#fig:forward_naoshima">7.3</a>.</p>
+<span class="math notranslate nohighlight">\(q(\bm{x}_t|\bm{x}_{t-1}) = \mathcal{N}(\sqrt{1-\beta_t} \bm{x}_{t-1}, \beta_t I)\)</span>
+and we used the shorthand notation
+<span class="math notranslate nohighlight">\(\bm{x}_{0:T} = \bm{x}_{0},\dots,\bm{x}_{T}\)</span>. An example of
+iterative destruction of an image by this process is shown in
+Fig. <a class="reference external" href="#fig:forward_naoshima">9.4</a>.</p>
 <p>Gladly it is not necessary to sample noise again and again in order to
 arrive at <span class="math notranslate nohighlight">\(\bm{x}_t\)</span>, since Ho et al. derived a closed-form
 solution to the sampling
-procedure. <a href="#id13"><span class="problematic" id="id14">:raw-latex:`\autocite{ho2020denoising}`</span></a> For this, the
+procedure. <a href="#id73"><span class="problematic" id="id74">:raw-latex:`\autocite{ho2020denoising}`</span></a> For this, the
 variance schedule is first reparameterized as <span class="math notranslate nohighlight">\(1-\beta = \alpha\)</span></p>
 <div class="math notranslate nohighlight">
 \[q(\bm{x}_t | \bm{x}_{t-1}) = \mathcal{N}(\sqrt{\alpha_t} \bm{x}_{t-1}, (1-\alpha_t) \bm{I})
     \label{eq:forward_alpha}\]</div>
 <p>and the closed-form solution for <span class="math notranslate nohighlight">\(q(\bm{x}_t|\bm{x}_0)\)</span> is derived
 by introducing the cumulative product
-<span class="math notranslate nohighlight">\(\bar{\alpha_t} = \prod_{s=1}^{t}\alpha_s\)</span> as</p>
+<span class="math notranslate nohighlight">\(\bar{\alpha}_t = \prod_{s=1}^{t}\alpha_s\)</span> as</p>
 <div class="math notranslate nohighlight">
-\[q(\bm{x}_t|\bm{x}_0) = \mathcal{N}(\sqrt{\bar{\alpha_t}}\bm{x}_0, (1-\bar{\alpha_t})\bm{I})
+\[q(\bm{x}_t|\bm{x}_0) = \mathcal{N}(\sqrt{\bar{\alpha}_t}\bm{x}_0, (1-\bar{\alpha}_t)\bm{I})
     \label{eq:forward_alphadash}\]</div>
-<p>A choice of <span class="math notranslate nohighlight">\(\bar{\alpha_t} \in [0,1]\)</span> in above parameterizaiton
-ensures that the variance does not explode in the process, but that the
-SNR (signal-to-noise-ratio) still goes to 0 by gradually attenuating the
-means, corresponding to the original image. Thanks to the
-reparameterization with <span class="math notranslate nohighlight">\(\bar{\alpha_t}\)</span>, the forward process is
-also not restricted anymore to discrete timesteps, but a continuous
-schedule can be
-used. <a href="#id15"><span class="problematic" id="id16">:raw-latex:`\autocite{kingma2023variational,song2021scorebased}`</span></a></p>
 <p>The derivation that leads from
 Eq. <a class="reference external" href="#eq:forward_alpha">[eq:forward_alpha]</a> to
 Eq. <a class="reference external" href="#eq:forward_alphadash">[eq:forward_alphadash]</a> is left to
-appendix <a class="reference external" href="#app:forward">2.1</a>.</p>
-</section>
-<section id="influence-of-scheduling-functions">
-<h4>Influence of Scheduling Functions<a class="headerlink" href="#influence-of-scheduling-functions" title="Link to this heading"></a></h4>
+appendix <a class="reference external" href="#app:forward">1.1</a>.</p>
+<p>A choice of <span class="math notranslate nohighlight">\(\bar{\alpha}_t \in [0,1]\)</span> in above parameterizaiton
+ensures that the variance does not explode in the process, but that the
+SNR (signal-to-noise-ratio) still goes to 0 by gradually attenuating the
+means, corresponding to the original image. Thanks to the
+reparameterization with <span class="math notranslate nohighlight">\(\bar{\alpha}_t\)</span>, the forward process is
+also not restricted anymore to discrete timesteps, but a continuous
+schedule can be
+used. <a href="#id75"><span class="problematic" id="id76">:raw-latex:`\autocite{kingma2023variational,song2021scorebased}`</span></a></p>
 <p>The process of information destruction is dependent on the chosen
 variance schedule, the number of steps and the image size. Beyond the
 most simple case – a constant variance over time – Ho et al. opted for
 the second most simple option, a linear schedule, where the variance
 <span class="math notranslate nohighlight">\(\beta_t\)</span> grows linearly in
-<span class="math notranslate nohighlight">\(t\)</span>. <a href="#id17"><span class="problematic" id="id18">:raw-latex:`\autocite{ho2020denoising}`</span></a> Nichol et al. later
+<span class="math notranslate nohighlight">\(t\)</span>. <a href="#id77"><span class="problematic" id="id78">:raw-latex:`\autocite{ho2020denoising}`</span></a> Nichol et al. later
 found that a cosine-based schedule gives better results on lower
 resolution images, since it does not destruct information quite as
 quickly, making it more informative in the last few timesteps. They also
 mention that their cosine schedule is purely based on intuition and they
-similar functions to perform equally
-well. <a href="#id19"><span class="problematic" id="id20">:raw-latex:`\autocite{nichol2021improved}`</span></a> Own experiments
+expect similar functions to perform equally
+well. <a href="#id79"><span class="problematic" id="id80">:raw-latex:`\autocite{nichol2021improved}`</span></a> Own experiments
 exploring above mentioned parameters are explained
-in <a class="reference external" href="#sec:forward_diff_experiments">5.1</a> and plots of the two
+in <a class="reference external" href="#sec:forward_diff_experiments">6.1.1</a> and plots of the two
 different variance schedules are visible in
-Fig. <a class="reference external" href="#fig:alphadash">5.1</a>.</p>
-</section>
+Fig. <a class="reference external" href="#fig:alphadash">6.4</a>.</p>
 </section>
 <section id="reverse-diffusion-process">
 <h3>Reverse Diffusion Process<a class="headerlink" href="#reverse-diffusion-process" title="Link to this heading"></a></h3>
-<p>DDPMs can be viewed as latent space models in a similar way that
-Generative Adversarial Nets or Variational Autoencoders
-can. <a href="#id21"><span class="problematic" id="id22">:raw-latex:`\autocite{goodfellow2014generative,kingma2022autoencoding}`</span></a></p>
-<p>In DDPMs the reverse process is again a Markov chain and can therefore
-again be factorized as</p>
+<p>As mentioned before DDPMs can be viewed as latent space models in a
+similar way that Generative Adversarial Nets or Variational Autoencoders
+can. <a href="#id81"><span class="problematic" id="id82">:raw-latex:`\autocite{goodfellow2014generative,kingma2013autoencoding}`</span></a>
+In DDPMs the reverse process is essentially again a Markov chain and can
+therefore again be factorized as</p>
 <div class="math notranslate nohighlight">
 \[\label{eq:reverseprocess}
-    q(\bm{x}_0|\bm{x}_T) = q(\bm{x}_T) \prod_{t=T}^{1} q(\bm{x}_{t-1}|\bm{x}_{t})\]</div>
-<p>which means that our network does not learn to approximate the full
-inversion, but rather just the transition probabilities
+    q(\bm{x}_{0:T}) = q(\bm{x}_T) \prod_{t=T}^{1} q(\bm{x}_{t-1}|\bm{x}_{t})\]</div>
+<p>where we start from <span class="math notranslate nohighlight">\(\bm{x}_T\sim\mathcal{N}(0,\bm{I})\)</span>. This
+means that the network does not learn to approximate the full inversion,
+but rather just the transition probabilities
 <span class="math notranslate nohighlight">\(q(\bm{x}_{t-1}|\bm{x}_{t})\)</span> in the chain, which are transitions
-between several intermediate latent distributions. Sohl-Dickstein et al.
-further showed that the reverse transitions are also Gaussian in the
-limit of <span class="math notranslate nohighlight">\(t \rightarrow 0\)</span>, e.g. as long as the diffusion steps
-are small enough. We therefore approximate</p>
+between several intermediate latent distributions. During training, we
+will need to condition the inversion on a training sample, where the
+Markov properties of the reverse process will no longer hold. In the
+appendix, it is shown that the inversion is also Gaussian, we therefore
+train a neural network to approximate</p>
 <div class="math notranslate nohighlight">
 \[\label{eq:reverseapprox}
     q(\bm{x}_{t-1} | \bm{x}_t) \approx p_{\theta}(\bm{x}_{t-1} | \bm{x}_t) = \mathcal{N}(\bm{\mu}_{\theta}(\bm{x}_t, t),\bm{\Sigma}_{\theta}(\bm{x}_t, t)).\]</div>
@@ -500,26 +1290,55 @@ are small enough. We therefore approximate</p>
 <section id="loss-functions">
 <h3>Loss Functions<a class="headerlink" href="#loss-functions" title="Link to this heading"></a></h3>
 <p>The combination of forward <span class="math notranslate nohighlight">\(q(\bm{x}_T|\bm{x}_0)\)</span> and reverse
-process <span class="math notranslate nohighlight">\(q(\bm{x}_0|\bm{x}_T)\)</span> can be viewed as a chain of many
-VAEs and we can again formulate a variational lower bound objective
-(Eq. <a class="reference external" href="#eq:elbo">[eq:elbo]</a>) that maximizes log-likelihood of the
-output and matches transition
-probabilities. <a href="#id23"><span class="problematic" id="id24">:raw-latex:`\autocite{nichol2021improved}`</span></a></p>
+process <span class="math notranslate nohighlight">\(q(\bm{x}_0|\bm{x}_T)\)</span> can be viewed as a chain of VAEs
+and we can again formulate a variational lower bound objective like
+before. The lengthy derivation of the ELBO for the DDPM is omitted in
+this work, but can be looked up in the Calvin Luo’s
+work. <a href="#id83"><span class="problematic" id="id84">:raw-latex:`\autocite{luo2022understanding}`</span></a> The final form is
+similar to the one from the VAE, with a reconstruction term and a prior
+matching term, but with additional terms that match the intermediate
+latents.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
-    \mathcal{L}_0       &amp; = - \log p_{\theta}(x_0|x_1)                                    \\
-    \mathcal{L}_{1:T-1} &amp; = KL\left[q(x_{t-1}|x_t, x_0) || p_{\theta}(x_{t-1}|x_t)\right] \\
-    \mathcal{L}_T       &amp; = KL\left[q(x_T|x_0) || p(x_T)\right]\end{aligned}\end{split}\]</div>
-<p>The exact posterior <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> is tractable for
-specific samples of the training distribution, therefore
-<span class="math notranslate nohighlight">\(\mathcal{L}_{1:T-1}\)</span> could be calculated, since KL divergence has
-a closed form solution for two Gaussian distributions.
-<span class="math notranslate nohighlight">\(\mathcal{L}_T\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and therefore not
-used for optimization. It should anyway be very close to zero if the
-parameterization of the forward process is correct and forward diffused
-samples get close to <span class="math notranslate nohighlight">\(\mathcal{N}(0,\bm{I})\)</span>. The first term is
-only used for performance evaluation in terms of log-likelihood, but not
-in optimization.</p>
+    \log p_{\theta}(x) &amp; \geq \underbrace{\mathbb{E}_{q(x_1|x_0)} \left[ \log p_{\theta}(x_0|x_1) \right]}_{\text{reasonable reconstruction}}          \\
+                       &amp; - \underbrace{KL \left[ q(x_T|x_0) || p(x_t) \right]}_{\text{correct encoding}}                                               \\
+                       &amp; - \sum_{t=2}^{T} \underbrace{KL \left[ q(x_{t-1}|x_{t},x_0) || p_{\theta}(x_{t-1}|x_{t}) \right]}_{\text{denoising matching}}\end{aligned}\end{split}\]</div>
+<p>The term <span class="math notranslate nohighlight">\(q(x_{t-1}|x_{t},x_0)\)</span> is the true reverse process,
+conditioned on a single sample. This term comes to be when substituting
+the posterior transitions <span class="math notranslate nohighlight">\(p(x_t|x_{t-1})\)</span> with
+<span class="math notranslate nohighlight">\(p(x_t|x_{t-1}, x_0)\)</span>, which is allowed since the Markov property
+states that <span class="math notranslate nohighlight">\(x_t\)</span> only depends on <span class="math notranslate nohighlight">\(x_{t-1}\)</span>. The natural
+choice for the denoising matching term would be
+<span class="math notranslate nohighlight">\(KL\left[ q(x_t|x_{t-1}) || p_{\theta}(x_t|x_{t+1}) \right]\)</span>, but
+this has higher variance and is therefore harder to
+estimate. <a href="#id85"><span class="problematic" id="id86">:raw-latex:`\autocite{ho2020denoising}`</span></a> Due to the DDPM
+usually having 1000 or more timesteps, the ELBO is dominated by the
+third term. For this reason the first term is usually not used during
+optimization, since it can only be estimated using Monte Carlo sampling.
+While it is not used for optimization, it can be useful for evaluating
+the performance of a trained model. The second term is parameter-free
+therefore also not used for optimization. It should anyway be zero if
+the parameterization of the forward process is correct, which means that
+forward diffused samples get close to our chosen latent prior
+<span class="math notranslate nohighlight">\(p(x_T) = \mathcal{N}(0,\bm{I})\)</span>. As mentioned before,
+<span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span> is also Gaussian and since it was
+decided to fix the variances of the transitions to a fixed schedule, the
+variances of the inversion are often fixed as well and only the means
+are learned. When looking at the formula for the KL divergence between
+two Gaussians (Eq. <a class="reference external" href="#eq:kldivergence">[eq:kldivergence]</a>) with fixed
+diagonal covariance matrices, one can derive that it reduces to a mean
+squared error between the distributional
+means. <a href="#id87"><span class="problematic" id="id88">:raw-latex:`\autocite{luo2022understanding}`</span></a></p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \argmin_{\theta} KL \left[ q(x_{t-1}|x_{t},x_0) || p_{\theta}(x_{t-1}|x_{t}) \right] = \argmin_{\theta} \frac{1}{2\beta(t)^2} \left[ || \mu_{\theta} - \mu_{q} ||_2^2 \right]\]</div>
+<p>Ho et al. <a href="#id89"><span class="problematic" id="id90">:raw-latex:`\autocite{ho2020denoising}`</span></a> found that it works
+best, if the network is trained to predict the noise in the image
+directly and the means are then found through reparameterization</p>
+<div class="math notranslate nohighlight">
+\[\mu_{\theta}(x_t,t) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1-\alpha_t}{\sqrt{1-\bar{\alpha}_t}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t)\]</div>
+<p>which transforms the loss from before into</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \argmin_{\theta}\frac{1}{2\beta(t)^2} \frac{(1-\alpha_t)^2}{(1-\bar{\alpha}_t)\alpha_t} \left[ || \epsilon_0 - \hat{\epsilon}(x_t, t)  ||_2^2 \right]\]</div>
 <p>Another simplification is usually taken and
 <span class="math notranslate nohighlight">\(p_{\theta}(\bm{x}_{t-1} | \bm{x}_t)\)</span> only approximates the means
 <span class="math notranslate nohighlight">\(\bm{\mu}_{\theta}\)</span> and not the variances. For small enough
@@ -527,78 +1346,18 @@ timesteps, the means determine the transitional distributions much
 stronger than the variances. The network is furhter usually trained to
 not predict the means directly, but the noise and the means are then
 determined through a
-reparameterization. <a href="#id25"><span class="problematic" id="id26">:raw-latex:`\autocite{ho2020denoising,nichol2021improved}`</span></a></p>
+reparameterization. <a href="#id91"><span class="problematic" id="id92">:raw-latex:`\autocite{ho2020denoising,nichol2021improved}`</span></a></p>
 </section>
 </section>
-<section id="image-guided-diffusion">
-<h2>Image Guided Diffusion<a class="headerlink" href="#image-guided-diffusion" title="Link to this heading"></a></h2>
-<p>Both, Choi et al. and Lugmayr et al. make use of unconditional DDPMs for
-image-guided diffusion for the tasks of image translation in the former
-and in-painting in the
-latter. <a href="#id27"><span class="problematic" id="id28">:raw-latex:`\autocite{choi2021ilvr,lugmayr2022repaint}`</span></a>
-Similarly, classifier guidance or CLIP-guidance can be used on
-unconditional and conditional DDPMs to produce samples of a specific
-class or matching a prompt in the unconditional case or to further trade
-off sample variability for sample
-fidelity. <a href="#id29"><span class="problematic" id="id30">:raw-latex:`\autocite{dhariwal2021diffusion}`</span></a> We show here
-that both approaches can be interpreted as special cases of MAP (maximum
-a posteriori) estimation and that they can be generalized to other means
-of guidance during the reverse process.</p>
-<section id="map-estimation-for-inverse-problems">
-<h3>MAP Estimation for Inverse Problems<a class="headerlink" href="#map-estimation-for-inverse-problems" title="Link to this heading"></a></h3>
-<p>MAP estimation is a statistical concept that is often used for
-optimizing the parameters <span class="math notranslate nohighlight">\(\theta\)</span> of a parameterized distribution
-to observed data <span class="math notranslate nohighlight">\(z\sim p(z)\)</span> following Bayes rule</p>
-<div class="math notranslate nohighlight">
-\[\hat{\theta}_{MAP} = \argmax_{\theta} p(\theta | z) = \argmax_{\theta}\frac{p(z|\theta)p(\theta)}{p(z)}\]</div>
-<p>or for inverse problems</p>
-<div class="math notranslate nohighlight">
-\[\hat{x}_{MAP} = \argmax_x p(x|s) = \argmax_x \frac{p(s|x)p(x)}{p(s)}\]</div>
-<p>where <span class="math notranslate nohighlight">\(s \sim p(s)\)</span> is the evidence that is provided by the
-measured signal, <span class="math notranslate nohighlight">\(p(x)\)</span> is a prior on the desired reconstruction
-and the likelihood term <span class="math notranslate nohighlight">\(p(s|x)\)</span> enforces a data consistency
-between the measured signal and the true distribution, usually a forward
-model of the data-corrupting process. Since maximizing <span class="math notranslate nohighlight">\(p(x|s)\)</span> is
-the same as maximizing <span class="math notranslate nohighlight">\(\log(x|s)\)</span> and <span class="math notranslate nohighlight">\(p(s)\)</span> is independent
-of <span class="math notranslate nohighlight">\(\theta\)</span>, we can separate the product into a sum.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-    \hat{x}_{MAP} = \argmax_x log p(x|s) &amp; = \argmax_x \log{\frac{p(s|x)p(x)}{p(s)}} \\
-                                         &amp; = \argmax_x \log p(s|x)p(x)               \\
-                                         &amp; = \argmax_x \log f(x, s)\end{aligned}\end{split}\]</div>
-<p>Such problems are usually optimized using iterative optimization schemes
-such as gradient ascent
-<span class="math notranslate nohighlight">\(x_{t+1} = x_{t} + \lambda \nabla_{x} f(x, s)\)</span>, with
-<span class="math notranslate nohighlight">\(\lambda\)</span> being the step length. It is usually helpful to separate
-the data consistency term (likelihood) and regularizer (prior) into
-individual terms for joint optimization with their respective gradients
-and weights.</p>
-<div class="math notranslate nohighlight">
-\[\begin{aligned}
-    \label{eq:mapestimation}
-    x_{i+1} = x_{i} + \lambda_1 \nabla_{x_i} \log p(s|x_i) + \lambda_2 \nabla_{x_i} \log p(x_i)\end{aligned}\]</div>
-</section>
-<section id="ddpms-as-priors">
-<h3>DDPMs as Priors<a class="headerlink" href="#ddpms-as-priors" title="Link to this heading"></a></h3>
-<p>DDPMs approximate a data distribution over training images <span class="math notranslate nohighlight">\(p(x)\)</span>
-and according to Song et al., they do so by learning to approximate
-gradients of the distribution and taking a gradient ascent step with
-every iteration of the reverse diffusion
-process. <a href="#id31"><span class="problematic" id="id32">:raw-latex:`\autocite{song2020generative}`</span></a> With this
-interpretation the DDPM has the exact same form as
-Eq. <a class="reference external" href="#eq:mapestimation">[eq:mapestimation]</a> without the data
-consistency term <span class="math notranslate nohighlight">\(p(s|x)\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\label{eq:ddpmiteration}
-    x_{t-1} = x_{t} + \nabla_{x_t} \log p(x_t)\]</div>
-</section>
+<section id="guided-diffusion">
+<h2>Guided Diffusion<a class="headerlink" href="#guided-diffusion" title="Link to this heading"></a></h2>
 <section id="classifier-guidance">
 <h3>Classifier Guidance<a class="headerlink" href="#classifier-guidance" title="Link to this heading"></a></h3>
 <p>Classifier guidance as termed by Nichol et al. introduces a data
 consistency term <span class="math notranslate nohighlight">\(p(s|x_t)\)</span> in the form of a classifier trained on
 noisy images, where <span class="math notranslate nohighlight">\(s\)</span> is the random variable expressing if an
 image belongs to a certain
-class. <a href="#id33"><span class="problematic" id="id34">:raw-latex:`\autocite{dhariwal2021diffusion,sohldickstein2015deep}`</span></a>
+class. <a href="#id93"><span class="problematic" id="id94">:raw-latex:`\autocite{dhariwal2021diffusion,sohldickstein2015deep}`</span></a>
 Conditioning on a classifier is sucessfully used by taking gradient
 ascent steps not only in the direction that maximizes the prior
 <span class="math notranslate nohighlight">\(p(x)\)</span> in a DDPM <span class="math notranslate nohighlight">\(\nabla_{x_t} \log p(x_t)\)</span>, but also the
@@ -611,62 +1370,26 @@ Eq. <a class="reference external" href="#eq:mapestimation">[eq:mapestimation]</
 steps before any conditioning and <span class="math notranslate nohighlight">\(\lambda\)</span> an arbitrary factor
 determining the strength of the guidance.</p>
 </section>
-<section id="gradients-and-closed-forms-of-data-consistency-terms">
-<h3>Gradients and Closed-Forms of Data Consistency Terms<a class="headerlink" href="#gradients-and-closed-forms-of-data-consistency-terms" title="Link to this heading"></a></h3>
-<p>Starting from Eq. <a class="reference external" href="#eq:ddpmiteration">[eq:ddpmiteration]</a>, the data
-consistency term can be reintroduced into the DDPM model.</p>
-<p>Choi et al. guide the diffusion process by trying to match the low
-frequency content of a target image to the low frequency content of the
-prediction <span class="math notranslate nohighlight">\(\argmin_x \phi(s) - phi(x)\)</span>. They do this by using a
-very simple linear data consistency function, corresponding to a
-difference between linear low-pass filtered representations, which they
-call ILVR (iterative latent variable refinement)</p>
+<section id="sec-imageguidance">
+<span id="id95"></span><h3>Image-Guided Diffusion<a class="headerlink" href="#sec-imageguidance" title="Link to this heading"></a></h3>
+<p>Knowledge of the forward process makes it possible to inject information
+from target images into the latent space where they can be fused with
+prediction. Lugmayr et al. make use of this for the tasks of image
+inpainting by always substituting the known image areas during the
+reverse diffusion. <a href="#id96"><span class="problematic" id="id97">:raw-latex:`\autocite{lugmayr2022repaint}`</span></a></p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-    \label{eq:ilvr}
-    x_{t-1} &amp; = \phi(s_{t}) + (I - \phi) (x_{t})  \\
-    x_{t-1} &amp; = x_{t} + \phi(s_{t}) - \phi(x_{t}) \\
-    x_{t-1} &amp; = x_{t} + \phi(s_{t} -x_{t})\end{aligned}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi\)</span> is a linear filter operation and <span class="math notranslate nohighlight">\(s_t\)</span> is
-obtained by using the forward process on the target
-image. <a href="#id35"><span class="problematic" id="id36">:raw-latex:`\autocite{choi2021ilvr}`</span></a></p>
-<p>Similarly, Lugmayr et al. use a conditioning on known parts of the image
-for the inpainting operation, which effectively boils down to applying a
-linear mask that zeroes out known parts in the prediction and replaces
-them with outputs from the forward process.</p>
+\[x_{t} = \mathcal{M}^{-1}(x_t) + \mathcal{M}(s_t)\]</div>
+<p>They further enhance their approach using a resampling strategy, that
+gives the model more time to harmonize the semantics of the image. An
+example of such a resampling schedule can be seen in
+Fig. <a class="reference external" href="#fig:stepsplot">3.3</a>.</p>
+<p>Choi et al. also substitute parts of the image in order to guide the
+inverse diffusion process, but they substitute low-frequency information
+by using linear filters. <a href="#id98"><span class="problematic" id="id99">:raw-latex:`\autocite{choi2021ilvr}`</span></a></p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-    \label{eq:repaint}
-    % Mx_t (0 at unknown, 1 at known) removes known parts from x_t and leaves unknown
-    % Ms_t (0 at unknown, 1 at known) leaves prediction in unknown region and replaces known region
-    x_{t-1} &amp; = x_t - \mathcal{M}(x_t) + \mathcal{M}(s_t) \\
-    x_{t-1} &amp; = x_t + \mathcal{M}(s_t - x_t)\end{aligned}\end{split}\]</div>
-<p>As is easily seen, Eq. <a class="reference external" href="#eq:ilvr">[eq:ilvr]</a> and
-Eq. <a class="reference external" href="#eq:repaint">[eq:repaint]</a> take the same form and can be
-interpretated as simultaneously taking gradient ascent steps for
-optimizing <span class="math notranslate nohighlight">\(\argmax_x \log p(x)\)</span> and
-<span class="math notranslate nohighlight">\(\argmax_x \log p(s|x)\)</span>.</p>
-<p>Assuming distribution over latent predictions and targets at diffusion
-timestep <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(p(s|t)\)</span> and <span class="math notranslate nohighlight">\(p(x|t)\)</span>, and
-<span class="math notranslate nohighlight">\(\mathcal{L}\)</span> corresponding to an arbitrary linear operation</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-    \mathcal{L}(p(s|t) - p(x|t))                                                       &amp; = \nabla_{x_t} \log p(s_t|x_t)         \\
-    \int \mathcal{L}(p(s|t) - p(x|t)) dt                                               &amp; = \int \nabla_{x_t} \log p(s_t|x_t) dt \\
-    \int \mathcal{L}(p(s|t))dt - \int \mathcal{L}(p(x|t))dt                            &amp; = \log p(s|x)                          \\
-    \mathcal{L} \left(\int p(s|t)dt \right) - \mathcal{L} \left( \int p(x|t)dt \right) &amp; = \log p(s|x)                          \\
-    \mathcal{L}(p(s)) - \mathcal{L}(p(x))                                              &amp; = \log p(s|x)\end{aligned}\end{split}\]</div>
-<p>where the left side of the equation is the original</p>
-</section>
-</section>
-</section>
-<section id="related-work">
-<h1>Related Work<a class="headerlink" href="#related-work" title="Link to this heading"></a></h1>
-<section id="ddpms-for-image-synthesis">
-<h2>DDPMs for Image Synthesis<a class="headerlink" href="#ddpms-for-image-synthesis" title="Link to this heading"></a></h2>
-</section>
-<section id="image-guided-diffusion-and-reconstruction">
-<h2>Image-Guided Diffusion and Reconstruction<a class="headerlink" href="#image-guided-diffusion-and-reconstruction" title="Link to this heading"></a></h2>
+\[x_{t} = \phi(s_{t}) + (I - \phi) (x_{t})\]</div>
+<p>They demonstrate strong performance in image translation tasks, e.g.
+from painting to photo-realistic image.</p>
 <p><strong>Conditioning of DDPMs on Accelerated MRI</strong>
 Semester Thesis
 Lionel Peer
@@ -689,7 +1412,7 @@ Electrical Engineering</p></td>
 </tr>
 </tbody>
 </table>
-<p>January 10, 2020</p>
+</section>
 </section>
 </section>
 
