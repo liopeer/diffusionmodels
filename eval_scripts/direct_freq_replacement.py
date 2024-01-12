@@ -29,8 +29,8 @@ def freq_replacement(
         target_img = sampler._to_imgspace(target_kspace)
         target_img, _ = sampler.model.fwd_diff(target_img, t)
         target_kspace = sampler._to_kspace(target_img)
-        pred_kspace = pred_kspace + target_kspace * mask - pred_kspace * mask
-        return sampler._to_imgspace(pred_kspace)
+        pred_img = pred_img + sampler._to_imgspace(target_kspace * mask) - sampler._to_imgspace(pred_kspace * mask)
+        return pred_img
     else:
         raise ValueError("no such noising process")
 
@@ -63,10 +63,10 @@ if __name__ == "__main__":
     kspace = sampler._to_kspace(samples)
     kspace = kspace * mask
 
-    processes = ["kspace","imgspace"]
+    processes = ["imgspace"]
     for process in processes:
         kspace, mask = kspace.to(device), mask.to(device)
-        res = reconstruction2(sampler, kspace, mask, "imgspace")
+        res = reconstruction(sampler, kspace, mask, process)
         save_image(make_grid(res, nrow=4), f"reconstruction_{process}.png")
 
     save_image(make_grid(samples, nrow=4), "samples.png")

@@ -1,6 +1,6 @@
 from typing import Callable, Optional, Tuple
 from torchvision.datasets import MNIST, CIFAR10, ImageNet
-from torchvision.transforms import Compose, ToTensor, Normalize, Resize, CenterCrop, InterpolationMode
+from torchvision.transforms import Compose, ToTensor, Normalize, Resize, CenterCrop, InterpolationMode, RandomCrop
 from torchvision.transforms.functional import resize, center_crop
 from typing import Any
 from torch.utils.data import Dataset
@@ -113,7 +113,10 @@ class FastMRIBrainTrain(Dataset):
             for i in range(slices):
                 self.imgs.append({"file_name":file_name, "index":i})
             file.close()
-        self.transform = Compose([ToTensor(), Resize((size, size), antialias=True)])
+        if size == 320:
+            self.transform = ToTensor()
+        else:
+            self.transform = Compose([ToTensor(), Resize((size, size), antialias=True)])
 
     def __len__(self):
         return len(self.imgs)
@@ -128,6 +131,14 @@ class FastMRIBrainTrain(Dataset):
         x = x - x.min()
         x = x * (1 / x.max())
         return (x, )
+    
+class FastMRIRandCrop(FastMRIBrainTrain):
+    def __init__(self, root: str, size: int = 320, crop_size = 128) -> None:
+        super().__init__(root, size)
+        self.transform = Compose([ToTensor(), RandomCrop((crop_size,crop_size))])
+
+class FastMRIRandCropDebug(FastMRIRandCrop):
+    __len__ = lambda x: 500
     
 class FastMRIDebug(FastMRIBrainTrain):
     def __len__(self):
