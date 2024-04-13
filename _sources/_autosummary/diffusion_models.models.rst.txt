@@ -1,8 +1,8 @@
-﻿diffusion\_models.models
+diffusion\_models.models
 ========================
 
 .. automodule:: diffusion_models.models
-
+  
    
    
    
@@ -20,10 +20,12 @@
    
 
 
+
+.. rubric:: Modules
 
 .. autosummary::
    :toctree:
-   :template: custom-module-template.rst
+   :template: custom-module-template.rst                 
    :recursive:
 
    diffusion_models.models.diffusion

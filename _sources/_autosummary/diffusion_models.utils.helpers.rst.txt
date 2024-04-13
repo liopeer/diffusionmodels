@@ -2,7 +2,7 @@ diffusion\_models.utils.helpers
 ===============================
 
 .. automodule:: diffusion_models.utils.helpers
-
+  
    
    
    
@@ -12,7 +12,7 @@ diffusion\_models.utils.helpers
    .. rubric:: Functions
 
    .. autosummary::
-      :toctree:
+      :toctree:                                          
    
       bytes_to_gb
       complex_to_2channelfloat
@@ -24,8 +24,8 @@ diffusion\_models.utils.helpers
    .. rubric:: Classes
 
    .. autosummary::
-      :toctree:
-      :template: custom-class-template.rst
+      :toctree:                                          
+      :template: custom-class-template.rst               
    
       dotdict
    

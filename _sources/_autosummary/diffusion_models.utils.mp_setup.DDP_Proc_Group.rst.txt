@@ -4,16 +4,19 @@ diffusion\_models.utils.mp\_setup.DDP\_Proc\_Group
 .. currentmodule:: diffusion_models.utils.mp_setup
 
 .. autoclass:: DDP_Proc_Group
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
+      ~DDP_Proc_Group.__init__
    
    
 

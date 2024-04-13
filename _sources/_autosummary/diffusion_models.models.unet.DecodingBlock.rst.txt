@@ -4,74 +4,23 @@ diffusion\_models.models.unet.DecodingBlock
 .. currentmodule:: diffusion_models.models.unet
 
 .. autoclass:: DecodingBlock
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~DecodingBlock.add_module
-      ~DecodingBlock.apply
-      ~DecodingBlock.bfloat16
-      ~DecodingBlock.buffers
-      ~DecodingBlock.children
-      ~DecodingBlock.compile
-      ~DecodingBlock.cpu
-      ~DecodingBlock.cuda
-      ~DecodingBlock.double
-      ~DecodingBlock.eval
-      ~DecodingBlock.extra_repr
-      ~DecodingBlock.float
+      ~DecodingBlock.__init__
       ~DecodingBlock.forward
-      ~DecodingBlock.get_buffer
-      ~DecodingBlock.get_extra_state
-      ~DecodingBlock.get_parameter
-      ~DecodingBlock.get_submodule
-      ~DecodingBlock.half
-      ~DecodingBlock.ipu
-      ~DecodingBlock.load_state_dict
-      ~DecodingBlock.modules
-      ~DecodingBlock.named_buffers
-      ~DecodingBlock.named_children
-      ~DecodingBlock.named_modules
-      ~DecodingBlock.named_parameters
-      ~DecodingBlock.parameters
-      ~DecodingBlock.register_backward_hook
-      ~DecodingBlock.register_buffer
-      ~DecodingBlock.register_forward_hook
-      ~DecodingBlock.register_forward_pre_hook
-      ~DecodingBlock.register_full_backward_hook
-      ~DecodingBlock.register_full_backward_pre_hook
-      ~DecodingBlock.register_load_state_dict_post_hook
-      ~DecodingBlock.register_module
-      ~DecodingBlock.register_parameter
-      ~DecodingBlock.register_state_dict_pre_hook
-      ~DecodingBlock.requires_grad_
-      ~DecodingBlock.set_extra_state
-      ~DecodingBlock.share_memory
-      ~DecodingBlock.state_dict
-      ~DecodingBlock.to
-      ~DecodingBlock.to_empty
-      ~DecodingBlock.train
-      ~DecodingBlock.type
-      ~DecodingBlock.xpu
-      ~DecodingBlock.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~DecodingBlock.T_destination
-      ~DecodingBlock.call_super_init
-      ~DecodingBlock.dump_patches
-      ~DecodingBlock.training
    
    

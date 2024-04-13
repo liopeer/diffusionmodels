@@ -4,74 +4,23 @@ diffusion\_models.models.multicoil.MultiCoilConv2d
 .. currentmodule:: diffusion_models.models.multicoil
 
 .. autoclass:: MultiCoilConv2d
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~MultiCoilConv2d.add_module
-      ~MultiCoilConv2d.apply
-      ~MultiCoilConv2d.bfloat16
-      ~MultiCoilConv2d.buffers
-      ~MultiCoilConv2d.children
-      ~MultiCoilConv2d.compile
-      ~MultiCoilConv2d.cpu
-      ~MultiCoilConv2d.cuda
-      ~MultiCoilConv2d.double
-      ~MultiCoilConv2d.eval
-      ~MultiCoilConv2d.extra_repr
-      ~MultiCoilConv2d.float
+      ~MultiCoilConv2d.__init__
       ~MultiCoilConv2d.forward
-      ~MultiCoilConv2d.get_buffer
-      ~MultiCoilConv2d.get_extra_state
-      ~MultiCoilConv2d.get_parameter
-      ~MultiCoilConv2d.get_submodule
-      ~MultiCoilConv2d.half
-      ~MultiCoilConv2d.ipu
-      ~MultiCoilConv2d.load_state_dict
-      ~MultiCoilConv2d.modules
-      ~MultiCoilConv2d.named_buffers
-      ~MultiCoilConv2d.named_children
-      ~MultiCoilConv2d.named_modules
-      ~MultiCoilConv2d.named_parameters
-      ~MultiCoilConv2d.parameters
-      ~MultiCoilConv2d.register_backward_hook
-      ~MultiCoilConv2d.register_buffer
-      ~MultiCoilConv2d.register_forward_hook
-      ~MultiCoilConv2d.register_forward_pre_hook
-      ~MultiCoilConv2d.register_full_backward_hook
-      ~MultiCoilConv2d.register_full_backward_pre_hook
-      ~MultiCoilConv2d.register_load_state_dict_post_hook
-      ~MultiCoilConv2d.register_module
-      ~MultiCoilConv2d.register_parameter
-      ~MultiCoilConv2d.register_state_dict_pre_hook
-      ~MultiCoilConv2d.requires_grad_
-      ~MultiCoilConv2d.set_extra_state
-      ~MultiCoilConv2d.share_memory
-      ~MultiCoilConv2d.state_dict
-      ~MultiCoilConv2d.to
-      ~MultiCoilConv2d.to_empty
-      ~MultiCoilConv2d.train
-      ~MultiCoilConv2d.type
-      ~MultiCoilConv2d.xpu
-      ~MultiCoilConv2d.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~MultiCoilConv2d.T_destination
-      ~MultiCoilConv2d.call_super_init
-      ~MultiCoilConv2d.dump_patches
-      ~MultiCoilConv2d.training
    
    

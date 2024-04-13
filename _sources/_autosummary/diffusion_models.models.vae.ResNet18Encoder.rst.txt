@@ -4,74 +4,23 @@ diffusion\_models.models.vae.ResNet18Encoder
 .. currentmodule:: diffusion_models.models.vae
 
 .. autoclass:: ResNet18Encoder
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~ResNet18Encoder.add_module
-      ~ResNet18Encoder.apply
-      ~ResNet18Encoder.bfloat16
-      ~ResNet18Encoder.buffers
-      ~ResNet18Encoder.children
-      ~ResNet18Encoder.compile
-      ~ResNet18Encoder.cpu
-      ~ResNet18Encoder.cuda
-      ~ResNet18Encoder.double
-      ~ResNet18Encoder.eval
-      ~ResNet18Encoder.extra_repr
-      ~ResNet18Encoder.float
+      ~ResNet18Encoder.__init__
       ~ResNet18Encoder.forward
-      ~ResNet18Encoder.get_buffer
-      ~ResNet18Encoder.get_extra_state
-      ~ResNet18Encoder.get_parameter
-      ~ResNet18Encoder.get_submodule
-      ~ResNet18Encoder.half
-      ~ResNet18Encoder.ipu
-      ~ResNet18Encoder.load_state_dict
-      ~ResNet18Encoder.modules
-      ~ResNet18Encoder.named_buffers
-      ~ResNet18Encoder.named_children
-      ~ResNet18Encoder.named_modules
-      ~ResNet18Encoder.named_parameters
-      ~ResNet18Encoder.parameters
-      ~ResNet18Encoder.register_backward_hook
-      ~ResNet18Encoder.register_buffer
-      ~ResNet18Encoder.register_forward_hook
-      ~ResNet18Encoder.register_forward_pre_hook
-      ~ResNet18Encoder.register_full_backward_hook
-      ~ResNet18Encoder.register_full_backward_pre_hook
-      ~ResNet18Encoder.register_load_state_dict_post_hook
-      ~ResNet18Encoder.register_module
-      ~ResNet18Encoder.register_parameter
-      ~ResNet18Encoder.register_state_dict_pre_hook
-      ~ResNet18Encoder.requires_grad_
-      ~ResNet18Encoder.set_extra_state
-      ~ResNet18Encoder.share_memory
-      ~ResNet18Encoder.state_dict
-      ~ResNet18Encoder.to
-      ~ResNet18Encoder.to_empty
-      ~ResNet18Encoder.train
-      ~ResNet18Encoder.type
-      ~ResNet18Encoder.xpu
-      ~ResNet18Encoder.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~ResNet18Encoder.T_destination
-      ~ResNet18Encoder.call_super_init
-      ~ResNet18Encoder.dump_patches
-      ~ResNet18Encoder.training
    
    

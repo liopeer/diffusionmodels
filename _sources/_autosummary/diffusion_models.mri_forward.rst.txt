@@ -1,8 +1,8 @@
-﻿diffusion\_models.mri\_forward
+diffusion\_models.mri\_forward
 ==============================
 
 .. automodule:: diffusion_models.mri_forward
-
+  
    
    
    
@@ -20,10 +20,12 @@
    
 
 
+
+.. rubric:: Modules
 
 .. autosummary::
    :toctree:
-   :template: custom-module-template.rst
+   :template: custom-module-template.rst                 
    :recursive:
 
    diffusion_models.mri_forward.fft

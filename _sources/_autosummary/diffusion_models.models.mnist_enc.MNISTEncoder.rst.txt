@@ -4,74 +4,23 @@ diffusion\_models.models.mnist\_enc.MNISTEncoder
 .. currentmodule:: diffusion_models.models.mnist_enc
 
 .. autoclass:: MNISTEncoder
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~MNISTEncoder.add_module
-      ~MNISTEncoder.apply
-      ~MNISTEncoder.bfloat16
-      ~MNISTEncoder.buffers
-      ~MNISTEncoder.children
-      ~MNISTEncoder.compile
-      ~MNISTEncoder.cpu
-      ~MNISTEncoder.cuda
-      ~MNISTEncoder.double
-      ~MNISTEncoder.eval
-      ~MNISTEncoder.extra_repr
-      ~MNISTEncoder.float
+      ~MNISTEncoder.__init__
       ~MNISTEncoder.forward
-      ~MNISTEncoder.get_buffer
-      ~MNISTEncoder.get_extra_state
-      ~MNISTEncoder.get_parameter
-      ~MNISTEncoder.get_submodule
-      ~MNISTEncoder.half
-      ~MNISTEncoder.ipu
-      ~MNISTEncoder.load_state_dict
-      ~MNISTEncoder.modules
-      ~MNISTEncoder.named_buffers
-      ~MNISTEncoder.named_children
-      ~MNISTEncoder.named_modules
-      ~MNISTEncoder.named_parameters
-      ~MNISTEncoder.parameters
-      ~MNISTEncoder.register_backward_hook
-      ~MNISTEncoder.register_buffer
-      ~MNISTEncoder.register_forward_hook
-      ~MNISTEncoder.register_forward_pre_hook
-      ~MNISTEncoder.register_full_backward_hook
-      ~MNISTEncoder.register_full_backward_pre_hook
-      ~MNISTEncoder.register_load_state_dict_post_hook
-      ~MNISTEncoder.register_module
-      ~MNISTEncoder.register_parameter
-      ~MNISTEncoder.register_state_dict_pre_hook
-      ~MNISTEncoder.requires_grad_
-      ~MNISTEncoder.set_extra_state
-      ~MNISTEncoder.share_memory
-      ~MNISTEncoder.state_dict
-      ~MNISTEncoder.to
-      ~MNISTEncoder.to_empty
-      ~MNISTEncoder.train
-      ~MNISTEncoder.type
-      ~MNISTEncoder.xpu
-      ~MNISTEncoder.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~MNISTEncoder.T_destination
-      ~MNISTEncoder.call_super_init
-      ~MNISTEncoder.dump_patches
-      ~MNISTEncoder.training
    
    

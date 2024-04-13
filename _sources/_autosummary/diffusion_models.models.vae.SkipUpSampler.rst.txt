@@ -4,74 +4,23 @@ diffusion\_models.models.vae.SkipUpSampler
 .. currentmodule:: diffusion_models.models.vae
 
 .. autoclass:: SkipUpSampler
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~SkipUpSampler.add_module
-      ~SkipUpSampler.apply
-      ~SkipUpSampler.bfloat16
-      ~SkipUpSampler.buffers
-      ~SkipUpSampler.children
-      ~SkipUpSampler.compile
-      ~SkipUpSampler.cpu
-      ~SkipUpSampler.cuda
-      ~SkipUpSampler.double
-      ~SkipUpSampler.eval
-      ~SkipUpSampler.extra_repr
-      ~SkipUpSampler.float
+      ~SkipUpSampler.__init__
       ~SkipUpSampler.forward
-      ~SkipUpSampler.get_buffer
-      ~SkipUpSampler.get_extra_state
-      ~SkipUpSampler.get_parameter
-      ~SkipUpSampler.get_submodule
-      ~SkipUpSampler.half
-      ~SkipUpSampler.ipu
-      ~SkipUpSampler.load_state_dict
-      ~SkipUpSampler.modules
-      ~SkipUpSampler.named_buffers
-      ~SkipUpSampler.named_children
-      ~SkipUpSampler.named_modules
-      ~SkipUpSampler.named_parameters
-      ~SkipUpSampler.parameters
-      ~SkipUpSampler.register_backward_hook
-      ~SkipUpSampler.register_buffer
-      ~SkipUpSampler.register_forward_hook
-      ~SkipUpSampler.register_forward_pre_hook
-      ~SkipUpSampler.register_full_backward_hook
-      ~SkipUpSampler.register_full_backward_pre_hook
-      ~SkipUpSampler.register_load_state_dict_post_hook
-      ~SkipUpSampler.register_module
-      ~SkipUpSampler.register_parameter
-      ~SkipUpSampler.register_state_dict_pre_hook
-      ~SkipUpSampler.requires_grad_
-      ~SkipUpSampler.set_extra_state
-      ~SkipUpSampler.share_memory
-      ~SkipUpSampler.state_dict
-      ~SkipUpSampler.to
-      ~SkipUpSampler.to_empty
-      ~SkipUpSampler.train
-      ~SkipUpSampler.type
-      ~SkipUpSampler.xpu
-      ~SkipUpSampler.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~SkipUpSampler.T_destination
-      ~SkipUpSampler.call_super_init
-      ~SkipUpSampler.dump_patches
-      ~SkipUpSampler.training
    
    

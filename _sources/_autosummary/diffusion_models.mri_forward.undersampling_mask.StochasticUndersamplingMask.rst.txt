@@ -4,74 +4,23 @@ diffusion\_models.mri\_forward.undersampling\_mask.StochasticUndersamplingMask
 .. currentmodule:: diffusion_models.mri_forward.undersampling_mask
 
 .. autoclass:: StochasticUndersamplingMask
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~StochasticUndersamplingMask.add_module
-      ~StochasticUndersamplingMask.apply
-      ~StochasticUndersamplingMask.bfloat16
-      ~StochasticUndersamplingMask.buffers
-      ~StochasticUndersamplingMask.children
-      ~StochasticUndersamplingMask.compile
-      ~StochasticUndersamplingMask.cpu
-      ~StochasticUndersamplingMask.cuda
-      ~StochasticUndersamplingMask.double
-      ~StochasticUndersamplingMask.eval
-      ~StochasticUndersamplingMask.extra_repr
-      ~StochasticUndersamplingMask.float
+      ~StochasticUndersamplingMask.__init__
       ~StochasticUndersamplingMask.forward
-      ~StochasticUndersamplingMask.get_buffer
-      ~StochasticUndersamplingMask.get_extra_state
-      ~StochasticUndersamplingMask.get_parameter
-      ~StochasticUndersamplingMask.get_submodule
-      ~StochasticUndersamplingMask.half
-      ~StochasticUndersamplingMask.ipu
-      ~StochasticUndersamplingMask.load_state_dict
-      ~StochasticUndersamplingMask.modules
-      ~StochasticUndersamplingMask.named_buffers
-      ~StochasticUndersamplingMask.named_children
-      ~StochasticUndersamplingMask.named_modules
-      ~StochasticUndersamplingMask.named_parameters
-      ~StochasticUndersamplingMask.parameters
-      ~StochasticUndersamplingMask.register_backward_hook
-      ~StochasticUndersamplingMask.register_buffer
-      ~StochasticUndersamplingMask.register_forward_hook
-      ~StochasticUndersamplingMask.register_forward_pre_hook
-      ~StochasticUndersamplingMask.register_full_backward_hook
-      ~StochasticUndersamplingMask.register_full_backward_pre_hook
-      ~StochasticUndersamplingMask.register_load_state_dict_post_hook
-      ~StochasticUndersamplingMask.register_module
-      ~StochasticUndersamplingMask.register_parameter
-      ~StochasticUndersamplingMask.register_state_dict_pre_hook
-      ~StochasticUndersamplingMask.requires_grad_
-      ~StochasticUndersamplingMask.set_extra_state
-      ~StochasticUndersamplingMask.share_memory
-      ~StochasticUndersamplingMask.state_dict
-      ~StochasticUndersamplingMask.to
-      ~StochasticUndersamplingMask.to_empty
-      ~StochasticUndersamplingMask.train
-      ~StochasticUndersamplingMask.type
-      ~StochasticUndersamplingMask.xpu
-      ~StochasticUndersamplingMask.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~StochasticUndersamplingMask.T_destination
-      ~StochasticUndersamplingMask.call_super_init
-      ~StochasticUndersamplingMask.dump_patches
-      ~StochasticUndersamplingMask.training
    
    

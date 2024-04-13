@@ -4,74 +4,23 @@ diffusion\_models.models.unet.AttentionEncodingBlock
 .. currentmodule:: diffusion_models.models.unet
 
 .. autoclass:: AttentionEncodingBlock
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    
+   .. automethod:: __init__
+
    
    .. rubric:: Methods
 
    .. autosummary::
    
-      ~AttentionEncodingBlock.add_module
-      ~AttentionEncodingBlock.apply
-      ~AttentionEncodingBlock.bfloat16
-      ~AttentionEncodingBlock.buffers
-      ~AttentionEncodingBlock.children
-      ~AttentionEncodingBlock.compile
-      ~AttentionEncodingBlock.cpu
-      ~AttentionEncodingBlock.cuda
-      ~AttentionEncodingBlock.double
-      ~AttentionEncodingBlock.eval
-      ~AttentionEncodingBlock.extra_repr
-      ~AttentionEncodingBlock.float
+      ~AttentionEncodingBlock.__init__
       ~AttentionEncodingBlock.forward
-      ~AttentionEncodingBlock.get_buffer
-      ~AttentionEncodingBlock.get_extra_state
-      ~AttentionEncodingBlock.get_parameter
-      ~AttentionEncodingBlock.get_submodule
-      ~AttentionEncodingBlock.half
-      ~AttentionEncodingBlock.ipu
-      ~AttentionEncodingBlock.load_state_dict
-      ~AttentionEncodingBlock.modules
-      ~AttentionEncodingBlock.named_buffers
-      ~AttentionEncodingBlock.named_children
-      ~AttentionEncodingBlock.named_modules
-      ~AttentionEncodingBlock.named_parameters
-      ~AttentionEncodingBlock.parameters
-      ~AttentionEncodingBlock.register_backward_hook
-      ~AttentionEncodingBlock.register_buffer
-      ~AttentionEncodingBlock.register_forward_hook
-      ~AttentionEncodingBlock.register_forward_pre_hook
-      ~AttentionEncodingBlock.register_full_backward_hook
-      ~AttentionEncodingBlock.register_full_backward_pre_hook
-      ~AttentionEncodingBlock.register_load_state_dict_post_hook
-      ~AttentionEncodingBlock.register_module
-      ~AttentionEncodingBlock.register_parameter
-      ~AttentionEncodingBlock.register_state_dict_pre_hook
-      ~AttentionEncodingBlock.requires_grad_
-      ~AttentionEncodingBlock.set_extra_state
-      ~AttentionEncodingBlock.share_memory
-      ~AttentionEncodingBlock.state_dict
-      ~AttentionEncodingBlock.to
-      ~AttentionEncodingBlock.to_empty
-      ~AttentionEncodingBlock.train
-      ~AttentionEncodingBlock.type
-      ~AttentionEncodingBlock.xpu
-      ~AttentionEncodingBlock.zero_grad
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~AttentionEncodingBlock.T_destination
-      ~AttentionEncodingBlock.call_super_init
-      ~AttentionEncodingBlock.dump_patches
-      ~AttentionEncodingBlock.training
    
    

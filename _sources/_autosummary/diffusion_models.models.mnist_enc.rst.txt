@@ -2,7 +2,7 @@ diffusion\_models.models.mnist\_enc
 ===================================
 
 .. automodule:: diffusion_models.models.mnist_enc
-
+  
    
    
    
@@ -16,8 +16,8 @@ diffusion\_models.models.mnist\_enc
    .. rubric:: Classes
 
    .. autosummary::
-      :toctree:
-      :template: custom-class-template.rst
+      :toctree:                                          
+      :template: custom-class-template.rst               
    
       MNISTEncoder
    

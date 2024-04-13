@@ -2,7 +2,7 @@ diffusion\_models.models.positional\_encoding
 =============================================
 
 .. automodule:: diffusion_models.models.positional_encoding
-
+  
    
    
    
@@ -16,8 +16,8 @@ diffusion\_models.models.positional\_encoding
    .. rubric:: Classes
 
    .. autosummary::
-      :toctree:
-      :template: custom-class-template.rst
+      :toctree:                                          
+      :template: custom-class-template.rst               
    
       PositionalEncoding
       PositionalEncoding2D

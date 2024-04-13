@@ -2,7 +2,7 @@ diffusion\_models.mri\_forward.noise
 ====================================
 
 .. automodule:: diffusion_models.mri_forward.noise
-
+  
    
    
    
@@ -12,7 +12,7 @@ diffusion\_models.mri\_forward.noise
    .. rubric:: Functions
 
    .. autosummary::
-      :toctree:
+      :toctree:                                          
    
       apply_add_gauss_noise
       apply_mult_gauss_noise
