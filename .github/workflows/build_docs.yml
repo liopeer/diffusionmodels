@@ -20,7 +20,7 @@ jobs:
           TZ=UTC make html
       - name: Publish Docs
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ env.GITHUB_ACTIONS == true && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
