@@ -3,19 +3,19 @@
 .. currentmodule:: {{ module }}
 
 .. autoclass:: {{ objname }}
-   :members:
-   :show-inheritance:
-   :special-members: __call__, __add__, __mul__
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
 
    {% block methods %}
+   .. automethod:: __init__
+
    {% if methods %}
    .. rubric:: {{ _('Methods') }}
 
    .. autosummary::
    {% for item in methods %}
-      {%- if not item.startswith('_') %}
       ~{{ name }}.{{ item }}
-      {%- endif -%}
    {%- endfor %}
    {% endif %}
    {% endblock %}

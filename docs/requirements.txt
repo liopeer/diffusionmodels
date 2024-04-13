@@ -1,12 +1,3 @@
+furo
 sphinx
-sphinx-rtd-theme
-insegel
-myst_parser
 sphinx-autodoc-typehints
-jaxtyping
-pandoc
-torch 
-torchvision 
-torchaudio
-sphinxcontrib-plantuml
-git+https://github.com/liopeer/type_hints.git

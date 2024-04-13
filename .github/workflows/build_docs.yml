@@ -4,7 +4,6 @@ permissions:
   contents: write
 
 jobs:
-  # anything in the job "docs" is executed on the same runner
   docs:
     runs-on: ubuntu-latest
     steps:
@@ -15,20 +14,13 @@ jobs:
           python get-pip.py
           cd $GITHUB_WORKSPACE/docs
           python -m pip install -r requirements.txt
-          sudo apt-get update
-          sudo apt-get install pandoc git
-      - name: Convert LaTeX Chapters
+      - name: Make HTML
         run: |
-          git clone https://github.com/liopeer/CVLThesis.git
-          cp -r CVLThesis/chap $GITHUB_WORKSPACE/docs/source/
-          cp -r CVLThesis/images $GITHUB_WORKSPACE/docs/source/chap/
-          cd $GITHUB_WORKSPACE/docs/source/chap
-          pandoc -f latex -t rst *.tex -o tex_stuff.rst
-          rm *.tex
           cd $GITHUB_WORKSPACE/docs
           TZ=UTC make html
-      - uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      - name: Publish Docs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ env.GITHUB_ACTIONS == true && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
