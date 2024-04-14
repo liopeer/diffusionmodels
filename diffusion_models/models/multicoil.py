@@ -21,7 +21,7 @@ class MultiCoilReducer(nn.Module):
         This class takes every coil independently (treats them like a sub-fraction of a batch), increases the channel size
         massively (from 2 initial channels for complex k-space data) via several convolutional layers and then averages
         those channels over the coil dimension. Averaging is invariant to permutations of the input order, so the coil order
-        or the number of coils will not matter anymore. Inspiration was drawn from point cloud processing, see below.
+        or the number of coils will not matter anymore. Inspiration was drawn from point cloud processing [1]_, see below.
 
         .. [1] Qi et al., PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation, 2017
 

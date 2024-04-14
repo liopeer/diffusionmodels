@@ -2,9 +2,9 @@ import torch
 from torch import nn, Tensor
 from jaxtyping import Float, Int64, Int
 from typing import Literal, Tuple, Union, List
-from models.positional_encoding import PositionalEncoding
+from diffusion_models.models.positional_encoding import PositionalEncoding
 import math
-from models.unet import UNet
+from diffusion_models.models.unet import UNet
 
 class ForwardDiffusion(nn.Module):
     """Class for forward diffusion process in DDPMs (denoising diffusion probabilistic models).

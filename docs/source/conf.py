@@ -1,7 +1,6 @@
 import os
 import sys
 sys.path.append(os.path.abspath("../.."))
-import diffusion_models
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -33,7 +32,11 @@ autosummary_mock_imports = [
     "numpy",
     "wandb",
     "torchvision",
-    "h5py"
+    "h5py",
+    "tqdm"
+    "time",
+    "typing",
+    "math"
 ]
 
 templates_path = ['_templates']

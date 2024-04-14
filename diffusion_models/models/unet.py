@@ -199,7 +199,7 @@ class DecodingBlock(nn.Module):
         return x
 
 class UNet(nn.Module):
-    """Implementation of UNet architecture, close to original paper.
+    """Implementation of UNet architecture, close to original paper. [1]_
 
     Things that are different
     -------------------------

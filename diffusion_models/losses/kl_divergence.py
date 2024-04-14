@@ -10,7 +10,7 @@ def gaussian_kl(
     ) -> Float[Tensor, "1"]:
     """Calculate KL Divergence of 2 Gaussian distributions.
 
-    KL divergence between two univariate Gaussians, as derived in [1], with k=1 (dimensionality).
+    KL divergence between two univariate Gaussians, as derived in [1]_, with k=1 (dimensionality).
 
     Parameters
     ----------
@@ -42,7 +42,7 @@ def log_gaussian_kl(
     ) -> Float[Tensor, "1"]:
     """Calculate KL Divergence of 2 Gaussian distributions.
 
-    KL divergence between two univariate Gaussians, as derived in [1], with k=1 (dimensionality) and log variances.
+    KL divergence between two univariate Gaussians, as derived in [1]_, with k=1 (dimensionality) and log variances.
 
     Parameters
     ----------

@@ -34,6 +34,7 @@ class ResNet18Encoder(nn.Module):
         b. first residual block increases channels to 128, halves size with stride 2, second is standard
         c. like b., but to 256 channels
         d. like b., but to 512 channels
+    
     Output of residual blocks has size 7x7 with 512 channels.
     """
     def __init__(self, in_channels: int, hidden_dim: int=256) -> None:

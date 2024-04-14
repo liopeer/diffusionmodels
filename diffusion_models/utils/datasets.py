@@ -10,7 +10,7 @@ import numpy as np
 import torch
 import h5py
 from torch.fft import ifft2, fft2, fftshift, ifftshift, fftn, ifftn
-from utils.helpers import complex_to_2channelfloat
+from diffusion_models.utils.helpers import complex_to_2channelfloat
 
 class Cifar10Dataset(CIFAR10):
     def __init__(self, root: str, train: bool = True, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None, download: bool = False) -> None:

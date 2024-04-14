@@ -5,8 +5,8 @@ from torch import Tensor
 from torch import nn
 from jaxtyping import Float, Bool
 from typing import Callable, Literal, Any, Tuple, Union
-from models.diffusion import DiffusionModel
-from utils.helpers import bytes_to_gb
+from diffusion_models.models.diffusion import DiffusionModel
+from diffusion_models.utils.helpers import bytes_to_gb
 from torch.fft import fftn, ifftn, fftshift, ifftshift
 from tqdm import tqdm
 import torchvision

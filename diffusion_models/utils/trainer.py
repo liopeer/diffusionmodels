@@ -16,7 +16,7 @@ from torch.nn import Module
 import torchvision
 from math import isqrt
 from jaxtyping import Float
-from utils.helpers import bytes_to_gb
+from diffusion_models.utils.helpers import bytes_to_gb
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts, StepLR
 from torch.fft import ifftn
 

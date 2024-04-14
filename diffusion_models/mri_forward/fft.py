@@ -3,7 +3,7 @@ from typing import Union
 from jaxtyping import Float, Complex
 from torch import Tensor
 import torch
-from utils.helpers import complex_to_2channelfloat
+from diffusion_models.utils.helpers import complex_to_2channelfloat
 
 def to_kspace(
         x: Union[
