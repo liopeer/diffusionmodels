@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.MNISTDebugDataset
+==================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: MNISTDebugDataset
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MNISTDebugDataset.__init__
+   
+   
+
+   
+   
+   

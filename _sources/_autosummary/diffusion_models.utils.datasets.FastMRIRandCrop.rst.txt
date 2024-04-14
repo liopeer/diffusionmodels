@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.FastMRIRandCrop
+================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: FastMRIRandCrop
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FastMRIRandCrop.__init__
+   
+   
+
+   
+   
+   

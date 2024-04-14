@@ -1,0 +1,27 @@
+diffusion\_models.utils.trainer.Trainer
+=======================================
+
+.. currentmodule:: diffusion_models.utils.trainer
+
+.. autoclass:: Trainer
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Trainer.__init__
+      ~Trainer.load_checkpoint
+      ~Trainer.train
+   
+   
+
+   
+   
+   

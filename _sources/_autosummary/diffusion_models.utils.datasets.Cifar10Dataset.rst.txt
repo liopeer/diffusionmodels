@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.Cifar10Dataset
+===============================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: Cifar10Dataset
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Cifar10Dataset.__init__
+   
+   
+
+   
+   
+   

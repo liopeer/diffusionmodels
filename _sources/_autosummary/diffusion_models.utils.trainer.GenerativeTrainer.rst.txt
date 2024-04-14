@@ -1,0 +1,28 @@
+diffusion\_models.utils.trainer.GenerativeTrainer
+=================================================
+
+.. currentmodule:: diffusion_models.utils.trainer
+
+.. autoclass:: GenerativeTrainer
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GenerativeTrainer.__init__
+      ~GenerativeTrainer.get_samples
+      ~GenerativeTrainer.load_checkpoint
+      ~GenerativeTrainer.train
+   
+   
+
+   
+   
+   

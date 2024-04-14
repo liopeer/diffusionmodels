@@ -1,0 +1,6 @@
+diffusion\_models.mri\_forward.fft.to\_kspace
+=============================================
+
+.. currentmodule:: diffusion_models.mri_forward.fft
+
+.. autofunction:: to_kspace

@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.FastMRIDebug
+=============================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: FastMRIDebug
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FastMRIDebug.__init__
+   
+   
+
+   
+   
+   

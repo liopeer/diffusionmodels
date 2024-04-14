@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.FastMRIBrainTrain
+==================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: FastMRIBrainTrain
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FastMRIBrainTrain.__init__
+   
+   
+
+   
+   
+   

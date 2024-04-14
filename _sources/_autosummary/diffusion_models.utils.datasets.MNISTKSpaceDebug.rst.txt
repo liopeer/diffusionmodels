@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.MNISTKSpaceDebug
+=================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: MNISTKSpaceDebug
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MNISTKSpaceDebug.__init__
+   
+   
+
+   
+   
+   

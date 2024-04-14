@@ -1,0 +1,25 @@
+diffusion\_models.utils.datasets.MNISTTrainDataset
+==================================================
+
+.. currentmodule:: diffusion_models.utils.datasets
+
+.. autoclass:: MNISTTrainDataset
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MNISTTrainDataset.__init__
+   
+   
+
+   
+   
+   

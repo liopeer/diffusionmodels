@@ -1,0 +1,27 @@
+diffusion\_models.utils.trainer.DiscriminativeTrainer
+=====================================================
+
+.. currentmodule:: diffusion_models.utils.trainer
+
+.. autoclass:: DiscriminativeTrainer
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DiscriminativeTrainer.__init__
+      ~DiscriminativeTrainer.load_checkpoint
+      ~DiscriminativeTrainer.train
+   
+   
+
+   
+   
+   
