@@ -4,6 +4,7 @@ channels:
   - nvidia
   - defaults
 dependencies:
+  - jupyter
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
   - blas=1.0=mkl
@@ -154,4 +155,4 @@ dependencies:
       - typeguard==4.1.5
       - wandb==0.15.10
       - wcwidth==0.2.6
-prefix: /scratch_net/biwidl311/peerli/conda_envs/liotorch
+      - jaxtyping==0.2.28

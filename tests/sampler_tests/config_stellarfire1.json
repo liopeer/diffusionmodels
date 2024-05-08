@@ -1,0 +1,197 @@
+{
+    "t_end": {
+      "desc": null,
+      "value": 0.02
+    },
+    "_wandb": {
+      "desc": null,
+      "value": {
+        "t": {
+          "1": [
+            1,
+            41,
+            55
+          ],
+          "2": [
+            1,
+            41,
+            55
+          ],
+          "3": [
+            1,
+            16,
+            23
+          ],
+          "4": "3.11.5",
+          "5": "0.15.10",
+          "8": [
+            5,
+            9
+          ]
+        },
+        "code_path": "code/tests/train_generative.py",
+        "framework": "torch",
+        "start_time": 1713609622.937653,
+        "cli_version": "0.15.10",
+        "is_jupyter_run": false,
+        "python_version": "3.11.5",
+        "is_kaggle_kernel": false
+      }
+    },
+    "offset": {
+      "desc": null,
+      "value": 0.008
+    },
+    "dataset": {
+      "desc": null,
+      "value": "diffusion_models.utils.datasets.LumbarSpineDataset"
+    },
+    "dropout": {
+      "desc": null,
+      "value": 0
+    },
+    "k_space": {
+      "desc": null,
+      "value": false
+    },
+    "project": {
+      "desc": null,
+      "value": "lumbarspine_gen_trials"
+    },
+    "t_start": {
+      "desc": null,
+      "value": 0.0001
+    },
+    "backbone": {
+      "desc": null,
+      "value": "diffusion_models.models.unet.UNet"
+    },
+    "img_size": {
+      "desc": null,
+      "value": 128
+    },
+    "max_beta": {
+      "desc": null,
+      "value": 0.999
+    },
+    "attention": {
+      "desc": null,
+      "value": false
+    },
+    "data_path": {
+      "desc": null,
+      "value": "/itet-stor/peerli/lumbarspine_bmicnas02/Atlas_Houdini2D"
+    },
+    "log_wandb": {
+      "desc": null,
+      "value": true
+    },
+    "loss_func": {
+      "desc": null,
+      "value": "torch.nn.functional.mse_loss"
+    },
+    "optimizer": {
+      "desc": null,
+      "value": "torch.optim.adam.Adam"
+    },
+    "wandb_dir": {
+      "desc": null,
+      "value": "/itet-stor/peerli/net_scratch"
+    },
+    "activation": {
+      "desc": null,
+      "value": "torch.nn.modules.activation.SiLU"
+    },
+    "batch_size": {
+      "desc": null,
+      "value": 48
+    },
+    "save_every": {
+      "desc": null,
+      "value": 1
+    },
+    "world_size": {
+      "desc": null,
+      "value": 1
+    },
+    "device_type": {
+      "desc": null,
+      "value": "cuda"
+    },
+    "in_channels": {
+      "desc": null,
+      "value": 1
+    },
+    "kernel_size": {
+      "desc": null,
+      "value": 3
+    },
+    "num_samples": {
+      "desc": null,
+      "value": 4
+    },
+    "architecture": {
+      "desc": null,
+      "value": "diffusion_models.models.diffusion.DiffusionModel"
+    },
+    "forward_diff": {
+      "desc": null,
+      "value": "diffusion_models.models.diffusion.ForwardDiffusion"
+    },
+    "lr_scheduler": {
+      "desc": null,
+      "value": null
+    },
+    "time_enc_dim": {
+      "desc": null,
+      "value": 512
+    },
+    "total_epochs": {
+      "desc": null,
+      "value": 100
+    },
+    "learning_rate": {
+      "desc": null,
+      "value": 0.0001
+    },
+    "max_timesteps": {
+      "desc": null,
+      "value": 4000
+    },
+    "schedule_type": {
+      "desc": null,
+      "value": "cosine"
+    },
+    "attention_heads": {
+      "desc": null,
+      "value": 4
+    },
+    "from_checkpoint": {
+      "desc": null,
+      "value": false
+    },
+    "mixed_precision": {
+      "desc": null,
+      "value": true
+    },
+    "attention_ff_dim": {
+      "desc": null,
+      "value": null
+    },
+    "checkpoint_folder": {
+      "desc": null,
+      "value": "/itet-stor/peerli/net_scratch/run_name"
+    },
+    "backbone_enc_depth": {
+      "desc": null,
+      "value": 6
+    },
+    "unet_init_channels": {
+      "desc": null,
+      "value": 64
+    },
+    "gradient_accumulation_rate": {
+      "desc": null,
+      "value": 4
+    }
+  }

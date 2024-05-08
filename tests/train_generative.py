@@ -3,27 +3,38 @@ from torchvision.transforms import ToTensor, Compose, Normalize
 from torch.utils.data import DataLoader
 import torch
 import torch.nn as nn
-from models.mnist_enc import MNISTEncoder
-from models.unet import UNet
-from models.diffusion import DiffusionModel, ForwardDiffusion
+from diffusion_models.models.mnist_enc import MNISTEncoder
+from diffusion_models.models.unet import UNet
+from diffusion_models.models.openai_unet import UNetModel
+from diffusion_models.models.diffusion import DiffusionModel, ForwardDiffusion
+from diffusion_models.models.diffusion_openai import DiffusionModelOpenAI
 import numpy as np
 from time import time
-from utils.trainer import DiscriminativeTrainer, GenerativeTrainer
+from diffusion_models.utils.trainer import DiscriminativeTrainer, GenerativeTrainer
 import torch.multiprocessing as mp
 import os
-from utils.mp_setup import DDP_Proc_Group
-from utils.datasets import FastMRIBrainKSpaceDebug, FastMRIBrainKSpace, MNISTTrainDataset, MNISTDebugDataset, MNISTKSpace, FastMRIRandCrop, FastMRIRandCropDebug
-from utils.helpers import dotdict
+from diffusion_models.utils.mp_setup import DDP_Proc_Group
+from diffusion_models.utils.datasets import (
+    FastMRIBrainKSpaceDebug, 
+    FastMRIBrainKSpace, 
+    MNISTTrainDataset,
+    MNISTDebugDataset, 
+    MNISTKSpace, 
+    FastMRIRandCrop, 
+    FastMRIRandCropDebug, 
+    LumbarSpineDataset
+)
+from diffusion_models.utils.helpers import dotdict
 import wandb
 import torch.nn.functional as F
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 
 config = dotdict(
-    world_size = 4,
+    world_size = 1,
     total_epochs = 100,
-    log_wandb = True,
-    project = "fastMRI_gen_trials",
-    data_path = "/itet-stor/peerli/bmicdatasets-originals/Originals/fastMRI/brain/multicoil_train",
+    log_wandb = False,
+    project = "lumbarspine_gen_trials",
+    data_path = "/itet-stor/peerli/lumbarspine_bmicnas02/Atlas_Houdini2D",
     #data_path = "/itet-stor/peerli/net_scratch",
     checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
     wandb_dir = "/itet-stor/peerli/net_scratch",
@@ -41,18 +52,18 @@ config = dotdict(
     batch_size = 48,
     gradient_accumulation_rate = 4,
     learning_rate = 0.0001,
-    img_size = 320,
+    img_size = 128,
     device_type = "cuda",
     in_channels = 1,
-    dataset = FastMRIRandCrop,
-    architecture = DiffusionModel,
-    backbone = UNet,
+    dataset = LumbarSpineDataset,
+    architecture = DiffusionModelOpenAI,
+    backbone = UNetModel,
     attention = False,
     attention_heads = 4,
     attention_ff_dim = None,
     unet_init_channels = 64,
     activation = nn.SiLU,
-    backbone_enc_depth = 5,
+    backbone_enc_depth = 6,
     kernel_size = 3,
     dropout = 0.0,
     forward_diff = ForwardDiffusion,
@@ -70,16 +81,11 @@ def load_train_objs(config):
     train_set = config.dataset(config.data_path)
     model = config.architecture(
         backbone = config.backbone(
-            num_encoding_blocks = config.backbone_enc_depth,
             in_channels = config.in_channels,
-            kernel_size = config.kernel_size,
-            dropout = config.dropout,
-            activation = config.activation,
-            time_emb_size = config.time_enc_dim,
-            init_channels = config.unet_init_channels,
-            attention = config.attention,
-            attention_heads = config.attention_heads,
-            attention_ff_dim = config.attention_ff_dim
+            model_channels = config.unet_init_channels,
+            out_channels = config.in_channels,
+            num_res_blocks = 2,
+            attention_resolutions = (8, 16)
         ),
         fwd_diff = config.forward_diff(
             timesteps = config.max_timesteps,
@@ -102,7 +108,7 @@ def load_train_objs(config):
 
 def training(rank, world_size, config):
     if (rank == 0) and (config.log_wandb):
-        wandb.init(project=config.project, config=config, save_code=True, dir=config.wandb_dir)
+        wandb.init(entity="inverse-medical-imaging", project=config.project, config=config, save_code=True, dir=config.wandb_dir)
     if config.lr_scheduler == "cosine_ann_warm":
         dataset, model, optimizer, lr_scheduler = load_train_objs(config)
     else:

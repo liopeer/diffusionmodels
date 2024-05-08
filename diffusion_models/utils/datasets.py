@@ -11,6 +11,29 @@ import torch
 import h5py
 from torch.fft import ifft2, fft2, fftshift, ifftshift, fftn, ifftn
 from diffusion_models.utils.helpers import complex_to_2channelfloat
+from torchvision.io import read_image
+from torchvision.transforms import Compose, RandomCrop, RandomHorizontalFlip, RandomVerticalFlip, RandomRotation, ToTensor
+from PIL import Image
+
+class LumbarSpineDataset(Dataset):
+    def __init__(self, root: str = None, train: bool = None, transform: Callable[..., Any] | None = None):
+        root = "/itet-stor/peerli/lumbarspine_bmicnas02/Atlas_Houdini2D"
+        self.files = [os.path.join(root, elem) for elem in os.listdir(root) if "image" in elem]
+        self.transform = Compose([
+            RandomCrop((128,128), padding=0, pad_if_needed=True), 
+            RandomHorizontalFlip(), 
+            RandomVerticalFlip(), 
+            RandomRotation(degrees=(0, 360), interpolation=InterpolationMode.BILINEAR)
+        ])
+
+    def __len__(self):
+        return len(self.files)
+    
+    def __getitem__(self, index):
+        img = Image.open(self.files[index])
+        img = ToTensor()(img)
+        img = torch.mean(img, dim=0, keepdim=True)
+        return (self.transform(img),)
 
 class Cifar10Dataset(CIFAR10):
     def __init__(self, root: str, train: bool = True, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None, download: bool = False) -> None:

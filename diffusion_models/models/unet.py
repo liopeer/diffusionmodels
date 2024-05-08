@@ -4,6 +4,7 @@ from typing import Union, Tuple, Literal
 from jaxtyping import Float
 from torch import Tensor
 import math
+from einops import rearrange
 
 class EncodingBlock(nn.Module):
     def __init__(
@@ -186,8 +187,8 @@ class DecodingBlock(nn.Module):
 
         if time_embedding is not None:
             time_embedding = self.time_embedding_fc(time_embedding)
-            time_embedding = time_embedding.view(time_embedding.shape[0], time_embedding.shape[1], 1, 1)
-            x = x + time_embedding.expand(time_embedding.shape[0], time_embedding.shape[1], x.shape[-2], x.shape[-1])
+            time_embedding = time_embedding[..., None, None]
+            x = x + time_embedding
 
         if self.verbose:
             print(f"After Conv1: {x.shape}")
