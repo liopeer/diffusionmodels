@@ -1,0 +1,27 @@
+diffusion\_models.models.openai\_unet.QKVAttention
+==================================================
+
+.. currentmodule:: diffusion_models.models.openai_unet
+
+.. autoclass:: QKVAttention
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~QKVAttention.__init__
+      ~QKVAttention.count_flops
+      ~QKVAttention.forward
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+diffusion\_models.models.nn.avg\_pool\_nd
+=========================================
+
+.. currentmodule:: diffusion_models.models.nn
+
+.. autofunction:: avg_pool_nd

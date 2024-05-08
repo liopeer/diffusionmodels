@@ -1,0 +1,35 @@
+diffusion\_models.models.openai\_unet.UNetModel
+===============================================
+
+.. currentmodule:: diffusion_models.models.openai_unet
+
+.. autoclass:: UNetModel
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~UNetModel.__init__
+      ~UNetModel.convert_to_fp16
+      ~UNetModel.convert_to_fp32
+      ~UNetModel.forward
+      ~UNetModel.get_feature_vectors
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~UNetModel.inner_dtype
+   
+   

@@ -1,0 +1,6 @@
+diffusion\_models.models.nn.timestep\_embedding
+===============================================
+
+.. currentmodule:: diffusion_models.models.nn
+
+.. autofunction:: timestep_embedding

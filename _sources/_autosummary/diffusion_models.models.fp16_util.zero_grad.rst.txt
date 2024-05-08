@@ -1,0 +1,6 @@
+diffusion\_models.models.fp16\_util.zero\_grad
+==============================================
+
+.. currentmodule:: diffusion_models.models.fp16_util
+
+.. autofunction:: zero_grad

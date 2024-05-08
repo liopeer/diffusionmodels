@@ -1,0 +1,6 @@
+diffusion\_models.models.nn.mean\_flat
+======================================
+
+.. currentmodule:: diffusion_models.models.nn
+
+.. autofunction:: mean_flat

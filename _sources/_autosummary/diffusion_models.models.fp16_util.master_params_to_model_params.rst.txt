@@ -1,0 +1,6 @@
+diffusion\_models.models.fp16\_util.master\_params\_to\_model\_params
+=====================================================================
+
+.. currentmodule:: diffusion_models.models.fp16_util
+
+.. autofunction:: master_params_to_model_params

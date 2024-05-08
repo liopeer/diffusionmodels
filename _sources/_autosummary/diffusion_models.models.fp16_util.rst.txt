@@ -1,0 +1,36 @@
+diffusion\_models.models.fp16\_util
+===================================
+
+.. automodule:: diffusion_models.models.fp16_util
+  
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:                                          
+   
+      convert_module_to_f16
+      convert_module_to_f32
+      make_master_params
+      master_params_to_model_params
+      model_grads_to_master_grads
+      unflatten_master_params
+      zero_grad
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

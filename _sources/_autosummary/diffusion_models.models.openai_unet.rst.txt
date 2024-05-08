@@ -1,0 +1,39 @@
+diffusion\_models.models.openai\_unet
+=====================================
+
+.. automodule:: diffusion_models.models.openai_unet
+  
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:                                          
+      :template: custom-class-template.rst               
+   
+      AttentionBlock
+      Downsample
+      QKVAttention
+      ResBlock
+      SuperResModel
+      TimestepBlock
+      TimestepEmbedSequential
+      UNetModel
+      Upsample
+   
+   
+
+   
+   
+   
+
+
+

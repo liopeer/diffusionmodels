@@ -1,0 +1,6 @@
+diffusion\_models.models.fp16\_util.unflatten\_master\_params
+=============================================================
+
+.. currentmodule:: diffusion_models.models.fp16_util
+
+.. autofunction:: unflatten_master_params

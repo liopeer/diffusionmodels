@@ -1,0 +1,26 @@
+diffusion\_models.models.openai\_unet.TimestepEmbedSequential
+=============================================================
+
+.. currentmodule:: diffusion_models.models.openai_unet
+
+.. autoclass:: TimestepEmbedSequential
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TimestepEmbedSequential.__init__
+      ~TimestepEmbedSequential.forward
+   
+   
+
+   
+   
+   

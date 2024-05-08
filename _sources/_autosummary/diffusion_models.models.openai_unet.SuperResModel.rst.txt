@@ -1,0 +1,35 @@
+diffusion\_models.models.openai\_unet.SuperResModel
+===================================================
+
+.. currentmodule:: diffusion_models.models.openai_unet
+
+.. autoclass:: SuperResModel
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SuperResModel.__init__
+      ~SuperResModel.convert_to_fp16
+      ~SuperResModel.convert_to_fp32
+      ~SuperResModel.forward
+      ~SuperResModel.get_feature_vectors
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SuperResModel.inner_dtype
+   
+   

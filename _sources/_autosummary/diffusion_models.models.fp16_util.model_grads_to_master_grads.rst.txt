@@ -1,0 +1,6 @@
+diffusion\_models.models.fp16\_util.model\_grads\_to\_master\_grads
+===================================================================
+
+.. currentmodule:: diffusion_models.models.fp16_util
+
+.. autofunction:: model_grads_to_master_grads

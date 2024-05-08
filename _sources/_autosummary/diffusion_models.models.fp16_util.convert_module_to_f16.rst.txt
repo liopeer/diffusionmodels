@@ -1,0 +1,6 @@
+diffusion\_models.models.fp16\_util.convert\_module\_to\_f16
+============================================================
+
+.. currentmodule:: diffusion_models.models.fp16_util
+
+.. autofunction:: convert_module_to_f16

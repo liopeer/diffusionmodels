@@ -1,0 +1,6 @@
+diffusion\_models.models.nn.update\_ema
+=======================================
+
+.. currentmodule:: diffusion_models.models.nn
+
+.. autofunction:: update_ema

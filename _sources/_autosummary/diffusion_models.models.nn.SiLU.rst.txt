@@ -1,0 +1,26 @@
+diffusion\_models.models.nn.SiLU
+================================
+
+.. currentmodule:: diffusion_models.models.nn
+
+.. autoclass:: SiLU
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SiLU.__init__
+      ~SiLU.forward
+   
+   
+
+   
+   
+   

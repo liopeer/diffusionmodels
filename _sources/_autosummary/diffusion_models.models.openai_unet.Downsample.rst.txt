@@ -1,0 +1,26 @@
+diffusion\_models.models.openai\_unet.Downsample
+================================================
+
+.. currentmodule:: diffusion_models.models.openai_unet
+
+.. autoclass:: Downsample
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Downsample.__init__
+      ~Downsample.forward
+   
+   
+
+   
+   
+   
