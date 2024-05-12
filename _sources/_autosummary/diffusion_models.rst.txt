@@ -31,5 +31,6 @@
    diffusion_models.losses
    diffusion_models.models
    diffusion_models.mri_forward
+   diffusion_models.spine_dataset
    diffusion_models.utils
 

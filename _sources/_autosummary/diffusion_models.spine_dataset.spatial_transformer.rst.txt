@@ -1,0 +1,38 @@
+diffusion\_models.spine\_dataset.spatial\_transformer
+=====================================================
+
+.. automodule:: diffusion_models.spine_dataset.spatial_transformer
+  
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:                                          
+   
+      gauss_gen3D
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:                                          
+      :template: custom-class-template.rst               
+   
+      SpatialTransformer
+   
+   
+
+   
+   
+   
+
+
+

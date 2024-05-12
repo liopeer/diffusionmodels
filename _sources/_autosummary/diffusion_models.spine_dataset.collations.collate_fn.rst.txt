@@ -1,0 +1,6 @@
+diffusion\_models.spine\_dataset.collations.collate\_fn
+=======================================================
+
+.. currentmodule:: diffusion_models.spine_dataset.collations
+
+.. autofunction:: collate_fn

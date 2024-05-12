@@ -1,0 +1,6 @@
+diffusion\_models.spine\_dataset.spatial\_transformer.gauss\_gen3D
+==================================================================
+
+.. currentmodule:: diffusion_models.spine_dataset.spatial_transformer
+
+.. autofunction:: gauss_gen3D

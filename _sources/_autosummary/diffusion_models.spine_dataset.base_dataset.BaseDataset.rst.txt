@@ -1,0 +1,26 @@
+diffusion\_models.spine\_dataset.base\_dataset.BaseDataset
+==========================================================
+
+.. currentmodule:: diffusion_models.spine_dataset.base_dataset
+
+.. autoclass:: BaseDataset
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BaseDataset.__init__
+      ~BaseDataset.check_output
+   
+   
+
+   
+   
+   
