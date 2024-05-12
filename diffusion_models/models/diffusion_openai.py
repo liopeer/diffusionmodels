@@ -90,8 +90,8 @@ class DiffusionModelOpenAI(nn.Module):
         """
         self.model.eval()
         with torch.no_grad():
-            t_enc = self.time_encoder.get_pos_encoding(t)
-            noise_pred = self.model(x, t_enc)
+            # t_enc = self.time_encoder.get_pos_encoding(t)
+            noise_pred = self.model(x, t/self.fwd_diff.timesteps)
             alpha = self.fwd_diff.alphas[t][:, None, None, None]
             alpha_hat = self.fwd_diff.alphas_dash[t][:, None, None, None]
             beta = self.fwd_diff.betas[t][:, None, None, None]

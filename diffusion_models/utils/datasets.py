@@ -17,23 +17,25 @@ from PIL import Image
 
 class LumbarSpineDataset(Dataset):
     def __init__(self, root: str = None, train: bool = None, transform: Callable[..., Any] | None = None):
-        root = "/itet-stor/peerli/lumbarspine_bmicnas02/Atlas_Houdini2D"
-        self.files = [os.path.join(root, elem) for elem in os.listdir(root) if "image" in elem]
+        root = "/home/lionel/Data/Atlas_Houdini2D_nerves"
+        self.files = sorted([os.path.join(root, elem) for elem in os.listdir(root) if "sample" in elem])
         self.transform = Compose([
+            # RandomRotation(degrees=(0, 360), interpolation=InterpolationMode.BILINEAR),
             RandomCrop((128,128), padding=0, pad_if_needed=True), 
             RandomHorizontalFlip(), 
-            RandomVerticalFlip(), 
-            RandomRotation(degrees=(0, 360), interpolation=InterpolationMode.BILINEAR)
+            RandomVerticalFlip()
         ])
 
     def __len__(self):
         return len(self.files)
     
     def __getitem__(self, index):
-        img = Image.open(self.files[index])
-        img = ToTensor()(img)
-        img = torch.mean(img, dim=0, keepdim=True)
+        img = np.load(self.files[index])
+        img = torch.from_numpy(img)
         return (self.transform(img),)
+    
+class LumbarSpineDebug(LumbarSpineDataset):
+    __len__ = lambda x: 10
 
 class Cifar10Dataset(CIFAR10):
     def __init__(self, root: str, train: bool = True, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None, download: bool = False) -> None:

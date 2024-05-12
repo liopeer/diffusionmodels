@@ -22,7 +22,8 @@ from diffusion_models.utils.datasets import (
     MNISTKSpace, 
     FastMRIRandCrop, 
     FastMRIRandCropDebug, 
-    LumbarSpineDataset
+    LumbarSpineDataset,
+    LumbarSpineDebug
 )
 from diffusion_models.utils.helpers import dotdict
 import wandb
@@ -30,16 +31,16 @@ import torch.nn.functional as F
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 
 config = dotdict(
-    world_size = 1,
+    world_size = 2,
     total_epochs = 100,
-    log_wandb = False,
+    log_wandb = True,
     project = "lumbarspine_gen_trials",
-    data_path = "/itet-stor/peerli/lumbarspine_bmicnas02/Atlas_Houdini2D",
+    data_path = "/home/lionel/Data/Atlas_Houdini2D_nerves",
     #data_path = "/itet-stor/peerli/net_scratch",
-    checkpoint_folder = "/itet-stor/peerli/net_scratch/run_name", # append wandb run name to this path
-    wandb_dir = "/itet-stor/peerli/net_scratch",
-    #from_checkpoint = "/itet-stor/peerli/net_scratch/curious-river-16/checkpoint1.pt",
-    from_checkpoint = False,
+    checkpoint_folder = "/home/lionel/Data/run_name", # append wandb run name to this path
+    wandb_dir = "/home/lionel/Data",
+    from_checkpoint = "/home/lionel/Data/atomic-star-4/checkpoint101.pt",
+    #from_checkpoint = False,
     loss_func = F.mse_loss,
     mixed_precision  = True,
     optimizer = torch.optim.Adam,
@@ -48,19 +49,16 @@ config = dotdict(
     #cosine_ann_T_mult = 2,
     k_space = False,
     save_every = 1,
-    num_samples = 4,
-    batch_size = 48,
-    gradient_accumulation_rate = 4,
+    num_samples = 9,
+    batch_size = 32,
+    gradient_accumulation_rate = 8,
     learning_rate = 0.0001,
     img_size = 128,
     device_type = "cuda",
-    in_channels = 1,
+    in_channels = 3,
     dataset = LumbarSpineDataset,
     architecture = DiffusionModelOpenAI,
     backbone = UNetModel,
-    attention = False,
-    attention_heads = 4,
-    attention_ff_dim = None,
     unet_init_channels = 64,
     activation = nn.SiLU,
     backbone_enc_depth = 6,
