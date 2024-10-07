@@ -19,7 +19,7 @@
 		"--gpus","all"
 	],
 	"features": {
-		"ghcr.io/rocker-org/devcontainer-features/miniforge:1": {
+		"ghcr.io/rocker-org/devcontainer-features/miniforge:2": {
 			"version": "latest"
 		},
 		"ghcr.io/devcontainers-contrib/features/act:1": {
